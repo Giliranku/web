@@ -1,0 +1,85 @@
+body {
+    font-family: "Inclusive Sans", sans-serif;
+    font-style: normal;
+}
+
+.navbar-brand {
+    margin-left: 20px;
+    margin-right:50px;
+}
+
+.nav-item {
+    margin: 0 10px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.navbar-right-font,.nav-link {
+    font-size: 18px;
+}
+
+nav {
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.social-icons-card > i{
+    font-size: 30px;
+}
+
+.logo-footer {
+    width: 70px;
+}
+
+/* Sidebar always fixed, mainContent margin menyesuaikan */
+#mainContent {
+    transition: margin-left 0.3s;
+    min-height: 100vh;
+    /* margin-left DIKONTROL OLEH ALPINE DI INLINE STYLE */
+}
+
+[x-cloak] { display: none !important; }
+#adminSidebar .sidebar-title {
+    transition: opacity 0.3s, margin 0.3s;
+}
+#adminSidebar img {
+    transition: all 0.3s;
+}
+#adminSidebar .nav.flex-column {
+    min-height: 0;
+    transition: padding 0.3s;
+}
+/* Hide scrollbar for the menu area if not needed, but allow scrolling if overflow */
+#adminSidebar .nav.flex-column.overflow-auto {
+    scrollbar-width: thin;
+    scrollbar-color: #e0e0e0 #ffffff;
+}
+#adminSidebar .nav.flex-column.overflow-auto::-webkit-scrollbar {
+    width: 6px;
+    background: #fff;
+}
+#adminSidebar .nav.flex-column.overflow-auto::-webkit-scrollbar-thumb {
+    background: #e0e0e0;
+    border-radius: 3px;
+}
+
+#adminSidebar .sidebar-title,
+#adminSidebar .menu-text,
+#adminSidebar .btn span {
+    transition: opacity 0.3s;
+}
+
+.menu-text {
+    color: black;
+    margin-left: 15px;
+}
+
+.nav-link i {
+    color: black;
+}
+.sidebar-title {
+    font-size: 20px;
+}
