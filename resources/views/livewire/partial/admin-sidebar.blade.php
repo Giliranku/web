@@ -1,14 +1,5 @@
 <div 
     x-data
-    x-init="
-        $watch('$store.sidebar.collapsed', value => collapsed = value);
-        $watch('collapsed', value => $store.sidebar.collapsed = value);
-        collapsed = $store.sidebar.collapsed;
-    "
-    x-effect="$store.sidebar.collapsed = collapsed"
-    x-modelable="collapsed"
-    :collapsed="$store.sidebar.collapsed"
-    id="adminSidebar"
     :style="$store.sidebar.collapsed ? 'width: 80px; height: 100vh;' : 'width: 250px; height: 100vh;'"
     class="bg-white text-dark border-end position-fixed top-0 start-0 d-flex flex-column shadow"
     style="transition: width 0.3s; z-index: 1030;"
@@ -22,7 +13,7 @@
     <!-- Logo dan Judul -->
     <div 
         class="border-bottom flex-shrink-0 d-flex align-items-center position-relative"
-        :class="$store.sidebar.collapsed ? 'justify-center py-3 flex-column' : 'p-3 ms-3'"
+        :class="$store.sidebar.collapsed ? 'justify-content-center py-3 flex-column' : 'p-3 ms-3'"
         style="transition: all 0.3s; min-height: 60px;">
         <img 
             src="{{ asset('img/logo-giliranku.png') }}"

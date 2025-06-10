@@ -13,7 +13,11 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @endassets
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/main.css'])
+    @vite([
+        'resources/sass/app.scss',
+        'resources/js/app.js',
+        'resources/css/main.css'
+    ])
 
     <!-- Alpine store for sidebar state & responsive listener -->
     <script>
@@ -42,7 +46,7 @@
         @media (max-width: 992px) {
             body .main-content,
             body.sidebar-collapsed .main-content {
-                margin-left: 80px;
+                margin-left: 80px !important;
                 width: calc(100vw - 80px) !important;
             }
         }

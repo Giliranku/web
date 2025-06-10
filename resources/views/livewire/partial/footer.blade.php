@@ -11,9 +11,9 @@
                 <div class="col-12 col-md-6 mb-3 mb-md-0 d-flex flex-column">
                     <h5 class="fw-bold">CONTACT US</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none">Jalan Sudirman Anggrek, Jakarta, Indonesia</a></li>
-                        <li><a href="#" class="text-decoration-none">+62 812-3478-2315</a></li>
-                        <li><a href="#" class="text-decoration-none">support@giliranku.com</a></li>
+                        <li><p class="m-0">Jalan Sudirman Anggrek, Jakarta, Indonesia</p></li>
+                        <li><p class="m-0">+62 812-3478-2315</p></li>
+                        <li><p class="m-0">support@giliranku.com</p></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-2 d-flex flex-column">
