@@ -1,0 +1,26 @@
+.gambar-login{
+    clip-path: polygon(0 0, 100% 0, 90% 100%,65% 100%, 0 100%);
+    border-bottom-right-radius: 200px; 
+    border-radius: 30px;
+    object-fit: cover;
+    /* padding-left: 50px; */
+    height: 80%;
+    width: 90%;
+    display: block;
+}
+/* .button-styling{
+    height: 80px;
+} */
+.button-color-custom{
+    background: #d9d9d992; /* Warna custom */
+    /* color: #fff; */
+    /* opacity: 29%; */
+    color: #ffffff;
+    border: #ffffff;
+    /* border: none; */
+}
+@media (min-width: 700px) {
+    #atur_wrapping {
+        text-wrap: balance;
+    }
+}
