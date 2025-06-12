@@ -7,7 +7,8 @@
         <title>{{ $title ?? 'Page Title' }}</title>
         @vite(['resources/sass/app.scss',
                 'resources/js/app.js',
-                'resources/css/main.css'])
+                'resources/css/main.css',
+                'resources/css/jesselyn.css'])
 
     </head>
     <body>
