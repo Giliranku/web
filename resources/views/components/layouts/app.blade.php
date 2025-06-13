@@ -19,6 +19,9 @@
         'resources/sass/app.scss',
         'resources/js/app.js',
         'resources/css/main.css',
+        'resources/css/sorting.css',
+        'resources/css/jesselyn.css'
+        'resources/css/main.css',
         'resources/css/sorting.css'
     ])
 
@@ -84,6 +87,10 @@
         });
     });
     </script>
+
+    {{-- Declare stack of scripts --}}
+    @stack('scripts')
+
 
     {{-- Declare stack of scripts --}}
     @stack('scripts')
