@@ -18,7 +18,9 @@
     @vite([
         'resources/sass/app.scss',
         'resources/js/app.js',
-        'resources/css/main.css'
+        'resources/css/main.css',
+        'resources/css/sorting.css',
+        'resources/css/jesselyn.css'
     ])
 
     <!-- Alpine store for theme state -->
@@ -38,6 +40,10 @@
             Alpine.store('themeSwitcher').initTheme();
         });
     </script>
+
+    {{-- Declare stack of scripts --}}
+    @stack('scripts')
+
 </head>
 
 <body>
