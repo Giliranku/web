@@ -1,0 +1,22 @@
+.custom-dropdown-button.dropdown-toggle::after {
+    /* 1. Remove the default caret */
+    display: inline-block;
+    content: "";
+    /* Clear the content */
+    border: none;
+    /* Remove the default border-triangle */
+
+    /* 2. Set the custom SVG icon */
+    background-image: url("./arrowDown.png");
+    background-repeat: no-repeat;
+    background-size: 2em;
+    /* Control the icon size */
+
+    /* 3. Size and position the new icon */
+    width: 2em;
+    height: 2em;
+    /* margin-left: 1em; */
+    /* Your custom padding from before */
+    vertical-align: middle;
+    /* Align icon with text */
+}
