@@ -1,6 +1,6 @@
-<div>
+<div class="mt-5">
     {{-- Make a 3 column footer using bootstrap --}}
-    <div class="container-fluid p-5 vw-100">
+    <div class="container-fluid p-5 shadow">
         <footer>
             <div class="row">
                 <div class="col-12 col-md-4 mb-3 mb-md-0 d-flex flex-row align-items-center justify-content-start gap-3">

@@ -1,5 +1,5 @@
 <div 
-    x-data="{ open: false }"
+    x-data="accessibilityMenu"
     class="position-fixed bottom-0 end-0 m-4"
     style="z-index: 1050;"
 >
@@ -42,7 +42,11 @@
                 </button>
             </div>
             <div class="col-6">
-                <button class="btn btn-outline-primary w-100 h-100 p-3">
+                <button 
+                    class="btn btn-outline-primary w-100 h-100 p-3"
+                    :class="speechActive ? 'btn-success' : ''"
+                    @click="toggleSpeech"
+                >
                     <i class="bi bi-volume-up me-2"></i><br>
                     Bantuan Suara
                 </button>
