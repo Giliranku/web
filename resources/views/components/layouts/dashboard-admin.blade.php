@@ -16,7 +16,9 @@
     @vite([
         'resources/sass/app.scss',
         'resources/js/app.js',
-        'resources/css/main.css'
+        'resources/css/main.css',
+        'resources/css/sorting.css',
+        'resources/css/jesselyn.css'
     ])
 
     <!-- Alpine store for sidebar state & responsive listener -->
@@ -31,6 +33,7 @@
             });
         });
     </script>
+<script src="https://cdn.tiny.cloud/1/havl6thb50958e9icgg288e5y2f7ve1lsmu8gf6sffkj292y/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         body .main-content {
             margin-left: 250px;
@@ -51,6 +54,8 @@
             }
         }
     </style>
+
+    @stack('scripts')
 </head>
 <body x-data x-bind:class="{ 'sidebar-collapsed': $store.sidebar.collapsed }">
     @persist('admin-sidebar')
