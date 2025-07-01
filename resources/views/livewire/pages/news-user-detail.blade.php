@@ -1,7 +1,7 @@
 <div class="p-5 mb-5">
     <div>
         <h1 class="card-title mt-4 text-center">Kenapa Harus ke Ancol?</h1>
-        <p class="card-text opacity-50 mt-3 text-center">06/04/2025, 13:19 WIB</p>
+        <p class="card-text opacity-50 mt-3 text-center">Junaedi - 06/04/2025, 13:19 WIB</p>
     </div>
     <div class="d-flex align-items-center justify-content-center mt-3">
         <img src="{{asset('img/info1.jpg')}}" class="card-img-top rounded px-3 pt-3 w-news-detail" alt="Konser di Pantai Ancol">
