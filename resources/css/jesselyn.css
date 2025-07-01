@@ -124,6 +124,12 @@
   .w-75-responsive-home{
     width: 66rem
   }
+  .large-font-title{
+    font-size: 200px;
+  }
+  .w-news-detail{
+    width: 75%;
+  }
 
 @media (max-width: 575.98px) {
     .flex-sm-row{
@@ -156,6 +162,12 @@
     }
     .w-75-responsive-home{
         width: 20rem
+    }
+    .large-font-title{
+        font-size: 100px;
+    }
+    .w-news-detail{
+        width: 100%;
     }
 }
 
@@ -191,6 +203,9 @@
     .w-75-responsive-home{
         width: 20rem
     }
+    .large-font-title{
+        font-size: 150px;
+    }
 }
 
 @media (min-width: 767.98px) and (max-width: 1199.98px) {
@@ -217,5 +232,8 @@
     }
     .w-75-responsive-home{
         width: 20rem
+    }
+    .large-font-title{
+        font-size: 150px;
     }
 }
