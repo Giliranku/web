@@ -16,9 +16,27 @@
     @vite([
         'resources/sass/app.scss',
         'resources/js/app.js',
-        'resources/css/main.css'
+        'resources/css/main.css',
+        'resources/css/sorting.css'
     ])
 
+    <!-- Alpine store for theme state -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.store('themeSwitcher', {
+                theme: localStorage.getItem('theme') || 'light',
+                setTheme(val) {
+                    this.theme = val;
+                    localStorage.setItem('theme', val);
+                    document.documentElement.setAttribute('data-bs-theme', val);
+                },
+                initTheme() {
+                    document.documentElement.setAttribute('data-bs-theme', this.theme);
+                }
+            });
+            Alpine.store('themeSwitcher').initTheme();
+        });
+    </script>
     <!-- Alpine store for sidebar state & responsive listener -->
     <script>
         document.addEventListener('alpine:init', () => {

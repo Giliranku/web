@@ -20,7 +20,7 @@
         'resources/js/app.js',
         'resources/css/main.css',
         'resources/css/sorting.css',
-        'resources/css/jesselyn.css'
+        'resources/css/jesselyn.css',
         'resources/css/main.css',
         'resources/css/sorting.css'
     ])
@@ -90,11 +90,6 @@
 
     {{-- Declare stack of scripts --}}
     @stack('scripts')
-
-
-    {{-- Declare stack of scripts --}}
-    @stack('scripts')
-
 </head>
 
 <body>
