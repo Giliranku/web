@@ -8,7 +8,8 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/css/main.css',
                 'resources/css/sorting.css',
-                'resources/css/jesselyn.css'
+                'resources/css/jesselyn.css',
+                'resources/css/queue-detail.css'
             ],
             refresh: true,
         }),

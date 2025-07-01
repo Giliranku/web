@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:wght@400&display=swap');
+
+body {
+  font-family: 'Inclusive Sans', Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.search-box {
+  border: 2px solid #00b4d8;
+  border-radius: 8px;
+}
+
+.btn-primary {
+  background-color: #52d1bc;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3eb3a1;
+}
+
+.resto-card {
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: white;
+}
+
+.resto-title {
+  font-weight: bold;
+  font-size: 48px;
+}
+
+.resto-subtitle, .text-muted {
+  font-size: 32px !important;
+}
+
+.resto-description {
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.picture {
+    justify-items: right;
+}
+
+.card {
+  border-radius: 16px;
+}
+
+.btn-danger {
+  background-color: #ff5c3d;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #e04a2b;
+}

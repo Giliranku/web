@@ -23,7 +23,8 @@
         'resources/css/sorting.css',
         'resources/css/jesselyn.css',
         'resources/css/main.css',
-        'resources/css/sorting.css'
+        'resources/css/sorting.css',
+        'resources/css/queue-detail.css'
     ])
 
     <!-- Alpine store for theme state -->
