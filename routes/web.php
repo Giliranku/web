@@ -6,6 +6,7 @@ use App\Livewire\Pages\LoginPage;
 use App\Livewire\Pages\RegisterPage;
 use App\Livewire\Pages\InvoicePage  ;
 use App\Livewire\Pages\UserProfile;
+use App\Livewire\Pages\StaffProfilePage;
 
 Route::get('/', Home::class);
 
@@ -17,3 +18,4 @@ Route::get('/invoice', InvoicePage::class);
 
 Route::get('/userprofile', UserProfile::class);
 
+Route::get('/staffprofile', StaffProfilePage::class);
