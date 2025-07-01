@@ -1,0 +1,61 @@
+html, body {
+    height: 100%;
+    /* overflow-y: hidden; */
+}
+
+.awalregister {
+    height : 100vh;
+}
+
+.gambar-register{
+    object-fit: cover;
+    /* padding-left: 50px; */
+    height: 80%;
+    width: 90%;
+    display: block;
+}
+/* .button-styling{
+    height: 80px;
+} */
+.button-color-custom-register{
+    background: #d9d9d992; /* Warna custom */
+    /* color: #fff; */
+    /* opacity: 29%; */
+    color: #ffffff;
+    border: #ffffff;
+    /* border: none; */
+}
+@media (min-width: 1000px) {
+    #atur_wrapping {
+        text-wrap: balance;
+    }
+}
+
+#geserregister {
+    top: 4%; 
+    left: 55%;
+}
+
+@media (max-width: 1200px) {
+    #geserregister {
+        left: 50%;
+    }
+}
+
+@media (max-width: 1030px) {
+    #geserregister {
+        left: 45%;
+    }
+}
+
+@media (max-width: 935px) {
+    #geserregister {
+        left: 42%;
+    }
+}
+
+@media (max-width: 865px) {
+    #geserregister {
+        left: 35%;
+    }
+}

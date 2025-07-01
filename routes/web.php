@@ -14,6 +14,11 @@ use App\Livewire\Pages\restaurantQueueDetail;
 use App\Livewire\Pages\WahanaQueueDetail;
 use App\Livewire\Pages\PriorityQueue;
 
+use App\Livewire\Pages\LoginPage;
+use App\Livewire\Pages\RegisterPage;
+use App\Livewire\Pages\InvoicePage  ;
+use App\Livewire\Pages\UserProfile;
+use App\Livewire\Pages\StaffProfilePage;
 
 Route::get('/', Home::class);
 Route::get('/contact-us', ContactUs::class);
@@ -32,3 +37,12 @@ Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
 Route::get('/restaurant-queue-detail', RestaurantQueueDetail::class);
 Route::get('/wahana-queue-detail', WahanaQueueDetail::class);
 Route::get('/priority-queue', PriorityQueue::class);
+Route::get('/login', LoginPage::class);
+
+Route::get('/register', RegisterPage::class);
+
+Route::get('/invoice', InvoicePage::class);
+
+Route::get('/userprofile', UserProfile::class);
+
+Route::get('/staffprofile', StaffProfilePage::class);

@@ -1,0 +1,16 @@
+@media (max-width: 1160px) {
+    .gambarprofile {
+        margin-top: -6vh !important;
+    }
+}
+@media (max-width: 1130px) {
+    .gambarprofile {
+        margin-top: -10vh !important;
+    }
+    
+}
+@media (max-width: 1000px) {
+    .gambarprofile {
+        margin-top: 2vh !important;
+    }
+}
