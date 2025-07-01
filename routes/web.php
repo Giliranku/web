@@ -19,6 +19,10 @@ use App\Livewire\Pages\RegisterPage;
 use App\Livewire\Pages\InvoicePage  ;
 use App\Livewire\Pages\UserProfile;
 use App\Livewire\Pages\StaffProfilePage;
+use App\Livewire\MyNewPage;
+use App\Livewire\TiketEcommerce;
+use App\Livewire\CartPage;
+use App\Livewire\CartPage2;
 
 Route::get('/', Home::class);
 Route::get('/contact-us', ContactUs::class);
@@ -46,3 +50,11 @@ Route::get('/invoice', InvoicePage::class);
 Route::get('/userprofile', UserProfile::class);
 
 Route::get('/staffprofile', StaffProfilePage::class);
+Route::get('/newPage', MyNewPage::class)->name('my-new-page');
+
+Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
+
+Route::get('/cartPage', CartPage::class)->name('cart-page');
+
+Route::get('/cartPage2', CartPage2::class)->name('cart-page2');
+
