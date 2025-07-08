@@ -24,10 +24,10 @@ use App\Livewire\TiketEcommerce;
 use App\Livewire\CartPage;
 use App\Livewire\CartPage2;
 
-Route::get('/', Home::class);
-Route::get('/contact-us', ContactUs::class);
-Route::get('/news', NewsUser::class);
-Route::get('/news-detail', NewsUserDetail::class);
+Route::get('/', Home::class)->name('home');
+Route::get('/contact-us', ContactUs::class)->name('about');
+Route::get('/news', NewsUser::class)->name('news.index');
+Route::get('/news-detail/{id}', NewsUserDetail::class);
 Route::get('/manage-news', ManageNews::class);
 Route::get('/manage-news-add', ManageNewsAdd::class);
 Route::get('/manage-news-edit', ManageNewsEdit::class);
@@ -40,7 +40,7 @@ Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
 
 Route::get('/restaurant-queue-detail', RestaurantQueueDetail::class);
 Route::get('/wahana-queue-detail', WahanaQueueDetail::class);
-Route::get('/priority-queue', PriorityQueue::class);
+Route::get('/priority-queue', PriorityQueue::class)->name('queues.index'); //ini queue.index nya sesuaiin lagii, bener taro disini ato di routing lain?
 Route::get('/login', LoginPage::class);
 
 Route::get('/register', RegisterPage::class);
@@ -52,7 +52,8 @@ Route::get('/userprofile', UserProfile::class);
 Route::get('/staffprofile', StaffProfilePage::class);
 Route::get('/newPage', MyNewPage::class)->name('my-new-page');
 
-Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
+// Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
+Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tickets.index');
 
 Route::get('/cartPage', CartPage::class)->name('cart-page');
 
