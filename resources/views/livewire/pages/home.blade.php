@@ -141,15 +141,15 @@
             <div class="carousel-item active">
                <div class="d-flex justify-content-center align-items-center gap-5">
                   <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/aw.png') }}" class="w-15 rounded" alt="Gambar Restoran A&W">
+                     <img src="{{ asset('img/aw.png') }}" class="img-fluid rounded" style="max-width:130px;"  alt="Gambar Restoran A&W">
                      <h4 class="mt-2">A&W</h4>
                   </div>
                   <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/chatime.png') }}" class="w-15 rounded" alt="Gambar Minuman Chatime">
+                     <img src="{{ asset('img/chatime.png') }}" class="img-fluid rounded" style="max-width:130px;" alt="Gambar Minuman Chatime">
                      <h4 class="mt-2">Chatime</h4>
                   </div>
                   <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/kfc.webp') }}" class="w-10 rounded" alt="Gambar Restoran KFC">
+                     <img src="{{ asset('img/kfc.webp') }}" class="img-fluid rounded" style="max-width:130px;" alt="Gambar Restoran KFC">
                      <h4 class="mt-2">KFC</h4>
                   </div>
                   <div class="d-flex flex-column align-items-center">
@@ -160,8 +160,7 @@
             </div>
 
             <div class="carousel-item">
-               <div class="d-flex justify-content-center align-items-center gap-5">
-                  
+               <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
                   <div class="d-flex flex-column align-items-center">
                      <img src="{{ asset('img/pizza-hut.png') }}" class="w-10 rounded" alt="Gambar Restoran Pizza Hut">
                      <h4 class="mt-2">Pizza Hut</h4>

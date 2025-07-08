@@ -4,10 +4,10 @@ namespace App\Livewire\Pages;
 
 use Livewire\Component;
 
-class WahanaQueueDetail extends Component
+class History extends Component
 {
     public function render()
     {
-        return view('livewire.pages.wahana-queue-detail');
+        return view('livewire.pages.history');
     }
 }
