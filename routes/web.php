@@ -10,7 +10,7 @@ use App\Livewire\Pages\NewsUserDetail;
 use App\Livewire\Admin\ManageNews;
 use App\Livewire\Admin\ManageNewsAdd;
 use App\Livewire\Admin\ManageNewsEdit;
-use App\Livewire\Pages\OrderRestoran;
+use App\Livewire\Pages\OrderQueue;
 use App\Livewire\Pages\OrderWahana;
 use App\Livewire\Pages\History;
 use App\Livewire\Pages\restaurantQueueDetail;
@@ -37,7 +37,7 @@ Route::get('/manage-news-edit', ManageNewsEdit::class);
 Route::get('/search', Sorting::class);
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
 
-Route::get('/order-restoran', OrderRestoran::class);
+Route::get('/order', OrderQueue::class);
 Route::get('/order-wahana', OrderWahana::class);
 Route::get('/history', History::class);
 

@@ -38,7 +38,7 @@ class User extends Authenticatable
     }
 
     public function restaurants(){
-        return $this->belongsToMany(Restaurant::class);
+        return $this->belongsToMany(Restaurant::class, 'user_restaurants')->using(UserRestaurant::class);
     }
 
     /**
