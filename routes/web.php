@@ -16,7 +16,7 @@ use App\Livewire\Pages\PriorityQueue;
 
 use App\Livewire\Pages\LoginPage;
 use App\Livewire\Pages\RegisterPage;
-use App\Livewire\Pages\InvoicePage  ;
+use App\Livewire\Pages\InvoicePage;
 use App\Livewire\Pages\UserProfile;
 use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\MyNewPage;
@@ -45,7 +45,7 @@ Route::get('/login', LoginPage::class);
 
 Route::get('/register', RegisterPage::class);
 
-Route::get('/invoice', InvoicePage::class);
+Route::get('/invoice/{id}', InvoicePage::class);
 
 Route::get('/userprofile', UserProfile::class);
 
