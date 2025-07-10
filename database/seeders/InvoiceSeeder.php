@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Invoice;
 use App\Models\Ticket;
 use App\Models\User;
+use Carbon\Carbon;
 
 class InvoiceSeeder extends Seeder
 {
@@ -16,33 +17,29 @@ class InvoiceSeeder extends Seeder
     public function run(): void
     {
         //
-        $ticket1 = Ticket::create([
-            'name' => 'Wahana Kura Kura',
-            'price' => 100000,
-            'price_before' => 120000,
-            'logo' => 'logo-kura.png',
-            'terms_and_conditions' => 'Satu tiket hanya untuk satu orang.',
-        ]);
-
-        $ticket2 = Ticket::create([
-            'name' => 'Wahana Ayam Ayam',
-            'price' => 100000,
-            'price_before' => 120000,
-            'logo' => 'logo-kura.png', // tambahkan ini
-            'terms_and_conditions' => 'Satu tiket hanya untuk satu orang.',
-        ]);
         $user = User::first();
+        $tickets = Ticket::take(2)->get(); // ambil 2 tiket pertama (atau random)
+
+        if (!$user || $tickets->isEmpty()) {
+            $this->command->warn('User atau Ticket belum ada. Jalankan UserSeeder & TicketSeeder dulu.');
+            return;
+        }
+
+        // 2. Hitung total harga (misal tanpa quantity khusus)
+        $total = $tickets->sum('price');
+
+        // 3. Create invoice
         $invoice = Invoice::create([
-            'total_price' => $ticket1->price + ($ticket2->price * 2),
-            'payment_method' => 'Qris',
-
             'user_id' => $user->id,
+            'total_price' => $total,
+            'payment_method' => 'Qris',
+            'created_at' => Carbon::now()->subDays(5),
         ]);
 
-        // Hubungkan ke tiket
-        $invoice->tickets()->attach([
-            $ticket1->id,
-            $ticket2->id,
-        ]);
+        // 4. Attach tiket ke invoice lewat pivot invoice_tickets
+        //    (Invoice model harus punya belongsToMany Ticket)
+        $invoice->tickets()->attach(
+            $tickets->pluck('id')->toArray()
+        );
     }
 }
