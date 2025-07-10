@@ -25,8 +25,10 @@ use App\Livewire\MyNewPage;
 use App\Livewire\TiketEcommerce;
 use App\Livewire\CartPage;
 use App\Livewire\CartPage2;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', Home::class);
+
+Route::get('/', Home::class)->name('home');
 Route::get('/contact-us', ContactUs::class);
 Route::get('/news', NewsUser::class);
 Route::get('/news-detail', NewsUserDetail::class);
@@ -38,16 +40,21 @@ Route::get('/search', Sorting::class);
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
 
 Route::get('/order', OrderQueue::class);
-Route::get('/order-wahana', OrderWahana::class);
-Route::get('/history', History::class);
+// Route::get('/order-wahana', OrderWahana::class);
+Route::get('/history', History::class)->name('history')->middleware('auth');
 
-Route::get('/login', LoginPage::class);
+Route::get('/login', LoginPage::class)->name('login');
 
-Route::get('/register', RegisterPage::class);
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
 
-Route::get('/invoice/{id}', InvoicePage::class);
+Route::get('/register', RegisterPage::class)->name('register');
 
-Route::get('/userprofile', UserProfile::class);
+Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
+
+Route::get('/userprofile', UserProfile::class)->name('userprofile')->middleware('login');
 
 Route::get('/staffprofile', StaffProfilePage::class);
 Route::get('/newPage', MyNewPage::class)->name('my-new-page');

@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             StaffSeeder::class,
             NewsSeeder::class,
             RestaurantSeeder::class,
-            AttractionSeeder::class
+            AttractionSeeder::class,
+            UserSeeder::class,
+            TicketSeeder::class,
+            InvoiceSeeder::class,
         ]);
 
         // Example: Create 3 users and attach them to restaurant 1
