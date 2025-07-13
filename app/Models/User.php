@@ -25,20 +25,24 @@ class User extends Authenticatable
         'location'
     ];
 
-    public function accesibilityPreference(){
+    public function accesibilityPreference()
+    {
         return $this->hasOne(AccesibilityPreference::class);
     }
 
-    public function invoices(){
+    public function invoices()
+    {
         return $this->hasMany(Invoice::class);
     }
 
-    public function attractions(){
+    public function attractions()
+    {
         return $this->belongsToMany(Attraction::class);
     }
 
     public function restaurants(){
-        return $this->belongsToMany(Restaurant::class);
+        return $this->belongsToMany(Restaurant::class, 'user_restaurants')->using(UserRestaurant::class);
+
     }
 
     /**
