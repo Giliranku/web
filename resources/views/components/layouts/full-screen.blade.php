@@ -8,13 +8,7 @@
 
     <title>{{ $title ?? 'Page Title' }}</title>
     @vite(['resources/sass/app.scss',
-            'resources/js/app.js',
-            'resources/css/main.css',
-            'resources/css/login-page.css',
-            'resources/css/register-page.css',
-            'resources/css/invoice-page.css',  
-            'resources/css/user-profile-page.css'
-            // 'public/js/userprofile.js'
+            'resources/js/app.js'
             ])
 
     @assets
@@ -23,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @endassets
-
+    @stack('styles')
     <!-- Alpine store for theme state -->
     <script>
         document.addEventListener('alpine:init', () => {
@@ -40,7 +34,55 @@
             });
             Alpine.store('themeSwitcher').initTheme();
         });
+    document.addEventListener('alpine:init', () => {
+        Alpine.data('accessibilityMenu', function() {
+            return {
+                open: false,
+                speechActive: false,
+                utterance: null,
+                toggleSpeech() {
+                    if (this.speechActive) {
+                        window.speechSynthesis.cancel();
+                        this.speechActive = false;
+                    } else {
+                        const slotContent = document.getElementById('main-slot-content');
+                        if (slotContent) {
+                            const text = slotContent.innerText.trim();
+                            if (text) {
+                                window.speechSynthesis.cancel();
+                                this.utterance = new window.SpeechSynthesisUtterance(text);
+
+                                const voices = window.speechSynthesis.getVoices();
+                                const indonesianVoice = voices.find(v => v.lang.startsWith('id') && v.localService && !v.name.toLowerCase().includes('google'));
+                                if (indonesianVoice) {
+                                    this.utterance.voice = indonesianVoice;
+                                } else {
+                                    const localVoice = voices.find(v => v.localService);
+                                    if (localVoice) this.utterance.voice = localVoice;
+                                }
+                                this.utterance.rate = 1;
+                                this.utterance.pitch = 1;
+
+                                this.utterance.onend = () => {
+                                    this.speechActive = false;
+                                };
+                                this.utterance.onerror = () => {
+                                    this.speechActive = false;
+                                };
+
+                                window.speechSynthesis.speak(this.utterance);
+                                this.speechActive = true;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
     </script>
+
+    {{-- Declare stack of scripts --}}
+    @stack('scripts')
 </head>
 
 <body>

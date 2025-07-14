@@ -1,3 +1,5 @@
+
+
 html {
     overflow-x: hidden;
 }
@@ -11,7 +13,7 @@ html {
     /* Remove the default border-triangle */
 
     /* 2. Set the custom SVG icon */
-    background-image: url("./arrowDown.png");
+    background-image: url("./../../public/img/arrowDown.png");
     background-repeat: no-repeat;
     background-size: 2em;
     /* Control the icon size */
@@ -25,6 +27,8 @@ html {
     /* Align icon with text */
     margin-left: 77%;
 }
+
+
 
 #dropdownMenuButton1 {
     width: 100%;
@@ -73,4 +77,29 @@ html {
         width: 99%;
         height: 6.7vh;
     }
+}
+
+#mastercard {
+    width: 100%;
+    height: 100%;
+    background-image: url(../../../public/img/payment_method/Mastercard.png);
+    background-size: 70%;
+}
+
+#ovo {
+    width: 100%;
+    height: 100%;
+    background-image: url(./../../public/img/payment_method/Ovo.png);
+    background-size: 70%;
+}
+
+#bca {
+    width: 100%;
+    height: 100%;
+    background-image: url(./../../public/img/payment_method/Bank_Central_Asia.png);
+    background-size: 70%;
+}
+
+p {
+    margin-bottom: 0;
 }

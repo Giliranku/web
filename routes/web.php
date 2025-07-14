@@ -16,52 +16,60 @@ use App\Livewire\Admin\ManageTicketEdit;
 use App\Livewire\Pages\restaurantQueueDetail;
 use App\Livewire\Pages\WahanaQueueDetail;
 use App\Livewire\Pages\PriorityQueue;
-
+use App\Livewire\Pages\OrderQueue;
+use App\Livewire\Pages\OrderWahana;
+use App\Livewire\Pages\History;
 use App\Livewire\Pages\LoginPage;
 use App\Livewire\Pages\RegisterPage;
-use App\Livewire\Pages\InvoicePage  ;
+use App\Livewire\Pages\InvoicePage;
 use App\Livewire\Pages\UserProfile;
 use App\Livewire\Pages\StaffProfilePage;
-use App\Livewire\MyNewPage;
-use App\Livewire\TiketEcommerce;
-use App\Livewire\CartPage;
-use App\Livewire\CartPage2;
+use App\Livewire\Pages\TiketEcommerce;
+use App\Livewire\Pages\CartPage;
+use App\Livewire\Pages\CartPageCheckout;
 
+// User routes
 Route::get('/', Home::class)->name('home');
-Route::get('/contact-us', ContactUs::class)->name('about');
+Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class);
-Route::get('/manage-news', ManageNews::class);
-Route::get('/manage-news-add', ManageNewsAdd::class);
-Route::get('/manage-news-edit', ManageNewsEdit::class);
 Route::get('/manage-ticket', ManageTicket::class);
 Route::get('/manage-ticket-add', ManageTicketAdd::class);
 Route::get('/manage-ticket-edit', ManageTicketEdit::class);
 
-Route::post('/post/store', [PostController::class, 'store'])->name('posts.store');
-
-
-Route::get('/search', Sorting::class);
+Route::get('/search', Sorting::class)->name('queues.index');
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
 
-Route::get('/restaurant-queue-detail', RestaurantQueueDetail::class);
-Route::get('/wahana-queue-detail', WahanaQueueDetail::class);
-Route::get('/priority-queue', PriorityQueue::class)->name('queues.index'); //ini queue.index nya sesuaiin lagii, bener taro disini ato di routing lain?
-Route::get('/login', LoginPage::class);
+Route::get('/order', OrderQueue::class);
+// Route::get('/order-wahana', OrderWahana::class);
+Route::get('/history', History::class)->name('history')->middleware('auth');
 
-Route::get('/register', RegisterPage::class);
+Route::get('/login', LoginPage::class)->name('login');
 
-Route::get('/invoice', InvoicePage::class);
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/login');
+})->name('logout');
 
-Route::get('/userprofile', UserProfile::class);
+Route::get('/register', RegisterPage::class)->name('register');
+
+Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
+
+Route::get('/userprofile', UserProfile::class)->name('userprofile')->middleware('login');
 
 Route::get('/staffprofile', StaffProfilePage::class);
-Route::get('/newPage', MyNewPage::class)->name('my-new-page');
 
 // Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tickets.index');
 
 Route::get('/cartPage', CartPage::class)->name('cart-page');
 
-Route::get('/cartPage2', CartPage2::class)->name('cart-page2');
+Route::get('/cartPage2', CartPageCheckout::class)->name('cart-page2');
 
+Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
+
+
+// Admin routes
+Route::get('/manage-news', ManageNews::class);
+Route::get('/manage-news-add', ManageNewsAdd::class);
+Route::get('/manage-news-edit', ManageNewsEdit::class);

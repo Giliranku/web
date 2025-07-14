@@ -1,3 +1,9 @@
+@push('styles')
+@vite([
+    'resources/css/user-profile-page.css'
+    // 'public/js/userprofile.js'
+])
+@endpush
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
     <div class="d-none d-md-flex flex-column">
@@ -70,152 +76,147 @@
 
             <!-- BAGIAN PROFILE EDIT -->
             <div class="d-flex ms-5 flex-column w-100 mt-3">
-                <!-- Field NAMA -->
-                <div x-data="{ edit: false, value: 'Riyadth Bierskert', temp: 'Riyadth Bierskert' }"
+                <!-- Field Email -->
+                <div x-data="{ edit: false }" x-init="$watch('edit', value => {
+                        if(value) $nextTick(() => $refs.input.focus())
+                    })"
                     class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
                     style="min-height: 4.5rem;">
                     <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
                         <h3 class="ms-2">Nama</h3>
+
                         <!-- Display -->
                         <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
+                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
                             class="ms-2 fs-5 field-display transition-all"
-                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-text="value"></span>
+                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s;"
+                            x-text="$wire.name"></span>
+
                         <!-- Input -->
-                        <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
+                        <input type="text" x-ref="input" wire:model.defer="name" :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
+                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
                             class="fs-5 ms-3 field-input transition-all"
-                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-model="temp" @keydown.enter="value = temp; edit = false"
-                            @blur="value = temp; edit = false" x-ref="input">
+                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s;"
+                            @keydown.enter="$wire.updateProfile(); edit = false"
+                            @blur="$wire.updateProfile(); edit = false">
                     </div>
+
                     <!-- Tombol kanan -->
                     <div class="justify-content-center edit-field-btn"
                         style="width:5vw; margin-right:17vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                        <button class="btn" type="button" @click="
-                            if(!edit){
-                                temp = value;
-                                edit = true;
-                                $nextTick(() => $refs.input.focus());
-                            } else {
-                                value = temp;
-                                edit = false;
-                            }
-                        " style="background:none;">
+                        <button class="btn" type="button" @click="edit = !edit" style="background:none;">
                             <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                :style="edit ? 'font-size:2vw; transition:all 0.2s;' : 'font-size:2vw; transition:all 0.2s;'"></i>
+                                style="font-size:2vw; transition:all 0.2s;"></i>
                         </button>
                     </div>
                 </div>
+
                 <hr class="w-75">
 
                 <!-- Field EMAIL -->
-                <div x-data="{ edit: false, value: 'riyadthbierskert@gmail.com', temp: 'riyadthbierskert@gmail.com' }"
+                <div x-data="{ edit: false }" x-init="$watch('edit', value => {
+                        if(value) $nextTick(() => $refs.input.focus())
+                    })"
                     class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
                     style="min-height: 4.5rem;">
                     <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
                         <h3 class="ms-2">Email</h3>
+
+                        <!-- Display -->
                         <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
+                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
                             class="ms-2 fs-5 field-display transition-all"
-                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-text="value"></span>
-                        <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
+                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s;"
+                            x-text="$wire.email"></span>
+
+                        <!-- Input -->
+                        <input type="text" x-ref="input" wire:model.defer="email" :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
+                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
                             class="fs-5 ms-3 field-input transition-all"
-                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-model="temp" @keydown.enter="value = temp; edit = false"
-                            @blur="value = temp; edit = false" x-ref="input">
+                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s;"
+                            @keydown.enter="$wire.updateProfile(); edit = false"
+                            @blur="$wire.updateProfile(); edit = false">
                     </div>
+
+                    <!-- Tombol kanan -->
                     <div class="justify-content-center edit-field-btn"
                         style="width:5vw; margin-right:17vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                        <button class="btn" type="button" @click="
-                            if(!edit){
-                                temp = value;
-                                edit = true;
-                                $nextTick(() => $refs.input.focus());
-                            } else {
-                                value = temp;
-                                edit = false;
-                            }
-                        " style="background:none;">
+                        <button class="btn" type="button" @click="edit = !edit" style="background:none;">
                             <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                :style="edit ? 'font-size:2vw; transition:all 0.2s;' : 'font-size:2vw; transition:all 0.2s;'"></i>
+                                style="font-size:2vw; transition:all 0.2s;"></i>
                         </button>
                     </div>
                 </div>
+
                 <hr class="w-75">
 
                 <!-- Field TELEPON -->
-                <div x-data="{ edit: false, value: '+086 - 7819381', temp: '+086 - 7819381' }"
+                <div x-data="{ edit: false }" x-init="$watch('edit', value => {
+                                        if(value) $nextTick(() => $refs.input.focus())
+                                    })"
                     class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
                     style="min-height: 4.5rem;">
                     <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
-                        <h3 class="ms-2">Nomor Telepon</h3>
+                        <h3 class="ms-2">No. Telepon</h3>
+
+                        <!-- Display -->
                         <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
+                                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
                             class="ms-2 fs-5 field-display transition-all"
-                            style="border-radius:2vw; top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-text="value"></span>
-                        <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
+                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s;"
+                            x-text="$wire.number"></span>
+
+                        <!-- Input -->
+                        <input type="text" x-ref="input" wire:model.defer="number" :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
+                                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
                             class="fs-5 ms-3 field-input transition-all"
-                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-model="temp" @keydown.enter="value = temp; edit = false"
-                            @blur="value = temp; edit = false" x-ref="input">
+                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s;"
+                            @keydown.enter="$wire.updateProfile(); edit = false"
+                            @blur="$wire.updateProfile(); edit = false">
                     </div>
+
+                    <!-- Tombol kanan -->
                     <div class="justify-content-center edit-field-btn"
                         style="width:5vw; margin-right:17vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                        <button class="btn" type="button" @click="
-                            if(!edit){
-                                temp = value;
-                                edit = true;
-                                $nextTick(() => $refs.input.focus());
-                            } else {
-                                value = temp;
-                                edit = false;
-                            }
-                        " style="background:none;">
+                        <button class="btn" type="button" @click="edit = !edit" style="background:none;">
                             <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                :style="edit ? 'font-size:2vw; transition:all 0.2s;' : 'font-size:2vw; transition:all 0.2s;'"></i>
+                                style="font-size:2vw; transition:all 0.2s;"></i>
                         </button>
                     </div>
                 </div>
                 <hr class="w-75">
 
                 <!-- Field LOKASI -->
-                <div x-data="{ edit: false, value: 'Respsijg, India', temp: 'Respsijg, India' }"
+                <div x-data="{ edit: false }" x-init="$watch('edit', value => {
+                                        if(value) $nextTick(() => $refs.input.focus())
+                                    })"
                     class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
                     style="min-height: 4.5rem;">
                     <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
                         <h3 class="ms-2">Lokasi</h3>
+
+                        <!-- Display -->
                         <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
+                                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
                             class="ms-2 fs-5 field-display transition-all"
-                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-text="value"></span>
-                        <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
+                            style="border-radius:2vw; font-family:'Georgia', serif; top:2.2rem; left:0; transition:opacity 0.4s;"
+                            x-text="$wire.location"></span>
+
+                        <!-- Input -->
+                        <input type="text" x-ref="input" wire:model.defer="location" :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
+                                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
                             class="fs-5 ms-3 field-input transition-all"
-                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                            x-model="temp" @keydown.enter="value = temp; edit = false"
-                            @blur="value = temp; edit = false" x-ref="input">
+                            style="border-radius:10px; padding:6px 20px; color:#444; font-family:'Georgia', serif; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s;"
+                            @keydown.enter="$wire.updateProfile(); edit = false"
+                            @blur="$wire.updateProfile(); edit = false">
                     </div>
+
+                    <!-- Tombol kanan -->
                     <div class="justify-content-center edit-field-btn"
                         style="width:5vw; margin-right:17vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                        <button class="btn" type="button" @click="
-                            if(!edit){
-                                temp = value;
-                                edit = true;
-                                $nextTick(() => $refs.input.focus());
-                            } else {
-                                value = temp;
-                                edit = false;
-                            }
-                        " style="background:none;">
+                        <button class="btn" type="button" @click="edit = !edit" style="background:none;">
                             <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                :style="edit ? ' font-size:2vw; transition:all 0.2s;' : ' font-size:2vw; transition:all 0.2s;'"></i>
+                                style="font-size:2vw; transition:all 0.2s;"></i>
                         </button>
                     </div>
                 </div>

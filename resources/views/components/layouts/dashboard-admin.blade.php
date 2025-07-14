@@ -16,11 +16,9 @@
     @vite([
         'resources/sass/app.scss',
         'resources/js/app.js',
-        'resources/css/main.css',
-        'resources/css/sorting.css',
-        'resources/css/jesselyn.css'
+        'resources/css/main.css'
     ])
-
+    @stack('styles')
     <!-- Alpine store for theme state -->
     <script>
         document.addEventListener('alpine:init', () => {

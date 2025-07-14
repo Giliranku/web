@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('location');
             $table->integer('capacity');
-            $table->integer('time_estimation');
+            $table->integer('time_estimation')->default(0); // Default to 0 if not specified
             $table->string('description');
             $table->string('cover');
             $table->string('img1');

@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable = ['ticket_id', 'invoice_id'];
+    protected $fillable = ['total_price', 'payment_method', 'user_id'];
 
-    public function users(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-    
-    public function tickets(){
-        return $this->belongsToMany(Ticket::class);
+
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class, 'invoice_tickets');
     }
 }

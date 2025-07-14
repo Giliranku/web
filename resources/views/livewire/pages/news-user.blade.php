@@ -1,3 +1,9 @@
+@push('styles')
+@vite([
+    'resources/css/jesselyn.css',
+    // 'public/js/userprofile.js'
+])
+@endpush
 <div>
     <div class="d-flex flex-md-row flex-column gap-md-5 gap-4 justify-content-center align-items-center my-5">
         <h1 class="large-font-title p-3">NEWS</h1>
