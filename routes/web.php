@@ -1,27 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Pages\Home;
-use App\Livewire\Pages\Sorting;
-use App\Livewire\Pages\WahanaDetails;
-use App\Livewire\Pages\ContactUs;
-use App\Livewire\Pages\NewsUser;
-use App\Livewire\Pages\NewsUserDetail;
-use App\Livewire\Admin\ManageNews;
-use App\Livewire\Admin\ManageNewsAdd;
-use App\Livewire\Admin\ManageNewsEdit;
-use App\Livewire\Pages\OrderQueue;
-use App\Livewire\Pages\OrderWahana;
-use App\Livewire\Pages\History;
-use App\Livewire\Pages\LoginPage;
-use App\Livewire\Pages\RegisterPage;
-use App\Livewire\Pages\InvoicePage;
-use App\Livewire\Pages\UserProfile;
-use App\Livewire\Pages\StaffProfilePage;
+use App\Livewire\Pages;
 use App\Livewire\MyNewPage;
 use App\Livewire\TiketEcommerce;
 use App\Livewire\CartPage;
 use App\Livewire\CartPage2;
+
 
 Route::get('/', Home::class)->name('home');
 Route::get('/contact-us', ContactUs::class)->name('about');

@@ -1,3 +1,8 @@
+@vite(['resources/sass/app.scss',
+        'resources/js/app.js',
+        'resources/css/main.css',
+        'resources/css/jesselyn.css'
+        ])
 <div class="overflow-x-hidden">
    <div class="m-4">
       <div class="search-container mx-auto">

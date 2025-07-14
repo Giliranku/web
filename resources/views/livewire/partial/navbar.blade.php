@@ -14,10 +14,10 @@
           <a class="nav-link" href="#">Beli Tiket</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pesan Antrian</a>
+          <a class="nav-link" href="">Pesan Antrian</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Berita</a>
+          <a class="nav-link" href="{{ route('news.index') }}">Berita</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Tentang Kami</a>

@@ -1,3 +1,10 @@
+@vite([
+    'resources/sass/app.scss',
+    'resources/js/app.js',
+    'resources/css/main.css',
+    'resources/css/invoice-page.css',  
+    // 'public/js/userprofile.js'
+])
 {{-- Informasi Tiket Elektronik --}}
 <div class="container pt-3 pb-5 justify-content-center" style="max-width: 90vw">
 

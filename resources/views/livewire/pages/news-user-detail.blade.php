@@ -1,3 +1,10 @@
+@vite([
+    'resources/sass/app.scss',
+    'resources/js/app.js',
+    'resources/css/main.css',
+    'resources/css/jesselyn.css',
+    // 'public/js/userprofile.js'
+])
 <div class="p-5 mb-5">
     <div>
         <h1 class="card-title mt-4 text-center">{{ $news->title }}</h1>

@@ -1,3 +1,12 @@
+@vite([
+  'resources/sass/app.scss',
+  'resources/js/app.js',
+  'resources/css/main.css',
+  'resources/css/sorting.css',
+  'resources/css/sorting.css',
+  'resources/css/queue-detail.css',
+  // 'public/js/userprofile.js'
+])
 <div>
   <!-- Filter -->
   <div class="container my-4">

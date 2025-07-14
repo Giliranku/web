@@ -1,3 +1,8 @@
+@vite(['resources/sass/app.scss',
+        'resources/js/app.js',
+        'resources/css/main.css',
+        'resources/css/jesselyn.css'
+        ])
 <div class="mb-6">
     <div class="d-flex flex-column align-items-center mt-5">
         <img src="{{asset('img/logo-icon.png')}}" class="w-25" alt="Logo Giliranku">

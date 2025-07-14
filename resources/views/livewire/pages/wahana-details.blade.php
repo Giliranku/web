@@ -1,3 +1,11 @@
+
+@vite([
+    'resources/sass/app.scss',
+    'resources/js/app.js',
+    'resources/css/main.css',
+    'resources/css/queue-detail.css',
+    // 'public/js/userprofile.js'
+])
 <div x-data="{ mainImage: @entangle('mainImage'), fade: false }" class="container py-4">
     <div class="row">
         <!-- Main Image -->
