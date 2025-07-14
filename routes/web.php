@@ -10,6 +10,9 @@ use App\Livewire\Pages\NewsUserDetail;
 use App\Livewire\Admin\ManageNews;
 use App\Livewire\Admin\ManageNewsAdd;
 use App\Livewire\Admin\ManageNewsEdit;
+use App\Livewire\Admin\ManageTicket;
+use App\Livewire\Admin\ManageTicketAdd;
+use App\Livewire\Admin\ManageTicketEdit;
 use App\Livewire\Pages\restaurantQueueDetail;
 use App\Livewire\Pages\WahanaQueueDetail;
 use App\Livewire\Pages\PriorityQueue;
@@ -31,6 +34,9 @@ Route::get('/news-detail/{id}', NewsUserDetail::class);
 Route::get('/manage-news', ManageNews::class);
 Route::get('/manage-news-add', ManageNewsAdd::class);
 Route::get('/manage-news-edit', ManageNewsEdit::class);
+Route::get('/manage-ticket', ManageTicket::class);
+Route::get('/manage-ticket-add', ManageTicketAdd::class);
+Route::get('/manage-ticket-edit', ManageTicketEdit::class);
 
 Route::post('/post/store', [PostController::class, 'store'])->name('posts.store');
 
