@@ -22,14 +22,11 @@ use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPage2;
 
-
+// User routes
 Route::get('/', Home::class)->name('home');
-Route::get('/contact-us', ContactUs::class)->name('about');
+Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class);
-Route::get('/manage-news', ManageNews::class);
-Route::get('/manage-news-add', ManageNewsAdd::class);
-Route::get('/manage-news-edit', ManageNewsEdit::class);
 
 Route::get('/search', Sorting::class)->name('queues.index');
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
@@ -60,6 +57,10 @@ Route::get('/cartPage', CartPage::class)->name('cart-page');
 
 Route::get('/cartPage2', CartPage2::class)->name('cart-page2');
 
-Route::get('/newPage', MyNewPage::class)->name('my-new-page');
-
 Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
+
+
+// Admin routes
+Route::get('/manage-news', ManageNews::class);
+Route::get('/manage-news-add', ManageNewsAdd::class);
+Route::get('/manage-news-edit', ManageNewsEdit::class);

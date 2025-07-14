@@ -16,6 +16,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/2.0.4/trix.min.css">
     @endassets
 
+    @vite([
+        'resources/sass/app.scss',
+        'resources/js/app.js',
+        'resources/css/main.css'
+    ])
+
     <!-- Alpine store for theme state -->
     <script>
         document.addEventListener('alpine:init', () => {

@@ -1,7 +1,4 @@
 @vite([
-    'resources/sass/app.scss',
-    'resources/js/app.js',
-    'resources/css/main.css',
     'resources/css/user-profile-page.css'
     // 'public/js/userprofile.js'
 ])

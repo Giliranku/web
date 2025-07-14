@@ -1,8 +1,10 @@
+@vite([
+'resources/css/yoga.css',
+])
  <div class="d-flex m-5 flex-column justify-content-between align-items-center">
      <div class="d-flex" style="width: 100%;">
-         <img src="./arrowLeft.png" alt="Back" style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
+         <img src="{{ asset('img/arrowDown.png') }}" alt="Back" style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
      </div>
-     <link rel="stylesheet" href="style3.css">
      <div class="d-flex flex-row gap-5">
          <div class="d-flex flex-column">
              <h1>Detail Pembayaran</h1>
@@ -38,15 +40,15 @@
                  <div class="d-flex flex-row gap-3" style="width: 32vw; height: 100px;">
                      <div style="width: 100%; height: 100%;">
                          <input class="form-check-input" id="mastercard" type="radio" wire:model.live="metode"
-                             value="mastercard" aria-label="...">
+                             value="mastercard" aria-label="..." name="metode">
                      </div>
                      <div style="width: 100%; height: 100%;">
                          <input class="form-check-input" id="ovo" type="radio" wire:model.live="metode"
-                             value="ovo" aria-label="...">
+                             value="ovo" aria-label="..."  name="metode">
                      </div>
                      <div style="width: 100%; height: 100%;">
                          <input class="form-check-input" id="bca" type="radio" wire:model.live="metode"
-                             value="bca" aria-label="...">
+                             value="bca" aria-label="..." name="metode">
                      </div>
                  </div>
                  @if ($metode === 'mastercard')

@@ -19,7 +19,7 @@ class CartPage2 extends Component
     #[Rule('required')]
     public string $noTelp = '';
 
-    #[Rule('required_if:paymentMethod,mastercard|string')]
+    #[Rule('required_if:,mastercard|string')]
     public string $cardNumber = '';
 
     #[Rule('required_if:paymentMethod,mastercard|string')]
@@ -29,6 +29,7 @@ class CartPage2 extends Component
 
     #[Rule('required_if:paymentMethod,ovo|string')]
     public string $ovoPhone = '';
+
 
     public function submitBayar() {
         // dd($this->all());

@@ -1,6 +1,4 @@
 @vite([
-    'resources/sass/app.scss',
-    'resources/js/app.js',
     'resources/css/jesselyn.css',
     // 'public/js/userprofile.js'
 ])

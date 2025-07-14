@@ -1,6 +1,4 @@
-@vite(['resources/sass/app.scss',
-        'resources/js/app.js',
-        'resources/css/main.css',
+@vite([
         'resources/css/jesselyn.css'
         ])
 <div class="mb-6">

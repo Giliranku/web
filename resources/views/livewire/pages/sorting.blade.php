@@ -1,7 +1,5 @@
 @vite([
-    'resources/sass/app.scss',
-    'resources/js/app.js',
-    'resources/css/main.css',
+    'resources/css/sorting.css',
 ])
 <div class="container-fluid mt-5">
     <div class="search-container mx-auto shadow search-bar-sorting border rounded mb-3">
