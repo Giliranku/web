@@ -1,6 +1,8 @@
-@vite([
-'resources/css/yoga.css',
-])
+@push('styles')
+    @vite([
+    'resources/css/yoga.css',
+    ])
+@endpush
 <div class="d-flex m-5 flex-column justify-content-between align-items-center">
     <div class="d-flex" style="width: 100%;">
         <img src="{{ asset('img/arrowDown.png') }}" alt="Back" style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
@@ -9,7 +11,7 @@
         <div class="d-flex flex-column">
             <h1>Detail Pembayaran</h1>
 
-            <form wire:submit="submitBayar">
+            <form wire:submit="madePayment">
                 @if (session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -35,13 +37,13 @@
                 <h1>Metode Pembayaran</h1>
                 <div class="d-flex flex-row gap-3" style="width: 32vw; height: 100px;">
                     <div style="width: 100%; height: 100%;">
-                        <input class="form-check-input" id="mastercard" type="radio" wire:model.live="metode" value="mastercard">
+                            <input wire:model.live="metode" class="form-check-input" id="mastercard" type="radio" value="mastercard" name="metode" />
                     </div>
                     <div style="width: 100%; height: 100%;">
-                        <input class="form-check-input" id="ovo" type="radio" wire:model.live="metode" value="ovo">
+                            <input wire:model.live="metode" class="form-check-input" id="ovo" type="radio" name="metode" value="ovo" />
                     </div>
                     <div style="width: 100%; height: 100%;">
-                        <input class="form-check-input" id="bca" type="radio" wire:model.live="metode" value="bca">
+                        <input wire:model.live="metode" class="form-check-input" id="bca" type="radio" name="metode" value="bca" />
                     </div>
                 </div>
                 @error('metode') <span class="text-danger d-block mt-2">{{ $message }}</span> @enderror
@@ -79,7 +81,7 @@
                         <p>Nomor BCA Virtual Account akan muncul setelah melakukan checkout.</p>
                     </div>
                 @endif
-                
+                <h2>Metode Saat Ini: {{$metode}}</h2>
                 <button type="submit" class="btn btn-warning mt-3">Selesaikan Pembayaran</button>
             </form>
         </div>
