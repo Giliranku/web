@@ -20,7 +20,7 @@ use App\Livewire\Pages\UserProfile;
 use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
-use App\Livewire\Pages\CartPage2;
+use App\Livewire\Pages\CartPageCheckout;
 
 // User routes
 Route::get('/', Home::class)->name('home');
@@ -55,7 +55,7 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tickets.index');
 
 Route::get('/cartPage', CartPage::class)->name('cart-page');
 
-Route::get('/cartPage2', CartPage2::class)->name('cart-page2');
+Route::get('/cartPage2', CartPageCheckout::class)->name('cart-page2');
 
 Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 
