@@ -1,57 +1,44 @@
-@push('styles')
-    @vite([
-        'resources/css/jesselyn.css',
-        'resources/css/sorting.css',
-    ])
-@endpush
-
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="w-100 h-100" style="max-width: 1400px;">
         <div class="modal-content p-4 shadow rounded">
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="mb-0">
-                    <span class="border-start border-warning border-4 ps-2">Edit Tiket</span>
+                    <span class="border-start border-warning border-4 ps-2">Tambahkan Tiket</span>
                 </h5>
                 <a href="{{ url('/manage-ticket') }}" class="btn-close"></a>
             </div>
 
             <!-- Form -->
-            <form wire:submit.prevent="update" enctype="multipart/form-data">
+            <form wire:submit.prevent="save" enctype="multipart/form-data">
                 <div class="row mb-4 d-flex align-items-center">
                     <!-- Gambar Upload -->
                     <div class="col-md-4 text-center position-relative">
                         <label for="gambar">
                             <div class="border rounded-circle d-flex justify-content-center align-items-center mx-auto overflow-hidden"
                                 style="width: 200px; height: 200px; cursor: pointer; background-color: #f9f9f9;">
-                                
-                                @if ($new_logo)
-                                    <img src="{{ $new_logo->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
+                                @if ($logo)
+                                    <img src="{{ $logo->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
                                 @else
-                                    <img src="{{ asset('storage/' . $ticket->logo) }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
-                                @endif
-
-                                @if (!($new_logo || $ticket->logo))
-                                    <i class="bi bi-camera fs-1 text-muted text-dark" id="camera-icon"></i>
+                                    <i class="bi bi-camera fs-1 text-muted"></i>
                                 @endif
                             </div>
                         </label>
 
-                        {{-- Tombol edit DI LUAR lingkaran --}}
+                        <!-- Tombol edit (ikon) di luar lingkaran -->
                         <button type="button"
                             class="btn btn-light p-1 position-absolute"
                             style="bottom: -5px; right: 50px;"
                             onclick="document.getElementById('gambar').click()"
-                            title="Ganti logo">
+                            title="Unggah logo">
                             <i class="bi bi-pencil-square text-dark fs-5"></i>
                         </button>
 
-                        <input type="file" wire:model="new_logo" class="d-none" id="gambar" accept="image/*">
-                        @error('new_logo')
+                        <input type="file" wire:model="logo" class="d-none" id="gambar" accept="image/*">
+                        @error('logo')
                             <div class="text-danger mt-2">{{ $message }}</div>
                         @enderror
                     </div>
-
 
                     <!-- Input Fields -->
                     <div class="col-md-8">
@@ -96,13 +83,9 @@
 
                 <!-- Tombol Submit -->
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary w-100">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary w-100">Kirim</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-@push('scripts')
-    <script src="{{ asset('js/adminticket.js') }}"></script>
-@endpush

@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             AttractionSeeder::class,
             RestaurantAttractionSeeder::class,
             UserSeeder::class,
-            TicketSeeder::class,
+            // TicketSeeder::class,
             InvoiceSeeder::class,
         ]);
 

@@ -27,15 +27,22 @@ use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPageCheckout;
+use App\Livewire\Admin\ManageTicketComponent;
+use App\Livewire\Admin\AddTicketComponent;
+use App\Livewire\Admin\EditTicketComponent;
 
 // User routes
 Route::get('/', Home::class)->name('home');
 Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class);
-Route::get('/manage-ticket', ManageTicket::class);
-Route::get('/manage-ticket-add', ManageTicketAdd::class);
-Route::get('/manage-ticket-edit', ManageTicketEdit::class);
+// Route::get('/manage-ticket', ManageTicket::class);
+// Route::get('/manage-ticket-add', ManageTicketAdd::class);
+// Route::get('/manage-ticket-edit', ManageTicketEdit::class);
+Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');   // READ
+Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
+Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE
+Route::get('/manage-ticket', ManageTicketComponent::class)->name('manage-ticket.index');
 
 Route::get('/search', Sorting::class)->name('queues.index');
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');

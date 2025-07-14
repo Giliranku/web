@@ -23,6 +23,7 @@ class TicketSeeder extends Seeder
                 'price' => 150_000,
                 'price_before' => 175_000,
                 'terms_and_conditions' => 'Tiket tidak dapat diuangkan kembali.',
+                'usage' => 'Tiket dapat dituker di counter.'
             ],
             [
                 'name' => 'Pentas Teater Klasik',
@@ -30,6 +31,7 @@ class TicketSeeder extends Seeder
                 'price' => 100_000,
                 'price_before' => 120_000,
                 'terms_and_conditions' => 'Tiket berlaku satu kali masuk.',
+                'usage' => 'Tiket dapat dituker di counter.'
             ],
 
         ];
