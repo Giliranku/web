@@ -1,3 +1,7 @@
+@vite([
+    'resources/css/invoice-page.css',  
+    // 'public/js/userprofile.js'
+])
 <div class="container-fluid px-0" style="background:#fff; min-height:100vh;">
 
     <!-- Breadcrumb -->

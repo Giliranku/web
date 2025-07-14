@@ -1,3 +1,7 @@
+@vite([
+'resources/css/jesselyn.css',
+'resources/css/sorting.css',
+])
 <div class="container mt-5">
     <h2>News</h2>
     <form action="{{ route('posts.store') }}" method="POST">

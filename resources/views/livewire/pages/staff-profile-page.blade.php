@@ -1,3 +1,7 @@
+@vite([
+    'resources/css/user-profile-page.css'
+    // 'public/js/userprofile.js'
+])
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
     <div class="d-none d-md-flex flex-column">

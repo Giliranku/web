@@ -1,3 +1,7 @@
+@vite([
+    'resources/css/register-page.css',
+    // 'public/js/userprofile.js'
+])
 <div class="awalregister">
     {{-- The whole world belongs to you. --}}
     <div class="d-none d-md-flex flex-row p-3">

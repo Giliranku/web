@@ -1,3 +1,8 @@
+@vite([
+  'resources/css/sorting.css',
+  'resources/css/queue-detail.css',
+  // 'public/js/userprofile.js'
+])
 <div>
   <!-- Filter -->
   <div class="container my-4">

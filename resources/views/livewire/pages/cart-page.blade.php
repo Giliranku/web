@@ -1,11 +1,14 @@
-<div class="d-flex gap-4 flex-column" style="margin-top: 8vh;">
-    <link rel="stylesheet" href="./style.css">
-    <div class="d-flex flex-row justify-content-evenly align-items-center">
+@vite([
+        'resources/css/yoga.css',
+        ])
+<div class="d-flex gap-4 flex-column">
+    <img src="./arrowLeft.png" alt="Back" style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
+    <div class="container d-flex gap-3 flex-column">
+        <h1>Keranjang Saya</h1>
         <div class="dropdown border border-dark rounded-3">
             <button
-                class="btn btn-light dropdown-toggle custom-dropdown-button d-flex justify-content-between align-items-center"
-                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                style="width: 24vw; height: 6.7vh;">
+                class="btn btn-light dropdown-toggle custom-dropdown-button d-flex justify-content-start align-items-center"
+                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="d-flex p-3">
                     <img src="./calendar.png" alt="">
                 </div>
@@ -18,40 +21,6 @@
                 </ul>
             </button>
         </div>
-
-        <div class="dropdown border border-dark rounded-3">
-            <button
-                class="btn btn-light dropdown-toggle custom-dropdown-button d-flex justify-content-between align-items-center"
-                type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                style="width: 24vw; height: 6.7vh;">
-                <div class="d-flex p-3">
-                    <img src="./ferrisWheel.png" alt="">
-                </div>
-                <div class="kotak d-flex flex-column text-start" style="width: 20vw;">
-                    <p class="opacity-50" style="margin-bottom: 0px;">Unit Rekreasi</p>
-                    <h5>Ancol</h5>
-                </div>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-            </ul>
-        </div>
-        <div class="search" style="width: 25vw;">
-            <form class="d-flex border border-dark rounded-3">
-                <button class="btn" type="submit">
-                    <img src="./search.png" alt="">
-                </button>
-                <input class="form-control border border-light" type="search" placeholder="Search" aria-label="Search">
-            </form>
-        </div>
-    </div>
-    <div class="container d-flex gap-3 flex-column">
         <div class="row">
             <div class="column-md-6">
                 <div class="card border-dark rounded-5">
@@ -67,9 +36,7 @@
                                 <a href="#" class="opacity-50 text-decoration-none text-dark">Lihat detail tiket
                                     ></a>
                                 <div class="quantity-widget">
-                                    <a href="#" class="btn btn-primary" id="tambah"
-                                        style="width: 120px; color: white;">Tambah</a>
-                                    <div class="input-group quantity-stepper d-none" style="width: auto;">
+                                    <div class="input-group quantity-stepper" style="width: auto;">
                                         <button class="btn btn-primary quantity-minus" id="minus" type="button"
                                             aria-label="Kurangi jumlah" style="color: white;">&minus;</button>
                                         <input type="text" class="form-control text-center quantity-input"
@@ -110,9 +77,7 @@
                                 <a href="#" class="opacity-50 text-decoration-none text-dark">Lihat detail tiket
                                     ></a>
                                 <div class="quantity-widget">
-                                    <a href="#" class="btn btn-primary" id="tambah"
-                                        style="width: 120px; color: white;">Tambah</a>
-                                    <div class="input-group quantity-stepper d-none" style="width: auto;">
+                                    <div class="input-group quantity-stepper" style="width: auto;">
                                         <button class="btn btn-primary quantity-minus" id="minus" type="button"
                                             aria-label="Kurangi jumlah" style="color: white;">&minus;</button>
                                         <input type="text" class="form-control text-center quantity-input"
@@ -129,13 +94,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="column-md-6 d-flex flex-row gap-3">
-                <button class="btn btn-primary" style="width: 100%; color:white;">Lihat Keranjang</button>
-                <button class="btn btn-warning border rounded-3" style="width: 100%;">Checkout</button>
-            </div>
-        </div>
+        <button class="btn btn-warning border rounded-3" style="width: 100%;">Lanjutkan Ke Pembayaran</button>
     </div>
 </div>

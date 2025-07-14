@@ -1,3 +1,8 @@
+@vite([
+    'resources/css/login-page.css',
+    'resources/css/register-page.css',
+    // 'public/js/userprofile.js'
+])
 <div class="awal">
     {{-- The best athlete wants his opponent at his best. --}}
     <div class="d-none d-md-flex flex-row p-3" style="height: 100%;">

@@ -68,6 +68,47 @@
                 </a>
             </li>
         </ul>
+
+        {{-- kalau udah siap pake backend, nyalain yg di comment ini ya, trs apus yg atas. tp nt ajah tunggu klo dh kelar: -jes- --}}
+
+        {{-- <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
+            <li class="nav-item">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                    <i class="bi bi-house"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.pengunjung.index') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('admin.pengunjung.*') ? 'active' : '' }}">
+                    <i class="bi bi-people-fill"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Pengunjung</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.tiket.index') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('admin.tiket.*') ? 'active' : '' }}">
+                    <i class="bi bi-ticket-perforated"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Tiket</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.restoran.index') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('admin.restoran.*') ? 'active' : '' }}">
+                    <i class="bi bi-egg-fried"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Restoran</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.staff.index') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('admin.staff.*') ? 'active' : '' }}">
+                    <i class="bi bi-person"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Staff</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.berita.index') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('admin.berita.*') ? 'active' : '' }}">
+                    <i class="bi bi-newspaper"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Berita</span>
+                </a>
+            </li>
+        </ul> --}}
     </div>
 
     <!-- Fixed bottom area -->

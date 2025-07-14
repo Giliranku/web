@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             RestaurantSeeder::class,
             AttractionSeeder::class,
+            RestaurantAttractionSeeder::class,
             UserSeeder::class,
             TicketSeeder::class,
             InvoiceSeeder::class,
