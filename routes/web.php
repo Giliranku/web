@@ -52,7 +52,6 @@ Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
 Route::get('/userprofile', UserProfile::class)->name('userprofile')->middleware('login');
 
 Route::get('/staffprofile', StaffProfilePage::class);
-Route::get('/newPage', MyNewPage::class)->name('my-new-page');
 
 // Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tickets.index');
@@ -64,6 +63,3 @@ Route::get('/cartPage2', CartPage2::class)->name('cart-page2');
 Route::get('/newPage', MyNewPage::class)->name('my-new-page');
 
 Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
-
-Route::get('/submitCartPage2', [CartPage2::class, 'submitBayar']);
-
