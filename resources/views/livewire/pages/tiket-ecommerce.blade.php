@@ -1,3 +1,8 @@
+@push('styles')
+@vite([
+    'resources/css/yoga.css',
+])
+@endpush
 <div class="d-flex gap-4 flex-column" style="margin-top: 8vh;">
     <link rel="stylesheet" href="./style.css">
     <div class="d-flex flex-row justify-content-evenly align-items-center">

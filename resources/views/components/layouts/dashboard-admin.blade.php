@@ -18,7 +18,7 @@
         'resources/js/app.js',
         'resources/css/main.css'
     ])
-
+    @stack('styles')
     <!-- Alpine store for theme state -->
     <script>
         document.addEventListener('alpine:init', () => {

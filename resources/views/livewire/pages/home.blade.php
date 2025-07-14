@@ -1,6 +1,8 @@
+@push('styles')
 @vite([
         'resources/css/jesselyn.css'
         ])
+@endpush
 <div class="overflow-x-hidden">
    <div class="m-4">
       <div class="search-container mx-auto">

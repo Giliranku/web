@@ -1,8 +1,10 @@
+@push('styles')
 @vite([
   'resources/css/sorting.css',
   'resources/css/queue-detail.css',
   // 'public/js/userprofile.js'
 ])
+@endpush
 <div>
   <!-- Filter -->
   <div class="container my-4">

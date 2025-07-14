@@ -1,7 +1,9 @@
 
+@push('styles')
 @vite([
     'resources/css/queue-detail.css',
 ])
+@endpush
 <div x-data="{ mainImage: @entangle('mainImage'), fade: false }" class="container py-4">
     <div class="row">
         <!-- Main Image -->

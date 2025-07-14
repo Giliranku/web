@@ -1,7 +1,9 @@
+@push('styles')
 @vite([
 'resources/css/jesselyn.css',
 'resources/css/sorting.css',
 ])
+@endpush
 <div class="p-5">
     <div class="d-flex gap-5">
         <div class="search-container shadow search-bar-sorting border rounded mb-3">

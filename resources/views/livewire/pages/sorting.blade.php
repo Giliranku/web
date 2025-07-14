@@ -1,6 +1,8 @@
+@push('styles')
 @vite([
     'resources/css/sorting.css',
 ])
+@endpush
 <div class="container-fluid mt-5">
     <div class="search-container mx-auto shadow search-bar-sorting border rounded mb-3">
         <i class="bi bi-search search-icon"></i>

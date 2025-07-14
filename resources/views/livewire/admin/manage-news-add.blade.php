@@ -1,7 +1,9 @@
+@push('styles')
 @vite([
 'resources/css/jesselyn.css',
 'resources/css/sorting.css',
 ])
+@endpush
 <div class="container mt-5">
     <h2>News</h2>
     <form action="" method="POST">

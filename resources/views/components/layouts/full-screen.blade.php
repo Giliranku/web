@@ -23,7 +23,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @endassets
-
+    @stack('styles')
     <!-- Alpine store for theme state -->
     <script>
         document.addEventListener('alpine:init', () => {
