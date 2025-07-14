@@ -133,8 +133,14 @@
     <div class="container">
         <div class="row">
             <div class="column-md-6 d-flex flex-row gap-3">
-                <button class="btn btn-primary" style="width: 100%; color:white;">Lihat Keranjang</button>
-                <button class="btn btn-warning border rounded-3" style="width: 100%;">Checkout</button>
+                <a href="/cartPage" class="w-100">
+                    <button class="btn btn-primary" style="width: 100%; color:white;">
+                        Lihat Keranjang
+                    </button>
+                </a>
+                <a href="/cartPage2" class="w-100">
+                    <button class="btn btn-warning border rounded-3" style="width: 100%;">Checkout</button>
+                </a>
             </div>
         </div>
     </div>
