@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Admin\AttracionListManage;
+use App\Livewire\Admin\AttracionListManageAdd;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Sorting;
@@ -35,6 +37,9 @@ Route::get('/news-detail', NewsUserDetail::class);
 Route::get('/manage-news', ManageNews::class);
 Route::get('/manage-news-add', ManageNewsAdd::class);
 Route::get('/manage-news-edit', ManageNewsEdit::class);
+Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
+Route::get('/attraction-list-add', AttracionListManageAdd::class)->name('attractions.create');
+Route::get('/attraction-list-edit', AttracionListManageAdd::class)->name('attractions.edit');
 
 Route::get('/search', Sorting::class);
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
@@ -64,4 +69,6 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 Route::get('/cartPage', CartPage::class)->name('cart-page');
 
 Route::get('/cartPage2', CartPage2::class)->name('cart-page2');
+
+
 
