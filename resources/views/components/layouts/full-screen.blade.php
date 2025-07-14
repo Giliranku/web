@@ -7,15 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ $title ?? 'Page Title' }}</title>
-    {{-- @vite(['resources/sass/app.scss',
-            'resources/js/app.js',
-            'resources/css/main.css',
-            'resources/css/login-page.css',
-            'resources/css/register-page.css',
-            'resources/css/invoice-page.css',  
-            'resources/css/user-profile-page.css'
-            // 'public/js/userprofile.js'
-            ]) --}}
+    @vite(['resources/sass/app.scss',
+            'resources/js/app.js'
+            ])
 
     @assets
         <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -27,7 +27,7 @@
         <i class="bi bi-cart-fill"></i>
         {{-- Create a div separator like | --}}
         <span class="mx-2">|</span>
-        <a href="/login" class="text-dark text-decoration-none">Masuk</a>
+        <a href="/login" class="text-dark text-decoration-none" wire:navigate>Masuk</a>
       </div>
     </div>
   </div>
