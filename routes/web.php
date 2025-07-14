@@ -31,6 +31,10 @@ Route::get('/news-detail/{id}', NewsUserDetail::class);
 Route::get('/search', Sorting::class)->name('queues.index');
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
 
+// Defined Attraction and Restaurant routes
+Route::get('/restaurant/{restaurant:id}', WahanaDetails::class)->name('restaurant.detail');
+Route::get('/attraction/{attraction:id}', WahanaDetails::class)->name('attraction.detail');
+
 Route::get('/order', OrderQueue::class);
 // Route::get('/order-wahana', OrderWahana::class);
 Route::get('/history', History::class)->name('history')->middleware('auth');

@@ -118,9 +118,9 @@
                     </div>
                     <div class="mt-3 mt-md-0 position-absolute position-md-static" style="right: 0; bottom: 0;">
                         @if($item->type === 'Restoran')
-                            <a href="" class="btn btn-primary w-100">Lihat Detail</a>
-                        @else
-                            <a href="" class="btn btn-primary w-100">Lihat Detail</a>
+                            <a href="/restaurant/{{ $item->id }}" class="btn btn-primary w-100">Lihat Detail</a>
+                        @elseif ($item->type === 'Attraction')
+                            <a href="/attraction/{{ $item->id }}" class="btn btn-primary w-100">Lihat Detail</a>
                         @endif
                     </div>
                 </div>
