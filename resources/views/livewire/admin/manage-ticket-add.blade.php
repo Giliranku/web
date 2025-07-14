@@ -1,3 +1,9 @@
+@push('styles')
+@vite([
+'resources/css/jesselyn.css',
+'resources/css/sorting.css',
+])
+@endpush
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="w-100 h-100" style="max-width: 1400px;">
         <div class="modal-content p-4 shadow rounded">
