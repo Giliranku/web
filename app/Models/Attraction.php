@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attraction extends Model
 {
-    protected $fillable = ['name', 'location', 'capacity', 'time_estimation', 'description', 'cover', 'img1', 'img2', 'img3'];
+    protected $fillable = ['name', 'location', 'capacity', 'time_estimation', 'description', 'cover', 'img1', 'img2', 'img3', 'staff_id'];
 
     public function staff(){
         return $this->belongsTo(Staff::class);

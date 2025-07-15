@@ -1,5 +1,6 @@
 @push('styles')
 @vite([
+    'resources/css/login-page.css',
     'resources/css/register-page.css',
     // 'public/js/userprofile.js'
 ])
