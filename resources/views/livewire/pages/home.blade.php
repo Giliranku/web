@@ -147,7 +147,7 @@
 </style>
 @endpush
 
-<div class="overflow-x-hidden">
+<div class="overflow-x-hidden home-page">
    <!-- Full Screen Hero Section -->
    <div class="position-relative" style="height: 100vh; min-height: 600px;">
       <!-- Thin Search Bar at Top -->
@@ -158,7 +158,7 @@
                   <div class="search-container">
                      <i class="bi bi-search search-icon text-muted"></i>
                      <input type="text" class="form-control border-0 shadow-lg" 
-                            style="height: 45px; border-radius: 25px; padding-left: 3rem; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);" 
+                            class="form-control home-search-input" 
                             placeholder="Cari wahana, restoran, atau info menarik...">
                   </div>
                </div>
@@ -173,35 +173,33 @@
                <div class="position-relative h-100">
                   <img src="{{asset('img/promobanner1.jpg')}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Gambar Acara Berkemah di Bawah Laut">
                   <!-- Gradient overlay for better text readability -->
-                  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(74, 189, 172, 0.2));"></div>
+                  <div class="position-absolute top-0 start-0 w-100 h-100 home-card-overlay-1"></div>
                </div>
             </div>
             <div class="carousel-item h-100" data-bs-interval="2000">
                <div class="position-relative h-100">
                   <img src="{{asset('img/promobanner2.jpg')}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Gambar Acara Pertunjukan Robot">
-                  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(252, 74, 26, 0.2));"></div>
+                  <div class="position-absolute top-0 start-0 w-100 h-100 home-card-overlay-2"></div>
                </div>
             </div>
             <div class="carousel-item h-100">
                <div class="position-relative h-100">
                   <img src="{{asset('img/promobanner3.jpg')}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Gambar Promo Gratis Minuman">
-                  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(247, 183, 51, 0.2));"></div>
+                  <div class="position-absolute top-0 start-0 w-100 h-100 home-card-overlay-3"></div>
                </div>
             </div>
          </div>
 
          <!-- Modern carousel controls -->
          <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y ms-3" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-            <div class="d-flex align-items-center justify-content-center" 
-                 style="width: 50px; height: 50px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 50%; transition: all 0.3s ease;">
+            <div class="d-flex align-items-center justify-content-center home-nav-btn">
                <span class="carousel-control-prev-icon" style="filter: invert(1);" aria-hidden="true"></span>
             </div>
             <span class="visually-hidden">Previous</span>
          </button>
 
          <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y me-3" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-            <div class="d-flex align-items-center justify-content-center" 
-                 style="width: 50px; height: 50px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 50%; transition: all 0.3s ease;">
+            <div class="d-flex align-items-center justify-content-center home-nav-btn">
                <span class="carousel-control-next-icon" style="filter: invert(1);" aria-hidden="true"></span>
             </div>
             <span class="visually-hidden">Next</span>
@@ -209,20 +207,17 @@
 
          <!-- Carousel indicators -->
          <div class="carousel-indicators position-absolute bottom-0 start-50 translate-middle-x mb-4" style="margin: 0;">
-            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active" 
-                    style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); border: none; margin: 0 6px;" aria-current="true"></button>
-            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" 
-                    style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); border: none; margin: 0 6px;"></button>
-            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" 
-                    style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); border: none; margin: 0 6px;"></button>
+            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active home-indicator" aria-current="true"></button>
+            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" class="home-indicator"></button>
+            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" class="home-indicator"></button>
          </div>
       </div>
    </div>
    <!-- Welcome Section -->
    <div class="container my-5">
       <div class="text-center mb-5">
-         <h2 class="display-5 fw-bold" style="color: var(--primary);">Selamat datang di Giliranku</h2>
-         <p class="lead" style="color: var(--secondary);">Wahana Seru Sepuasnya!</p>
+         <h2 class="display-5 fw-bold text-primary">Selamat datang di Giliranku</h2>
+         <p class="lead text-secondary">Wahana Seru Sepuasnya!</p>
          <hr class="section-divider w-25 mx-auto">
       </div>
 
@@ -270,7 +265,7 @@
    </div>
 
    <!-- Ticket Purchase CTA -->
-   <div class="py-5" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
+   <div class="py-5 home-gradient-bg">
       <div class="container text-center">
          <h2 class="fw-bold mb-3" style="color: var(--dark);">Beli <span style="color: var(--primary);">Tiket</span> Sekarang!</h2>
          <p class="lead text-muted mb-4">Dapatkan akses ke semua wahana seru dengan harga terbaik</p>

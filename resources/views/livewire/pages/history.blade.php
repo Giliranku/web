@@ -4,7 +4,7 @@
     // 'public/js/userprofile.js'
 ])
 @endpush
-<div class="container-fluid px-0" style="background:#fff; min-height:100vh;">
+<div class="container-fluid px-0 min-vh-100">
 
     <!-- Breadcrumb -->
     <div class="container mt-4 mb-2 px-4">

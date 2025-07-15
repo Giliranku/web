@@ -65,7 +65,7 @@
     <div 
         class="border-top p-2 d-flex flex-column gap-2 flex-shrink-0"
         :class="$store.sidebar.collapsed ? 'align-items-center' : ''"
-        style="background: #fff; transition: all 0.3s;">
+        class="sidebar-bg-fix">
         <button 
             class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"

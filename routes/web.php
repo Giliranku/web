@@ -21,6 +21,7 @@ use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPageCheckout;
+use App\Livewire\Pages\OrderHistory;
 
 // User routes
 Route::get('/', Home::class)->name('home');
@@ -36,6 +37,7 @@ Route::get('/restaurant/{restaurant:id}', WahanaDetails::class)->name('restauran
 Route::get('/attraction/{attraction:id}', WahanaDetails::class)->name('attraction.detail');
 
 Route::get('/order', OrderQueue::class);
+Route::get('/order/history', OrderHistory::class);
 // Route::get('/order-wahana', OrderWahana::class);
 Route::get('/history', History::class)->name('history')->middleware('auth');
 

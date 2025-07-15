@@ -3,6 +3,7 @@
 body {
     font-family: "Inclusive Sans", sans-serif;
     font-style: normal;
+    transition: font-family 0.3s ease;
 }
 
 .navbar-brand {
@@ -15,7 +16,6 @@ body {
 }
 
 /* a {
-    color: black;
     text-decoration: none;
 } */
 
@@ -56,14 +56,11 @@ nav {
 /* Hide scrollbar for the menu area if not needed, but allow scrolling if overflow */
 #adminSidebar .nav.flex-column.overflow-auto {
     scrollbar-width: thin;
-    scrollbar-color: #e0e0e0 #ffffff;
 }
 #adminSidebar .nav.flex-column.overflow-auto::-webkit-scrollbar {
     width: 6px;
-    background: #fff;
 }
 #adminSidebar .nav.flex-column.overflow-auto::-webkit-scrollbar-thumb {
-    background: #e0e0e0;
     border-radius: 3px;
 }
 
@@ -78,13 +75,313 @@ nav {
     margin-left: 15px;
 }
 
-.nav-link i {
-    color: black;
-}
+/* Remove hardcoded colors to support dark mode */
 .sidebar-title {
     font-size: 20px;
 }
 
 body > div > div:nth-child(4) > div > div > div > p {
     font-size: 20px;
+}
+
+/* Accessibility Features */
+.high-contrast {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+.high-contrast * {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.high-contrast .btn:not(.btn-close) {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #ffffff !important;
+}
+
+.high-contrast .btn:hover:not(.btn-close) {
+    background-color: #cccccc !important;
+    color: #000000 !important;
+}
+
+.high-contrast .bg-white,
+.high-contrast .bg-light {
+    background-color: #000000 !important;
+}
+
+.high-contrast .text-dark,
+.high-contrast .text-muted {
+    color: #ffffff !important;
+}
+
+.high-contrast .border {
+    border-color: #ffffff !important;
+}
+
+.high-contrast .shadow,
+.high-contrast .shadow-lg {
+    box-shadow: 0 0 0 2px #ffffff !important;
+}
+
+/* Pulse animation for accessibility button */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(0,123,255,0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(0,123,255,0.5);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(0,123,255,0.3);
+    }
+}
+
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+.pulse-animation:hover {
+    animation-play-state: paused;
+}
+
+/* Accessibility button hover effects */
+.accessibility-btn {
+    transition: all 0.3s ease !important;
+}
+
+.accessibility-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Font family transitions */
+body {
+    transition: font-family 0.3s ease;
+}
+
+/* Dark mode compatible styles - remove hardcoded colors */
+.menu-text {
+    margin-left: 15px;
+}
+
+/* Update scrollbar for dark mode support */
+#adminSidebar .nav.flex-column.overflow-auto {
+    scrollbar-width: thin;
+}
+
+#adminSidebar .nav.flex-column.overflow-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+#adminSidebar .nav.flex-column.overflow-auto::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+}
+
+/* Responsive accessibility widget */
+@media (max-width: 768px) {
+    .position-fixed.bottom-0.end-0.m-4 > div[x-show="open"] {
+        width: calc(100vw - 2rem) !important;
+        left: 1rem !important;
+        right: 1rem !important;
+        bottom: 5rem !important;
+    }
+}
+
+/* Smooth font size transitions */
+* {
+    transition: font-size 0.3s ease;
+}
+
+/* Fix for cart page button colors - use !important to override inline styles */
+.quantity-stepper .btn {
+    color: inherit !important;
+}
+
+.btn-primary {
+    color: var(--bs-btn-color) !important;
+}
+
+/* Home page specific fixes for dark mode */
+.home-section-bg {
+    background: var(--bs-body-bg);
+}
+
+.home-gradient-bg {
+    background: linear-gradient(135deg, var(--bs-light), var(--bs-secondary-bg));
+}
+
+.home-search-input {
+    height: 45px; 
+    border-radius: 25px; 
+    padding-left: 3rem; 
+    background: var(--bs-body-bg); 
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--bs-border-color);
+}
+
+.home-card-overlay-1 {
+    background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(74, 189, 172, 0.2));
+}
+
+.home-card-overlay-2 {
+    background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(252, 74, 26, 0.2));
+}
+
+.home-card-overlay-3 {
+    background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(247, 183, 51, 0.2));
+}
+
+.home-nav-btn {
+    width: 50px; 
+    height: 50px; 
+    background: var(--bs-body-bg); 
+    backdrop-filter: blur(10px); 
+    border-radius: 50%; 
+    transition: all 0.3s ease;
+    border: 1px solid var(--bs-border-color);
+}
+
+.home-indicator {
+    width: 12px; 
+    height: 12px; 
+    border-radius: 50%; 
+    background: var(--bs-secondary); 
+    border: none; 
+    margin: 0 6px;
+}
+
+.home-card-white {
+    background: var(--bs-body-bg); 
+    padding: 15px; 
+    border-radius: 12px;
+    border: 1px solid var(--bs-border-color);
+}
+
+/* Remove inline color styles for home page */
+.home-text-primary {
+    color: var(--bs-primary) !important;
+}
+
+.home-text-secondary {
+    color: var(--bs-secondary) !important;
+}
+
+.home-text-dark {
+    color: var(--bs-body-color) !important;
+}
+
+/* Additional home page fixes */
+.home-restaurant-card {
+    background: var(--bs-body-bg); 
+    padding: 15px; 
+    border-radius: 12px;
+    border: 1px solid var(--bs-border-color);
+}
+
+/* Override all inline color styles in home page */
+.home-page h1, 
+.home-page h2, 
+.home-page h3, 
+.home-page h4, 
+.home-page h5, 
+.home-page h6 {
+    color: var(--bs-body-color) !important;
+}
+
+.home-page .text-primary-custom {
+    color: var(--bs-primary) !important;
+}
+
+.home-page .text-secondary-custom {
+    color: var(--bs-secondary) !important;
+}
+
+/* Fix for sidebar background */
+.sidebar-bg-fix {
+    background: var(--bs-body-bg) !important;
+    border: 1px solid var(--bs-border-color);
+}
+
+/* Fix for user profile pages */
+.profile-tooltip {
+    border-radius: 10px; 
+    padding: 6px 20px; 
+    color: var(--bs-body-color) !important; 
+    min-width: 220px; 
+    top: 2rem; 
+    left: 0; 
+    background: var(--bs-body-bg) !important; 
+    transition: opacity 0.4s;
+    border: 1px solid var(--bs-border-color);
+}
+
+.profile-button-bg {
+    background: var(--bs-body-bg) !important;
+}
+
+.profile-accordion-bg {
+    background: var(--bs-tertiary-bg) !important;
+    color: var(--bs-body-color) !important;
+}
+
+.profile-list-item-bg {
+    background: var(--bs-tertiary-bg) !important;
+}
+
+/* Comprehensive inline style overrides for dark mode compatibility */
+
+/* Remove all hardcoded white colors */
+[style*="color: white"] {
+    color: var(--bs-btn-color) !important;
+}
+
+[style*="color:white"] {
+    color: var(--bs-btn-color) !important;
+}
+
+[style*="background: white"] {
+    background: var(--bs-body-bg) !important;
+}
+
+[style*="background:#fff"] {
+    background: var(--bs-body-bg) !important;
+}
+
+[style*="background: #fff"] {
+    background: var(--bs-body-bg) !important;
+}
+
+[style*="color:#444"] {
+    color: var(--bs-body-color) !important;
+}
+
+[style*="color: #444"] {
+    color: var(--bs-body-color) !important;
+}
+
+/* Fix specific problematic backgrounds */
+[style*="background:#f9d778"] {
+    background: var(--bs-warning) !important;
+}
+
+[style*="background: #ffe8ad"] {
+    background: var(--bs-warning-bg-subtle) !important;
+}
+
+/* Remove hardcoded background colors that interfere with dark mode */
+[style*="background:#ffe8ad"],
+[style*="background: #ffe8ad"] {
+    background: var(--bs-tertiary-bg) !important;
+}
+
+/* Fix button backgrounds */
+button[style*="background:none"],
+button[style*="background: none"] {
+    background: transparent !important;
 }

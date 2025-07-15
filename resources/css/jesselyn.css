@@ -37,7 +37,7 @@
 .vertical-line{
     width: 0.1rem;
     height: 7rem;
-    background-color: #000000;
+    background-color: var(--bs-body-color);
     margin-left: 1rem;
     margin-right: 1rem;
 }
@@ -45,7 +45,7 @@
 .vertical-line-admin{
     width: 0.4rem;
     height: 3rem;
-    background-color: #000000;
+    background-color: var(--bs-body-color);
     margin-left: 1rem;
     margin-right: 1rem;
 }
@@ -59,20 +59,19 @@
 }
 
 .btn-dark{
-    background-color: #000000;
+    background-color: var(--bs-dark);
 }
 
 .font-dark{
-    color: #000000;
+    color: var(--bs-body-color);
 }
 
 .btn-outline-dark{
-    outline-color: #000000;
+    outline-color: var(--bs-body-color);
 }
 
 .link-font{
-    color: #000000;
-    
+    color: var(--bs-body-color);    
 }
 
 .p-6{
@@ -149,7 +148,7 @@
     .vertical-line{
         width: 16rem;
         height: 0.1rem;
-        background-color: #000000;
+        background-color: var(--bs-body-color);
         margin-top: 1rem;
         margin-bottom: 1rem;   
     }
@@ -195,7 +194,7 @@
     .vertical-line{
         width: 16rem;
         height: 0.1rem;
-        background-color: #000000;
+        background-color: var(--bs-body-color);
         margin-top: 1rem;
         margin-bottom: 1rem;   
     }

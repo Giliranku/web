@@ -92,14 +92,6 @@ class Sorting extends Component
                 return $items->sortByDesc('capacity')->values();
             case 'Kapasitas Terkecil':
                 return $items->sortBy('capacity')->values();
-            case 'Harga Termurah':
-                return $items->sortBy(function($item) {
-                    return $item->type === "Restoran" && isset($item->price) ? $item->price : PHP_INT_MAX;
-                })->values();
-            case 'Harga Tertinggi':
-                return $items->sortByDesc(function($item) {
-                    return $item->type === "Restoran" && isset($item->price) ? $item->price : 0;
-                })->values();
             default:
                 return $items;
         }
