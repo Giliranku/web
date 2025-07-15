@@ -2,339 +2,680 @@
 @vite([
         'resources/css/jesselyn.css'
         ])
-@endpush
-<div class="overflow-x-hidden">
-   <div class="m-4">
-      <div class="search-container mx-auto">
-         <i class="bi bi-search search-icon"></i>
-         <input type="text" class="form-control search-input" placeholder="Cari">
-      </div>
-   </div>
+<style>
+   :root {
+      --primary: #4ABDAC;
+      --secondary: #FC4A1A; 
+      --warning: #F7B733;
+      --light: #FFFFFF;
+      --dark: #000000;
+   }
    
-   <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-         <div class="carousel-item active" data-bs-interval="10000">
-            <img src="{{asset('img/promobanner1.jpg')}}" class="d-block w-100" alt="Gambar Acara Berkemah di Bawah Laut">
+   .hero-section {
+      background: linear-gradient(135deg, var(--primary), #3a9d94);
+   }
+   
+   .card-hover {
+      transition: all 0.3s ease;
+      border: none;
+   }
+   
+   .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+   }
+   
+   .section-divider {
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border: none;
+      margin: 3rem 0;
+   }
+   
+   .btn-primary-custom {
+      background: linear-gradient(45deg, var(--primary), #3a9d94);
+      border: none;
+      border-radius: 25px;
+      padding: 12px 30px;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+   }
+   
+   .btn-primary-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(74, 189, 172, 0.4);
+   }
+   
+   .btn-secondary-custom {
+      background: linear-gradient(45deg, var(--secondary), #e03d0f);
+      border: none;
+      border-radius: 25px;
+      padding: 12px 30px;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s ease;
+   }
+   
+   .btn-secondary-custom:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(252, 74, 26, 0.4);
+   }
+   
+   .stats-card {
+      background: linear-gradient(135deg, var(--light), #f8f9fa);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 2px solid var(--primary);
+      transition: all 0.3s ease;
+   }
+   
+   .stats-card:hover {
+      background: linear-gradient(135deg, var(--primary), #3a9d94);
+      color: white;
+   }
+   
+   .image-container {
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+   }
+   
+   .image-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(74, 189, 172, 0.1));
+      transition: all 0.3s ease;
+   }
+   
+   .image-container:hover::after {
+      background: linear-gradient(45deg, transparent, rgba(74, 189, 172, 0.2));
+   }
+</style>
+@endpush
+
+<div class="overflow-x-hidden">
+   <!-- Full Screen Hero Section -->
+   <div class="position-relative" style="height: 100vh; min-height: 600px;">
+      <!-- Thin Search Bar at Top -->
+      <div class="position-absolute w-100" style="top: 20px; z-index: 1030;">
+         <div class="container">
+            <div class="row justify-content-center">
+               <div class="col-lg-6 col-md-8">
+                  <div class="search-container">
+                     <i class="bi bi-search search-icon text-muted"></i>
+                     <input type="text" class="form-control border-0 shadow-lg" 
+                            style="height: 45px; border-radius: 25px; padding-left: 3rem; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);" 
+                            placeholder="Cari wahana, restoran, atau info menarik...">
+                  </div>
+               </div>
+            </div>
          </div>
-         <div class="carousel-item" data-bs-interval="2000">
-            <img src="{{asset('img/promobanner2.jpg')}}" class="d-block w-100" alt="Gambar Acara Pertunjukan Robot">
+      </div>
+
+      <!-- Full Screen Carousel -->
+      <div id="carouselExampleInterval" class="carousel slide h-100" data-bs-ride="carousel">
+         <div class="carousel-inner h-100">
+            <div class="carousel-item active h-100" data-bs-interval="10000">
+               <div class="position-relative h-100">
+                  <img src="{{asset('img/promobanner1.jpg')}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Gambar Acara Berkemah di Bawah Laut">
+                  <!-- Gradient overlay for better text readability -->
+                  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(74, 189, 172, 0.2));"></div>
+               </div>
+            </div>
+            <div class="carousel-item h-100" data-bs-interval="2000">
+               <div class="position-relative h-100">
+                  <img src="{{asset('img/promobanner2.jpg')}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Gambar Acara Pertunjukan Robot">
+                  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(252, 74, 26, 0.2));"></div>
+               </div>
+            </div>
+            <div class="carousel-item h-100">
+               <div class="position-relative h-100">
+                  <img src="{{asset('img/promobanner3.jpg')}}" class="d-block w-100 h-100" style="object-fit: cover;" alt="Gambar Promo Gratis Minuman">
+                  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(247, 183, 51, 0.2));"></div>
+               </div>
+            </div>
          </div>
-         <div class="carousel-item">
-            <img src="{{asset('img/promobanner3.jpg')}}" class="d-block w-100" alt="Gambar Promo Gratis Minuman">
+
+         <!-- Modern carousel controls -->
+         <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y ms-3" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <div class="d-flex align-items-center justify-content-center" 
+                 style="width: 50px; height: 50px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 50%; transition: all 0.3s ease;">
+               <span class="carousel-control-prev-icon" style="filter: invert(1);" aria-hidden="true"></span>
+            </div>
+            <span class="visually-hidden">Previous</span>
+         </button>
+
+         <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y me-3" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <div class="d-flex align-items-center justify-content-center" 
+                 style="width: 50px; height: 50px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 50%; transition: all 0.3s ease;">
+               <span class="carousel-control-next-icon" style="filter: invert(1);" aria-hidden="true"></span>
+            </div>
+            <span class="visually-hidden">Next</span>
+         </button>
+
+         <!-- Carousel indicators -->
+         <div class="carousel-indicators position-absolute bottom-0 start-50 translate-middle-x mb-4" style="margin: 0;">
+            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="0" class="active" 
+                    style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); border: none; margin: 0 6px;" aria-current="true"></button>
+            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="1" 
+                    style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); border: none; margin: 0 6px;"></button>
+            <button type="button" data-bs-target="#carouselExampleInterval" data-bs-slide-to="2" 
+                    style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.8); border: none; margin: 0 6px;"></button>
          </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-         <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-         <span class="visually-hidden">Next</span>
-      </button>
    </div>
+   <!-- Welcome Section -->
+   <div class="container my-5">
+      <div class="text-center mb-5">
+         <h2 class="display-5 fw-bold" style="color: var(--primary);">Selamat datang di Giliranku</h2>
+         <p class="lead" style="color: var(--secondary);">Wahana Seru Sepuasnya!</p>
+         <hr class="section-divider w-25 mx-auto">
+      </div>
 
-   <h4 class="mt-6 text-center">Selamat datang di Giliranku - Wahana Seru Sepuasnya!</h4>
-
-   <div class="d-flex flex-md-row align-items-center mt-3 flex-column p-5">
-      <img src="{{asset('img/logo-icon.png')}}" class="w-logo-home" alt="Logo Giliranku">
-
-      <div class="mx-1">
-         <h2 class="fw-bolder text-center-responsive-home">Taman Hiburan Giliranku</h2>
-         <p class="mt-4 me-4 fs-5 text-center-responsive-home">Nikmati sensasi petualangan tak terlupakan di Taman Hiburan Giliranku, destinasi seru yang cocok untuk segala usia, mulai dari keluarga, teman-teman, hingga para pencari adrenalin sejati. Dengan beragam wahana ekstrem yang memacu jantung, zona anak yang aman dan menyenangkan, serta berbagai spot foto Instagramable, setiap sudut taman ini dirancang untuk memberikan pengalaman yang tak terlupakan!</p>
+      <div class="row align-items-center g-4">
+         <div class="col-lg-4 text-center">
+            <div class="image-container">
+               <img src="{{asset('img/logo-icon.png')}}" class="img-fluid" style="max-width: 300px;" alt="Logo Giliranku">
+            </div>
+         </div>
+         <div class="col-lg-8">
+            <div class="ps-lg-4">
+               <h3 class="fw-bold mb-4" style="color: var(--dark);">Taman Hiburan Giliranku</h3>
+               <p class="fs-5 text-muted leading-relaxed">
+                  Nikmati sensasi petualangan tak terlupakan di Taman Hiburan Giliranku, destinasi seru yang cocok untuk segala usia, mulai dari keluarga, teman-teman, hingga para pencari adrenalin sejati. 
+               </p>
+               <p class="fs-5 text-muted">
+                  Dengan beragam wahana ekstrem yang memacu jantung, zona anak yang aman dan menyenangkan, serta berbagai spot foto Instagramable, setiap sudut taman ini dirancang untuk memberikan pengalaman yang tak terlupakan!
+               </p>
+            </div>
+         </div>
       </div>
    </div>
-   <div class="d-flex flex-row mt-0 align-items-center justify-content-center flex-md-column-contact-us">
-      <div class="mx-5">
-            <h3 class="fw-bolder text-center">500.000+</h3>
-            <p class="text-center fs-5">Pengunjung setiap harinya</p>
-      </div>
-      <div class="vertical-line"></div>
-      <div class="mx-5">
-            <h3 class="fw-bolder text-center">30+</h3>
-            <p class="text-center fs-5">Wahana unik</p>
-      </div>
-      <div class="vertical-line"></div>
-      <div class="mx-5">
-            <h3 class="fw-bolder text-center">10+</h3>
-            <p class="text-center fs-5">Promo setiap bulan</p>
+   <!-- Statistics Section -->
+   <div class="container my-5">
+      <div class="row g-4">
+         <div class="col-md-4">
+            <div class="stats-card text-center">
+               <h3 class="fw-bold mb-2" style="color: var(--secondary);">500.000+</h3>
+               <p class="mb-0 fs-5">Pengunjung setiap harinya</p>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="stats-card text-center">
+               <h3 class="fw-bold mb-2" style="color: var(--secondary);">30+</h3>
+               <p class="mb-0 fs-5">Wahana unik</p>
+            </div>
+         </div>
+         <div class="col-md-4">
+            <div class="stats-card text-center">
+               <h3 class="fw-bold mb-2" style="color: var(--secondary);">10+</h3>
+               <p class="mb-0 fs-5">Promo setiap bulan</p>
+            </div>
+         </div>
       </div>
    </div>
 
-   <div class="bg-secondary w-100 mt-6 p-6">
-      <h2 class="text-center font-dark">Beli <span class="fw-bolder">Tiket</span> Sekarang!</h2>
-      <a class="btn btn-dark fw-bolder d-grid gap-2 col-6 mx-auto w-50 mt-5 py-3" href="#" role="button">Beli Tiket</a>
+   <!-- Ticket Purchase CTA -->
+   <div class="py-5" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef);">
+      <div class="container text-center">
+         <h2 class="fw-bold mb-3" style="color: var(--dark);">Beli <span style="color: var(--primary);">Tiket</span> Sekarang!</h2>
+         <p class="lead text-muted mb-4">Dapatkan akses ke semua wahana seru dengan harga terbaik</p>
+         <a class="btn btn-primary-custom btn-lg px-5" href="#" role="button">
+            <i class="bi bi-ticket-perforated me-2"></i>Beli Tiket
+         </a>
+      </div>
    </div>
 
-   <div class="mt-6">
-      <h3 class="text-center p-3"><span class="fw-bolder">Sudah punya tiket</span> dan mau menikmati semua wahana?</h3>
-      <p class="mt-4 text-center fs-5">Yuk coba sistem antrian online kami!</p>
+   <!-- Queue System Section -->
+   <div class="container my-5">
+      <div class="text-center mb-5">
+         <h3 class="fw-bold" style="color: var(--dark);">
+            <span style="color: var(--primary);">Sudah punya tiket</span> dan mau menikmati semua wahana?
+         </h3>
+         <p class="lead text-muted mt-3">Yuk coba sistem antrian online kami!</p>
+      </div>
 
-      <div class="mt-1 p-5">          
-         <div class="d-flex gap-7 flex-column flex-md-row justify-content-center align-items-center gap-mdm-3">
+      <div class="row g-4 justify-content-center">
+         <div class="col-md-6 col-lg-4">
             <a href="" class="text-decoration-none">
-               <div class="card w-18 h-18 rounded align-items-center justify-content-center shadow p-md-3 mb-md-5 bg-body rounded">
-                  <p class="fs-5 text-decoration-none">Kamu bisa ngantri disini!</p>
-                  <i class="bi bi-car-front-fill icon-size-home"></i>
-                  <h4 class="text-decoration-none">Wahana</h4>
+               <div class="card card-hover h-100 text-center p-4">
+                  <div class="card-body">
+                     <div class="mb-3" style="color: var(--primary);">
+                        <i class="bi bi-car-front-fill" style="font-size: 4rem;"></i>
+                     </div>
+                     <h4 class="card-title fw-bold" style="color: var(--dark);">Wahana</h4>
+                     <p class="card-text text-muted">Kamu bisa ngantri disini!</p>
+                     <div class="mt-3">
+                        <span class="btn btn-outline-primary btn-sm">Lihat Antrian</span>
+                     </div>
+                  </div>
                </div>
             </a>
-            
+         </div>
+         
+         <div class="col-md-6 col-lg-4">
             <a href="" class="text-decoration-none">
-                  <div class="card w-18 h-18 rounded align-items-center justify-content-center shadow p-md-3 mb-md-5 bg-body rounded">
-                  <p class="fs-5 text-decoration-none">Bisa juga ngantri disini!</p>
-                  <i class="bi bi-house-door icon-size-home"></i>
-                  <h4 class="text-decoration-none">Restoran</h4>
+               <div class="card card-hover h-100 text-center p-4">
+                  <div class="card-body">
+                     <div class="mb-3" style="color: var(--secondary);">
+                        <i class="bi bi-house-door" style="font-size: 4rem;"></i>
+                     </div>
+                     <h4 class="card-title fw-bold" style="color: var(--dark);">Restoran</h4>
+                     <p class="card-text text-muted">Bisa juga ngantri disini!</p>
+                     <div class="mt-3">
+                        <span class="btn btn-outline-danger btn-sm">Lihat Antrian</span>
+                     </div>
+                  </div>
                </div>
             </a>
          </div>
       </div>
    </div>
-   <div class="mt-4">
-      <h3 class="text-center p-3">Giliranku punya banyak <span class="fw-bolder">wahana</span> lho!</h3>
-      <div id="wahanaCarousel" class="carousel slide ms-6 me-6 mt-5" data-bs-ride="carousel">
+   <!-- Attractions Section -->
+   <div class="container my-5">
+      <div class="text-center mb-5">
+         <h3 class="fw-bold" style="color: var(--dark);">
+            Giliranku punya banyak <span style="color: var(--primary);">wahana</span> lho!
+         </h3>
+         <hr class="section-divider w-25 mx-auto">
+      </div>
+
+      <div id="wahanaCarousel" class="carousel slide" data-bs-ride="carousel">
          <div class="carousel-inner">
             <div class="carousel-item active">
-               <div class="d-flex justify-content-center gap-5">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{ asset('img/halilintar.jpg') }}" class="w-20 rounded" alt="Gambar Wahana Halilintar">
-                  <h4 class="mt-2">Halilintar</h4>
-               </div>
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{ asset('img/arung-jeram.jpg') }}" class="w-20 rounded" alt="Gambar Wahana Arung Jeram">
-                  <h4 class="mt-2">Arung Jeram</h4>
-               </div>
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{ asset('img/bianglala.jpg') }}" class="w-20 rounded" alt="Gambar Wahana Bianglala">
-                  <h4 class="mt-2">Bianglala</h4>
-               </div>
+               <div class="row g-4 justify-content-center">
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/halilintar.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Halilintar">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--dark);">Halilintar</h5>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/arung-jeram.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Arung Jeram">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--dark);">Arung Jeram</h5>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/bianglala.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Bianglala">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--dark);">Bianglala</h5>
+                     </div>
+                  </div>
                </div>
             </div>
             <div class="carousel-item">
-               <div class="d-flex justify-content-center gap-5">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{ asset('img/ice-age.jpg') }}" class="w-20 rounded" alt="Gambar Wahana Ice Age">
-                  <h4 class="mt-2">Ice Age</h4>
-               </div>
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{ asset('img/kora-kora.jpg') }}" class="w-20 rounded" alt="Gambar Wahana Kora Kora">
-                  <h4 class="mt-2">Kora Kora</h4>
-               </div>
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{ asset('img/ontang-anting.jpg') }}" class="w-20 rounded" alt="Gambar Wahana Ontang Anting">
-                  <h4 class="mt-2">Ontang Anting</h4>
-               </div>
+               <div class="row g-4 justify-content-center">
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/ice-age.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Ice Age">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--dark);">Ice Age</h5>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/kora-kora.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Kora Kora">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--dark);">Kora Kora</h5>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/ontang-anting.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Ontang Anting">
+                        </div>
+                        <h5 class="fw-bold" style="color: var(--dark);">Ontang Anting</h5>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
 
-         <button class="carousel-control-prev circle-btn bg-dark start-0" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="prev">
+         <button class="carousel-control-prev" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="prev" style="background: var(--primary); border-radius: 50%; width: 50px; height: 50px; margin-left: -25px;">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
          </button>
 
-         <button class="carousel-control-next circle-btn bg-dark end-0" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="next">
+         <button class="carousel-control-next" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="next" style="background: var(--primary); border-radius: 50%; width: 50px; height: 50px; margin-right: -25px;">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
          </button>
       </div>
    </div>
 
-   <div class="mt-6">
-      <h3 class="text-center">Tersedia pula banyak <span class="fw-bolder">tempat makan</span> disini!</h3>   
-      <div id="restoranCarousel" class="carousel slide ms-6 me-6 mt-5 position-relative" data-bs-ride="carousel">
+   <!-- Restaurants Section -->
+   <div class="container my-5">
+      <div class="text-center mb-5">
+         <h3 class="fw-bold" style="color: var(--dark);">
+            Tersedia pula banyak <span style="color: var(--secondary);">tempat makan</span> disini!
+         </h3>
+         <hr class="section-divider w-25 mx-auto">
+      </div>
+
+      <div id="restoranCarousel" class="carousel slide" data-bs-ride="carousel">
          <div class="carousel-inner">
             <div class="carousel-item active">
-               <div class="d-flex justify-content-center align-items-center gap-5">
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/aw.png') }}" class="img-fluid rounded" style="max-width:130px;"  alt="Gambar Restoran A&W">
-                     <h4 class="mt-2">A&W</h4>
+               <div class="row g-4 justify-content-center">
+                  <div class="col-6 col-md-3">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/aw.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran A&W">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">A&W</h6>
+                     </div>
                   </div>
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/chatime.png') }}" class="img-fluid rounded" style="max-width:130px;" alt="Gambar Minuman Chatime">
-                     <h4 class="mt-2">Chatime</h4>
+                  <div class="col-6 col-md-3">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/chatime.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Minuman Chatime">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">Chatime</h6>
+                     </div>
                   </div>
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/kfc.webp') }}" class="img-fluid rounded" style="max-width:130px;" alt="Gambar Restoran KFC">
-                     <h4 class="mt-2">KFC</h4>
+                  <div class="col-6 col-md-3">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/kfc.webp') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran KFC">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">KFC</h6>
+                     </div>
                   </div>
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/mcd.png') }}" class="w-10 rounded" alt="Gambar Restoran McDonald">
-                     <h4 class="mt-2">McDonald</h4>
+                  <div class="col-6 col-md-3">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/mcd.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran McDonald">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">McDonald</h6>
+                     </div>
                   </div>
                </div>
             </div>
 
             <div class="carousel-item">
-               <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/pizza-hut.png') }}" class="w-10 rounded" alt="Gambar Restoran Pizza Hut">
-                     <h4 class="mt-2">Pizza Hut</h4>
+               <div class="row g-4 justify-content-center">
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/pizza-hut.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran Pizza Hut">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">Pizza Hut</h6>
+                     </div>
                   </div>
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/raa-cha.webp') }}" class="w-10 rounded" alt="Gambar Restoran Raa Cha">
-                     <h4 class="mt-2">Raa Cha</h4>
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/raa-cha.webp') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran Raa Cha">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">Raa Cha</h6>
+                     </div>
                   </div>
-                  <div class="d-flex flex-column align-items-center">
-                     <img src="{{ asset('img/roti-o.png') }}" class="w-10 rounded" alt="Gambar Restoran Roti O">
-                     <h4 class="mt-2">Roti O</h4>
+                  <div class="col-md-4">
+                     <div class="text-center">
+                        <div class="image-container mb-3">
+                           <img src="{{ asset('img/roti-o.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran Roti O">
+                        </div>
+                        <h6 class="fw-bold" style="color: var(--dark);">Roti O</h6>
+                     </div>
                   </div>
                </div>
             </div>
          </div>
 
-         <button class="carousel-control-prev circle-btn bg-dark position-absolute top-50 start-0" type="button" data-bs-target="#restoranCarousel" data-bs-slide="prev">
+         <button class="carousel-control-prev" type="button" data-bs-target="#restoranCarousel" data-bs-slide="prev" style="background: var(--secondary); border-radius: 50%; width: 50px; height: 50px; margin-left: -25px;">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
          </button>
 
-         <button class="carousel-control-next circle-btn bg-dark position-absolute top-50 end-0" type="button" data-bs-target="#restoranCarousel" data-bs-slide="next">
+         <button class="carousel-control-next" type="button" data-bs-target="#restoranCarousel" data-bs-slide="next" style="background: var(--secondary); border-radius: 50%; width: 50px; height: 50px; margin-right: -25px;">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
          </button>
       </div>
    </div>
 
-   <div class="bg-primary w-100 mt-6 p-6">
-      <h2 class="text-center font-dark">Pesan <span class="fw-bolder">Antrianmu</span> Sekarang!</h2>
-      <a class="btn btn-dark fw-bolder d-grid gap-2 col-6 mx-auto w-50 mt-5 py-3" href="#" role="button">Pesan Antrian</a>
-   </div>
-
-   <div class="mt-5">
-      <h3 class="p-5 text-center">Kegiatan Seru Disini</h3>
-      <div class="d-flex flex-column align-items-center justify-content-center">
-         <a href="" class="text-decoration-none">
-            <div class="d-flex flex-column align-items-center">
-               <img src="{{asset('img/kegiatanseru1.jpg')}}" class="w-75-responsive-home rounded" alt="Gambar Acara Pertunjukan Robot">
-               <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Robot Show Dufan</p>
-            </div>
-         </a>
-         <div class="d-flex align-items-center justify-content-center mt-3 gap-5-home flex-xl-row flex-column">
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/kegiatanseru2.jpg')}}" class="w-20 rounded" alt="Gambar Acara Layangan Jakarta">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Bertualang Seru</p>
-               </div>
-            </a>
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/kegiatanseru3.jpg')}}" class="w-20 rounded" alt="Gambar Acara Layangan Jakarta">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Bermain Layangan</p>
-               </div>
-            </a>
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/kegiatanseru4.jpg')}}" class="w-20 rounded" alt="Gambar Acara Layangan Jakarta">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Menyelam</p>
-               </div>
-            </a>
-         </div>
-      </div>
-      <div class="d-flex justify-content-center mt-4 me-6 justify-content-xl-end">
-         <a class="text-decoration-none link-font btn-outline-dark btn" href="#">
-            Lihat kegiatan seru lainnya >
+   <!-- Queue Booking CTA -->
+   <div class="py-5" style="background: linear-gradient(135deg, var(--primary), #3a9d94);">
+      <div class="container text-center">
+         <h2 class="fw-bold mb-3 text-white">Pesan <span style="color: var(--warning);">Antrianmu</span> Sekarang!</h2>
+         <p class="lead text-white mb-4">Hindari antrian panjang dengan sistem booking online kami</p>
+         <a class="btn btn-secondary-custom btn-lg px-5" href="#" role="button">
+            <i class="bi bi-clock me-2"></i>Pesan Antrian
          </a>
       </div>
    </div>
 
-   <div class="mt-5">
-      <h3 class="p-5 text-center">Promo Spesial</h3>
-      <div class="d-flex flex-column align-items-center justify-content-center">
-         <div class="d-flex align-items-center justify-content-center mt-3 gap-5-home flex-xl-row flex-column">
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/atlantis.jpeg')}}" class="w-20 rounded" alt="Gambar Acara Layangan Jakarta">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Berenang paling HEMAT<br>cuman di ATLANTIS!</p>
-               </div>
-            </a>
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/dufan.jpeg')}}" class="w-20 rounded" alt="Gambar Acara Layangan Jakarta">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Main sambil belajar di<br>SEAWORLD HEMAT!</p>
-               </div>
-            </a>
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/seaworld.jpeg')}}" class="w-20 rounded" alt="Gambar Acara Layangan Jakarta">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Main di DUFAN,<br>HEMAT sepuasnya!</p>
-               </div>
-            </a>
-            
-         </div>
+   <!-- Fun Activities Section -->
+   <div class="container my-5">
+      <div class="text-center mb-5">
+         <h3 class="fw-bold" style="color: var(--dark);">Kegiatan Seru Disini</h3>
+         <hr class="section-divider w-25 mx-auto">
       </div>
-      <div class="d-flex justify-content-center mt-4 me-6 justify-content-xl-end">
-         <a class="text-decoration-none link-font btn-outline-dark btn" href="#">
-            Lihat promo lainnya >
-         </a>
-      </div>
-   </div>
 
-   <div class="mt-5">
-      <h3 class="p-5 text-center">Info Giliranku</h3>
-      <div class="d-flex flex-column align-items-center justify-content-center">
-         <a href="" class="text-decoration-none">
-            <div class="d-flex flex-column align-items-center">
-               <img src="{{asset('img/info1.jpg')}}" class="w-75-responsive-home rounded" alt="Gambar Pantai Ancol">
-               <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Kenapa Harus ke Ancol?</p>
-            </div>
-         </a>
-         <div class="d-flex align-items-center justify-content-center mt-3 gap-5-home flex-xl-row flex-column">
+      <div class="row g-4">
+         <div class="col-12">
             <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/info2.jpg')}}" class="w-20 rounded" alt="Gambar Wahana Dufan">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Klarifikasi Tornado Tutup</p>
-               </div>
-            </a>
-            <a href="" class="text-decoration-none">
-               <div class="d-flex flex-column align-items-center">
-                  <img src="{{asset('img/info3.jpg')}}" class="w-20 rounded" alt="Gambar Konser Ancol">
-                  <p class="mt-2 mb-3 fs-5 text-center text-decoration-none font-dark">Merayakan Konser di Tengah Pantai Ancol</p>
-               </div>
-            </a>
-         </div>
-      </div>
-      <div class="d-flex justify-content-center mt-4 me-6 mb-6 justify-content-xl-end">
-         <a class="text-decoration-none link-font btn-outline-dark btn" href="#">
-            Lihat kegiatan seru lainnya >
-         </a>
-      </div>
-   </div>
-
-   {{-- <div class="mt-5">
-      <h3 class="p-5 text-center">Info Ancol</h3>
-      <div class="d-flex flex-column align-items-center justify-content-center">
-         <div class="w-75">
-            <img src="{{asset('img/info1.jpg')}}" class="w-100 rounded" alt="Gambar Pantai Ancol">
-            <div class="text-center mt-3">
-               <p class="fw-bolder fs-4 mb-0">Kenapa Harus ke Ancol?</p>
-               <a href="" class="mt-1 mb-0 text-decoration-none fs-5">Baca selengkapnya ></a>
-            </div>
-         </div>
-
-         <div class="w-75 mt-5">
-            <a href="" class="text-decoration-none w-100">
-               <div class="d-flex align-items-center mt-5">
-                  <img src="{{asset('img/info2.jpg')}}" class="rounded w-50" alt="Gambar Konser Ancol">
-                  <div class="ms-0 d-flex flex-column justify-content-center">
-                     <p class="fw-bolder fs-5 mb-0 font-dark">Klarifikasi Wahana Tornado tutup</p>
-                     <a href="" class="mt-1 mb-0 text-decoration-none fs-5">Baca selengkapnya ></a>
+               <div class="card card-hover border-0 shadow-sm">
+                  <div class="row g-0">
+                     <div class="col-md-6">
+                        <div class="image-container">
+                           <img src="{{asset('img/kegiatanseru1.jpg')}}" class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="Gambar Acara Pertunjukan Robot">
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="card-body d-flex flex-column justify-content-center h-100 p-4">
+                           <h4 class="card-title fw-bold" style="color: var(--primary);">Robot Show Dufan</h4>
+                           <p class="card-text text-muted">Saksikan pertunjukan robot yang mengagumkan dengan teknologi terdepan dan efek visual yang memukau.</p>
+                           <div class="mt-3">
+                              <span class="btn btn-outline-primary">Lihat Detail</span>
+                           </div>
+                        </div>
+                     </div>
                   </div>
                </div>
             </a>
-            <a href="" class="text-decoration-none w-100">
-               <div class="d-flex align-items-center mt-5">
-                  <img src="{{asset('img/info3.jpg')}}" class="rounded w-50" alt="Gambar Konser Ancol">
-                  <div class="ms-0 d-flex flex-column justify-content-center">
-                     <p class="fw-bolder fs-5 mb-0 font-dark">Merayakan konser di tengah Pantai Ancol</p>
-                     <a href="" class="mt-1 mb-0 text-decoration-none fs-5">Baca selengkapnya ></a>
+         </div>
+
+         <div class="col-md-4">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/kegiatanseru2.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Acara Layangan Jakarta">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--dark);">Bertualang Seru</h6>
+                     <p class="card-text text-muted small">Petualangan seru menanti Anda</p>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="col-md-4">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/kegiatanseru3.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Acara Layangan Jakarta">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--dark);">Bermain Layangan</h6>
+                     <p class="card-text text-muted small">Nikmati kebebasan di udara terbuka</p>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="col-md-4">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/kegiatanseru4.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Acara Layangan Jakarta">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--dark);">Menyelam</h6>
+                     <p class="card-text text-muted small">Jelajahi keindahan bawah air</p>
                   </div>
                </div>
             </a>
          </div>
       </div>
-      <div class="d-flex justify-content-center mt-5 me-6 mb-6 justify-content-xl-end">
-         <a class="text-decoration-none link-font btn-outline-dark btn" href="#">
-            Lihat informasi lainnya >
+
+      <div class="text-center mt-4">
+         <a class="btn btn-outline-primary" href="#">
+            Lihat kegiatan seru lainnya <i class="bi bi-arrow-right ms-1"></i>
          </a>
       </div>
-   </div> --}}
+   </div>
+
+   <!-- Special Promotions Section -->
+   <div class="container my-5">
+      <div class="text-center mb-5">
+         <h3 class="fw-bold" style="color: var(--dark);">Promo Spesial</h3>
+         <hr class="section-divider w-25 mx-auto">
+      </div>
+
+      <div class="row g-4">
+         <div class="col-md-4">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/atlantis.jpeg')}}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Gambar Promo Atlantis">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--secondary);">Berenang paling HEMAT</h6>
+                     <p class="card-text text-muted">cuman di ATLANTIS!</p>
+                     <div class="mt-3">
+                        <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="col-md-4">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/dufan.jpeg')}}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Gambar Promo Dufan">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--secondary);">Main sambil belajar di</h6>
+                     <p class="card-text text-muted">SEAWORLD HEMAT!</p>
+                     <div class="mt-3">
+                        <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="col-md-4">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/seaworld.jpeg')}}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Gambar Promo Seaworld">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--secondary);">Main di DUFAN,</h6>
+                     <p class="card-text text-muted">HEMAT sepuasnya!</p>
+                     <div class="mt-3">
+                        <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+      </div>
+
+      <div class="text-center mt-4">
+         <a class="btn btn-outline-danger" href="#">
+            Lihat promo lainnya <i class="bi bi-arrow-right ms-1"></i>
+         </a>
+      </div>
+   </div>
+
+   <!-- Info Giliranku Section -->
+   <div class="container my-5 mb-6">
+      <div class="text-center mb-5">
+         <h3 class="fw-bold" style="color: var(--dark);">Info Giliranku</h3>
+         <hr class="section-divider w-25 mx-auto">
+      </div>
+
+      <div class="row g-4">
+         <div class="col-12">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm">
+                  <div class="row g-0">
+                     <div class="col-md-6">
+                        <div class="image-container">
+                           <img src="{{asset('img/info1.jpg')}}" class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="Gambar Pantai Ancol">
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="card-body d-flex flex-column justify-content-center h-100 p-4">
+                           <h4 class="card-title fw-bold" style="color: var(--primary);">Kenapa Harus ke Ancol?</h4>
+                           <p class="card-text text-muted">Temukan alasan mengapa Ancol menjadi destinasi wisata favorit keluarga Indonesia dengan berbagai fasilitas lengkap dan wahana seru.</p>
+                           <div class="mt-3">
+                              <span class="btn btn-outline-primary">Baca Selengkapnya</span>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="col-md-6">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/info2.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Wahana Dufan">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--dark);">Klarifikasi Tornado Tutup</h6>
+                     <p class="card-text text-muted">Informasi terbaru mengenai status wahana Tornado</p>
+                     <div class="mt-3">
+                        <span class="btn btn-outline-secondary btn-sm">Baca Selengkapnya</span>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+
+         <div class="col-md-6">
+            <a href="" class="text-decoration-none">
+               <div class="card card-hover border-0 shadow-sm h-100">
+                  <div class="image-container">
+                     <img src="{{asset('img/info3.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Konser Ancol">
+                  </div>
+                  <div class="card-body text-center">
+                     <h6 class="card-title fw-bold" style="color: var(--dark);">Merayakan Konser di Tengah Pantai Ancol</h6>
+                     <p class="card-text text-muted">Pengalaman unik konser dengan pemandangan pantai yang memukau</p>
+                     <div class="mt-3">
+                        <span class="btn btn-outline-secondary btn-sm">Baca Selengkapnya</span>
+                     </div>
+                  </div>
+               </div>
+            </a>
+         </div>
+      </div>
+
+      <div class="text-center mt-4">
+         <a class="btn btn-outline-primary" href="#">
+            Lihat informasi lainnya <i class="bi bi-arrow-right ms-1"></i>
+         </a>
+      </div>
+   </div>
 </div>
