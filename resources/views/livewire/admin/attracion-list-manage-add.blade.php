@@ -29,7 +29,8 @@
 
                         {{-- Upload Foto Column --}}
                         <div class="d-flex flex-row w-100">
-                            <div class="d-flex   w-75 position-relative">
+                            <div class="d-flex w-75 position-relative">
+                                {{-- Cover besar --}}
                                 @if($photo)
                                     <img src="{{ $photo->temporaryUrl() }}"
                                         style="width:100%; max-width:300px; height:200px; object-fit:cover; border-radius:3px;" />
@@ -38,13 +39,40 @@
                                         class="border rounded-3 d-flex flex-column align-items-center justify-content-center"
                                         style="width:100%; max-width:300px; height:200px; cursor:pointer;">
                                         <i class="bi bi-camera" style="font-size:2.5rem;"></i>
-                                        <span style=" margin-top:.5rem;">Upload Foto</span>
+                                        <span class="mt-2">Upload Foto</span>
                                         <input type="file" id="photo" wire:model="photo" class="d-none" />
                                     </label>
                                 @endif
-                                <i class="bi bi-pencil position-absolute  end-0 translate-middle text-black"
-                                    style="margin-right: 2vw;margin-top: 28vh;"></i>
+                                <i class="bi bi-pencil position-absolute end-0 translate-middle text-black"
+                                    style="margin-right:2vw; margin-top:28vh;"></i>
                                 @error('photo') <div class="text-danger small mt-2">{{ $message }}</div> @enderror
+
+                                {{-- Baris tiga upload kecil di bawah cover --}}
+                                <div class="d-flex gap-2 position-absolute bottom-0 ms-1" style=" margin-bottom: 7vh;">
+                                    @for($i = 1; $i <= 3; $i++)
+                                        @php $prop = 'img' . $i; @endphp
+                                        <div class="border rounded-3 d-flex align-items-center justify-content-center"
+                                            style="width:90px; height:60px; position:relative; cursor:pointer;">
+                                            @if(isset($$prop) && $$prop instanceof \Livewire\TemporaryUploadedFile)
+                                                <img src="{{ $$prop->temporaryUrl() }}"
+                                                    style="width:100%; height:100%; object-fit:cover; border-radius:3px;" />
+                                            @else
+                                                <i class="bi bi-camera" style="font-size:1.2rem;"></i>
+                                            @endif
+
+                                            <input type="file" id="img{{ $i }}" wire:model="img{{ $i }}" class="d-none" />
+                                            <label for="img{{ $i }}"
+                                                class="position-absolute w-100 h-100 top-0 start-0"></label>
+                                            <i class="bi bi-pencil position-absolute text-black"
+                                                style="bottom:2px; right:4px; font-size:.8rem;"></i>
+                                            @error('img' . $i)
+                                                <div class="text-danger small position-absolute" style="bottom:-1.2rem;">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    @endfor
+                                </div>
                             </div>
 
                             {{-- Input Fields Column --}}
