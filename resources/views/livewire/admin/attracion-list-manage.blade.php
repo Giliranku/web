@@ -1,19 +1,24 @@
 <div>
     <div class="p-5">
         <!-- Search & Filter -->
+        {{-- resources/views/livewire/admin/attracion-list-manage.blade.php --}}
         <div class="d-flex gap-4 mb-4">
             <div class="shadow border rounded flex-grow-1 position-relative">
                 <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ps-3 text-secondary"></i>
-                <input wire:model.debounce.300ms="search" type="text" class="form-control ps-5"
-                    placeholder="Cari wahana...">
+                <input wire:model.live="search" type="text" class="form-control ps-5" placeholder="Cari wahana...">
             </div>
+
             <div class="shadow border rounded" style="width:200px;">
-                <select wire:model="filterType" class="form-select border-0">
-                    <option value="Wahana">Wahana</option>
-                    <option value="Restoran">Restoran</option>
+                <select wire:model.live="filterType" class="form-select border-0">
+                    <option value="none">Urutkan</option>
+                    <option value="capacity_desc">Kapasitas Terbesar</option>
+                    <option value="capacity_asc">Kapasitas Terkecil</option>
+                    <option value="time_estimation_desc">Durasi Terlama</option>
+                    <option value="time_estimation_asc">Durasi Terpendek</option>
                 </select>
             </div>
         </div>
+
 
         <!-- Header -->
         <div class="card shadow p-3 mb-4 bg-body-tertiary rounded">
@@ -54,10 +59,12 @@
                             <a href="{{ route('attractions.edit', $atr) }}" class="btn btn-warning" style="width:75px;">
                                 <i class="bi bi-pencil-fill" ;"></i>
                             </a>
-                            <button type="button" class="btn btn-danger"
-                                wire:click="$emit('confirmDelete', {{ $atr->id }})">
+                            <button type="button" class="btn btn-danger" wire:click="confirmDelete({{ $atr->id }})"
+                                data-bs-toggle="modal" data-bs-target="#deleteConfirmation">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
+
+
                         </div>
                     </div>
                 </div>
@@ -69,17 +76,20 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-hidden="true" wire:ignore.self>
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" wire:ignore.self>
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-3">
                 <div class="modal-body text-center p-4">
                     <h5 class="mb-3">Apakah Anda yakin akan menghapus wahana ini?</h5>
                     <div class="d-flex justify-content-center gap-3">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="button" class="btn btn-danger" wire:click="delete($deleteId)">Hapus</button>
+                        <button type="button" class="btn btn-danger" wire:click="delete()" data-bs-dismiss="modal">
+                            Hapus
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>

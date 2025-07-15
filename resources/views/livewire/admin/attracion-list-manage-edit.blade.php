@@ -11,7 +11,7 @@
             <!-- Judul -->
             <div class="d-flex align-items-center mb-4">
                 <div style="width:4px; height:24px; background:#FFC107; border-radius:2px;"></div>
-                <h2 class="ms-2 mb-0">Tambahkan Wahana</h2>
+                <h2 class="ms-2 mb-0">Edit Wahana</h2>
             </div>
             <button type="button" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close"
                 data-bs-dismiss="modal"></button>
@@ -25,27 +25,39 @@
                 <!-- Form (kanan), flex‑column agar tombol di bawah -->
                 <div class="d-flex  w-100" style="">
 
-                    <form wire:submit.prevent="save" class="d-flex flex-column w-100" style="gap:2rem;">
+                    <form wire:submit.prevent="update" class="d-flex flex-column w-100" style="gap:2rem;">
 
                         {{-- Upload Foto Column --}}
                         <div class="d-flex flex-row w-100">
-                            <div class="d-flex   w-75 position-relative">
+                            <div class="d-flex w-75 position-relative">
                                 @if($photo)
+                                    {{-- preview foto baru --}}
                                     <img src="{{ $photo->temporaryUrl() }}"
                                         style="width:100%; max-width:300px; height:200px; object-fit:cover; border-radius:3px;" />
+                                @elseif($cover)
+                                    {{-- tampilkan cover lama --}}
+                                    <img src="{{ asset('storage/' . $cover) }}"
+                                        style="width:100%; max-width:300px; height:200px; object-fit:cover; border-radius:3px;" />
                                 @else
+                                    {{-- placeholder --}}
                                     <label for="photo"
                                         class="border rounded-3 d-flex flex-column align-items-center justify-content-center"
                                         style="width:100%; max-width:300px; height:200px; cursor:pointer;">
                                         <i class="bi bi-camera" style="font-size:2.5rem;"></i>
-                                        <span style=" margin-top:.5rem;">Upload Foto</span>
+                                        <span style="margin-top:.5rem;">Upload Foto</span>
                                         <input type="file" id="photo" wire:model="photo" class="d-none" />
                                     </label>
                                 @endif
-                                <i class="bi bi-pencil position-absolute  end-0 translate-middle text-black"
-                                    style="margin-right: 2vw;margin-top: 28vh;"></i>
-                                @error('photo') <div class="text-danger small mt-2">{{ $message }}</div> @enderror
+
+                                {{-- pencil icon --}}
+                                <i class="bi bi-pencil position-absolute end-0"
+                                    style="margin-right:2vw; margin-top:28vh; color:#000;"></i>
+
+                                @error('photo')
+                                    <div class="text-danger small mt-2">{{ $message }}</div>
+                                @enderror
                             </div>
+
 
                             {{-- Input Fields Column --}}
                             <div class="d-flex flex-column w-100" style=" gap:1rem;">
@@ -63,7 +75,7 @@
                                 {{-- Deskripsi --}}
                                 <span>Deskripsi</span>
                                 <div class="position-relative">
-                                    <textarea wire:model.defer=" description" placeholder="Deskripsi" rows="4" class="form-control border
+                                    <textarea wire:model.defer="description" placeholder="Deskripsi" rows="4" class="form-control border
                                                             rounded-3 ps-4 pe-5"></textarea>
                                     <i class="bi bi-pencil position-absolute top-0 end-0 mt-2 me-3 text-black"></i>
                                 </div>
@@ -106,7 +118,7 @@
                         <div class="d-flex justify-content-center mt-4 w-100">
                             <button type="submit" class="btn btn-primary w-50 rounded-4 text-light mx-auto"
                                 style="font-weight:600; padding:.75rem 1.5rem;">
-                                Tambahkan Wahana
+                                Edit Wahana
                             </button>
                         </div>
                     </form>
@@ -120,7 +132,7 @@
     {{-- Mobile Version --}}
     <div class="d-block d-md-none" style="padding:1rem; background:#f8f9fa;">
         <div class="card mx-3 my-3 p-4 rounded-3" style="background:#fff;">
-            <form wire:submit.prevent="save" class="d-flex flex-column gap-3">
+            <form wire:submit.prevent="update" class="d-flex flex-column gap-3">
 
                 {{-- Upload Foto --}}
                 <div class="position-relative">
@@ -130,7 +142,7 @@
                         <i class="bi bi-camera" style="font-size:2rem; color:#FF4E1B;"></i>
                         <span style="color:#FF4E1B; margin-top:.5rem;">Upload Foto</span>
                         <input type="file" id="photoM" wire:model="photo" class="d-none" />
-                        <i class="bi bi-pencil position-absolute bottom-0 end-0 me-3 mb-2 text-secondary"></i>
+                        <i class="bi bi-pencil position-absolute bottom-0 end-0 me- mb-2 text-secondary"></i>
                     </div>
                     @error('photo') <div class="text-danger small text-center">{{ $message }}</div> @enderror
                 </div>

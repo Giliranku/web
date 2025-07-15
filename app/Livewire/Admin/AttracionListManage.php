@@ -11,7 +11,8 @@ class AttracionListManage extends Component
     use WithPagination;
 
     public $search = '';
-    public $filterType = 'Wahana';
+    public $filterType = 'none';
+    public $deleteId;   // untuk menampung ID yang akan dihapus
 
     protected $queryString = ['search', 'filterType'];
 
@@ -25,24 +26,44 @@ class AttracionListManage extends Component
         $this->resetPage();
     }
 
+    // dipanggil saat user klik ikon trash
+    public function confirmDelete($id)
+    {
+        $this->deleteId = $id;
+    }
+
+    // dipanggil saat user klik “Hapus” di modal
+    public function delete()
+    {
+        Attraction::destroy($this->deleteId);
+
+        session()->flash('message', 'Wahana berhasil dihapus.');
+
+        // gak perlu emit atau redirect, kita tetap di halaman daftar
+    }
+
     public function render()
     {
-        $query = Attraction::query();
 
-        if ($this->search) {
-            $query->where('name', 'like', "%{$this->search}%");
+        $query = Attraction::query()
+            ->when($this->search, fn($q) => $q->where('name', 'like', "%{$this->search}%"));
+
+        if ($this->filterType !== 'none') {
+            // pecah string by underscore
+            $parts = explode('_', $this->filterType);
+            // ambil elemen terakhir sebagai direction (asc|desc)
+            $direction = array_pop($parts);
+            // gabung sisanya jadi nama kolom: "time_estimation"
+            $field = implode('_', $parts);
+
+            // sekarang orderBy dengan benar
+            $query->orderBy($field, $direction);
+        } else {
+            $query->orderBy('created_at', 'desc');
         }
-
-        // Only attractions by default; you can extend to restaurants if you add a type column
-        if ($this->filterType === 'Wahana') {
-            // no extra clause, or ->where('type','wahana')
-        }
-
-        $attractions = $query->orderBy('created_at', 'desc')
-            ->paginate(10);
 
         return view('livewire.admin.attracion-list-manage', [
-            'attractions' => $attractions,
+            'attractions' => $query->paginate(10),
         ]);
     }
 }

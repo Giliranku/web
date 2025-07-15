@@ -12,7 +12,7 @@ class AttracionListManageAdd extends Component
     public $name;
     public $description;
     public $capacity;
-    public $duration;
+    public $duration; // dalam jam
     public $photo;
 
     protected $rules = [
@@ -27,31 +27,30 @@ class AttracionListManageAdd extends Component
     {
         $this->validate();
 
-        // Simpan foto sebagai cover
+        // 1) simpan foto (cover) jika ada
         $coverPath = $this->photo
             ? $this->photo->store('attractions', 'public')
             : null;
 
-        // Ambil staff terkait dari user yang sedang login
-        $staff = auth()->user()->staff;
-        if (!$staff) {
-            session()->flash('error', 'Staff tidak ditemukan.');
-            return;
-        }
-
-        // Buat record baru di tabel attractions
-        Attraction::create([
+        // 2) persiapkan data untuk insert
+        $data = [
             'name' => $this->name,
-            'location' => '–',     // bisa disesuaikan jika menambahkan input location
+            'location' => '-',                        // default placeholder
             'capacity' => $this->capacity,
-            'time_estimation' => intval($this->duration * 60), // konversi jam ke menit
+            'time_estimation' => intval($this->duration * 60), // konversi jam→menit
             'description' => $this->description,
             'cover' => $coverPath,
+
+            // karena migrasi kamu menetapkan NOT NULL untuk kolom ini,
+            // kita beri default kosong atau angka tetap:
             'img1' => '',
             'img2' => '',
             'img3' => '',
-            'staff_id' => $staff->id,
-        ]);
+            'staff_id' => 1, // ganti dengan ID admin/staff default-mu
+        ];
+
+        // 3) insert
+        Attraction::create($data);
 
         session()->flash('message', 'Wahana berhasil ditambahkan.');
         return redirect()->route('attractions.manage');

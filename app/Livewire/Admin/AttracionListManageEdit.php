@@ -11,11 +11,13 @@ class AttracionListManageEdit extends Component
     use WithFileUploads;
 
     public Attraction $attraction;
+
     public $name;
     public $description;
     public $capacity;
-    public $duration;
-    public $photo;
+    public $duration;    // dalam satuan jam
+    public $photo;       // upload file baru
+    public $cover;       // path cover lama
 
     protected function rules()
     {
@@ -34,28 +36,36 @@ class AttracionListManageEdit extends Component
         $this->name = $attraction->name;
         $this->description = $attraction->description;
         $this->capacity = $attraction->capacity;
-        $this->duration = $attraction->duration;
+        $this->duration = $attraction->time_estimation / 60; // konversi menit→jam
+        $this->cover = $attraction->cover;               // path cover lama
     }
 
-    public function save()
+
+    public function update()
     {
         $this->validate();
 
+        // jika ada upload baru, simpan dan timpa cover
         if ($this->photo) {
-            $path = $this->photo->store('attractions', 'public');
-            $this->attraction->cover = $path;
+            $this->cover = $this->photo->store('attractions', 'public');
         }
 
+        // simpan ke DB, gunakan kolom time_estimation
         $this->attraction->update([
             'name' => $this->name,
             'description' => $this->description,
             'capacity' => $this->capacity,
-            'duration' => $this->duration,
+            'time_estimation' => intval($this->duration * 60),
+            'cover' => $this->cover,
         ]);
 
-        session()->flash('success', 'Data wahana berhasil diperbarui.');
-
-        return redirect()->route('admin.attractions.manage');
+        session()->flash('success', 'Wahana berhasil diperbarui.');
+        return redirect()->route('attractions.manage');
     }
 
+    public function render()
+    {
+        return view('livewire.admin.attracion-list-manage-edit')
+            ->layout('components.layouts.dashboard-admin');
+    }
 }
