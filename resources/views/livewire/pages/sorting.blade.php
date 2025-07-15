@@ -91,7 +91,7 @@
         @forelse($items as $item)
             <div class="w-100 bg-light shadow p-3 mt-3 rounded">
                 <div class="d-flex flex-row gap-4 flex-wrap flex-md-nowrap position-relative">
-                    <img src="{{ asset($item->cover ?? 'img/mekdi.png') }}" alt="" class="thumbnail img-fluid w-100" style="max-width: 400px; height: auto;">
+                    <img src="{{ 'img/'.$item->cover}}" alt="" class="thumbnail img-fluid w-100" style="max-width: 400px; height: auto;">
                     <div class="d-flex flex-column flex-grow-1 pb-5">
                         <h5>{{ $item->type }}</h5>
                         <h2 class="fw-bold">{{ $item->name }}</h2>
@@ -129,6 +129,7 @@
             <div class="alert alert-warning mt-4">Data tidak ditemukan.</div>
         @endforelse
     </div>
+    @push('styles')
     <style>
     @media (max-width: 767.98px) {
         .search-container .d-flex.flex-row.gap-4 {
@@ -153,4 +154,5 @@
         }
     }
     </style>
+    @endpush
 </div>

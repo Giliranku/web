@@ -95,6 +95,55 @@
    .image-container:hover::after {
       background: linear-gradient(45deg, transparent, rgba(74, 189, 172, 0.2));
    }
+   
+   /* Mobile Carousel Fixes */
+   @media (max-width: 767.98px) {
+      .mobile-carousel-container {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         gap: 15px;
+         padding: 0 20px;
+      }
+      
+      .mobile-carousel-item {
+         flex-shrink: 0;
+         text-align: center;
+      }
+      
+      .mobile-carousel-item.main {
+         transform: scale(1.1);
+         z-index: 10;
+      }
+      
+      .mobile-carousel-item.side {
+         opacity: 0.7;
+         transform: scale(0.85);
+      }
+      
+      .mobile-carousel-item img {
+         width: 80px !important;
+         height: 80px !important;
+         object-fit: cover;
+         border-radius: 12px;
+      }
+      
+      .mobile-carousel-item.main img {
+         width: 100px !important;
+         height: 100px !important;
+      }
+      
+      .mobile-carousel-item h6 {
+         font-size: 0.7rem !important;
+         margin-top: 8px !important;
+         margin-bottom: 0 !important;
+         line-height: 1.2 !important;
+      }
+      
+      .mobile-carousel-item.main h6 {
+         font-size: 0.8rem !important;
+      }
+   }
 </style>
 @endpush
 
@@ -285,73 +334,167 @@
          <hr class="section-divider w-25 mx-auto">
       </div>
 
-      <div id="wahanaCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div id="wahanaCarousel" class="carousel slide position-relative" data-bs-ride="carousel">
          <div class="carousel-inner">
             <div class="carousel-item active">
-               <div class="row g-4 justify-content-center">
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/halilintar.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Halilintar">
-                        </div>
-                        <h5 class="fw-bold" style="color: var(--dark);">Halilintar</h5>
+               <!-- Mobile Layout (3 items: side-main-side) -->
+               <div class="d-md-none">
+                  <div class="mobile-carousel-container">
+                     <div class="mobile-carousel-item side">
+                        <img src="{{ asset('img/ontang-anting.jpg') }}" alt="Gambar Wahana Ontang Anting">
+                        <h6 class="fw-bold" style="color: var(--dark);">Ontang Anting</h6>
+                     </div>
+                     <div class="mobile-carousel-item main">
+                        <img src="{{ asset('img/halilintar.jpg') }}" alt="Gambar Wahana Halilintar">
+                        <h6 class="fw-bold" style="color: var(--dark);">Halilintar</h6>
+                     </div>
+                     <div class="mobile-carousel-item side">
+                        <img src="{{ asset('img/arung-jeram.jpg') }}" alt="Gambar Wahana Arung Jeram">
+                        <h6 class="fw-bold" style="color: var(--dark);">Arung Jeram</h6>
                      </div>
                   </div>
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/arung-jeram.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Arung Jeram">
+               </div>
+
+               <!-- Tablet Layout (2 items per row) -->
+               <div class="d-none d-md-block d-lg-none">
+                  <div class="row g-4 justify-content-center">
+                     <div class="col-6">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/halilintar.jpg') }}" class="img-fluid rounded-3" style="width: 180px; height: 180px; object-fit: cover;" alt="Gambar Wahana Halilintar">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Halilintar</h5>
                         </div>
-                        <h5 class="fw-bold" style="color: var(--dark);">Arung Jeram</h5>
+                     </div>
+                     <div class="col-6">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/arung-jeram.jpg') }}" class="img-fluid rounded-3" style="width: 180px; height: 180px; object-fit: cover;" alt="Gambar Wahana Arung Jeram">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Arung Jeram</h5>
+                        </div>
                      </div>
                   </div>
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/bianglala.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Bianglala">
+               </div>
+
+               <!-- Desktop Layout (3 items per row) -->
+               <div class="d-none d-lg-block">
+                  <div class="row g-4 justify-content-center">
+                     <div class="col-md-4">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/halilintar.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Halilintar">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Halilintar</h5>
                         </div>
-                        <h5 class="fw-bold" style="color: var(--dark);">Bianglala</h5>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/arung-jeram.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Arung Jeram">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Arung Jeram</h5>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/bianglala.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Bianglala">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Bianglala</h5>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
+
             <div class="carousel-item">
-               <div class="row g-4 justify-content-center">
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/ice-age.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Ice Age">
-                        </div>
-                        <h5 class="fw-bold" style="color: var(--dark);">Ice Age</h5>
+               <!-- Mobile Layout (3 items: side-main-side) -->
+               <div class="d-md-none">
+                  <div class="mobile-carousel-container">
+                     <div class="mobile-carousel-item side">
+                        <img src="{{ asset('img/halilintar.jpg') }}" alt="Gambar Wahana Halilintar">
+                        <h6 class="fw-bold" style="color: var(--dark);">Halilintar</h6>
+                     </div>
+                     <div class="mobile-carousel-item main">
+                        <img src="{{ asset('img/bianglala.jpg') }}" alt="Gambar Wahana Bianglala">
+                        <h6 class="fw-bold" style="color: var(--dark);">Bianglala</h6>
+                     </div>
+                     <div class="mobile-carousel-item side">
+                        <img src="{{ asset('img/ice-age.jpg') }}" alt="Gambar Wahana Ice Age">
+                        <h6 class="fw-bold" style="color: var(--dark);">Ice Age</h6>
                      </div>
                   </div>
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/kora-kora.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Kora Kora">
+               </div>
+
+               <!-- Tablet Layout (2 items per row) -->
+               <div class="d-none d-md-block d-lg-none">
+                  <div class="row g-4 justify-content-center">
+                     <div class="col-6">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/bianglala.jpg') }}" class="img-fluid rounded-3" style="width: 180px; height: 180px; object-fit: cover;" alt="Gambar Wahana Bianglala">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Bianglala</h5>
                         </div>
-                        <h5 class="fw-bold" style="color: var(--dark);">Kora Kora</h5>
+                     </div>
+                     <div class="col-6">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/ice-age.jpg') }}" class="img-fluid rounded-3" style="width: 180px; height: 180px; object-fit: cover;" alt="Gambar Wahana Ice Age">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Ice Age</h5>
+                        </div>
                      </div>
                   </div>
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/ontang-anting.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Ontang Anting">
+               </div>
+
+               <!-- Desktop Layout (3 items per row) -->
+               <div class="d-none d-lg-block">
+                  <div class="row g-4 justify-content-center">
+                     <div class="col-md-4">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/ice-age.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Ice Age">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Ice Age</h5>
                         </div>
-                        <h5 class="fw-bold" style="color: var(--dark);">Ontang Anting</h5>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/kora-kora.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Kora Kora">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Kora Kora</h5>
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="text-center">
+                           <div class="image-container mb-3">
+                              <img src="{{ asset('img/ontang-anting.jpg') }}" class="img-fluid rounded-3" style="width: 200px; height: 200px; object-fit: cover;" alt="Gambar Wahana Ontang Anting">
+                           </div>
+                           <h5 class="fw-bold" style="color: var(--dark);">Ontang Anting</h5>
+                        </div>
                      </div>
                   </div>
                </div>
             </div>
          </div>
 
-         <button class="carousel-control-prev" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="prev" style="background: var(--primary); border-radius: 50%; width: 50px; height: 50px; margin-left: -25px;">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <!-- Fixed carousel controls -->
+         <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="prev">
+            <div class="d-flex align-items-center justify-content-center" 
+                 style="width: 50px; height: 50px; background: var(--primary); border-radius: 50%; transition: all 0.3s ease; margin-left: 15px;">
+               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </div>
             <span class="visually-hidden">Previous</span>
          </button>
 
-         <button class="carousel-control-next" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="next" style="background: var(--primary); border-radius: 50%; width: 50px; height: 50px; margin-right: -25px;">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y" type="button" data-bs-target="#wahanaCarousel" data-bs-slide="next">
+            <div class="d-flex align-items-center justify-content-center" 
+                 style="width: 50px; height: 50px; background: var(--primary); border-radius: 50%; transition: all 0.3s ease; margin-right: 15px;">
+               <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </div>
             <span class="visually-hidden">Next</span>
          </button>
       </div>
@@ -366,84 +509,107 @@
          <hr class="section-divider w-25 mx-auto">
       </div>
 
-      <div id="restoranCarousel" class="carousel slide" data-bs-ride="carousel">
-         <div class="carousel-inner">
-            <div class="carousel-item active">
-               <div class="row g-4 justify-content-center">
-                  <div class="col-6 col-md-3">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/aw.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran A&W">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">A&W</h6>
-                     </div>
+      <!-- Restaurant Static Display (No Carousel) -->
+      <div class="position-relative">
+         <!-- Mobile Layout (3 items: side-main-side) -->
+         <div class="d-md-none">
+            <div class="mobile-carousel-container">
+               <div class="mobile-carousel-item side">
+                  <div style="background: white; padding: 15px; border-radius: 12px;">
+                     <img src="{{ asset('img/roti-o.png') }}" style="object-fit: contain; height: 80px;" alt="Gambar Restoran Roti O">
                   </div>
-                  <div class="col-6 col-md-3">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/chatime.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Minuman Chatime">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">Chatime</h6>
-                     </div>
+                  <h6 class="fw-bold" style="color: var(--dark);">Roti O</h6>
+               </div>
+               <div class="mobile-carousel-item main">
+                  <div style="background: white; padding: 15px; border-radius: 12px;">
+                     <img src="{{ asset('img/aw.png') }}" style="object-fit: contain; height: 100px;" alt="Gambar Restoran A&W">
                   </div>
-                  <div class="col-6 col-md-3">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/kfc.webp') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran KFC">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">KFC</h6>
-                     </div>
+                  <h6 class="fw-bold" style="color: var(--dark);">A&W</h6>
+               </div>
+               <div class="mobile-carousel-item side">
+                  <div style="background: white; padding: 15px; border-radius: 12px;">
+                     <img src="{{ asset('img/chatime.png') }}" style="object-fit: contain; height: 80px;" alt="Gambar Minuman Chatime">
                   </div>
-                  <div class="col-6 col-md-3">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/mcd.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran McDonald">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">McDonald</h6>
-                     </div>
-                  </div>
+                  <h6 class="fw-bold" style="color: var(--dark);">Chatime</h6>
                </div>
             </div>
+         </div>
 
-            <div class="carousel-item">
-               <div class="row g-4 justify-content-center">
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/pizza-hut.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran Pizza Hut">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">Pizza Hut</h6>
+         <!-- Tablet Layout (2 items per row) -->
+         <div class="d-none d-md-block d-lg-none">
+            <div class="row g-4 justify-content-center">
+               <div class="col-6">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/aw.png') }}" class="img-fluid" style="object-fit: contain; height: 120px;" alt="Gambar Restoran A&W">
                      </div>
+                     <h5 class="fw-bold" style="color: var(--dark);">A&W</h5>
                   </div>
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/raa-cha.webp') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran Raa Cha">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">Raa Cha</h6>
+               </div>
+               <div class="col-6">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/chatime.png') }}" class="img-fluid" style="object-fit: contain; height: 120px;" alt="Gambar Minuman Chatime">
                      </div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="text-center">
-                        <div class="image-container mb-3">
-                           <img src="{{ asset('img/roti-o.png') }}" class="img-fluid rounded-3" style="width: 130px; height: 130px; object-fit: cover;" alt="Gambar Restoran Roti O">
-                        </div>
-                        <h6 class="fw-bold" style="color: var(--dark);">Roti O</h6>
-                     </div>
+                     <h5 class="fw-bold" style="color: var(--dark);">Chatime</h5>
                   </div>
                </div>
             </div>
          </div>
 
-         <button class="carousel-control-prev" type="button" data-bs-target="#restoranCarousel" data-bs-slide="prev" style="background: var(--secondary); border-radius: 50%; width: 50px; height: 50px; margin-left: -25px;">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-         </button>
-
-         <button class="carousel-control-next" type="button" data-bs-target="#restoranCarousel" data-bs-slide="next" style="background: var(--secondary); border-radius: 50%; width: 50px; height: 50px; margin-right: -25px;">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-         </button>
+         <!-- Desktop Layout (3+ items per row) -->
+         <div class="d-none d-lg-block">
+            <div class="row g-4 justify-content-center">
+               <div class="col-md-2">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/aw.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran A&W">
+                     </div>
+                     <h6 class="fw-bold" style="color: var(--dark);">A&W</h6>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/chatime.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Minuman Chatime">
+                     </div>
+                     <h6 class="fw-bold" style="color: var(--dark);">Chatime</h6>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/kfc.webp') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran KFC">
+                     </div>
+                     <h6 class="fw-bold" style="color: var(--dark);">KFC</h6>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/mcd.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran McDonald">
+                     </div>
+                     <h6 class="fw-bold" style="color: var(--dark);">McDonald</h6>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/pizza-hut.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran Pizza Hut">
+                     </div>
+                     <h6 class="fw-bold" style="color: var(--dark);">Pizza Hut</h6>
+                  </div>
+               </div>
+               <div class="col-md-2">
+                  <div class="text-center">
+                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                        <img src="{{ asset('img/roti-o.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran Roti O">
+                     </div>
+                     <h6 class="fw-bold" style="color: var(--dark);">Roti O</h6>
+                  </div>
+               </div>
+            </div>
+         </div>
       </div>
    </div>
 

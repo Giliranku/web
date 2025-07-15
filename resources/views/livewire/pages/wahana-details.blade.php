@@ -242,17 +242,15 @@
 
         <!-- Deskripsi -->
         <div class="mb-4">
+            
             <h5 class="mb-3"><strong>Deskripsi</strong></h5>
-            <p class="text-justify">{{ $item->description }}</p>
+            <p>{{ $item->description }}</p>
         </div>
 
         <!-- Lokasi -->
         <div class="mb-4">
             <h5 class="mb-3"><strong>Lokasi</strong></h5>
-            <div class="d-flex align-items-center">
-                <i class="fas fa-map-marker-alt me-2 text-danger"></i>
-                <span>{{ $item->location }}</span>
-            </div>
+            <p>{{ $item->location }}</p>
         </div>
     </div>
 </div>
