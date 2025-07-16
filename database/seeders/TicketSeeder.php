@@ -22,6 +22,7 @@ class TicketSeeder extends Seeder
                 'logo' => 'summer_concert.png',
                 'price' => 150_000,
                 'price_before' => 175_000,
+                'location' => 'Ancol',
                 'terms_and_conditions' => 'Tiket tidak dapat diuangkan kembali.',
                 'usage' => 'Tiket dapat dituker di counter.'
             ],
@@ -30,6 +31,7 @@ class TicketSeeder extends Seeder
                 'logo' => 'classical_play.png',
                 'price' => 100_000,
                 'price_before' => 120_000,
+                'location' => 'Ancol',
                 'terms_and_conditions' => 'Tiket berlaku satu kali masuk.',
                 'usage' => 'Tiket dapat dituker di counter.'
             ],

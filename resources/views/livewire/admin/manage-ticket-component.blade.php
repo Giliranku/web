@@ -1,9 +1,10 @@
 @push('styles')
 @vite([
-'resources/css/jesselyn.css',
-'resources/css/sorting.css',
+    'resources/css/jesselyn.css',
+    'resources/css/sorting.css',
 ])
 @endpush
+
 <div class="p-5">
     <div class="d-flex gap-sm-5 flex-sm-row flex-column gap-1">
         <div class="search-container shadow search-bar-sorting border rounded mb-3">
@@ -12,44 +13,50 @@
         </div>
 
         {{-- Dropdown --}}
-        <div x-data="{
-            open: false,
-            selected: 'Ancol',
-            select(option) {
-                this.selected = option;
-                this.open = false;
-            },
-            options: [
-                'Ancol',
-                'Dufan Ancol',
-                'Sea World Ancol',
-                'Atlantis Ancol',
-                'Samudra Ancol',
-                'Putri Duyung Ancol',
-                'Jakarta Bird Land Ancol'
-            ]
-        }"
-        class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
-        @click.outside="open = false">
+        <div 
+            x-data="{
+                open: false,
+                selected: @entangle('filterLocation'),
+                options: [
+                    'Semua',
+                    'Ancol',
+                    'Dufan Ancol',
+                    'Sea World Ancol',
+                    'Atlantis Ancol',
+                    'Samudra Ancol',
+                    'Putri Duyung Ancol',
+                    'Jakarta Bird Land Ancol'
+                ],
+                select(option) {
+                    this.selected = option;
+                    this.open = false;
+                    $wire.set('filterLocation', option);
+                }
+            }"
+            class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
+            @click.outside="open = false"
+        >
 
-        <!-- Label -->
-        <div class="dropdown-label">Urutkan Dari</div>
+            <!-- Label -->
+            <div class="dropdown-label">Destinasi</div>
 
-        <!-- Trigger -->
-        <div class="custom-dropdown" @click="open = !open">
-            <span x-text="selected" style="font-size: 1rem;"></span>
-            <i class="bi bi-chevron-down dropdown-icon"></i>
-        </div>
+            <!-- Trigger -->
+            <div class="custom-dropdown" @click="open = !open">
+                <span x-text="selected" style="font-size: 1rem;"></span>
+                <i class="bi bi-chevron-down dropdown-icon"></i>
+            </div>
 
-        <!-- Dropdown Options -->
-        <div class="dropdown-list bg-light dark:text-dark" x-show="open" x-transition>
-            <template x-for="option in options" :key="option">
-            <div class="dropdown-item" @click="select(option)" x-text="option"></div>
-            </template>
-        </div>
+            <!-- Dropdown Options -->
+            <div class="dropdown-list bg-light dark:text-dark" x-show="open" x-transition>
+                <template x-for="option in options" :key="option">
+                    <div class="dropdown-item" @click="select(option)" x-text="option"></div>
+                </template>
+            </div>
         </div>
         {{-- End Dropdown --}}
+
     </div>
+
     <div class="card w-100 shadow p-3 mb-3 mt-4 bg-body-tertiary rounded">
         <div class="d-flex align-items-center justify-content-between flex-sm-row flex-column">
             <div class="d-flex align-items-center">
@@ -57,55 +64,58 @@
                 <h3 class="card-title ms-2">Daftar Tiket</h3>
             </div>
             <div>
-                <div>
-                    <a href="/manage-ticket-add" class="text-decoration-none me-auto btn btn-primary mt-sm-0 mt-2">Tambahkan<i class="bi bi-plus-circle ms-2"></i></a>
-                </div>
+                <a href="/manage-ticket-add" class="text-decoration-none me-auto btn btn-primary mt-sm-0 mt-2">
+                    Tambahkan<i class="bi bi-plus-circle ms-2"></i>
+                </a>
             </div>
         </div>
     </div>
+
     <div class="d-flex flex-column gap-3">
         <div class="d-flex flex-column gap-3">
-        @foreach($tickets as $ticket)
-        <div class="card w-100 shadow p-sm-3 p-1 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between flex-sm-row flex-column">
-                <div class="d-flex align-items-center flex-sm-row flex-column">
-                    <img src="{{ asset('storage/' . $ticket->logo) }}" class="card-img-top rounded" style="width: 100px;" alt="{{ $ticket->name }}">
-                    <div class="ms-4">
-                        <h5 class="card-title mt-3">{{ $ticket->name }}</h5>
-                        {{-- Conditional Price Display --}}
-                        @if(!is_null($ticket->price) && $ticket->price < $ticket->price_before)
-                            {{-- Ada promo --}}
-                            <div class="d-flex align-items-baseline gap-2">
-                                <span class="fw-bolder m-0">Harga : </span>Rp {{ number_format($ticket->price, 0, ',', '.') }}
-                                <span class="text-decoration-line-through opacity-50">Rp {{ number_format($ticket->price_before, 0, ',', '.') }}</span>
-                            </div>
-                        @else
-                            {{-- Tidak ada promo, tampil harga asli --}}
-                            <p><span class="fw-bolder m-0">Harga : </span>Rp {{ number_format($ticket->price_before, 0, ',', '.') }}</p>
-                        @endif
+            @forelse($tickets as $ticket)
+                <div class="card w-100 shadow p-sm-3 p-1 bg-body-tertiary rounded">
+                    <div class="card-body d-flex align-items-center justify-content-between flex-sm-row flex-column">
+                        <div class="d-flex align-items-center flex-sm-row flex-column">
+                            <img src="{{ asset('storage/' . $ticket->logo) }}" class="card-img-top rounded" style="width: 100px;" alt="{{ $ticket->name }}">
+                            <div class="ms-4">
+                                <h5 class="card-title mt-3">{{ $ticket->name }}</h5>
 
+                                {{-- Conditional Price Display --}}
+                                @if(!is_null($ticket->price) && $ticket->price < $ticket->price_before)
+                                    <div class="d-flex align-items-baseline gap-2">
+                                        <span class="fw-bolder m-0">Harga : </span>Rp {{ number_format($ticket->price, 0, ',', '.') }}
+                                        <span class="text-decoration-line-through opacity-50">Rp {{ number_format($ticket->price_before, 0, ',', '.') }}</span>
+                                    </div>
+                                @else
+                                    <p><span class="fw-bolder m-0">Harga : </span>Rp {{ number_format($ticket->price_before, 0, ',', '.') }}</p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-sm-column flex-row gap-3">
+                            <div>
+                                <a href="{{ route('ticket.edit', $ticket->id) }}" class="text-decoration-none me-auto btn btn-warning">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                            </div>
+                            <div>
+                                <button class="btn btn-secondary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#delete"
+                                        wire:click="confirmDelete({{ $ticket->id }})">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="d-flex flex-sm-column flex-row gap-3">
-                    <div>
-                        <a href="{{ route('ticket.edit', $ticket->id) }}" class="text-decoration-none me-auto btn btn-warning">
-                            <i class="bi bi-pencil-fill"></i>
-                        </a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary"
-                                data-bs-toggle="modal"
-                                data-bs-target="#delete"
-                                wire:click="confirmDelete({{ $ticket->id }})">
-                            <i class="bi bi-trash-fill"></i>
-                        </button>
-                    </div>
+            @empty
+                <div class="text-center text-muted mt-5">
+                    <i class="bi bi-exclamation-circle"></i> Tidak ada tiket ditemukan.
                 </div>
-            </div>
+            @endforelse
         </div>
-        @endforeach
-    </div>
-        
     </div>
 
     <!-- Vertically centered modal -->
@@ -143,7 +153,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 </div>

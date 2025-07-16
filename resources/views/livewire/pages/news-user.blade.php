@@ -20,10 +20,10 @@
                 <div>
                     <a href="/news-detail/{{ $item->id }}" class="text-decoration-none">
                         <div class="card" style="width: 22rem; height: 28rem;">
-                            <img src="{{ asset($item->news_cover) }}"
+                            <img src="{{ asset('storage/' . $item->news_cover) }}" 
                                 class="card-img-top rounded px-3 pt-3"
                                 alt="{{ $item->title }}"
-                                style="height: 10rem;">
+                                style="height: 10rem; object-fit: contain;">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div>
                                     <h5 class="card-title fs-3 text-dark">{{ $item->title }}</h5>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logo');
             $table->integer('price')->nullable();
             $table->integer('price_before');
+            $table->string('location');
             $table->longText('terms_and_conditions');
             $table->longText('usage');
             $table->timestamps();

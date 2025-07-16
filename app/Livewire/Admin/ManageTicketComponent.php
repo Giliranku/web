@@ -9,13 +9,13 @@ class ManageTicketComponent extends Component
 {
     public $deleteId = null;
 
-    // Fungsi untuk menampilkan modal dan menyimpan ID tiket yang akan dihapus
+    // Tampilkan modal konfirmasi delete
     public function confirmDelete($id)
     {
         $this->deleteId = $id;
     }
 
-    // Fungsi untuk menghapus data tiket berdasarkan ID
+    // Hapus tiket
     public function delete()
     {
         if ($this->deleteId) {
@@ -26,15 +26,23 @@ class ManageTicketComponent extends Component
             }
         }
 
-        // Reset ID setelah delete
         $this->deleteId = null;
     }
 
-    // Render semua tiket
+    // Query tiket, filter lokasi kalau ada
+    public $filterLocation = 'Semua';
+
     public function render()
     {
+        $tickets = Ticket::query();
+
+        if ($this->filterLocation && $this->filterLocation !== 'Semua') {
+            $tickets->where('location', $this->filterLocation);
+        }
+
         return view('livewire.admin.manage-ticket-component', [
-            'tickets' => Ticket::latest()->get()
+            'tickets' => $tickets->latest()->get(),
         ])->layout('components.layouts.dashboard-admin');
     }
+
 }

@@ -15,6 +15,7 @@ class NewsSeeder extends Seeder
     {
         News::create([
             'title' => 'Kenapa Harus ke Ancol?',
+            'author_name' => 'Jesselyn',
             'description' => 'Jakarta menyimpan permata wisata yang tak lekang oleh waktu.',
             'keywords' => 'Ancol, Pantai Ancol, Jakarta',
             'news_cover' => 'img/info1.jpg',
@@ -43,6 +44,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Wahana Arung Jeram diperbaiki',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana arung jeram diperbaiki',
             'news_cover' => 'img/arung-jeram.jpg',
@@ -64,6 +66,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Wahana Bianglala diperbaiki',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana bianglala diperbaiki',
             'news_cover' => 'img/bianglala.jpg',
@@ -85,6 +88,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Kenapa harus ke Ancol??',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Ancol, Pantai Ancol, Jakarta',
             'news_cover' => 'img/promobanner1.jpg',
@@ -113,6 +117,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Wahana Arung Jeram diperbaiki!',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana arung jeram diperbaiki',
             'news_cover' => 'img/arung-jeram.jpg',
@@ -134,6 +139,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Wahana Bianglala diperbaiki!',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana bianglala diperbaiki',
             'news_cover' => 'img/bianglala.jpg',
@@ -155,6 +161,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Wahana Arung Jeram diperbaiki?',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana arung jeram diperbaiki',
             'news_cover' => 'img/arung-jeram.jpg',
@@ -176,6 +183,7 @@ class NewsSeeder extends Seeder
         ]);
         News::create([
             'title' => 'Wahana Bianglala diperbaiki?',
+            'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana bianglala diperbaiki',
             'news_cover' => 'img/bianglala.jpg',

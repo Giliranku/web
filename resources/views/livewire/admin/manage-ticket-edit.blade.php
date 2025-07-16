@@ -37,7 +37,6 @@
                             </div>
                         </label>
 
-                        {{-- Tombol edit DI LUAR lingkaran --}}
                         <button type="button"
                             class="btn btn-light p-1 position-absolute"
                             style="bottom: -5px; right: 50px;"
@@ -50,15 +49,21 @@
                         @error('new_logo')
                             <div class="text-danger mt-2">{{ $message }}</div>
                         @enderror
-                    </div>
 
+                        <p class="fw-semibold mt-3">Gambar Logo</p>
+                    </div>
 
                     <!-- Input Fields -->
                     <div class="col-md-8">
                         <!-- Nama -->
                         <div class="mb-3">
                             <label for="nama" class="form-label fw-semibold">Nama</label>
-                            <input type="text" wire:model="name" class="form-control" id="nama" placeholder="Nama">
+                            <div class="position-relative">
+                                <input type="text" wire:model="name" class="form-control pe-5" id="nama" placeholder="Nama">
+                                <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="nama">
+                                    <i class="bi bi-pencil-square text-muted"></i>
+                                </button>
+                            </div>
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
@@ -66,29 +71,65 @@
                             <!-- Harga Awal -->
                             <div class="col">
                                 <label for="harga_awal" class="form-label fw-semibold">Harga Awal</label>
-                                <input type="number" wire:model="price_before" class="form-control" id="harga_awal" placeholder="Harga Awal">
+                                <div class="position-relative">
+                                    <input type="number" wire:model="price_before" class="form-control pe-5" id="harga_awal" placeholder="Harga Awal">
+                                    <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="harga_awal">
+                                        <i class="bi bi-pencil-square text-muted"></i>
+                                    </button>
+                                </div>
                                 @error('price_before') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
 
                             <!-- Harga Promo -->
                             <div class="col">
                                 <label for="harga_promo" class="form-label fw-semibold">Harga Promo</label>
-                                <input type="number" wire:model="price" class="form-control" id="harga_promo" placeholder="Harga Promo">
+                                <div class="position-relative">
+                                    <input type="number" wire:model="price" class="form-control pe-5" id="harga_promo" placeholder="Harga Promo">
+                                    <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="harga_promo">
+                                        <i class="bi bi-pencil-square text-muted"></i>
+                                    </button>
+                                </div>
                                 @error('price') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
+                        </div>
+
+                        <!-- Lokasi -->
+                        <div class="mb-3">
+                            <label for="lokasi" class="form-label fw-semibold">Lokasi</label>
+                            <select wire:model="location" id="lokasi" class="form-select">
+                                <option value="">-- Pilih Lokasi --</option>
+                                <option value="Ancol">Ancol</option>
+                                <option value="Dufan Ancol">Dufan Ancol</option>
+                                <option value="Sea World Ancol">Sea World Ancol</option>
+                                <option value="Atlantis Ancol">Atlantis Ancol</option>
+                                <option value="Samudra Ancol">Samudra Ancol</option>
+                                <option value="Putri Duyung Ancol">Putri Duyung Ancol</option>
+                                <option value="Jakarta Bird Land Ancol">Jakarta Bird Land Ancol</option>
+                            </select>
+                            @error('location') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Syarat & Ketentuan -->
                         <div class="mb-3 mt-3">
                             <label for="syarat" class="form-label fw-semibold">Syarat & Ketentuan Tiket</label>
-                            <textarea wire:model="terms_and_conditions" class="form-control" id="syarat" rows="3" placeholder="Syarat & Ketentuan Tiket"></textarea>
+                            <div class="position-relative">
+                                <textarea wire:model="terms_and_conditions" class="form-control pe-5" id="syarat" rows="3" placeholder="Syarat & Ketentuan Tiket"></textarea>
+                                <button type="button" class="btn position-absolute top-0 end-0 mt-2 me-2 p-0 border-0 bg-transparent edit-icon" data-target="syarat">
+                                    <i class="bi bi-pencil-square text-muted"></i>
+                                </button>
+                            </div>
                             @error('terms_and_conditions') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
                         <!-- Cara Menggunakan -->
                         <div class="mb-4">
                             <label for="cara" class="form-label fw-semibold">Cara Menggunakan Tiket</label>
-                            <textarea wire:model="usage" class="form-control" id="cara" rows="3" placeholder="Cara Menggunakan Tiket"></textarea>
+                            <div class="position-relative">
+                                <textarea wire:model="usage" class="form-control pe-5" id="cara" rows="3" placeholder="Cara Menggunakan Tiket"></textarea>
+                                <button type="button" class="btn position-absolute top-0 end-0 mt-2 me-2 p-0 border-0 bg-transparent edit-icon" data-target="cara">
+                                    <i class="bi bi-pencil-square text-muted"></i>
+                                </button>
+                            </div>
                             @error('usage') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
@@ -104,5 +145,18 @@
 </div>
 
 @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.edit-icon').forEach(icon => {
+                icon.addEventListener('click', () => {
+                    const targetId = icon.getAttribute('data-target');
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        targetEl.focus();
+                    }
+                });
+            });
+        });
+    </script>
     <script src="{{ asset('js/adminticket.js') }}"></script>
 @endpush

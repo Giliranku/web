@@ -30,19 +30,17 @@ use App\Livewire\Pages\CartPageCheckout;
 use App\Livewire\Admin\ManageTicketComponent;
 use App\Livewire\Admin\AddTicketComponent;
 use App\Livewire\Admin\EditTicketComponent;
+use App\Livewire\Admin\NewsIndex;
+use App\Livewire\Admin\NewsCreate;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 // User routes
 Route::get('/', Home::class)->name('home');
 Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class);
-// Route::get('/manage-ticket', ManageTicket::class);
-// Route::get('/manage-ticket-add', ManageTicketAdd::class);
-// Route::get('/manage-ticket-edit', ManageTicketEdit::class);
-Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');   // READ
-Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
-Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE
-Route::get('/manage-ticket', ManageTicketComponent::class)->name('manage-ticket.index');
 
 Route::get('/search', Sorting::class)->name('queues.index');
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
@@ -77,6 +75,17 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 
 
 // Admin routes
-Route::get('/manage-news', ManageNews::class);
-Route::get('/manage-news-add', ManageNewsAdd::class);
-Route::get('/manage-news-edit', ManageNewsEdit::class);
+// Route::get('/manage-news', ManageNews::class);
+// Route::get('/manage-news-add', ManageNewsAdd::class);
+// Route::get('/manage-news-edit', ManageNewsEdit::class);
+Route::get('/manage-news', NewsIndex::class)->name('news.index');
+Route::get('/manage-news-add', NewsCreate::class)->name('news.create');
+Route::get('/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
+
+// Route::get('/manage-ticket', ManageTicket::class);
+// Route::get('/manage-ticket-add', ManageTicketAdd::class);
+// Route::get('/manage-ticket-edit', ManageTicketEdit::class);
+Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');   // READ
+Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
+Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE
+Route::get('/manage-ticket', ManageTicketComponent::class)->name('manage-ticket.index');
