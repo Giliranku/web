@@ -4,10 +4,11 @@ namespace App\Livewire\Pages;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use App\Models\Ticket;
+use App\Models\Invoice;
 
 class CartPageCheckout extends Component
 {
-    public string $metode = '';
+    public string $payment_method = '';
     public string $namaLengkap = '';
     public string $email = '';
     public string $noTelp = '';
@@ -19,6 +20,17 @@ class CartPageCheckout extends Component
     public $cartItems = [];
     public $totalQuantity = 0;
     public $totalAmount = 0;
+
+     protected $rules = [
+        'payment_method' => 'required|in:credit_card,ovo',
+        'namaLengkap' => 'required|string|min:3',
+        'email' => 'required|email',
+        'noTelp' => 'required|numeric',
+        'cardNumber' => 'required_if:metode,credit_card|numeric',
+        'cardExpiry' => 'required_if:metode,credit_card|date_format:m/y',
+        'cvv' => 'required_if:metode,credit_card|numeric|digits:3',
+        'ovoPhone' => 'required_if:metode,ovo|numeric',
+    ];
 
     // Listen for the 'cartUpdated' event dispatched by any ProductCard
     #[On('cartUpdated')] 
@@ -49,6 +61,16 @@ class CartPageCheckout extends Component
         }
     }
 
+    public function save($validatedData) {
+        $validatedData['user_id'] = auth()->user()->id; // Set user_id from authenticated user
+        $validatedData['total_price'] = $this->totalAmount;
+        $validatedData['updated_at'] = now();
+        $validatedData['created_at'] = now();
+
+
+        Invoice::create($validatedData);
+    }
+
     public function mount()
     {
         // Initial calculation on page load
@@ -59,7 +81,9 @@ class CartPageCheckout extends Component
     public function madePayment()
     {
         // FIX: Baris ini WAJIB diaktifkan untuk menjalankan semua aturan validasi di atas.
-        $this->validate();
+        $validated = $this->validate();
+
+        $this->save($validated);
 
         //
         // Logika untuk memproses pembayaran Anda letakkan di sini...

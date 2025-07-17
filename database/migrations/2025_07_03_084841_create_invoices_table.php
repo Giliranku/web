@@ -14,6 +14,13 @@ return new class extends Migration
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->integer('total_price');
+            $table->string('name')->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('card_number')->nullable();
+            $table->string('card_expiry')->nullable();
+            $table->string('card_cvc')->nullable();
+            $table->string('ovo_number')->nullable();
             $table->string('payment_method');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

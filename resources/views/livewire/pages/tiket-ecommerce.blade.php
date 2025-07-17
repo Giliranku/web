@@ -31,7 +31,8 @@
                 <button class="btn" type="submit">
                     <img src="./search.png" alt="">
                 </button>
-                <input class="form-control border border-light" type="search" placeholder="Search" aria-label="Search" wire:model.live="search">
+                <input class="form-control border border-light" type="search" placeholder="Search" aria-label="Search"
+                    wire:model.live="search">
             </form>
         </div>
     </div>
@@ -48,14 +49,15 @@
                                         Promo
                                     </div>
                                 </div>
-                                <img src="{{ asset($product->logo) }}" style="width: 100px; height: 40px;"
+                                <img src="img/{{ $product->logo }}" style="width: 150px; height: 80px;"
                                     class="card-img-top" alt="...">
                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{ $product->name }}</h5>
                                 <p class="card-text">{{ $product->price }}</p>
                                 <div class="d-flex flex-row justify-content-between">
-                                    <a href="#" class="opacity-50 text-decoration-none text-dark">Lihat detail
+                                    <a href="/detail-tiket" class="opacity-50 text-decoration-none text-dark">Lihat
+                                        detail
                                         tiket
                                         ></a>
                                     <div>

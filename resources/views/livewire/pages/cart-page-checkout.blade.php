@@ -3,8 +3,11 @@
 @endpush
 <div class="d-flex m-5 flex-column justify-content-between align-items-center">
     <div class="d-flex" style="width: 100%;">
-        <img src="{{ asset('img/arrowDown.png') }}" alt="Back"
-            style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
+        <a href="/cartPage" wire:navigate>
+            <img src="{{ asset('img/arrowLeft.png') }}" alt="Back"
+                style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
+        </a>
+
     </div>
     <div class="d-flex flex-row gap-5">
         <div class="d-flex flex-column">
@@ -42,23 +45,23 @@
                 <h1>Metode Pembayaran</h1>
                 <div class="d-flex flex-row gap-3" style="width: 32vw; height: 100px;">
                     <div style="width: 100%; height: 100%;">
-                        <input wire:model.live="metode" class="form-check-input" id="mastercard" type="radio"
-                            value="mastercard" name="metode" />
+                        <input wire:model.live="payment_method" class="form-check-input" id="mastercard" type="radio"
+                            value="mastercard" name="payment_method" />
                     </div>
                     <div style="width: 100%; height: 100%;">
-                        <input wire:model.live="metode" class="form-check-input" id="ovo" type="radio"
-                            name="metode" value="ovo" />
+                        <input wire:model.live="payment_method" class="form-check-input" id="ovo" type="radio"
+                            name="payment_method" value="ovo" />
                     </div>
                     <div style="width: 100%; height: 100%;">
-                        <input wire:model.live="metode" class="form-check-input" id="bca" type="radio"
-                            name="metode" value="bca" />
+                        <input wire:model.live="payment_method" class="form-check-input" id="bca" type="radio"
+                            name="payment_method" value="bca" />
                     </div>
                 </div>
-                @error('metode')
+                @error('payment_method')
                     <span class="text-danger d-block mt-2">{{ $message }}</span>
                 @enderror
 
-                @if ($metode === 'mastercard')
+                @if ($payment_method === 'mastercard')
                     <div id="mastercard-form">
                         <div class="mb-3 d-flex flex-column">
                             <label for="ccn" class="form-label text-secondary fw-bold">Nomor Kartu</label>
@@ -86,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-                @elseif ($metode === 'ovo')
+                @elseif ($payment_method === 'ovo')
                     <div id="ovo-form">
                         <div class="mb-3">
                             <label for="ovoPhone" class="form-label text-secondary fw-bold">Nomor Telepon OVO</label>
@@ -96,7 +99,7 @@
                             @enderror
                         </div>
                     </div>
-                @elseif ($metode === 'bca')
+                @elseif ($payment_method === 'bca')
                     <div id="bca-form">
                         <p>Nomor BCA Virtual Account akan muncul setelah melakukan checkout.</p>
                     </div>

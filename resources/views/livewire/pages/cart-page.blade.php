@@ -3,7 +3,11 @@
 @endpush
 
 <div class="d-flex gap-4 flex-column">
-    <img src="./arrowLeft.png" alt="Back" style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
+    <a href="/tiketEcommerce" wire:navigate>
+        <img src="{{ asset('img/arrowLeft.png') }}" alt="Back"
+            style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
+    </a>
+
     <div class="container d-flex gap-3 flex-column">
         <h1>Keranjang Saya</h1>
         <livewire:date-selector />

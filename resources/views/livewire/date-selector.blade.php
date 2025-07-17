@@ -33,7 +33,8 @@
     },
 }" x-init="initCalendar()">
     <div class="dropdown border border-dark rounded-3">
-        <button style="width: 100%;" class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <button style="width: 100%; height: 55px;" class="btn btn-light dropdown-toggle" type="button"
+            data-bs-toggle="dropdown">
             <div class="d-flex p-3">
                 <img src="{{ asset('img/calendar.png') }}" alt="">
             </div>
