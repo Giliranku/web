@@ -148,7 +148,7 @@
             position: static !important;
             bottom: auto !important;
             right: auto !important;
-            margin-top: 1rem;
+                    margin-top: 1rem;
         }
     }
     </style>
