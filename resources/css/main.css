@@ -216,13 +216,20 @@ body {
     background: linear-gradient(135deg, var(--bs-light), var(--bs-secondary-bg));
 }
 
+/* Dark mode adaptive search input */
 .home-search-input {
-    height: 45px; 
-    border-radius: 25px; 
-    padding-left: 3rem; 
-    background: var(--bs-body-bg); 
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--bs-border-color);
+    height: 45px !important; 
+    border-radius: 25px !important; 
+    padding-left: 3rem !important; 
+    background: rgba(255,255,255,0.95) !important; 
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+}
+
+[data-bs-theme="dark"] .home-search-input {
+    background: rgba(33, 37, 41, 0.95) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    color: #fff !important;
 }
 
 .home-card-overlay-1 {
@@ -257,10 +264,15 @@ body {
 }
 
 .home-card-white {
-    background: var(--bs-body-bg); 
+    background: rgba(255,255,255,0.95) !important; 
     padding: 15px; 
     border-radius: 12px;
-    border: 1px solid var(--bs-border-color);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+[data-bs-theme="dark"] .home-card-white {
+    background: rgba(33, 37, 41, 0.95) !important;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 /* Remove inline color styles for home page */
@@ -284,22 +296,26 @@ body {
     border: 1px solid var(--bs-border-color);
 }
 
-/* Override all inline color styles in home page */
-.home-page h1, 
-.home-page h2, 
-.home-page h3, 
-.home-page h4, 
-.home-page h5, 
-.home-page h6 {
+/* Override all inline color styles in home page - use more specific selectors */
+.home-page h1[style*="color:"], 
+.home-page h2[style*="color:"], 
+.home-page h3[style*="color:"], 
+.home-page h4[style*="color:"], 
+.home-page h5[style*="color:"], 
+.home-page h6[style*="color:"] {
     color: var(--bs-body-color) !important;
 }
 
-.home-page .text-primary-custom {
+.home-page [style*="color: var(--primary)"] {
     color: var(--bs-primary) !important;
 }
 
-.home-page .text-secondary-custom {
+.home-page [style*="color: var(--secondary)"] {
     color: var(--bs-secondary) !important;
+}
+
+.home-page [style*="color: var(--dark)"] {
+    color: var(--bs-body-color) !important;
 }
 
 /* Fix for sidebar background */
@@ -334,54 +350,69 @@ body {
     background: var(--bs-tertiary-bg) !important;
 }
 
-/* Comprehensive inline style overrides for dark mode compatibility */
+/* More specific inline style overrides for dark mode compatibility */
 
-/* Remove all hardcoded white colors */
-[style*="color: white"] {
+/* Fix buttons in forms */
+.btn-primary[style*="color: white"],
+.btn-primary[style*="color:white"] {
     color: var(--bs-btn-color) !important;
 }
 
-[style*="color:white"] {
-    color: var(--bs-btn-color) !important;
-}
-
-[style*="background: white"] {
+/* Fix specific background overrides only where needed */
+.container-fluid[style*="background:#fff"],
+.container-fluid[style*="background: #fff"] {
     background: var(--bs-body-bg) !important;
 }
 
-[style*="background:#fff"] {
+/* Fix sidebar backgrounds */
+div[style*="background: #fff; transition: all 0.3s"] {
     background: var(--bs-body-bg) !important;
+    border: 1px solid var(--bs-border-color);
 }
 
-[style*="background: #fff"] {
-    background: var(--bs-body-bg) !important;
-}
-
-[style*="color:#444"] {
-    color: var(--bs-body-color) !important;
-}
-
-[style*="color: #444"] {
-    color: var(--bs-body-color) !important;
-}
-
-/* Fix specific problematic backgrounds */
-[style*="background:#f9d778"] {
+/* Fix specific profile/form colors */
+button[style*="background:#f9d778"] {
     background: var(--bs-warning) !important;
 }
 
-[style*="background: #ffe8ad"] {
+li[style*="background: #ffe8ad"] {
     background: var(--bs-warning-bg-subtle) !important;
 }
 
-/* Remove hardcoded background colors that interfere with dark mode */
-[style*="background:#ffe8ad"],
-[style*="background: #ffe8ad"] {
-    background: var(--bs-tertiary-bg) !important;
+div[style*="background: #ffe8ad"] {
+    background: var(--bs-warning-bg-subtle) !important;
 }
 
-/* Fix button backgrounds */
+/* Fix tooltip/dropdown backgrounds */
+div[style*="background:#fff"][style*="border-radius:10px"] {
+    background: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
+}
+
+/* Fix transparent buttons */
 button[style*="background:none"],
 button[style*="background: none"] {
     background: transparent !important;
+}
+
+/* Restaurant card backgrounds */
+.restaurant-card-bg {
+    background: rgba(255,255,255,0.95) !important; 
+    padding: 15px; 
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.restaurant-card-bg-large {
+    background: rgba(255,255,255,0.95) !important; 
+    padding: 20px; 
+    border-radius: 12px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+[data-bs-theme="dark"] .restaurant-card-bg,
+[data-bs-theme="dark"] .restaurant-card-bg-large {
+    background: rgba(33, 37, 41, 0.95) !important;
+    border: 1px solid rgba(255,255,255,0.2);
 }

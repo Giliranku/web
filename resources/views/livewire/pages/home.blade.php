@@ -156,10 +156,11 @@
             <div class="row justify-content-center">
                <div class="col-lg-6 col-md-8">
                   <div class="search-container">
-                     <i class="bi bi-search search-icon text-muted"></i>
+                     <i class="bi bi-search search-icon text-muted d-none"></i>
                      <input type="text" class="form-control border-0 shadow-lg" 
-                            class="form-control home-search-input" 
+                            class="form-control home-search-input ms-5" 
                             placeholder="Cari wahana, restoran, atau info menarik...">
+                            
                   </div>
                </div>
             </div>
@@ -216,8 +217,8 @@
    <!-- Welcome Section -->
    <div class="container my-5">
       <div class="text-center mb-5">
-         <h2 class="display-5 fw-bold text-primary">Selamat datang di Giliranku</h2>
-         <p class="lead text-secondary">Wahana Seru Sepuasnya!</p>
+         <h2 class="display-5 fw-bold text-primary">Selamat Datang di Giliranku</h2>
+         <p class="lead text-dark">Wahana Seru Sepuasnya!</p>
          <hr class="section-divider w-25 mx-auto">
       </div>
 
@@ -510,19 +511,19 @@
          <div class="d-md-none">
             <div class="mobile-carousel-container">
                <div class="mobile-carousel-item side">
-                  <div style="background: white; padding: 15px; border-radius: 12px;">
+                  <div class="restaurant-card-bg">
                      <img src="{{ asset('img/roti-o.png') }}" style="object-fit: contain; height: 80px;" alt="Gambar Restoran Roti O">
                   </div>
                   <h6 class="fw-bold" style="color: var(--dark);">Roti O</h6>
                </div>
                <div class="mobile-carousel-item main">
-                  <div style="background: white; padding: 15px; border-radius: 12px;">
+                  <div class="restaurant-card-bg">
                      <img src="{{ asset('img/aw.png') }}" style="object-fit: contain; height: 100px;" alt="Gambar Restoran A&W">
                   </div>
                   <h6 class="fw-bold" style="color: var(--dark);">A&W</h6>
                </div>
                <div class="mobile-carousel-item side">
-                  <div style="background: white; padding: 15px; border-radius: 12px;">
+                  <div class="restaurant-card-bg">
                      <img src="{{ asset('img/chatime.png') }}" style="object-fit: contain; height: 80px;" alt="Gambar Minuman Chatime">
                   </div>
                   <h6 class="fw-bold" style="color: var(--dark);">Chatime</h6>
@@ -535,7 +536,7 @@
             <div class="row g-4 justify-content-center">
                <div class="col-6">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/aw.png') }}" class="img-fluid" style="object-fit: contain; height: 120px;" alt="Gambar Restoran A&W">
                      </div>
                      <h5 class="fw-bold" style="color: var(--dark);">A&W</h5>
@@ -543,7 +544,7 @@
                </div>
                <div class="col-6">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/chatime.png') }}" class="img-fluid" style="object-fit: contain; height: 120px;" alt="Gambar Minuman Chatime">
                      </div>
                      <h5 class="fw-bold" style="color: var(--dark);">Chatime</h5>
@@ -557,7 +558,7 @@
             <div class="row g-4 justify-content-center">
                <div class="col-md-2">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/aw.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran A&W">
                      </div>
                      <h6 class="fw-bold" style="color: var(--dark);">A&W</h6>
@@ -565,7 +566,7 @@
                </div>
                <div class="col-md-2">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/chatime.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Minuman Chatime">
                      </div>
                      <h6 class="fw-bold" style="color: var(--dark);">Chatime</h6>
@@ -573,7 +574,7 @@
                </div>
                <div class="col-md-2">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/kfc.webp') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran KFC">
                      </div>
                      <h6 class="fw-bold" style="color: var(--dark);">KFC</h6>
@@ -581,7 +582,7 @@
                </div>
                <div class="col-md-2">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/mcd.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran McDonald">
                      </div>
                      <h6 class="fw-bold" style="color: var(--dark);">McDonald</h6>
@@ -589,7 +590,7 @@
                </div>
                <div class="col-md-2">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/pizza-hut.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran Pizza Hut">
                      </div>
                      <h6 class="fw-bold" style="color: var(--dark);">Pizza Hut</h6>
@@ -597,7 +598,7 @@
                </div>
                <div class="col-md-2">
                   <div class="text-center">
-                     <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px;">
+                     <div class="restaurant-card-bg-large">
                         <img src="{{ asset('img/roti-o.png') }}" class="img-fluid" style="object-fit: contain; height: 100px;" alt="Gambar Restoran Roti O">
                      </div>
                      <h6 class="fw-bold" style="color: var(--dark);">Roti O</h6>
