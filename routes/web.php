@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Admin\AttracionListManage;
+use App\Livewire\Admin\AttracionListManageAdd;
+use App\Livewire\Admin\AttracionListManageEdit;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Sorting;
@@ -21,9 +24,13 @@ use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPageCheckout;
+use App\Livewire\Staff\AttractionManagement;
 
 // User routes
 Route::get('/', Home::class)->name('home');
+Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
+Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create');
+Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit');
 Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class);
@@ -67,4 +74,5 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 // Admin routes
 Route::get('/manage-news', ManageNews::class);
 Route::get('/manage-news-add', ManageNewsAdd::class);
-Route::get('/manage-news-edit', ManageNewsEdit::class);
+Route::get('/manage-news-edit/', ManageNewsEdit::class);
+Route::get('/staff-attraction-manage', AttractionManagement::class);
