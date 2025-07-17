@@ -1,14 +1,19 @@
-
-
 html {
     overflow-x: hidden;
 }
 
-.custom-dropdown-button.dropdown-toggle::after {
-    /* 1. Remove the default caret */
+.dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    /* Pushes text left and icon right */
+    align-items: center;
+    /* Vertically centers everything */
+    /* Add any other button styling like padding, background, etc. */
+}
+
+.dropdown-toggle::after {
     display: inline-block;
     content: "";
-    /* Clear the content */
     border: none;
     /* Remove the default border-triangle */
 
@@ -25,7 +30,6 @@ html {
     /* Your custom padding from before */
     vertical-align: middle;
     /* Align icon with text */
-    margin-left: 77%;
 }
 
 
