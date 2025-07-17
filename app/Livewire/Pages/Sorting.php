@@ -55,12 +55,6 @@ class Sorting extends Component
         switch ($this->sortBy) {
             case 'Kapasitas Terbesar': $query->orderBy('capacity', 'desc'); break;
             case 'Kapasitas Terkecil': $query->orderBy('capacity', 'asc'); break;
-            case 'Harga Termurah':
-                if (\Schema::hasColumn('restaurants', 'price')) $query->orderBy('price', 'asc');
-                break;
-            case 'Harga Tertinggi':
-                if (\Schema::hasColumn('restaurants', 'price')) $query->orderBy('price', 'desc');
-                break;
         }
         return $query->get()->map(function($item) {
             $item->type = 'Restoran';

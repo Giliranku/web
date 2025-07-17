@@ -29,8 +29,6 @@
                 options: [
                     'Kapasitas Terbesar',
                     'Kapasitas Terkecil',
-                    'Harga Termurah',
-                    'Harga Tertinggi'
                 ]
             }"
             class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0"

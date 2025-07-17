@@ -1,7 +1,3 @@
-@push('styles')
-    @vite(['resources/css/yoga.css'])
-@endpush
-
 <div x-data="{
 
     selectedDate: @entangle('selectedDate'),

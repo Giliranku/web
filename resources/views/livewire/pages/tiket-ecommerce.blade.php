@@ -31,7 +31,7 @@
                 <button class="btn" type="submit">
                     <img src="./search.png" alt="">
                 </button>
-                <input class="form-control border border-light" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control border border-light" type="search" placeholder="Search" aria-label="Search" wire:model.live="search">
             </form>
         </div>
     </div>
@@ -81,12 +81,12 @@
     <div class="container">
         <div class="row">
             <div class="column-md-6 d-flex flex-row gap-3">
-                <a href="/cartPage" class="w-100">
+                <a href="/cartPage" class="w-100" wire:navigate>
                     <button class="btn btn-primary" style="width: 100%; color:white;">
                         Lihat Keranjang
                     </button>
                 </a>
-                <a href="/cartPage2" class="w-100">
+                <a href="/cartPage2" class="w-100" wire:navigate>
                     <button class="btn btn-warning border rounded-3" style="width: 100%;">Checkout</button>
                 </a>
             </div>
