@@ -36,6 +36,7 @@ use App\Livewire\Admin\AddTicketComponent;
 use App\Livewire\Admin\EditTicketComponent;
 use App\Livewire\Admin\NewsIndex;
 use App\Livewire\Admin\NewsCreate;
+use App\Http\Controllers\GoogleAuthController;
 
 // User routes
 Route::get('/', Home::class)->name('home');
@@ -59,6 +60,10 @@ Route::get('/history', History::class)->name('history')->middleware('auth');
 
 Route::get('/login', LoginPage::class)->name('login');
 
+// Google OAuth routes
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
+
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/login');
@@ -81,7 +86,7 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 
 
 // Admin routes
-Route::get('/manage-news', NewsIndex::class)->name('news.index');
+Route::get('/manage-news', NewsIndex::class)->name('admin.news');
 Route::get('/manage-news-add', NewsCreate::class)->name('news.create');
 Route::get('/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
 

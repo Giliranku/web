@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'number',
-        'location'
+        'location',
+        'google_id',
+        'avatar'
     ];
 
     public function accesibilityPreference()

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg ">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><img src="{{ asset('img/logo-giliranku.png') }}" alt="Logo Giliranku"></a>
+    <a wire:navigate class="navbar-brand" href="{{ route('home') }}"><img src="{{ asset('img/logo-giliranku.png') }}" alt="Logo Giliranku"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,7 +11,7 @@
           <a class="nav-link active" aria-current="page" href="{{ route('home') }}" wire:navigate>Beranda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('tickets.index') }}" wire:navigate>Beli Tiket</a>
+          <a class="nav-link" href="{{ route('tiket-ecommerce') }}" wire:navigate>Beli Tiket</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{ route('queues.index') }}" wire:navigate>Pesan Antrian</a>

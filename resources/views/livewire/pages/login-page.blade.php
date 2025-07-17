@@ -88,11 +88,11 @@
 
                 {{-- Tombol Masuk dengan Google (bukan submit) --}}
                 <div class="d-grid gap-2 col-12 d-flex justify-content-center">
-                    <button type="button" id="atur_wrapping" class="btn border border-dark w-50">
+                    <a href="{{ route('google.redirect') }}" class="btn border border-dark w-50" id="atur_wrapping">
                         Masuk Dengan Google
                         <img class="ms-2" src="{{ asset('img/Google-G-logo.png') }}" style="width:18px;"
                             alt="Logo Google">
-                    </button>
+                    </a>
                 </div>
 
                 {{-- Tombol Submit --}}
@@ -105,11 +105,8 @@
                 {{-- Link Daftar --}}
                 <div class="text-center d-flex flex-row justify-content-center mb-3 gap-2">
                     <p class="mb-0 fs-6">Belum ada akun?</p>
-                    <a href="#" class="text-secondary fs-6 fw-semibold">Daftar Sekarang!</a>
+                    <a href="/register" wire:navigate class="text-secondary fs-6 fw-semibold">Daftar Sekarang!</a>
                 </div>
-
-
-
             </form>
 
 
@@ -159,14 +156,27 @@
 
                     <form wire:submit.prevent="login" class="w-100">
 
+                        {{-- Alert Error jika gagal login --}}
+                        @if ($error)
+                            <div class="alert alert-danger w-100 text-center">
+                                {{ $error }}
+                            </div>
+                        @endif
+
                         <div class="mb-3">
                             <input type="email" class="form-control rounded-pill px-4 py-2" placeholder="Email"
-                                style="font-size:1rem; min-width: 2vw;">
+                                wire:model="email" style="font-size:1rem; min-width: 2vw;">
                         </div>
+
+                        @error('email')
+                            <div class="alert alert-danger mt-2 w-100 text-center" style="font-size: 0.9rem;">
+                                Tolong masukkan email yang sesuai atau valid.
+                            </div>
+                        @enderror
                         <div class="mb-3 position-relative">
                             <input type="password" id="inputPasswordMobile"
                                 class="form-control rounded-pill px-4 py-2 pe-5" placeholder="Password"
-                                style="font-size:1rem;">
+                                wire:model="password" style="font-size:1rem;">
 
                             <i class="bi bi-eye-slash" onclick="
             const input = document.getElementById('inputPasswordMobile');
@@ -195,19 +205,19 @@
                             <a href="#" class="text-danger small text-secondary">Lupa password?</a>
                         </div>
                         <div class="mb-3">
-                            <button type="button" class="btn w-100 rounded-pill border border-dark py-2"
-                                style="font-size: 1.1rem;">
+                            <a href="{{ route('google.redirect') }}" class="btn w-100 rounded-pill border border-dark py-2"
+                                style="font-size: 1.1rem; text-decoration: none; color: inherit; display: block;">
                                 Masuk dengan Google
                                 <img class="ms-2" src="{{ asset('img/Google-G-logo.png') }}" style="width:18px;"
                                     alt="Logo Google">
-                            </button>
+                            </a>
                         </div>
                         <div class="mb-3">
                             <button type="submit" class="btn w-100 rounded-pill fs-5"
                                 style="background:#FF4E1B; color:#fff; font-weight:600; padding: 12px 0;">Masuk</button>
                         </div>
                         <div class="text-center mb-3">
-                            <span>Belum ada akun? <a href="#" class="text-danger fw-bold">Daftar
+                            <span>Belum ada akun? <a href="/register" wire:navigate class="text-danger fw-bold">Daftar
                                     sekarang!</a></span>
                         </div>
                     </form>
