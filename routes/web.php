@@ -24,6 +24,7 @@ use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPage2;
+use App\Livewire\Staff\AttractionManagement;
 
 // User routes
 Route::get('/', Home::class)->name('home');
@@ -70,3 +71,4 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 Route::get('/manage-news', ManageNews::class);
 Route::get('/manage-news-add', ManageNewsAdd::class);
 Route::get('/manage-news-edit/', ManageNewsEdit::class);
+Route::get('/staff-attraction-manage', AttractionManagement::class);
