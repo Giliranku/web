@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             StaffSeeder::class,
-            NewsSeeder::class,
+            // NewsSeeder::class,
             RestaurantSeeder::class,
             AttractionSeeder::class,
             UserSeeder::class,
-            TicketSeeder::class,
+            // TicketSeeder::class,
             InvoiceSeeder::class,
         ]);
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    protected $fillable = ['title', 'description', 'keywords', 'news_cover', 'staff_id', 'content'];
+    protected $fillable = ['title', 'description', 'keywords', 'news_cover', 'staff_id', 'content', 'author_name'];
 
     public function staff(){
         return $this->belongsTo(Staff::class);

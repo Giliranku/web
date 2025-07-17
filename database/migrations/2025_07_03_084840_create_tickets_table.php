@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('logo');
-            $table->integer('price');
+            $table->integer('price')->nullable();
             $table->integer('price_before');
-            $table->string('terms_and_conditions');
+            $table->string('location');
+            $table->longText('terms_and_conditions');
+            $table->longText('usage');
             $table->timestamps();
         });
     }

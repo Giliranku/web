@@ -5,7 +5,7 @@
 ])
 @endpush
 <div class="p-5">
-    <div class="d-flex gap-5">
+    <div class="d-flex gap-sm-5 flex-sm-row flex-column gap-1">
         <div class="search-container shadow search-bar-sorting border rounded mb-3">
             <i class="bi bi-search search-icon"></i>
             <input type="text" class="form-control search-input height-custom" placeholder="Cari">
@@ -46,138 +46,26 @@
         {{-- End Dropdown --}}
     </div>
     <div class="card w-100 shadow p-3 mb-3 mt-4 bg-body-tertiary rounded">
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between flex-sm-row flex-column">
             <div class="d-flex align-items-center">
                 <div class="vertical-line-admin"></div>
                 <h3 class="card-title ms-2">Daftar Berita</h3>
             </div>
             <div>
                 <div>
-                    <a href="/manage-news-add" class="text-decoration-none me-auto btn btn-primary">Tambahkan<i class="bi bi-plus-circle ms-2"></i></a>
+                    <a href="/manage-news-add" class="text-decoration-none me-auto btn btn-primary mt-sm-0 mt-2">Tambahkan<i class="bi bi-plus-circle ms-2"></i></a>
                 </div>
             </div>
         </div>
     </div>
     <div class="d-flex flex-column gap-3">
         <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
+            <div class="card-body d-flex align-items-center justify-content-between flex-sm-row flex-column">
+                <div class="d-flex align-items-center flex-sm-row flex-column">
                     <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
                     <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
                 </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
-                    <div>
-                        <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
-                    </div>
-                    <div>
-                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#delete"><i class="bi bi-trash-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="card w-100 shadow p-3 bg-body-tertiary rounded">
-            <div class="card-body d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                    <img src="{{asset('img/info3.jpg')}}" class="card-img-top rounded w-10" alt="Konser di Pantai Ancol">
-                    <h5 class="card-title ms-4">Kenapa Harus ke Ancol?</h5>
-                </div>
-                <div class="d-flex flex-column gap-3">
+                <div class="d-flex flex-sm-column flex-row gap-3 mt-sm-0 mt-2">
                     <div>
                         <a href="/manage-news-edit" class="text-decoration-none me-auto btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
                     </div>
