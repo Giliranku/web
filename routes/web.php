@@ -73,8 +73,6 @@ Route::get('/userprofile', UserProfile::class)->name('userprofile')->middleware(
 Route::get('/staffprofile', StaffProfilePage::class);
 
 // Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
-Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tickets.index');
-
 Route::get('/cartPage', CartPage::class)->name('cart-page');
 
 Route::get('/cartPage2', CartPageCheckout::class)->name('cart-page2');
