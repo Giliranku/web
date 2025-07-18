@@ -5,6 +5,8 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\News;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ManageNewsEdit extends Component
 {
@@ -58,7 +60,14 @@ class ManageNewsEdit extends Component
         $news->save();
 
         session()->flash('success', 'Berita berhasil diperbarui.');
-        return redirect()->route('news.index');
+        return redirect()->route('admin.manage-news');
+    }
+
+    public function uploadTrixImage($file)
+    {
+        $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('trix_uploads', $filename, 'public');
+        return asset('storage/' . $path);
     }
 
     public function render()

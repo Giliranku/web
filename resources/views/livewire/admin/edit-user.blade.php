@@ -4,7 +4,21 @@
 ])
 @endpush
 
-<div>
+<div class="p-5">
+    <!-- Header Card -->
+    <div class="card w-100 shadow p-3 mb-4 bg-body-tertiary rounded">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <div class="vertical-line-admin"></div>
+                <h3 class="card-title ms-2">Edit User</h3>
+            </div>
+            <a href="/admin/manage-users" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>
+                Kembali
+            </a>
+        </div>
+    </div>
+
     <!-- Success Message -->
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -13,7 +27,7 @@
         </div>
     @endif
 
-    {{-- Desktop View --}}
+    <!-- Desktop View -->
     <div class="d-none d-md-flex flex-column">
         <div class="justify-content-center d-flex">
             <div>
@@ -40,29 +54,37 @@
                         @endif
                         
                         <!-- Tombol edit foto: ICON PENCIL -->
-                        <button class="d-flex btn position-relative" type="button"
-                            style="margin-top:60%; height: 4vw; width:4vw; align-items:center; justify-content:center; border-radius:100%; box-shadow:0 0 10px #bbb;"
+                        <button class="d-flex btn position-absolute bg-light" type="button"
+                            style="margin-left: 14vw; margin-top:5vw; height: 5vw; width: 5vw; align-items:center; justify-content:center; border-radius:100%; box-shadow:0 0 10px #bbb;"
                             onclick="document.getElementById('avatarInput').click()" aria-label="Edit Foto">
-                            <i class="bi bi-pencil" style="font-size:2vw;"></i>
+                            <i class="bi bi-pencil" style="font-size:3vw;"></i>
                         </button>
                         
                         <!-- Hidden file input -->
                         <input type="file" id="avatarInput" wire:model="newAvatar" accept="image/*" style="display: none;">
                         
-                        <!-- Loading spinner for avatar upload -->
+                        <!-- Loading overlay controlled by uploading property -->
                         @if($uploading)
                             <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
+                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); border-radius: 50%;">
+                                <div class="spinner-border text-white" role="status"></div>
                             </div>
                         @endif
                     </div>
                     
-                    <!-- Staff Info -->
+                    <!-- User Info -->
                     <div class="text-center">
-                        <h4>{{ $name }}</h4>
-                        <p class="text-muted">{{ $email }}</p>
-                        <span class="badge bg-success">Staff</span>
+                        <h4>{{ $user->name }}</h4>
+                        <p class="text-muted">{{ $user->email }}</p>
+                        @if($user->google_id)
+                            <span class="badge bg-info">
+                                <i class="bi bi-google me-1"></i>
+                                Google Account
+                            </span>
+                        @endif
+                        <span class="badge bg-{{ $user->email_verified_at ? 'success' : 'warning' }}">
+                            {{ $user->email_verified_at ? 'Verified' : 'Unverified' }}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -198,66 +220,8 @@
         </div>
     </div>
 
-    {{-- Mobile View --}}
-    <div class="d-block d-md-none position-relative" style="overflow-x: hidden">
-        <div class="position-absolute top-5 end-0 mt-2 me-4 " style="z-index: 2">
-            <button class="d-flex btn bg-light justify-content-center align-items-center" type="button"
-                style="height: 10vw; width: 10vw; border-radius:100%; box-shadow:0 0 10px #bbb;"
-                onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
-                <i class="bi bi-pencil text-dark " style="font-size:5vw;"></i>
-            </button>
-            
-            <!-- Hidden file input for mobile -->
-            <input type="file" id="avatarInputMobile" wire:model="newAvatar" accept="image/*" style="display: none;">
-            
-            <!-- Loading spinner for avatar upload (mobile) -->
-            @if($uploading)
-                <div class="position-absolute d-flex align-items-center justify-content-center" 
-                     style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                    <span class="spinner-border text-primary" role="status"></span>
-                </div>
-            @endif
-        </div>
-
-        <div class="justify-content-center d-flex position-absolute" style="min-height: 30vh;max-height:75vh; z-index: -1;">
-            <div>
-                <img src="{{ asset('img/bgmelar.png') }}" alt="bg image" style="height:100%;width: 100%">
-            </div>
-        </div>
-
-        <div class="justify-content-center d-flex flex-column position-relative mt-5">
-            <div class="d-flex flex-row justify-content-center">
-                <div class="d-flex flex-column align-items-center w-50">
-                    <!-- Foto Profile -->
-                    <div class="d-flex position-relative mb-3 flex-row" style="margin-top: 1vw; margin-left: 2vw;">
-                        @if($avatar)
-                            @if(str_contains($avatar, 'http'))
-                                <img src="{{ $avatar }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
-                            @else
-                                <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
-                            @endif
-                        @else
-                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
-                                <i class="bi bi-person-fill text-muted" style="font-size: 10vw;"></i>
-                            </div>
-                        @endif
-                        
-                        <!-- Loading spinner for avatar upload (mobile) -->
-                        @if($uploading)
-                            <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Mobile Field Edits -->
-            <div class="d-flex ms-4 flex-column w-100 mt-3">
-                <!-- Similar mobile fields as desktop but with mobile styling -->
-                <!-- You can expand these fields as needed -->
-            </div>
-        </div>
-    </div>
+    <!-- File upload errors -->
+    @error('newAvatar') 
+        <div class="alert alert-danger mt-3">{{ $message }}</div> 
+    @enderror
 </div>

@@ -16,18 +16,39 @@
         <div class="justify-content-center d-flex flex-row">
             <!-- SIDEBAR KIRI -->
             <div class="d-flex flex-row w-50 justify-content-center" style="margin-top: -9vw;">
+                                <!-- SIDEBAR KIRI -->
                 <div class="d-flex flex-column align-items-center w-50">
                     <!-- Foto Profile -->
                     <div class="d-flex position-relative mb-3 flex-row" style="margin-top: 1vw; margin-left: 2vw;">
-                        <img src="{{ asset('img/userphoto.png') }}" class="rounded-circle border border-2 w-100"
-                            style="object-fit:cover;">
+                        @if($avatar)
+                            @if(str_contains($avatar, 'http'))
+                                <img src="{{ $avatar }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
+                            @else
+                                <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
+                            @endif
+                        @else
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
+                                <i class="bi bi-person-fill text-muted" style="font-size: 4vw;"></i>
+                            </div>
+                        @endif
                         <!-- Tombol edit foto: ICON PENCIL -->
-                        <button class="d-flex btn position-absolute" type="button"
-                            style="margin-left: 17vw; margin-top:9vw; height: 5vw; width: 5vw; align-items:center; justify-content:center; border-radius:100%; box-shadow:0 0 10px #bbb;"
-                            data-bs-toggle="modal" data-bs-target="#editPhotoModal" aria-label="Edit Foto">
+            <button class="d-flex btn position-absolute bg-light" type="button"
+                style="margin-left: 14vw; margin-top:5vw; height: 5vw; width: 5vw; align-items:center; justify-content:center; border-radius:100%; box-shadow:0 0 10px #bbb;"
+                onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
 
-                            <i class="bi bi-pencil" style="font-size:2vw;"></i>
-                        </button>
+                <i class="bi bi-pencil" style="font-size:3vw;"></i>
+            </button>
+            
+            <!-- Hidden file input for mobile -->
+            <input type="file" id="avatarInputMobile" wire:model="newAvatar" accept="image/*" style="display: none;">
+            
+            <!-- Loading spinner for avatar upload (mobile) -->
+            @if($uploading)
+                <div class="position-absolute d-flex align-items-center justify-content-center" 
+                     style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
+                    <span class="spinner-border text-primary" role="status"></span>
+                </div>
+            @endif
                     </div>
                     <!-- SIDEBAR Profil Aktivitas -->
                     <div class="w-100 d-flex flex-column align-items-center">
@@ -230,7 +251,7 @@
         <div class="position-absolute top-5 end-0 mt-2 me-4 " style="z-index: 2">
             <button class="d-flex btn bg-light justify-content-center align-items-center" type="button"
                 style="  height: 10vw; width: 10vw;  border-radius:100%; box-shadow:0 0 10px #bbb;"
-                data-bs-toggle="modal" data-bs-target="#editPhotoModal" aria-label="Edit Foto">
+                onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
 
                 <i class="bi bi-pencil text-dark " style="font-size:5vw;"></i>
             </button>
@@ -251,11 +272,25 @@
                 <div class="d-flex flex-column align-items-center w-50">
                     <!-- Foto Profile -->
                     <div class="d-flex position-relative mb-3 flex-row" style="margin-top: 1vw; margin-left: 2vw;">
-                        <img src="{{ asset('img/userphoto.png') }}" class="rounded-circle border border-2 w-100"
-                            style="object-fit:cover;">
-                        <!-- Tombol edit foto: ICON PENCIL -->
-
-
+                        @if($avatar)
+                            @if(str_contains($avatar, 'http'))
+                                <img src="{{ $avatar }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
+                            @else
+                                <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
+                            @endif
+                        @else
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
+                                <i class="bi bi-person-fill text-muted" style="font-size: 10vw;"></i>
+                            </div>
+                        @endif
+                        
+                        <!-- Loading spinner for avatar upload (mobile) -->
+                        @if($uploading)
+                            <div class="position-absolute d-flex align-items-center justify-content-center" 
+                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
+                                <span class="spinner-border text-primary" role="status"></span>
+                            </div>
+                        @endif
                     </div>
 
                     <!-- SIDEBAR Profil Aktivitas -->
@@ -457,31 +492,6 @@
             </div>
         </div>
 
-    </div>
-
-    <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-labelledby="editPhotoModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="border-radius: 1rem;">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editPhotoModalLabel">
-                        <i class="bi bi-camera me-2"></i>Edit Foto Profil
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                </div>
-                <div class="modal-body text-center">
-                    <img src="{{ asset('img/userphoto.png') }}" alt="Foto Saat Ini" class="rounded-circle mb-3 border"
-                        style="width: 120px; height:120px; object-fit:cover;">
-                    <div class="mb-3">
-                        <input type="file" class="form-control" id="profilePhotoInput" accept="image/*">
-                    </div>
-                    <small class="text-muted">Format JPG, PNG. Max 2MB.</small>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary">Simpan Foto</button>
-                </div>
-            </div>
-        </div>
     </div>
 
 </div>

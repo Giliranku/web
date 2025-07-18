@@ -34,28 +34,17 @@
                                 <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
                             @endif
                         @else
-                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
-                                <i class="bi bi-person-fill text-muted" style="font-size: 4vw;"></i>
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
+                                <i class="bi bi-person-fill text-white" style="font-size: 4vw;"></i>
                             </div>
                         @endif
                         
                         <!-- Tombol edit foto: ICON PENCIL -->
                         <button class="d-flex btn position-relative" type="button"
                             style="margin-top:60%; height: 4vw; width:4vw; align-items:center; justify-content:center; border-radius:100%; box-shadow:0 0 10px #bbb;"
-                            onclick="document.getElementById('avatarInput').click()" aria-label="Edit Foto">
+                            data-bs-toggle="modal" data-bs-target="#editPhotoModal" aria-label="Edit Foto">
                             <i class="bi bi-pencil" style="font-size:2vw;"></i>
                         </button>
-                        
-                        <!-- Hidden file input -->
-                        <input type="file" id="avatarInput" wire:model="newAvatar" accept="image/*" style="display: none;">
-                        
-                        <!-- Loading spinner for avatar upload -->
-                        @if($uploading)
-                            <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
-                            </div>
-                        @endif
                     </div>
                     
                     <!-- Staff Info -->
@@ -203,20 +192,9 @@
         <div class="position-absolute top-5 end-0 mt-2 me-4 " style="z-index: 2">
             <button class="d-flex btn bg-light justify-content-center align-items-center" type="button"
                 style="height: 10vw; width: 10vw; border-radius:100%; box-shadow:0 0 10px #bbb;"
-                onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
+                data-bs-toggle="modal" data-bs-target="#editPhotoModal" aria-label="Edit Foto">
                 <i class="bi bi-pencil text-dark " style="font-size:5vw;"></i>
             </button>
-            
-            <!-- Hidden file input for mobile -->
-            <input type="file" id="avatarInputMobile" wire:model="newAvatar" accept="image/*" style="display: none;">
-            
-            <!-- Loading spinner for avatar upload (mobile) -->
-            @if($uploading)
-                <div class="position-absolute d-flex align-items-center justify-content-center" 
-                     style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                    <span class="spinner-border text-primary" role="status"></span>
-                </div>
-            @endif
         </div>
 
         <div class="justify-content-center d-flex position-absolute" style="min-height: 30vh;max-height:75vh; z-index: -1;">
@@ -237,16 +215,8 @@
                                 <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
                             @endif
                         @else
-                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
-                                <i class="bi bi-person-fill text-muted" style="font-size: 10vw;"></i>
-                            </div>
-                        @endif
-                        
-                        <!-- Loading spinner for avatar upload (mobile) -->
-                        @if($uploading)
-                            <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
+                                <i class="bi bi-person-fill text-white" style="font-size: 10vw;"></i>
                             </div>
                         @endif
                     </div>
@@ -257,6 +227,44 @@
             <div class="d-flex ms-4 flex-column w-100 mt-3">
                 <!-- Similar mobile fields as desktop but with mobile styling -->
                 <!-- You can expand these fields as needed -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Photo Modal -->
+    <div class="modal fade" id="editPhotoModal" tabindex="-1" aria-labelledby="editPhotoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 1rem;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPhotoModalLabel">
+                        <i class="bi bi-camera me-2"></i>Edit Foto Profil Staff
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="mb-3">
+                        @if($avatar)
+                            @if(str_contains($avatar, 'http'))
+                                <img src="{{ $avatar }}" alt="Foto Saat Ini" class="rounded-circle mb-3 border" style="width: 120px; height:120px; object-fit:cover;">
+                            @else
+                                <img src="{{ asset('storage/' . $avatar) }}" alt="Foto Saat Ini" class="rounded-circle mb-3 border" style="width: 120px; height:120px; object-fit:cover;">
+                            @endif
+                        @else
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3 border" style="width: 120px; height: 120px;">
+                                <i class="bi bi-person-fill text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="mb-3">
+                        <input type="file" class="form-control" wire:model="newAvatar" accept="image/*">
+                    </div>
+                    @error('newAvatar') <div class="alert alert-danger">{{ $message }}</div> @enderror
+                    <small class="text-muted">Format JPG, PNG. Max 2MB.</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" wire:click="updateAvatar" data-bs-dismiss="modal">Simpan Foto</button>
+                </div>
             </div>
         </div>
     </div>

@@ -34,10 +34,14 @@ class GoogleAuthController extends Controller
             
             if ($existingUser) {
                 // Link Google account to existing user
-                $existingUser->update([
-                    'google_id' => $googleUser->id,
-                    'avatar' => $googleUser->avatar,
-                ]);
+                $updateData = ['google_id' => $googleUser->id];
+                
+                // Only update avatar if user doesn't have one or if it's still a Google avatar
+                if (!$existingUser->avatar || str_contains($existingUser->avatar, 'googleusercontent.com')) {
+                    $updateData['avatar'] = $googleUser->avatar;
+                }
+                
+                $existingUser->update($updateData);
                 
                 Auth::login($existingUser);
                 return redirect()->intended('/userprofile');

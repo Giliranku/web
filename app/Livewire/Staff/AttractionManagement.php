@@ -8,6 +8,6 @@ class AttractionManagement extends Component
 {
     public function render()
     {
-        return view('livewire.staff.attraction-management');
+        return view('livewire.staff.attraction-management')->layout('components.layouts.dashboard-attraction');
     }
 }

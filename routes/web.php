@@ -36,7 +36,12 @@ use App\Livewire\Admin\AddTicketComponent;
 use App\Livewire\Admin\EditTicketComponent;
 use App\Livewire\Admin\NewsIndex;
 use App\Livewire\Admin\NewsCreate;
+use App\Livewire\Admin\LoginPage as AdminLoginPage;
+use App\Livewire\Admin\Dashboard as AdminDashboard;
+use App\Livewire\Admin\ManageUsers;
+use App\Livewire\Admin\EditUser;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\TrixImageController;
 
 // User routes
 Route::get('/', Home::class)->name('home');
@@ -46,25 +51,22 @@ Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)
 Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class);
-
 Route::get('/search', Sorting::class)->name('queues.index');
 Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
-
 // Defined Attraction and Restaurant routes
+Route::get('/staff/attraction/manage', AttractionManagement::class)->name('admin.attraction-management');
 Route::get('/restaurant/{restaurant:id}', WahanaDetails::class)->name('restaurant.detail');
 Route::get('/attraction/{attraction:id}', WahanaDetails::class)->name('attraction.detail');
-
 Route::get('/order', OrderQueue::class);
 // Route::get('/order-wahana', OrderWahana::class);
 Route::get('/history', History::class)->name('history')->middleware('auth');
-
 Route::get('/login', LoginPage::class)->name('login');
 
 // Google OAuth routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
 
-Route::post('/logout', function () {
+Route::get('/logout', function () {
     Auth::logout();
     return redirect('/login');
 })->name('logout');
@@ -75,7 +77,6 @@ Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
 
 Route::get('/userprofile', UserProfile::class)->name('userprofile')->middleware('login');
 
-Route::get('/staffprofile', StaffProfilePage::class);
 
 // Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 Route::get('/cartPage', CartPage::class)->name('cart-page');
@@ -86,14 +87,22 @@ Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
 
 
 // Admin routes
-Route::get('/manage-news', NewsIndex::class)->name('admin.news');
-Route::get('/manage-news-add', NewsCreate::class)->name('news.create');
-Route::get('/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
+Route::get('/admin/login', AdminLoginPage::class)->name('admin.login');
+Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
+Route::get('/admin/manage-users', ManageUsers::class)->name('admin.manage-users');
+Route::get('/admin/manage-users/edit/{userId}', EditUser::class)->name('admin.edit-user');
+Route::get('/admin/manage-news', NewsIndex::class)->name('admin.manage-news');
+Route::get('/admin/manage-news-add', NewsCreate::class)->name('news.create');
+Route::get('/admin/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
+Route::get('/admin/profile', StaffProfilePage::class);
+
+// Trix image upload routes
+Route::post('/trix/upload', [TrixImageController::class, 'upload'])->name('trix.upload');
+Route::delete('/trix/destroy', [TrixImageController::class, 'destroy'])->name('trix.destroy');
 
 // Route::get('/manage-ticket', ManageTicket::class);
 // Route::get('/manage-ticket-add', ManageTicketAdd::class);
 // Route::get('/manage-ticket-edit', ManageTicketEdit::class);
-Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');   // READ
-Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
-Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE
-Route::get('/manage-ticket', ManageTicketComponent::class)->name('manage-ticket.index');
+Route::get('/admin/manage-ticket', ManageTicketComponent::class)->name('ticket.index');   // READ
+Route::get('/admin/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
+Route::get('/admin/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE

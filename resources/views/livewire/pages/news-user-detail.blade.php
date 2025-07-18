@@ -3,6 +3,81 @@
     'resources/css/jesselyn.css',
     // 'public/js/userprofile.js'
 ])
+<style>
+    /* Styling untuk gambar didalam artikel */
+    .article-content img {
+        max-width: 100%;
+        height: auto;
+        max-height: 400px;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin: 1rem 0;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* Styling untuk gambar yang lebih kecil */
+    .article-content img.small-image {
+        max-width: 50%;
+        max-height: 200px;
+    }
+    
+    /* Styling untuk gambar yang inline */
+    .article-content img.inline-image {
+        max-width: 300px;
+        max-height: 200px;
+        display: inline-block;
+        margin: 0.5rem;
+    }
+    
+    /* Responsive image handling */
+    @media (max-width: 768px) {
+        .article-content img {
+            max-width: 100%;
+            max-height: 250px;
+        }
+    }
+    
+    /* Styling untuk paragraf yang mengandung gambar */
+    .article-content p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+    
+    /* Styling untuk teks artikel */
+    .article-content {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+    }
+    
+    .article-content h1,
+    .article-content h2,
+    .article-content h3,
+    .article-content h4,
+    .article-content h5,
+    .article-content h6 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+    }
+    
+    .article-content ul,
+    .article-content ol {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+    }
+    
+    .article-content blockquote {
+        border-left: 4px solid #007bff;
+        padding-left: 1rem;
+        margin: 1rem 0;
+        font-style: italic;
+        color: #666;
+    }
+</style>
 @endpush
 <div class="p-5 mb-5">
     <div>
@@ -21,7 +96,7 @@
     </div>
 
     <div class="mt-5 px-xl-5 mx-xl-5 px-2 mx-2">
-        <div class="mb-5">
+        <div class="mb-5 article-content">
             {!! $news->content !!}
         </div>
 

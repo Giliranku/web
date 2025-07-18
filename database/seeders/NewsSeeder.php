@@ -18,7 +18,7 @@ class NewsSeeder extends Seeder
             'author_name' => 'Jesselyn',
             'description' => 'Jakarta menyimpan permata wisata yang tak lekang oleh waktu.',
             'keywords' => 'Ancol, Pantai Ancol, Jakarta',
-            'news_cover' => 'img/info1.jpg',
+            'news_cover' => 'news_covers/info1.jpg',
             'staff_id' => 1,
             'content' => '
                 <div>
@@ -47,7 +47,7 @@ class NewsSeeder extends Seeder
             'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana arung jeram diperbaiki',
-            'news_cover' => 'img/arung-jeram.jpg',
+            'news_cover' => 'news_covers/arung-jeram.jpg',
             'staff_id' => 2,
             'content' => '
                 <div>
@@ -69,7 +69,7 @@ class NewsSeeder extends Seeder
             'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Wahana bianglala diperbaiki',
-            'news_cover' => 'img/bianglala.jpg',
+            'news_cover' => 'news_covers/bianglala.jpg',
             'staff_id' => 3,
             'content' => '
                 <div>
@@ -91,7 +91,7 @@ class NewsSeeder extends Seeder
             'author_name' => 'Jesselyn',
             'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, iste odit.',
             'keywords' => 'Ancol, Pantai Ancol, Jakarta',
-            'news_cover' => 'img/promobanner1.jpg',
+            'news_cover' => 'news_covers/promobanner1.jpg',
             'staff_id' => 4,
             'content' => '
                 <div>

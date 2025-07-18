@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\News;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class NewsCreate extends Component
 {
@@ -54,7 +56,14 @@ class NewsCreate extends Component
             'staff_id' => Auth::id() ?? 1,
         ]);
 
-        return redirect()->route('news.index')->with('success', 'Berita berhasil ditambahkan.');
+        return redirect()->route('admin.manage-news')->with('success', 'Berita berhasil ditambahkan.');
+    }
+
+    public function uploadTrixImage($file)
+    {
+        $filename = Str::random(40) . '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('trix_uploads', $filename, 'public');
+        return asset('storage/' . $path);
     }
 
     public function render()

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Livewire\Pages;
+namespace App\Livewire\Admin;
 
+use App\Models\User;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Session;
 
-class StaffProfilePage extends Component
+class EditUser extends Component
 {
     use WithFileUploads;
 
+    public User $user;
     public $name;
     public $email;
     public $number;
@@ -27,41 +28,36 @@ class StaffProfilePage extends Component
         'newAvatar' => 'nullable|image|max:2048',
     ];
 
-    public function mount()
-    {
-        $staff = Session::get('staff');
-        if (!$staff) {
-            return redirect('/admin/login');
-        }
+    // Remove the automatic updatedNewAvatar method to prevent infinite loading
+    // public function updatedNewAvatar() { ... }
 
-        $this->name = $staff->name;
-        $this->email = $staff->email;
-        $this->number = $staff->number ?? '';
-        $this->location = $staff->location ?? '';
-        $this->avatar = $staff->avatar ?? '';
+    public function updatedNewAvatar()
+    {
+        // Auto upload when file is selected
+        if ($this->newAvatar) {
+            $this->updateAvatar();
+        }
+    }
+
+    public function mount($userId)
+    {
+        $this->user = User::findOrFail($userId);
+        $this->name = $this->user->name;
+        $this->email = $this->user->email;
+        $this->number = $this->user->number;
+        $this->location = $this->user->location;
+        $this->avatar = $this->user->avatar;
     }
 
     public function updateField($field)
     {
         $this->validateOnly($field);
         
-        $staff = Session::get('staff');
-        
-        $staff->update([
+        $this->user->update([
             $field => $this->$field
         ]);
         
-        // Update session
-        Session::put('staff', $staff->fresh());
-        
         session()->flash('success', ucfirst($field) . ' berhasil diperbarui!');
-    }
-
-    public function updatedNewAvatar()
-    {
-        if ($this->newAvatar) {
-            $this->updateAvatar();
-        }
     }
 
     public function updateAvatar()
@@ -73,22 +69,17 @@ class StaffProfilePage extends Component
                 'newAvatar' => 'required|image|max:2048'
             ]);
 
-            $staff = Session::get('staff');
-
-            // Delete old avatar if exists
-            if ($staff->avatar && !str_contains($staff->avatar, 'http')) {
-                Storage::disk('public')->delete($staff->avatar);
+            // Delete old avatar if exists and not from Google
+            if ($this->user->avatar && !str_contains($this->user->avatar, 'googleusercontent.com') && !str_contains($this->user->avatar, 'http')) {
+                Storage::disk('public')->delete($this->user->avatar);
             }
 
             // Store new avatar
             $path = $this->newAvatar->store('avatars', 'public');
             
-            $staff->update([
+            $this->user->update([
                 'avatar' => $path
             ]);
-
-            // Update session
-            Session::put('staff', $staff->fresh());
 
             $this->avatar = $path;
             
@@ -99,6 +90,7 @@ class StaffProfilePage extends Component
         } catch (\Exception $e) {
             session()->flash('error', 'Gagal mengupload foto: ' . $e->getMessage());
         } finally {
+            // Reset states
             $this->uploading = false;
             $this->reset('newAvatar');
         }
@@ -106,6 +98,7 @@ class StaffProfilePage extends Component
 
     public function render()
     {
-        return view('livewire.pages.staff-profile-page')->layout('components.layouts.dashboard-admin');
+        return view('livewire.admin.edit-user')
+            ->layout('components.layouts.dashboard-admin');
     }
 }
