@@ -32,6 +32,9 @@ use App\Livewire\Admin\AddTicketComponent;
 use App\Livewire\Admin\EditTicketComponent;
 use App\Livewire\Admin\NewsIndex;
 use App\Livewire\Admin\NewsCreate;
+use App\Livewire\Admin\ManageStaffAccount;
+use App\Livewire\Admin\ManageStaffAccountAdd;
+use App\Livewire\Admin\ManageStaffAccountEdit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -89,3 +92,7 @@ Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index')
 Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
 Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE
 Route::get('/manage-ticket', ManageTicketComponent::class)->name('manage-ticket.index');
+
+Route::get('/manage-staff-account', ManageStaffAccount::class);
+Route::get('/manage-staff-account-add', ManageStaffAccountAdd::class);
+Route::get('/manage-staff-account-edit', ManageStaffAccountEdit::class);
