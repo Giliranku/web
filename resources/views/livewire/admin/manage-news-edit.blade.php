@@ -139,7 +139,7 @@
             </div>
         </div>
 
-        <form wire:submit.prevent="update" enctype="multipart/form-data">
+        <form wire:submit="update" enctype="multipart/form-data">
             <div class="row g-5">
                 {{-- Left Column: Image Upload --}}
                 <div class="col-lg-4">

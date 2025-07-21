@@ -17,7 +17,7 @@
             </div>
 
             <!-- Form -->
-            <form wire:submit.prevent="update" enctype="multipart/form-data">
+            <form wire:submit="update" enctype="multipart/form-data">
                 <div class="row mb-4 d-flex align-items-center">
                     <!-- Gambar Upload -->
                     <div class="col-md-4 text-center position-relative">

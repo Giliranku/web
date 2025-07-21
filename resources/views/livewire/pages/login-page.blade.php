@@ -30,7 +30,7 @@
             <div class="d-flex align-items-center justify-content-center mb-5">
                 <img src="{{ asset('img/ancol-logo.png') }}" alt="Logo Ancol">
             </div>
-            <form wire:submit.prevent="login" class="d-flex flex-column align-items-center gap-4 w-100">
+            <form wire:submit="login" class="d-flex flex-column align-items-center gap-4 w-100">
 
                 {{-- Alert Error jika gagal login --}}
                 @if ($error)
@@ -154,7 +154,7 @@
                     </div>
 
 
-                    <form wire:submit.prevent="login" class="w-100">
+                    <form wire:submit="login" class="w-100">
 
                         {{-- Alert Error jika gagal login --}}
                         @if ($error)

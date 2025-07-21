@@ -29,7 +29,7 @@
             <div class="d-flex align-items-center justify-content-center mb-5">
                 <img src="{{ asset('img/ancol-logo.png') }}" alt="Logo Ancol">
             </div>
-            <form wire:submit.prevent="register" class="justify-content-center align-items-center d-flex flex-column">
+            <form wire:submit="register" class="justify-content-center align-items-center d-flex flex-column">
                 <div class="mb-3 w-50 h-100">
                     <input type="text" class="form-control" wire:model="name" placeholder="Username">
                     @error('username') <span class="text-danger">{{ $message }}</span> @enderror
@@ -139,7 +139,7 @@
 
                     </div>
 
-                    <form wire:submit.prevent="register" class="w-100">
+                    <form wire:submit="register" class="w-100">
                         <div class="mb-3">
                             <input type="text" wire:model="username" class="form-control rounded-pill px-4 py-2"
                                 placeholder="Username">

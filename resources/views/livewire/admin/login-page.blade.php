@@ -21,7 +21,7 @@
 
                         <h3 class="text-center mb-4 fw-bold">Login Admin</h3>
 
-                        <form wire:submit.prevent="login">
+                        <form wire:submit="login">
                             <!-- Error Alert -->
                             @if ($error)
                                 <div class="alert alert-danger alert-dismissible fade show" role="alert">

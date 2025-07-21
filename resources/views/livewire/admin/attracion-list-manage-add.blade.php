@@ -25,7 +25,7 @@
                 <!-- Form (kanan), flex‑column agar tombol di bawah -->
                 <div class="d-flex  w-100" style="">
 
-                    <form wire:submit.prevent="save" class="d-flex flex-column w-100" style="gap:2rem;">
+                    <form wire:submit="save" class="d-flex flex-column w-100" style="gap:2rem;">
 
                         {{-- Upload Foto Column --}}
                         <div class="d-flex flex-row w-100">
@@ -148,7 +148,7 @@
     {{-- Mobile Version --}}
     <div class="d-block d-md-none" style="padding:1rem; background:#f8f9fa;">
         <div class="card mx-3 my-3 p-4 rounded-3" style="background:#fff;">
-            <form wire:submit.prevent="save" class="d-flex flex-column gap-3">
+            <form wire:submit="save" class="d-flex flex-column gap-3">
 
                 {{-- Upload Foto --}}
                 <div class="position-relative">

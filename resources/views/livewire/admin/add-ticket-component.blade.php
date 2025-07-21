@@ -15,9 +15,9 @@
                 </h5>
                 <a href="{{ url('/manage-ticket') }}" class="btn-close"></a>
             </div>
-
+z
             <!-- Form -->
-            <form wire:submit.prevent="save" enctype="multipart/form-data">
+            <form wire:submit="save" enctype="multipart/form-data">
                 <div class="row mb-4 d-flex align-items-center">
                     <!-- Gambar Upload -->
                     <div class="col-md-4 text-center position-relative">
