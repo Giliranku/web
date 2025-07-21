@@ -1,9 +1,7 @@
 <div x-data="{
-
     selectedDate: @entangle('selectedDate'),
 
     initCalendar() {
-
         const options = {
             type: 'default',
             onClickDate: (self) => {
@@ -12,12 +10,11 @@
         };
 
         const calendar = new Calendar('#calendar', options)
-
         calendar.init();
     },
 
     formattedDate() {
-        if (!this.selectedDate) return 'Pilih Tanggal';
+        if (!this.selectedDate) return 'Pilih Tanggal Kunjungan';
 
         try {
             return new Date(this.selectedDate).toLocaleDateString('id-ID', {
@@ -28,25 +25,299 @@
             });
         } catch (error) {
             console.error('Error formatting date:', error);
-            return 'Pilih Tanggal';
+            return 'Pilih Tanggal Kunjungan';
         }
     },
 }" x-init="initCalendar()">
-    <div class="dropdown border border-dark rounded-3">
-        <button style="width: 100%;" class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            <div class="d-flex p-3">
-                <img src="{{ asset('img/calendar.png') }}" alt="">
+    <div class="modern-date-selector">
+        <div class="date-selector-button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="date-icon">
+                <i class="fas fa-calendar-alt"></i>
             </div>
-            <div class="container">
-                <p>Tanggal Kedatangan</p>
-                <h5 x-text="formattedDate()">
-                    {{-- This text shows before Alpine loads --}}
-                </h5>
+            <div class="date-content">
+                <label class="date-label">Tanggal Kunjungan</label>
+                <div class="selected-date" x-text="formattedDate()">
+                    Pilih Tanggal Kunjungan
+                </div>
             </div>
-        </button>
+            <div class="dropdown-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
 
-        <ul class="dropdown-menu">
-            <div id="calendar" x-ref="calendarContainer"></div>
-        </ul>
+        <div class="dropdown-menu modern-dropdown" style="min-width: 300px; padding: 0;">
+            <div class="calendar-header">
+                <i class="fas fa-calendar-check me-2"></i>
+                <span>Pilih Tanggal Kunjungan Anda</span>
+            </div>
+            <div id="calendar" x-ref="calendarContainer" class="calendar-container"></div>
+            <div class="calendar-footer">
+                <small class="text-muted">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Pilih tanggal untuk melanjutkan pemesanan
+                </small>
+            </div>
+        </div>
     </div>
 </div>
+
+@push('styles')
+<style>
+.modern-date-selector {
+    position: relative;
+}
+
+.date-selector-button {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.date-selector-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.1), transparent);
+    transition: left 0.6s;
+}
+
+.date-selector-button:hover::before {
+    left: 100%;
+}
+
+.date-selector-button:hover {
+    border-color: #2563eb;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.15);
+    transform: translateY(-2px);
+}
+
+.date-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    margin-right: 16px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.date-content {
+    flex: 1;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+}
+
+.date-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+    margin-bottom: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.selected-date {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #334155;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.dropdown-arrow {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-left: 12px;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.date-selector-button[aria-expanded="true"] .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.modern-dropdown {
+    background: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    margin-top: 8px;
+    overflow: hidden;
+    animation: dropdownSlide 0.3s ease-out;
+}
+
+@keyframes dropdownSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.calendar-header {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+}
+
+.calendar-container {
+    padding: 20px;
+}
+
+.calendar-footer {
+    padding: 12px 20px;
+    background: #f8fafc;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+/* Calendar styling overrides */
+#calendar {
+    font-family: 'Inclusive Sans', sans-serif;
+}
+
+#calendar .calendar-month-year {
+    font-weight: 700;
+    color: #334155;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+}
+
+#calendar .calendar-day {
+    padding: 8px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+#calendar .calendar-day:hover {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+#calendar .calendar-day.selected {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    color: white;
+    font-weight: 700;
+}
+
+#calendar .calendar-day.today {
+    background: #fef3c7;
+    color: #d97706;
+    font-weight: 700;
+}
+
+#calendar .calendar-day.disabled {
+    color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+#calendar .calendar-day.disabled:hover {
+    background: transparent;
+    color: #cbd5e1;
+}
+
+/* Navigation buttons */
+#calendar .calendar-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#calendar .calendar-nav button {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+#calendar .calendar-nav button:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+}
+
+/* Day labels */
+#calendar .calendar-day-labels {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+#calendar .calendar-day-label {
+    padding: 8px 4px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Days grid */
+#calendar .calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+    .date-selector-button {
+        padding: 14px 16px;
+    }
+    
+    .date-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+        margin-right: 12px;
+    }
+    
+    .selected-date {
+        font-size: 1rem;
+    }
+    
+    .modern-dropdown {
+        min-width: 280px !important;
+    }
+    
+    .calendar-container {
+        padding: 16px;
+    }
+}
+</style>
+@endpush

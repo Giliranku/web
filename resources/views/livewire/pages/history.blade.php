@@ -3,51 +3,11 @@
     'resources/css/invoice-page.css',  
     // 'public/js/userprofile.js'
 ])
-@endpush
-<div class="container-fluid px-0 min-vh-100">
 
-    <!-- Breadcrumb -->
-    <div class="container mt-4 mb-2 px-4">
-        <a href="#" class="text-dark d-flex align-items-center mb-2" style="text-decoration:none; font-weight:500;">
-            <i class="bi bi-arrow-left me-2"></i> Kembali ke profil
-        </a>
-    </div>
-
-    <div class="container my-4">
-        @php
-            // Derive methods from invoices passed from Livewire component
-            $methodsList = $invoices->pluck('payment_method')->unique();
-        @endphp
-        <form method="GET" action="{{ route('history') }}">
-            <div class="row g-3 align-items-center">
-                <div class="col-12 col-lg-5">
-                    <input type="text" name="search" value="{{ request('search') }}" class="form-control"
-                        placeholder="Cari Nomor Referal">
-                </div>
-                <div class="col-6 col-lg-3">
-                    <select name="method" class="form-select">
-                        <option value="">Semua Metode Pembayaran</option>
-                        @foreach($methodsList as $method)
-                            <option value="{{ $method }}" @selected(request('method') == $method)>{{ $method }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <select name="period" class="form-select">
-                        <option value="">Semua Periode</option>
-                        <option value="7" @selected(request('period') == '7')>7 Hari Terakhir</option>
-                        <option value="30" @selected(request('period') == '30')>30 Hari Terakhir</option>
-                    </select>
-                </div>
-                <div class="col-12 col-lg-1">
-                    <button type="submit" class="btn btn-primary w-100">Filter</button>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <style>
-        @media (max-width: 768px) {
+<style>
+        @media (max-width: 76                 <a href="{{ route('invoice', $invoice->id) }}" wire:navigate class="invoice-link">Lihat Invoice <i
+                    class="bi bi-chevron-right"></i></a>             <a href="{{ route('invoice', $invoice->id) }}" wire:navigate class="invoice-link">Lihat Invoice <i
+                    class="bi bi-chevron-right"></i></a>x) {
             .history-table {
                 display: none !important;
             }
@@ -98,6 +58,49 @@
         }
     </style>
 
+@endpush
+<div class="container-fluid px-0 min-vh-100">
+
+    <!-- Breadcrumb -->
+    <div class="container mt-4 mb-2 px-4">
+        <a href="#" class="text-dark d-flex align-items-center mb-2" style="text-decoration:none; font-weight:500;">
+            <i class="bi bi-arrow-left me-2"></i> Kembali ke profil
+        </a>
+    </div>
+
+    <div class="container my-4">
+        @php
+            // Derive methods from invoices passed from Livewire component
+            $methodsList = $invoices->pluck('payment_method')->unique();
+        @endphp
+        <form method="GET" action="{{ route('history') }}">
+            <div class="row g-3 align-items-center">
+                <div class="col-12 col-lg-5">
+                    <input type="text" name="search" value="{{ request('search') }}" class="form-control"
+                        placeholder="Cari Nomor Referal">
+                </div>
+                <div class="col-6 col-lg-3">
+                    <select name="method" class="form-select">
+                        <option value="">Semua Metode Pembayaran</option>
+                        @foreach($methodsList as $method)
+                            <option value="{{ $method }}" @selected(request('method') == $method)>{{ $method }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <select name="period" class="form-select">
+                        <option value="">Semua Periode</option>
+                        <option value="7" @selected(request('period') == '7')>7 Hari Terakhir</option>
+                        <option value="30" @selected(request('period') == '30')>30 Hari Terakhir</option>
+                    </select>
+                </div>
+                <div class="col-12 col-lg-1">
+                    <button type="submit" class="btn btn-primary w-100">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <!-- Table (Desktop) -->
     <div class="container px-4 pb-5 history-table">
         <div class="table-responsive rounded" style="overflow-x:auto;">
@@ -119,7 +122,7 @@
                             <td>{{ $invoice->payment_method }}</td>
                             <td>Rp{{ number_format($invoice->total_price, 0, ',', '.') }}</td>
                             <td class="text-end">
-                                <a href="{{ route('invoice', $invoice->id) }}"><i class="bi bi-chevron-right fs-4"></i></a>
+                                <a href="{{ route('invoice', $invoice->id) }}" wire:navigate><i class="bi bi-chevron-right fs-4"></i></a>
                             </td>
                         </tr>
                     @empty

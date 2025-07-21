@@ -1,132 +1,350 @@
 @push('styles')
-    @vite(['resources/css/yoga.css'])
+    @vite(['resources/sass/app.scss', 'resources/css/main.css', 'resources/css/cart-modern.css'])
 @endpush
-<div class="d-flex m-5 flex-column justify-content-between align-items-center">
-    <div class="d-flex" style="width: 100%;">
-        <img src="{{ asset('img/arrowDown.png') }}" alt="Back"
-            style="width: 40px; height: 40px; margin-top: 5vh; margin-left: 2vw">
-    </div>
-    <div class="d-flex flex-row gap-5">
-        <div class="d-flex flex-column">
-            <h1>Detail Pembayaran</h1>
 
-            <form wire:submit="madePayment">
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                <div class="mb-3">
-                    <label for="namaLengkap" class="form-label text-secondary fw-bold">Nama Lengkap</label>
-                    <input type="text" wire:model="namaLengkap" class="form-control" id="namaLengkap">
-                    @error('namaLengkap')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+<div class="cart-container">
+    <div class="container-fluid px-4">
+        <!-- Modern Header -->
+        <div class="cart-card mb-4 animate-fade-in">
+            <div class="cart-header">
+                <div class="d-flex align-items-center">
+                    <a href="{{ route('cart-page') }}" wire:navigate class="back-button me-3">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <h2 class="mb-0">Checkout Pembayaran</h2>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label text-secondary fw-bold">Email</label>
-                    <input type="email" wire:model="email" class="form-control" id="email">
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="noTelp" class="form-label text-secondary fw-bold">Nomor Telepon</label>
-                    <input type="tel" wire:model="noTelp" class="form-control" id="noTelp">
-                    @error('noTelp')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <h1>Metode Pembayaran</h1>
-                <div class="d-flex flex-row gap-3" style="width: 32vw; height: 100px;">
-                    <div style="width: 100%; height: 100%;">
-                        <input wire:model.live="metode" class="form-check-input" id="mastercard" type="radio"
-                            value="mastercard" name="metode" />
-                    </div>
-                    <div style="width: 100%; height: 100%;">
-                        <input wire:model.live="metode" class="form-check-input" id="ovo" type="radio"
-                            name="metode" value="ovo" />
-                    </div>
-                    <div style="width: 100%; height: 100%;">
-                        <input wire:model.live="metode" class="form-check-input" id="bca" type="radio"
-                            name="metode" value="bca" />
-                    </div>
-                </div>
-                @error('metode')
-                    <span class="text-danger d-block mt-2">{{ $message }}</span>
-                @enderror
-
-                @if ($metode === 'mastercard')
-                    <div id="mastercard-form">
-                        <div class="mb-3 d-flex flex-column">
-                            <label for="ccn" class="form-label text-secondary fw-bold">Nomor Kartu</label>
-                            <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}"
-                                autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required
-                                class="form-control" wire:model="cardNumber">
-                            @error('cardNumber')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="d-flex flex-row gap-3">
-                            <div class="mb-3">
-                                <label for="tanggal" class="form-label text-secondary fw-bold">Tanggal</label>
-                                <input type="date" wire:model="cardExpiry" class="form-control" id="tanggal">
-                                @error('cardExpiry')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="cvv" class="form-label text-secondary fw-bold">CVV</label>
-                                <input type="number" wire:model="cvv" class="form-control" id="cvv">
-                                @error('cvv')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                @elseif ($metode === 'ovo')
-                    <div id="ovo-form">
-                        <div class="mb-3">
-                            <label for="ovoPhone" class="form-label text-secondary fw-bold">Nomor Telepon OVO</label>
-                            <input type="tel" wire:model="ovoPhone" class="form-control" id="ovoPhone">
-                            @error('ovoPhone')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                @elseif ($metode === 'bca')
-                    <div id="bca-form">
-                        <p>Nomor BCA Virtual Account akan muncul setelah melakukan checkout.</p>
-                    </div>
-                @endif
-                <button type="submit" class="btn btn-warning mt-3">Selesaikan Pembayaran</button>
-            </form>
+                <p class="mb-0 mt-2 opacity-90">
+                    <i class="fas fa-lock me-2"></i>Transaksi Anda dilindungi dengan keamanan tingkat tinggi
+                </p>
+            </div>
         </div>
 
-        <div class="d-flex flex-column">
-            <h3>Detail Pemesanan</h3>
-            <div class="d-flex flex-column border border-dark rounded-4 p-3">
-                @foreach ($cartItems as $item)
-                    <div class="d-flex flex-row align-items-center gap-5">
-                        <div>
-                            <img src="./ancolMini.png" alt="">
-                            <p>{{ $item['product']->name }}</p>
-                            <p>Rp {{ number_format($item['subtotal']) }}</p>
+        <div class="row">
+            <!-- Payment Form -->
+            <div class="col-lg-8 mb-4">
+                <form wire:submit="madePayment" class="animate-slide-in-up" style="animation-delay: 0.1s;">
+                    @if (session('success'))
+                        <div class="alert alert-success alert-modern animate-fade-in" role="alert">
+                            <i class="fas fa-check-circle me-2"></i>{{ session('success') }}
                         </div>
-                        <div>
-                            <h5>{{ $item['quantity'] }}x</h5>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger alert-modern animate-fade-in" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>{{ session('error') }}
+                        </div>
+                    @endif
+
+                    <!-- Contact Information -->
+                    <div class="form-section animate-slide-in-up" style="animation-delay: 0.2s;">
+                        <div class="form-section-header">
+                            <h5>
+                                <i class="fas fa-user text-primary"></i>
+                                Informasi Kontak
+                            </h5>
+                        </div>
+                        <div class="form-section-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="namaLengkap" class="form-label">
+                                        <i class="fas fa-id-card me-1"></i>Nama Lengkap
+                                    </label>
+                                    <input type="text" wire:model="namaLengkap" class="form-control" id="namaLengkap" 
+                                           placeholder="Masukkan nama lengkap Anda">
+                                    @error('namaLengkap')
+                                        <div class="text-danger small mt-1">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope me-1"></i>Email
+                                    </label>
+                                    <input type="email" wire:model="email" class="form-control" id="email" 
+                                           placeholder="contoh@email.com">
+                                    @error('email')
+                                        <div class="text-danger small mt-1">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="noTelp" class="form-label">
+                                        <i class="fas fa-phone me-1"></i>Nomor Telepon
+                                    </label>
+                                    <input type="tel" wire:model="noTelp" class="form-control" id="noTelp" 
+                                           placeholder="08xxxxxxxxxx">
+                                    @error('noTelp')
+                                        <div class="text-danger small mt-1">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <hr style="width: 100%; border: none; border-top: 1.5px solid black;">
-                @endforeach
 
-                <div class="d-flex flex-row gap-2">
-                    <h6 class="fw-bold">Total Harga: </h6>
-                    <h6>Rp {{ number_format($totalAmount) }}</h6>
+                    <!-- Payment Methods -->
+                    <div class="form-section animate-slide-in-up" style="animation-delay: 0.3s;">
+                        <div class="form-section-header">
+                            <h5>
+                                <i class="fas fa-credit-card text-primary"></i>
+                                Pilih Metode Pembayaran
+                            </h5>
+                        </div>
+                        <div class="form-section-body">
+                            <div class="payment-method-grid">
+                                <div class="payment-method">
+                                    <input wire:model.live="metode" class="form-check-input d-none" id="mastercard" 
+                                           type="radio" value="mastercard" name="metode" />
+                                    <label for="mastercard" class="payment-card">
+                                        <i class="fab fa-cc-mastercard payment-icon text-warning"></i>
+                                        <h6 class="payment-label">Mastercard</h6>
+                                        <small class="text-muted">Kartu kredit/debit</small>
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input wire:model.live="metode" class="form-check-input d-none" id="ovo" 
+                                           type="radio" name="metode" value="ovo" />
+                                    <label for="ovo" class="payment-card">
+                                        <i class="fas fa-mobile-alt payment-icon" style="color: #8e44ad;"></i>
+                                        <h6 class="payment-label">OVO</h6>
+                                        <small class="text-muted">E-wallet</small>
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input wire:model.live="metode" class="form-check-input d-none" id="bca" 
+                                           type="radio" name="metode" value="bca" />
+                                    <label for="bca" class="payment-card">
+                                        <i class="fas fa-university payment-icon text-primary"></i>
+                                        <h6 class="payment-label">BCA Virtual Account</h6>
+                                        <small class="text-muted">Transfer bank</small>
+                                    </label>
+                                </div>
+                            </div>
+                            @error('metode')
+                                <div class="alert alert-danger alert-modern">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Details -->
+                    @if ($metode === 'mastercard')
+                        <div class="form-section animate-slide-in-up" style="animation-delay: 0.4s;">
+                            <div class="form-section-header">
+                                <h6 class="mb-0 fw-bold text-warning">
+                                    <i class="fab fa-cc-mastercard me-2"></i>Detail Kartu Mastercard
+                                </h6>
+                            </div>
+                            <div class="form-section-body">
+                                <div class="alert alert-info alert-modern mb-4">
+                                    <i class="fas fa-shield-alt me-2"></i>
+                                    Informasi kartu Anda dilindungi dengan enkripsi SSL 256-bit
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ccn" class="form-label">
+                                        <i class="fas fa-credit-card me-1"></i>Nomor Kartu
+                                    </label>
+                                    <input id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}"
+                                        autocomplete="cc-number" maxlength="19" placeholder="1234 5678 9012 3456"
+                                        class="form-control" wire:model="cardNumber">
+                                    @error('cardNumber')
+                                        <div class="text-danger small mt-1">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="tanggal" class="form-label">
+                                            <i class="fas fa-calendar me-1"></i>Berlaku Hingga
+                                        </label>
+                                        <input type="month" wire:model="cardExpiry" class="form-control" id="tanggal">
+                                        @error('cardExpiry')
+                                            <div class="text-danger small mt-1">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cvv" class="form-label">
+                                            <i class="fas fa-lock me-1"></i>CVV
+                                        </label>
+                                        <input type="password" wire:model="cvv" class="form-control" id="cvv" 
+                                               maxlength="4" placeholder="•••">
+                                        @error('cvv')
+                                            <div class="text-danger small mt-1">
+                                                <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @elseif ($metode === 'ovo')
+                        <div class="form-section animate-slide-in-up" style="animation-delay: 0.4s;">
+                            <div class="form-section-header">
+                                <h6 class="mb-0 fw-bold" style="color: #8e44ad;">
+                                    <i class="fas fa-mobile-alt me-2"></i>Detail OVO
+                                </h6>
+                            </div>
+                            <div class="form-section-body">
+                                <div class="alert alert-info alert-modern mb-4">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    Pastikan nomor telepon Anda terdaftar di aplikasi OVO
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ovoPhone" class="form-label">
+                                        <i class="fas fa-phone me-1"></i>Nomor Telepon OVO
+                                    </label>
+                                    <input type="tel" wire:model="ovoPhone" class="form-control" id="ovoPhone" 
+                                           placeholder="08xxxxxxxxxx">
+                                    @error('ovoPhone')
+                                        <div class="text-danger small mt-1">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    @elseif ($metode === 'bca')
+                        <div class="form-section animate-slide-in-up" style="animation-delay: 0.4s;">
+                            <div class="form-section-header">
+                                <h6 class="mb-0 fw-bold text-primary">
+                                    <i class="fas fa-university me-2"></i>BCA Virtual Account
+                                </h6>
+                            </div>
+                            <div class="form-section-body">
+                                <div class="alert alert-info alert-modern">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <strong>Mudah dan Cepat!</strong><br>
+                                    Nomor Virtual Account akan otomatis dibuat setelah konfirmasi pesanan. 
+                                    Transfer dapat dilakukan melalui ATM, Internet Banking, atau Mobile Banking BCA.
+                                </div>
+                                <div class="row text-center mt-4">
+                                    <div class="col-4">
+                                        <i class="fas fa-university text-primary mb-2 fs-4"></i>
+                                        <small class="d-block text-muted fw-medium">ATM BCA</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <i class="fas fa-laptop text-primary mb-2 fs-4"></i>
+                                        <small class="d-block text-muted fw-medium">KlikBCA</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <i class="fas fa-mobile-alt text-primary mb-2 fs-4"></i>
+                                        <small class="d-block text-muted fw-medium">myBCA</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Submit Button -->
+                    <div class="animate-slide-in-up" style="animation-delay: 0.5s;">
+                        <button type="submit" class="btn btn-cart-primary w-100 py-3 fw-bold fs-5">
+                            <i class="fas fa-lock me-2"></i>Bayar Sekarang - Rp {{ number_format($totalAmount) }}
+                        </button>
+                        <p class="text-center mt-3 text-muted small">
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Dengan melanjutkan, Anda menyetujui syarat dan ketentuan kami
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="order-summary animate-slide-in-up" style="animation-delay: 0.6s;">
+                    <div class="order-summary-header">
+                        <h5><i class="fas fa-receipt me-2"></i>Detail Pesanan</h5>
+                    </div>
+                    <div class="order-summary-body">
+                        @foreach ($cartItems as $item)
+                            <div class="d-flex align-items-center mb-3 pb-3 border-bottom" wire:key="checkout-{{ $item['product']->id }}">
+                                <div class="ticket-icon-wrapper me-3" style="width: 50px; height: 50px;">
+                                    <i class="fas fa-ticket-alt ticket-icon" style="font-size: 1.2rem;"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-bold">{{ $item['product']->name }}</h6>
+                                    <small class="text-muted">{{ $item['quantity'] }}x tiket</small>
+                                    <div class="mt-1">
+                                        <span class="badge bg-success-subtle text-success small">
+                                            <i class="fas fa-check me-1"></i>Full Access
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="text-end">
+                                    <div class="fw-bold text-primary">Rp {{ number_format($item['subtotal']) }}</div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        <div class="summary-row">
+                            <span class="text-muted">Subtotal</span>
+                            <span class="fw-medium">Rp {{ number_format($totalAmount) }}</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="text-muted">Biaya Admin</span>
+                            <span class="fw-medium text-success">Gratis</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="text-muted">Biaya Layanan</span>
+                            <span class="fw-medium text-success">Gratis</span>
+                        </div>
+                        <hr class="my-3">
+                        <div class="summary-row summary-total">
+                            <span class="fw-bold">Total Pembayaran</span>
+                            <span class="fw-bold">Rp {{ number_format($totalAmount) }}</span>
+                        </div>
+
+                        <!-- Trust Indicators -->
+                        <div class="mt-4 pt-4 border-top">
+                            <h6 class="fw-bold mb-3 text-center">Keamanan Terjamin</h6>
+                            <div class="row text-center">
+                                <div class="col-6 mb-3">
+                                    <i class="fas fa-shield-alt text-success mb-2 fs-4"></i>
+                                    <small class="d-block text-muted fw-medium">SSL Encryption</small>
+                                </div>
+                                <div class="col-6 mb-3">
+                                    <i class="fas fa-lock text-primary mb-2 fs-4"></i>
+                                    <small class="d-block text-muted fw-medium">Secure Payment</small>
+                                </div>
+                                <div class="col-6">
+                                    <i class="fas fa-ticket-alt text-warning mb-2 fs-4"></i>
+                                    <small class="d-block text-muted fw-medium">Instant E-Ticket</small>
+                                </div>
+                                <div class="col-6">
+                                    <i class="fas fa-headset text-info mb-2 fs-4"></i>
+                                    <small class="d-block text-muted fw-medium">24/7 Support</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto format credit card number
+    const cardInput = document.getElementById('ccn');
+    if (cardInput) {
+        cardInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            if (formattedValue !== value) {
+                e.target.value = formattedValue;
+            }
+        });
+    }
+});
+</script>
+@endpush

@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class InvoiceTicket extends Model
 {
-    protected $fillable = ['ticket_id', 'invoice_id'];
+    protected $fillable = ['ticket_id', 'invoice_id', 'quantity', 'used_quantity'];
+    
+    protected $attributes = [
+        'quantity' => 1,
+        'used_quantity' => 0
+    ];
 }

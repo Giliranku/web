@@ -14,7 +14,7 @@ class AttractionSeeder extends Seeder
      */
     public function run(): void
     {
-        $staffs = Staff::all();
+        $staffAttractions = Staff::where('role', 'staff_attraction')->get();
         $attractions = [
             [
                 'name' => 'DoAndFun',
@@ -72,8 +72,11 @@ class AttractionSeeder extends Seeder
                 'img3' => 'kegiatanseru3.jpg',
             ],
         ];
-        foreach ($attractions as $data) {
-            $data['staff_id'] = $staffs->random()->id;
+        foreach ($attractions as $i => $data) {
+            $staff = $staffAttractions[$i % $staffAttractions->count()] ?? null;
+            if ($staff) {
+                $data['staff_id'] = $staff->id;
+            }
             Attraction::create($data);
         }
     }

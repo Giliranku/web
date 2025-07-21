@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Invoice extends Model
 {
-    protected $fillable = ['total_price', 'payment_method', 'user_id'];
+    protected $fillable = ['total_price', 'payment_method', 'user_id', 'status'];
 
 
     public function user()
@@ -16,6 +16,8 @@ class Invoice extends Model
 
     public function tickets()
     {
-        return $this->belongsToMany(Ticket::class, 'invoice_tickets');
+        return $this->belongsToMany(Ticket::class, 'invoice_tickets')
+                    ->withPivot('quantity', 'used_quantity')
+                    ->withTimestamps();
     }
 }

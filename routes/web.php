@@ -4,18 +4,15 @@ use App\Livewire\Admin\AttracionListManage;
 use App\Livewire\Admin\AttracionListManageAdd;
 use App\Livewire\Admin\AttracionListManageEdit;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+// User Pages Components
 use App\Livewire\Pages\Home;
 use App\Livewire\Pages\Sorting;
 use App\Livewire\Pages\WahanaDetails;
 use App\Livewire\Pages\ContactUs;
 use App\Livewire\Pages\NewsUser;
 use App\Livewire\Pages\NewsUserDetail;
-use App\Livewire\Admin\ManageNews;
-use App\Livewire\Admin\ManageNewsAdd;
-use App\Livewire\Admin\ManageNewsEdit;
-use App\Livewire\Admin\ManageTicket;
-use App\Livewire\Admin\ManageTicketAdd;
-use App\Livewire\Admin\ManageTicketEdit;
 use App\Livewire\Pages\restaurantQueueDetail;
 use App\Livewire\Pages\WahanaQueueDetail;
 use App\Livewire\Pages\PriorityQueue;
@@ -26,11 +23,18 @@ use App\Livewire\Pages\LoginPage;
 use App\Livewire\Pages\RegisterPage;
 use App\Livewire\Pages\InvoicePage;
 use App\Livewire\Pages\UserProfile;
-use App\Livewire\Pages\StaffProfilePage;
 use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPageCheckout;
-use App\Livewire\Staff\AttractionManagement;
+use App\Livewire\Pages\ReservationBooking;
+
+// Admin Components
+use App\Livewire\Admin\ManageNews;
+use App\Livewire\Admin\ManageNewsAdd;
+use App\Livewire\Admin\ManageNewsEdit;
+use App\Livewire\Admin\ManageTicket;
+use App\Livewire\Admin\ManageTicketAdd;
+use App\Livewire\Admin\ManageTicketEdit;
 use App\Livewire\Admin\ManageTicketComponent;
 use App\Livewire\Admin\AddTicketComponent;
 use App\Livewire\Admin\EditTicketComponent;
@@ -40,69 +44,140 @@ use App\Livewire\Admin\LoginPage as AdminLoginPage;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Admin\EditUser;
+
+// Staff Components
+use App\Livewire\Pages\StaffProfilePage;
+use App\Livewire\Staff\AttractionManagement;
+use App\Livewire\Staff\Restaurant\Dashboard as RestaurantDashboard;
+use App\Livewire\Staff\Attraction\Dashboard as AttractionDashboard;
+use App\Livewire\Staff\QueueManager;
+
+// Controllers
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\TrixImageController;
 
-// User routes
+/*
+|--------------------------------------------------------------------------
+| USER ROUTES
+|--------------------------------------------------------------------------
+| Routes for regular users (visitors/customers)
+| Layout: app, full-screen, or specific user layouts
+| These routes are accessible without authentication.
+*/
+
+// Public User Routes
 Route::get('/', Home::class)->name('home');
-Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
-Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create');
-Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit');
 Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
-Route::get('/news-detail/{id}', NewsUserDetail::class);
+Route::get('/news-detail/{id}', NewsUserDetail::class)->name('news.detail');
 Route::get('/search', Sorting::class)->name('queues.index');
-Route::get('/wahana-details', WahanaDetails::class)->name('wahana.detail');
-// Defined Attraction and Restaurant routes
-Route::get('/staff/attraction/manage', AttractionManagement::class)->name('admin.attraction-management');
 Route::get('/restaurant/{restaurant:id}', WahanaDetails::class)->name('restaurant.detail');
 Route::get('/attraction/{attraction:id}', WahanaDetails::class)->name('attraction.detail');
-Route::get('/order', OrderQueue::class);
-// Route::get('/order-wahana', OrderWahana::class);
-Route::get('/history', History::class)->name('history')->middleware('auth');
-Route::get('/login', LoginPage::class)->name('login');
 
-// Google OAuth routes
+// Authentication Routes
+Route::get('/login', LoginPage::class)->name('login');
+Route::get('/register', RegisterPage::class)->name('register');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Google OAuth Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('google.callback');
 
-Route::get('/logout', function () {
-    Auth::logout();
-    return redirect('/login');
-})->name('logout');
+// Authenticated User Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/history', History::class)->name('history');
+    Route::get('/userprofile', UserProfile::class)->name('userprofile');
+    Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
+    
+    // E-commerce Routes
+    Route::get('/tiket-ecommerce', TiketEcommerce::class)->name('tiket-ecommerce');
+    Route::get('/cart-page', CartPage::class)->name('cart-page');
+    Route::get('/cart-checkout', CartPageCheckout::class)->name('cart-page-checkout');
+    
+    // Reservation Routes
+    Route::get('/reserve/attraction/{attraction}', ReservationBooking::class)->name('attraction.reserve');
+    Route::get('/reserve/restaurant/{restaurant}', ReservationBooking::class)->name('restaurant.reserve');
+    
+    // Queue Routes
+    Route::get('/order', OrderQueue::class)->name('order.queue');
+});
 
-Route::get('/register', RegisterPage::class)->name('register');
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES
+|--------------------------------------------------------------------------
+| Routes for super admin
+| Layout: dashboard-admin
+| These routes are accessible only to authenticated admin users.
+*/
 
-Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Admin Authentication
+    Route::get('/login', AdminLoginPage::class)->name('login');
+    Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
+    
+    // Admin Dashboard & Management
+    Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+    Route::get('/profile', StaffProfilePage::class)->name('profile');
+    
+    // User Management
+    Route::get('/manage-users', ManageUsers::class)->name('manage-users');
+    Route::get('/manage-users/edit/{userId}', EditUser::class)->name('edit-user');
+    
+    // News Management
+    Route::get('/manage-news', NewsIndex::class)->name('manage-news');
+    Route::get('/manage-news-add', NewsCreate::class)->name('news.create');
+    Route::get('/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
+    
+    // Ticket Management
+    Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');
+    Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create');
+    Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit');
+    
+    // Attraction Management (Admin level)
+    Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
+    Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create');
+    Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit');
+});
 
-Route::get('/userprofile', UserProfile::class)->name('userprofile')->middleware('login');
+/*
+|--------------------------------------------------------------------------
+| STAFF ROUTES
+|--------------------------------------------------------------------------
+| Routes for staff members (restaurant & attraction staff)
+| Layout: dashboard-restaurant, dashboard-attraction
+| These routes are accessible only to authenticated staff users.
+| Staff roles are determined by their session data.
+*/
 
+Route::prefix('staff')->name('staff.')->group(function () {
+    
+    // Restaurant Staff Routes
+    Route::prefix('restaurant')->name('restaurant.')->group(function () {
+        Route::get('/dashboard', RestaurantDashboard::class)->name('dashboard');
+        Route::get('/edit', \App\Livewire\Staff\Restaurant\EditRestaurant::class)->name('edit');
+        Route::get('/queue/{restaurant}', QueueManager::class)->name('queue');
+    });
+    
+    // Attraction Staff Routes  
+    Route::prefix('attraction')->name('attraction.')->group(function () {
+        Route::get('/dashboard', AttractionDashboard::class)->name('dashboard');
+        Route::get('/edit', \App\Livewire\Staff\Attraction\EditAttraction::class)->name('attraction.edit');
+        Route::get('/queue/{attraction}', QueueManager::class)->name('queue');
+        Route::get('/manage', AttractionManagement::class)->name('manage');
+    });
+});
 
-// Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
-Route::get('/cartPage', CartPage::class)->name('cart-page');
+/*
+|--------------------------------------------------------------------------
+| UTILITY ROUTES
+|--------------------------------------------------------------------------
+| Routes for file uploads, AJAX requests, etc.
+|
+*/
 
-Route::get('/cartPage2', CartPageCheckout::class)->name('cart-page2');
-
-Route::get('/tiketEcommerce', TiketEcommerce::class)->name('tiket-ecommerce');
-
-
-// Admin routes
-Route::get('/admin/login', AdminLoginPage::class)->name('admin.login');
-Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard');
-Route::get('/admin/manage-users', ManageUsers::class)->name('admin.manage-users');
-Route::get('/admin/manage-users/edit/{userId}', EditUser::class)->name('admin.edit-user');
-Route::get('/admin/manage-news', NewsIndex::class)->name('admin.manage-news');
-Route::get('/admin/manage-news-add', NewsCreate::class)->name('news.create');
-Route::get('/admin/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
-Route::get('/admin/profile', StaffProfilePage::class);
-
-// Trix image upload routes
+// Trix Editor Image Upload
 Route::post('/trix/upload', [TrixImageController::class, 'upload'])->name('trix.upload');
 Route::delete('/trix/destroy', [TrixImageController::class, 'destroy'])->name('trix.destroy');
-
-// Route::get('/manage-ticket', ManageTicket::class);
-// Route::get('/manage-ticket-add', ManageTicketAdd::class);
-// Route::get('/manage-ticket-edit', ManageTicketEdit::class);
-Route::get('/admin/manage-ticket', ManageTicketComponent::class)->name('ticket.index');   // READ
-Route::get('/admin/manage-ticket-add', AddTicketComponent::class)->name('ticket.create'); // CREATE
-Route::get('/admin/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit'); //UPDATE

@@ -69,15 +69,12 @@ class WahanaDetails extends Component
 
     public function orderQueue()
     {
-        // Logic untuk pesan antrian
+        // Redirect to reservation page
         if ($this->type === 'attraction') {
-            session()->flash('message', 'Antrian untuk ' . $this->item->name . ' berhasil dipesan!');
+            return redirect()->route('attraction.reserve', ['attraction' => $this->item->id]);
         } else {
-            session()->flash('message', 'Reservasi meja di ' . $this->item->name . ' berhasil dipesan!');
+            return redirect()->route('restaurant.reserve', ['restaurant' => $this->item->id]);
         }
-        
-        // Redirect ke halaman order atau halangan lain sesuai kebutuhan
-        return redirect()->route('history');
     }
 
     public function getTypeName()
@@ -87,7 +84,7 @@ class WahanaDetails extends Component
 
     public function getButtonText()
     {
-        return $this->type === 'attraction' ? '+ Pesan Antrian' : '+ Reservasi Meja';
+        return $this->type === 'attraction' ? '⚡ Antri Sekarang' : '⚡ Antri Sekarang';
     }
 
     public function getButtonClass()

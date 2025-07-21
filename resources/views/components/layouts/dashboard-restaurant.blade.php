@@ -16,7 +16,8 @@
     @vite([
         'resources/sass/app.scss',
         'resources/js/app.js',
-        'resources/css/main.css'
+        'resources/css/main.css',
+        'resources/css/accessibility.css',
     ])
     @stack('styles')
     <!-- Alpine store for theme state -->

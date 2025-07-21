@@ -29,9 +29,20 @@ class LoginPage extends Component
         }
 
         if (Hash::check($this->password, $staff->password)) {
-            // Login staff using custom guard if needed, or session
-            session(['staff_id' => $staff->id, 'staff_name' => $staff->name, 'staff_email' => $staff->email]);
-            return redirect('/admin/dashboard');
+            // Login staff using session and redirect based on role
+            session(['staff_id' => $staff->id, 'staff_name' => $staff->name, 'staff_email' => $staff->email, 'staff_role' => $staff->role]);
+            
+            // Redirect based on role
+            switch ($staff->role) {
+                case 'admin':
+                    return redirect('/admin/dashboard');
+                case 'staff_restaurant':
+                    return redirect('/staff/restaurant/dashboard');
+                case 'staff_attraction':
+                    return redirect('/staff/attraction/dashboard');
+                default:
+                    return redirect('/admin/dashboard');
+            }
         }
 
         $this->reset(['password']);

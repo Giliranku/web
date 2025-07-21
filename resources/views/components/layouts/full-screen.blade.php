@@ -8,7 +8,8 @@
 
     <title>{{ $title ?? 'Page Title' }}</title>
     @vite(['resources/sass/app.scss',
-            'resources/js/app.js'
+            'resources/js/app.js',
+            'resources/css/accessibility.css',
             ])
 
     @assets

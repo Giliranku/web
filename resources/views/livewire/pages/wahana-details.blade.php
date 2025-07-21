@@ -90,12 +90,12 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb bg-light rounded p-3">
             <li class="breadcrumb-item">
-                <a href="{{ route('home') }}" class="text-decoration-none text-primary">
+                <a href="{{ route('home') }}" wire:navigate class="text-decoration-none text-primary">
                     <i class="fas fa-home me-1"></i>Beranda
                 </a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ route('queues.index') }}" class="text-decoration-none text-primary">
+                <a href="{{ route('queues.index') }}" wire:navigate class="text-decoration-none text-primary">
                     {{ $this->getTypeName() }}
                 </a>
             </li>

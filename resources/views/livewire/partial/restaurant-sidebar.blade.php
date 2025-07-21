@@ -50,10 +50,22 @@
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
                 </a>
             </li>
+             <li class="nav-item">
+                <a href="#" class="nav-link d-flex align-items-center">
+                    <i class="bi bi-pencil-square"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
+                </a>
+            </li>
+             <li class="nav-item">
+                <a href="#" class="nav-link d-flex align-items-center">
+                    <i class="bi bi-people"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
+                </a>
+            </li>
             
             {{-- nyalain klo dh siap backend sidebar, tp tunggu akhir aja -jes- --}}
             {{-- <li class="nav-item">
-                <a href="{{ route('restaurant.dashboard') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('restaurant.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('restaurant.dashboard') }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('restaurant.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
                 </a>
@@ -98,6 +110,7 @@
             class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
+            onclick="if(confirm('Apakah Anda yakin ingin keluar?')) { document.getElementById('logout-form').submit(); }"
         >
             <i class="bi bi-box-arrow-right" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 
@@ -108,5 +121,9 @@
                     : 'max-width:120px; opacity:1; margin-left:0;'"
             >Keluar</span>
         </button>
+        
+        <form id="logout-form" action="/admin/logout" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 </div>

@@ -33,6 +33,7 @@ class InvoiceSeeder extends Seeder
             'user_id' => $user->id,
             'total_price' => $total,
             'payment_method' => 'Qris',
+            'status' => 'paid',
             'created_at' => Carbon::now()->subDays(5),
         ]);
 

@@ -12,20 +12,36 @@ class GoogleAuthController extends Controller
 {
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        // Clear any existing session data to prevent conflicts
+        session()->forget(['_token', 'state']);
+        
+        return Socialite::driver('google')
+            ->with(['prompt' => 'select_account'])
+            ->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function handleGoogleCallback(Request $request)
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            // Check for error parameters from Google
+            if ($request->has('error')) {
+                return redirect('/login')->with('error', 'Login dengan Google dibatalkan.');
+            }
+
+            // Retrieve user from Google
+            $googleUser = Socialite::driver('google')->stateless()->user();
+            
+            if (!$googleUser || !$googleUser->email) {
+                return redirect('/login')->with('error', 'Gagal mendapatkan informasi dari Google. Silakan coba lagi.');
+            }
             
             // Check if user already exists with this Google ID
             $user = User::where('google_id', $googleUser->id)->first();
             
             if ($user) {
                 // User exists, login
-                Auth::login($user);
+                Auth::login($user, true); // Remember user
+                session()->regenerate(); // Regenerate session for security
                 return redirect()->intended('/userprofile');
             }
             
@@ -43,7 +59,8 @@ class GoogleAuthController extends Controller
                 
                 $existingUser->update($updateData);
                 
-                Auth::login($existingUser);
+                Auth::login($existingUser, true); // Remember user
+                session()->regenerate(); // Regenerate session for security
                 return redirect()->intended('/userprofile');
             }
             
@@ -57,10 +74,14 @@ class GoogleAuthController extends Controller
                 'email_verified_at' => now(),
             ]);
             
-            Auth::login($newUser);
+            Auth::login($newUser, true); // Remember user
+            session()->regenerate(); // Regenerate session for security
             return redirect()->intended('/userprofile');
             
         } catch (\Exception $e) {
+            // Log error for debugging
+            \Log::error('Google OAuth Error: ' . $e->getMessage());
+            
             return redirect('/login')->with('error', 'Terjadi kesalahan saat login dengan Google. Silakan coba lagi.');
         }
     }

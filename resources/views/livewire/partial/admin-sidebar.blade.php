@@ -95,12 +95,18 @@
                     : 'max-width:120px; opacity:1; margin-left:0;'">Profile</span>
         </button>
         <button class="btn d-flex align-items-center w-100"
-            :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''" style="transition: all 0.3s;">
+            :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''" 
+            style="transition: all 0.3s;"
+            onclick="if(confirm('Apakah Anda yakin ingin keluar?')) { document.getElementById('logout-form').submit(); }">
             <i class="bi bi-box-arrow-right" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span x-cloak style="display:inline-block; overflow:hidden; transition: max-width 0.3s, opacity 0.1s;"
                 :style="$store.sidebar.collapsed 
                     ? 'max-width:0; opacity:0; margin-left:0;' 
                     : 'max-width:120px; opacity:1; margin-left:0;'">Keluar</span>
         </button>
+        
+        <form id="logout-form" action="/admin/logout" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 </div>

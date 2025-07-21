@@ -14,9 +14,8 @@ class RestaurantSeeder extends Seeder
      */
     public function run(): void
     {
-        // Get all staff members to assign to restaurants
-        $staffMembers = Staff::all();
-
+        // Assign each restaurant to a unique staff_restaurant (sequentially)
+        $staffRestaurants = Staff::where('role', 'staff_restaurant')->get();
         $restaurants = [
             [
                 'name' => 'KFC Ancol',
@@ -28,7 +27,6 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'gambar1.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar2.png',
-                'staff_id' => $staffMembers->random()->id,
             ],
             [
                 'name' => 'McDonald\'s Ancol',
@@ -40,7 +38,6 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'mekdi.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar3.jpg',
-                'staff_id' => $staffMembers->random()->id,
             ],
             [
                 'name' => 'Pizza Hut Ancol',
@@ -52,7 +49,6 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar1.png',
                 'img3' => 'solaria.png',
-                'staff_id' => $staffMembers->random()->id,
             ],
             [
                 'name' => 'Chatime Ancol',
@@ -64,7 +60,6 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar2.png',
                 'img3' => 'gambar3.jpg',
-                'staff_id' => $staffMembers->random()->id,
             ],
             [
                 'name' => 'Roti O Ancol',
@@ -76,7 +71,6 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar1.png',
                 'img3' => 'gambar_hebat.png',
-                'staff_id' => $staffMembers->random()->id,
             ],
             [
                 'name' => 'Raa Cha Ancol',
@@ -88,11 +82,14 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'solaria.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar2.png',
-                'staff_id' => $staffMembers->random()->id,
             ],
         ];
 
-        foreach ($restaurants as $restaurantData) {
+        foreach ($restaurants as $i => $restaurantData) {
+            $staff = $staffRestaurants[$i % $staffRestaurants->count()] ?? null;
+            if ($staff) {
+                $restaurantData['staff_id'] = $staff->id;
+            }
             Restaurant::create($restaurantData);
         }
     }

@@ -2,231 +2,409 @@
 @vite([
     'resources/css/login-page.css',
     'resources/css/register-page.css',
-    // 'public/js/userprofile.js'
 ])
+<style>
+    .login-container {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+    
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .form-control {
+        border: 2px solid #e8ecef;
+        border-radius: 12px;
+        padding: 15px 20px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .form-control:focus {
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
+        background: white;
+        transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 15px 30px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+    }
+    
+    .btn-google {
+        background: white;
+        border: 2px solid #e8ecef;
+        border-radius: 12px;
+        padding: 15px 30px;
+        color: #374151;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .btn-google:hover {
+        border-color: #4285f4;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(66, 133, 244, 0.2);
+        color: #4285f4;
+    }
+    
+    .password-toggle {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #6b7280;
+        font-size: 18px;
+        transition: color 0.3s ease;
+    }
+    
+    .password-toggle:hover {
+        color: #4f46e5;
+    }
+    
+    .divider {
+        position: relative;
+        text-align: center;
+        margin: 30px 0;
+    }
+    
+    .divider::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #d1d5db, transparent);
+    }
+    
+    .divider span {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 0 20px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+    
+    .alert {
+        border: none;
+        border-radius: 12px;
+        padding: 15px 20px;
+        background: rgba(239, 68, 68, 0.1);
+        color: #dc2626;
+        border-left: 4px solid #dc2626;
+    }
+    
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .social-links i {
+        font-size: 20px;
+        color: #9ca3af;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .social-links i:hover {
+        color: #4f46e5;
+        transform: translateY(-2px);
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+        .mobile-header {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+        
+        .mobile-card {
+            background: white;
+            border-radius: 30px 30px 0 0;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .tab-button {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-active {
+            background: #4f46e5;
+            color: white;
+        }
+        
+        .tab-inactive {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+    }
+</style>
 @endpush
-<div class="awal">
-    {{-- The best athlete wants his opponent at his best. --}}
-    <div class="d-none d-md-flex flex-row p-3" style="height: 100%;">
-        <div class="position-relative w-100">
-            <div class="d-flex justify-content-center" style="height: 120vh;">
-                <div class="ikutSini position-relative">
-                    <img class="gambar-login object-fit-fill" src="{{ asset('img/gambar_hebat.png') }}"
-                        alt="Gambar-restoran">
-                    <a href="/" wire:navigate>
-                        <div class="position-absolute" style="top: 20px; left:20px">
-                            <img src="{{ asset('img/logo-giliranku.png') }}" alt="Logo Giliranku">
-                        </div>
-                    </a>
-                    <div class="position-absolute" id="geser">
-                        <a href="/login" class="btn button-color-custom text-light">Masuk</a>
-                        <a href="/register" class="btn btn-outline-light me-2">Bergabung</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="ps-3 pe-3 w-100 d-flex flex-column justify-content-center gap-5">
-            <div class="d-flex align-items-center justify-content-center mb-5">
-                <img src="{{ asset('img/ancol-logo.png') }}" alt="Logo Ancol">
-            </div>
-            <form wire:submit="login" class="d-flex flex-column align-items-center gap-4 w-100">
+@push('scripts')
+    <script>
+        // Password toggle functionality for desktop and mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            // Desktop password toggle
+            const togglePassword = document.getElementById('togglePassword');
+            const inputPassword = document.getElementById('inputPassword');
+            
+            if (togglePassword && inputPassword) {
+                togglePassword.addEventListener('click', function() {
+                    const type = inputPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                    inputPassword.setAttribute('type', type);
+                    
+                    this.classList.toggle('bi-eye');
+                    this.classList.toggle('bi-eye-slash');
+                });
+            }
 
-                {{-- Alert Error jika gagal login --}}
+            // Mobile password toggle
+            const togglePasswordMobile = document.getElementById('togglePasswordMobile');
+            const inputPasswordMobile = document.getElementById('inputPasswordMobile');
+            
+            if (togglePasswordMobile && inputPasswordMobile) {
+                togglePasswordMobile.addEventListener('click', function() {
+                    const type = inputPasswordMobile.getAttribute('type') === 'password' ? 'text' : 'password';
+                    inputPasswordMobile.setAttribute('type', type);
+                    
+                    this.classList.toggle('bi-eye');
+                    this.classList.toggle('bi-eye-slash');
+                });
+            }
+        });
+    </script>
+@endpush
+
+<div class="login-container">
+    {{-- DESKTOP VIEW --}}
+    <div class="d-none d-md-flex align-items-center justify-content-center min-vh-100 p-4">
+        <div class="login-card p-5" style="width: 100%; max-width: 450px;">
+            
+            {{-- Logo --}}
+            <div class="text-center mb-4">
+                <a href="/" wire:navigate>
+                    <img src="{{ asset('img/ancol-logo.png') }}" alt="Logo Ancol" style="height: 60px;">
+                </a>
+            </div>
+
+            {{-- Title --}}
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-dark mb-2">Selamat Datang</h2>
+                <p class="text-muted">Masuk ke akun Giliranku Anda</p>
+            </div>
+
+            {{-- Login Form --}}
+            <form wire:submit="login">
+                
+                {{-- Error Alert --}}
                 @if ($error)
-                    <div class="alert alert-danger w-50 text-center">
-                        {{ $error }}
+                    <div class="alert alert-dismissible fade show mb-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i>{{ $error }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 @endif
 
-
-                {{-- Bagian Input --}}
-                <div class="mb-2 w-50">
-                    <input type="email" class="form-control" wire:model="email" placeholder="Email">
+                {{-- Email Input --}}
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-dark mb-2">Email</label>
+                    <input type="email" class="form-control" wire:model="email" placeholder="Masukkan email Anda">
+                    @error('email')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                @error('email')
-                    <div class="alert alert-danger mt-2 w-50 text-center" style="font-size: 0.9rem;">
-                        Tolong masukkan email yang sesuai atau valid.
+                {{-- Password Input --}}
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-dark mb-2">Password</label>
+                    <div class="position-relative">
+                        <input type="password" id="inputPassword" class="form-control pe-5" wire:model="password" placeholder="Masukkan password Anda">
+                        <i class="bi bi-eye-slash password-toggle" id="togglePassword"></i>
                     </div>
-                @enderror
-
-
-                <div class="form-group mb-2 w-50 position-relative">
-                    <input type="password" id="inputPassword" class="form-control pe-5" {{-- pe-5 agar tidak tertutup
-                        icon --}} wire:model="password" placeholder="Password">
-
-                    {{-- Ikon Mata --}}
-                    <i class="bi bi-eye-slash" id="togglePassword" onclick="
-            const input = document.getElementById('inputPassword');
-            const icon = this;
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            }
-        " style="
-            position: absolute;
-            top: 50%;
-            right: 15px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: #6c757d;
-        ">
-                    </i>
+                    @error('password')
+                        <div class="text-danger small mt-1">{{ $message }}</div>
+                    @enderror
                 </div>
 
-
-                <div class="mb-3 w-50 text-end">
-                    <a href="#" class="text-danger small text-secondary">Lupa password?</a>
+                {{-- Forgot Password --}}
+                <div class="text-end mb-4">
+                    <a href="#" class="text-muted small text-decoration-none">Lupa password?</a>
                 </div>
 
-                {{-- Tombol Masuk dengan Google (bukan submit) --}}
-                <div class="d-grid gap-2 col-12 d-flex justify-content-center">
-                    <a href="{{ route('google.redirect') }}" class="btn border border-dark w-50" id="atur_wrapping">
-                        Masuk Dengan Google
-                        <img class="ms-2" src="{{ asset('img/Google-G-logo.png') }}" style="width:18px;"
-                            alt="Logo Google">
-                    </a>
+                {{-- Login Button --}}
+                <button type="submit" class="btn btn-primary w-100 mb-4" wire:loading.attr="disabled">
+                    <span wire:loading.remove>Masuk</span>
+                    <span wire:loading>
+                        <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                        Memproses...
+                    </span>
+                </button>
+
+                {{-- Divider --}}
+                <div class="divider">
+                    <span>atau masuk dengan</span>
                 </div>
 
-                {{-- Tombol Submit --}}
-                <div class="d-grid gap-2 col-12 d-flex justify-content-center">
-                    <button type="submit" class="btn btn-secondary w-50 rounded-pill fs-5 button-styling text-light">
-                        Masuk
-                    </button>
-                </div>
+                {{-- Google Login --}}
+                <a href="{{ route('google.redirect') }}" class="btn btn-google w-100 d-flex align-items-center justify-content-center" wire:navigate>
+                    <img class="me-2" src="{{ asset('img/Google-G-logo.png') }}" style="width: 20px;" alt="Google">
+                    Masuk dengan Google
+                </a>
 
-                {{-- Link Daftar --}}
-                <div class="text-center d-flex flex-row justify-content-center mb-3 gap-2">
-                    <p class="mb-0 fs-6">Belum ada akun?</p>
-                    <a href="/register" wire:navigate class="text-secondary fs-6 fw-semibold">Daftar Sekarang!</a>
-                </div>
             </form>
 
+            {{-- Register Link --}}
+            <div class="text-center mt-4">
+                <span class="text-muted">Belum punya akun?</span>
+                <a href="/register" wire:navigate class="text-decoration-none fw-semibold" style="color: #4f46e5;">Daftar sekarang</a>
+            </div>
 
-
-            <div class="d-flex flex-row align-items-center justify-content-center gap-2">
-                <i class="bi bi-linkedin" style="font-size: 1.8rem;"></i>
-                <i class="bi bi-twitter-x" style="font-size: 1.8rem;"></i>
-                <i class="bi bi-facebook" style="font-size: 1.8rem;"></i>
-                <i class="bi bi-instagram" style="font-size: 1.8rem;"></i>
+            {{-- Social Links --}}
+            <div class="social-links">
+                <i class="bi bi-linkedin"></i>
+                <i class="bi bi-twitter-x"></i>
+                <i class="bi bi-facebook"></i>
+                <i class="bi bi-instagram"></i>
             </div>
         </div>
     </div>
 
-
-    {{-- MOBILE ONLY (xs, sm) --}}
-    <div class="d-block d-md-none bg-dark">
-        <div class="container-fluid px-0" style="position: relative">
-            <div class="ms-3 mt-3" style="position: absolute; z-index:2;">
-                <img src="{{ asset('/img/logo-giliranku.png') }}" alt="Logo" style="max-width: 7vw;">
-            </div>
-            <div class="w-100 " style="position: relative; z-index:1;">
-                <div class="d-flex justify-content-center"
-                    style=" position: relative;z-index: 1;overflow: hidden; height:50vw; width: 100%">
-                    <img src="{{ asset('img/imagehape.png') }}" alt="ImageCover"
-                        style="width: 100%; height: 100%; object-fit: cover;">
+    {{-- MOBILE VIEW --}}
+    <div class="d-block d-md-none mobile-header">
+        <div class="container-fluid px-0">
+            {{-- Header with logo --}}
+            <div class="position-relative p-4">
+                <a href="/" wire:navigate class="position-absolute top-0 start-0 m-3">
+                    <img src="{{ asset('/img/logo-giliranku.png') }}" alt="Logo" style="height: 30px;">
+                </a>
+                <div class="d-flex justify-content-center" style="height: 200px; overflow: hidden;">
+                    <img src="{{ asset('img/imagehape.png') }}" alt="Cover" 
+                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 0 0 20px 20px;">
                 </div>
             </div>
-            {{-- card --}}
-            <div class="bg-light px-3 pt-3 pb-4"
-                style="border-radius: 32px 32px 0 0; margin-top: -30px;position: relative; z-index:2;">
+
+            {{-- Content Card --}}
+            <div class="mobile-card px-4 pt-4 pb-5">
                 <div class="d-flex flex-column align-items-center">
+                    
+                    {{-- Logo Ancol --}}
+                    <img src="{{ asset('img/ancol-logo.png') }}" alt="Logo Ancol" class="mb-4" style="height: 50px;">
 
-                    <img src="{{ asset('img/ancol-logo.png') }}" alt="Logo Ancol" style="height:48px;">
-
-                    <div class="d-flex w-100 justify-content-center my-5 ">
-                        <a href="/login" class="btn border border-end border-dark"
-                            style="background:#60C1AA; color:#fff; min-width:110px; border-radius:10px 0 0 10px; display:inline-block; text-align:center; line-height:38px; text-decoration:none;">
+                    {{-- Tab Buttons --}}
+                    <div class="d-flex w-100 justify-content-center mb-4">
+                        <a href="/login" class="tab-button tab-active flex-fill text-center" wire:navigate>
                             Masuk
                         </a>
-                        <a href="/register" class="btn btn-outline-light"
-                            style="background:#eee; color:#222; min-width:110px; border-radius:0 10px 10px 0; border:1px solid #ccc; display:inline-block; text-align:center; line-height:38px; text-decoration:none;">
+                        <a href="/register" class="tab-button tab-inactive flex-fill text-center" wire:navigate>
                             Bergabung
                         </a>
-
                     </div>
 
-
+                    {{-- Login Form --}}
                     <form wire:submit="login" class="w-100">
-
-                        {{-- Alert Error jika gagal login --}}
+                        
+                        {{-- Error Alert --}}
                         @if ($error)
-                            <div class="alert alert-danger w-100 text-center">
-                                {{ $error }}
+                            <div class="alert alert-dismissible fade show text-center mb-4">
+                                <i class="fas fa-exclamation-triangle me-2"></i>{{ $error }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                             </div>
                         @endif
 
+                        {{-- Email Input --}}
                         <div class="mb-3">
-                            <input type="email" class="form-control rounded-pill px-4 py-2" placeholder="Email"
-                                wire:model="email" style="font-size:1rem; min-width: 2vw;">
+                            <label class="form-label fw-semibold text-dark small">Email</label>
+                            <input type="email" class="form-control rounded-pill px-4 py-3" 
+                                   placeholder="Masukkan email Anda" wire:model="email">
+                            @error('email')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        @error('email')
-                            <div class="alert alert-danger mt-2 w-100 text-center" style="font-size: 0.9rem;">
-                                Tolong masukkan email yang sesuai atau valid.
-                            </div>
-                        @enderror
+                        {{-- Password Input --}}
                         <div class="mb-3 position-relative">
-                            <input type="password" id="inputPasswordMobile"
-                                class="form-control rounded-pill px-4 py-2 pe-5" placeholder="Password"
-                                wire:model="password" style="font-size:1rem;">
-
-                            <i class="bi bi-eye-slash" onclick="
-            const input = document.getElementById('inputPasswordMobile');
-            const icon = this;
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.classList.remove('bi-eye-slash');
-                icon.classList.add('bi-eye');
-            } else {
-                input.type = 'password';
-                icon.classList.remove('bi-eye');
-                icon.classList.add('bi-eye-slash');
-            }
-        " style="
-            position: absolute;
-            top: 50%;
-            right: 20px;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-        ">
-                            </i>
+                            <label class="form-label fw-semibold text-dark small">Password</label>
+                            <input type="password" id="inputPasswordMobile" 
+                                   class="form-control rounded-pill px-4 py-3 pe-5" 
+                                   placeholder="Masukkan password Anda" wire:model="password">
+                            <i class="bi bi-eye-slash password-toggle" id="togglePasswordMobile" 
+                               style="position: absolute; top: 60%; right: 20px; transform: translateY(-50%); cursor: pointer; color: #6b7280;"></i>
+                            @error('password')
+                                <div class="text-danger small mt-1">{{ $message }}</div>
+                            @enderror
                         </div>
 
+                        {{-- Forgot Password --}}
                         <div class="mb-3 text-end">
-                            <a href="#" class="text-danger small text-secondary">Lupa password?</a>
+                            <a href="#" class="text-muted small">Lupa password?</a>
                         </div>
+
+                        {{-- Login Button --}}
                         <div class="mb-3">
-                            <a href="{{ route('google.redirect') }}" class="btn w-100 rounded-pill border border-dark py-2"
-                                style="font-size: 1.1rem; text-decoration: none; color: inherit; display: block;">
+                            <button type="submit" class="btn btn-primary w-100 rounded-pill py-3" wire:loading.attr="disabled">
+                                <span wire:loading.remove>Masuk</span>
+                                <span wire:loading>
+                                    <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                                    Memproses...
+                                </span>
+                            </button>
+                        </div>
+
+                        {{-- Divider --}}
+                        <div class="divider">
+                            <span>atau masuk dengan</span>
+                        </div>
+
+                        {{-- Google Login --}}
+                        <div class="mb-4">
+                            <a href="{{ route('google.redirect') }}" 
+                               class="btn btn-google w-100 rounded-pill py-3 d-flex align-items-center justify-content-center" 
+                               wire:navigate>
+                                <img class="me-2" src="{{ asset('img/Google-G-logo.png') }}" style="width: 18px;" alt="Google">
                                 Masuk dengan Google
-                                <img class="ms-2" src="{{ asset('img/Google-G-logo.png') }}" style="width:18px;"
-                                    alt="Logo Google">
                             </a>
                         </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn w-100 rounded-pill fs-5"
-                                style="background:#FF4E1B; color:#fff; font-weight:600; padding: 12px 0;">Masuk</button>
-                        </div>
+
+                        {{-- Register Link --}}
                         <div class="text-center mb-3">
-                            <span>Belum ada akun? <a href="/register" wire:navigate class="text-danger fw-bold">Daftar
-                                    sekarang!</a></span>
+                            <span class="text-muted">Belum ada akun?</span>
+                            <a href="/register" wire:navigate class="fw-semibold" style="color: #4f46e5;">Daftar sekarang!</a>
                         </div>
                     </form>
 
-                    <div class="d-flex flex-row align-items-center justify-content-center gap-3 mt-2 mb-1">
-                        <i class="bi bi-linkedin" style="font-size: 1.4rem;"></i>
-                        <i class="bi bi-twitter-x" style="font-size: 1.4rem;"></i>
-                        <i class="bi bi-facebook" style="font-size: 1.4rem;"></i>
-                        <i class="bi bi-instagram" style="font-size: 1.4rem;"></i>
+                    {{-- Social Links --}}
+                    <div class="social-links">
+                        <i class="bi bi-linkedin"></i>
+                        <i class="bi bi-twitter-x"></i>
+                        <i class="bi bi-facebook"></i>
+                        <i class="bi bi-instagram"></i>
                     </div>
                 </div>
             </div>

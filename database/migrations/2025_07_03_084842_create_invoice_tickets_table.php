@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ticket_id')->constrained('tickets')->onDelete('cascade');
             $table->foreignId('invoice_id')->constrained('invoices')->onDelete('cascade');
+            $table->integer('quantity')->default(1);
+            $table->integer('used_quantity')->default(0);
             $table->timestamps();
         });
     }

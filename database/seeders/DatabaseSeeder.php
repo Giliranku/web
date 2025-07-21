@@ -30,16 +30,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TicketSeeder::class,
             InvoiceSeeder::class,
+            QueueSeeder::class,
+            UpdateInvoiceTicketsQuantitySeeder::class,
         ]);
-
-        // Example: Create 3 users and attach them to restaurant 1
-        $users = User::factory()->count(3)->create();
-        $restaurant = Restaurant::find(1);
-        foreach ($users as $user) {
-            $user->restaurants()->attach($restaurant->id, [
-                'created_at' => now()->subMinutes(rand(1, 60)),
-            ]);
-        }
 
     }
 }

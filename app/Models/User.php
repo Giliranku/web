@@ -39,12 +39,11 @@ class User extends Authenticatable
 
     public function attractions()
     {
-        return $this->belongsToMany(Attraction::class);
+        return $this->belongsToMany(Attraction::class, 'user_attractions')->using(UserAttraction::class);
     }
 
     public function restaurants(){
         return $this->belongsToMany(Restaurant::class, 'user_restaurants')->using(UserRestaurant::class);
-
     }
 
     /**

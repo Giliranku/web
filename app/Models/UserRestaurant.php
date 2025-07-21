@@ -2,21 +2,60 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserRestaurant extends Pivot
+class UserRestaurant extends Model
 {
     protected $table = 'user_restaurants';
-    protected $fillable = ['user_id', 'restaurant_id', 'created_at'];
-    public $timestamp = false;
+    
+    protected $fillable = [
+        'user_id', 
+        'restaurant_id', 
+        'invoice_id',
+        'slot_number',
+        'queue_position',
+        'reservation_date',
+        'reservation_time',
+        'status',
+        'created_at'
+    ];
+    
+    protected $casts = [
+        'reservation_date' => 'date',
+        'reservation_time' => 'datetime:H:i',
+    ];
 
-    protected static function boot()
+    public function user(): BelongsTo
     {
-        parent::boot();
-        static::creating(function ($model) {
-            if (empty($model->created_at)) {
-                $model->created_at = now();
-            }
-        });
+        return $this->belongsTo(User::class);
+    }
+
+    public function restaurant(): BelongsTo
+    {
+        return $this->belongsTo(Restaurant::class);
+    }
+
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+    // Scope untuk mendapatkan antrian berdasarkan tanggal
+    public function scopeForDate($query, $date)
+    {
+        return $query->where('reservation_date', $date);
+    }
+
+    // Scope untuk mendapatkan antrian yang masih waiting
+    public function scopeWaiting($query)
+    {
+        return $query->where('status', 'waiting');
+    }
+
+    // Scope untuk mengurutkan berdasarkan posisi antrian
+    public function scopeOrderByQueue($query)
+    {
+        return $query->orderBy('queue_position');
     }
 }
