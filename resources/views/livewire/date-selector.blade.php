@@ -1,7 +1,14 @@
 <div x-data="{
     selectedDate: @entangle('selectedDate'),
+    calendarId: 'calendar-' + Math.random().toString(36).substr(2, 9),
 
     initCalendar() {
+        // Wait for Calendar library to be available
+        if (typeof Calendar === 'undefined') {
+            setTimeout(() => this.initCalendar(), 100);
+            return;
+        }
+
         const options = {
             type: 'default',
             onClickDate: (self) => {
@@ -9,7 +16,7 @@
             },
         };
 
-        const calendar = new Calendar('#calendar', options)
+        const calendar = new Calendar('#' + this.calendarId, options)
         calendar.init();
     },
 
@@ -32,7 +39,7 @@
     <div class="modern-date-selector">
         <div class="date-selector-button" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="date-icon">
-                <i class="fas fa-calendar-alt"></i>
+                <i class="bi bi-calendar"></i>
             </div>
             <div class="date-content">
                 <label class="date-label">Tanggal Kunjungan</label>
@@ -50,7 +57,7 @@
                 <i class="fas fa-calendar-check me-2"></i>
                 <span>Pilih Tanggal Kunjungan Anda</span>
             </div>
-            <div id="calendar" x-ref="calendarContainer" class="calendar-container"></div>
+            <div :id="calendarId" x-ref="calendarContainer" class="calendar-container"></div>
             <div class="calendar-footer">
                 <small class="text-muted">
                     <i class="fas fa-info-circle me-1"></i>
@@ -65,6 +72,7 @@
 <style>
 .modern-date-selector {
     position: relative;
+    z-index: 9999;
 }
 
 .date-selector-button {
@@ -165,6 +173,8 @@
     margin-top: 8px;
     overflow: hidden;
     animation: dropdownSlide 0.3s ease-out;
+    z-index: 9999 !important;
+    position: relative !important;
 }
 
 @keyframes dropdownSlide {
@@ -200,18 +210,18 @@
 }
 
 /* Calendar styling overrides */
-#calendar {
+.calendar-container {
     font-family: 'Inclusive Sans', sans-serif;
 }
 
-#calendar .calendar-month-year {
+.calendar-container .calendar-month-year {
     font-weight: 700;
     color: #334155;
     font-size: 1.1rem;
     margin-bottom: 16px;
 }
 
-#calendar .calendar-day {
+.calendar-container .calendar-day {
     padding: 8px;
     border-radius: 8px;
     font-weight: 500;
@@ -219,42 +229,42 @@
     cursor: pointer;
 }
 
-#calendar .calendar-day:hover {
+.calendar-container .calendar-day:hover {
     background: #eff6ff;
     color: #2563eb;
 }
 
-#calendar .calendar-day.selected {
+.calendar-container .calendar-day.selected {
     background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
     color: white;
     font-weight: 700;
 }
 
-#calendar .calendar-day.today {
+.calendar-container .calendar-day.today {
     background: #fef3c7;
     color: #d97706;
     font-weight: 700;
 }
 
-#calendar .calendar-day.disabled {
+.calendar-container .calendar-day.disabled {
     color: #cbd5e1;
     cursor: not-allowed;
 }
 
-#calendar .calendar-day.disabled:hover {
+.calendar-container .calendar-day.disabled:hover {
     background: transparent;
     color: #cbd5e1;
 }
 
 /* Navigation buttons */
-#calendar .calendar-nav {
+.calendar-container .calendar-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
 }
 
-#calendar .calendar-nav button {
+.calendar-container .calendar-nav button {
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -264,20 +274,20 @@
     transition: all 0.2s ease;
 }
 
-#calendar .calendar-nav button:hover {
+.calendar-container .calendar-nav button:hover {
     background: #e2e8f0;
     border-color: #cbd5e1;
 }
 
 /* Day labels */
-#calendar .calendar-day-labels {
+.calendar-container .calendar-day-labels {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
     margin-bottom: 8px;
 }
 
-#calendar .calendar-day-label {
+.calendar-container .calendar-day-label {
     padding: 8px 4px;
     text-align: center;
     font-size: 0.75rem;
@@ -288,7 +298,7 @@
 }
 
 /* Days grid */
-#calendar .calendar-days {
+.calendar-container .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;

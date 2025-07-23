@@ -50,10 +50,16 @@
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
                 </a>
             </li>
-            <li class="nav-item">
+           <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center">
-                    <i class="bi bi-car-front-fill"></i>
-                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Detail Wahana</span>
+                    <i class="bi bi-pencil-square"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
+                </a>
+            </li>
+             <li class="nav-item">
+                <a href="#" class="nav-link d-flex align-items-center">
+                    <i class="bi bi-people"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                 </a>
             </li>
 

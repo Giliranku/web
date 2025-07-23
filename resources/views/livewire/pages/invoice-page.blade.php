@@ -85,7 +85,10 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-center mt-5">
-        <button type="button" class="btn btn-warning w-100 fs-4 rounded-4">Kembali</button>
+    <div class="d-flex flex-column gap-3 mt-5">
+        <button type="button" class="btn btn-outline-secondary w-100 fs-4 rounded-4" onclick="history.back()">
+            <i class="bi bi-arrow-left me-2"></i>
+            Kembali
+        </button>
     </div>
 </div>

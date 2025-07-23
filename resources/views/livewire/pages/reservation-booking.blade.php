@@ -151,6 +151,7 @@
                             <div 
                                 class="ticket-card border rounded-3 p-4 {{ $selected_ticket_id == $ticket['id'] ? 'selected' : '' }}"
                                 wire:click="$set('selected_ticket_id', {{ $ticket['id'] }})"
+                                style="cursor: pointer;"
                             >
                                 <div class="form-check">
                                     <input 
@@ -175,12 +176,12 @@
                                                     </span>
                                                     <span class="badge bg-success bg-opacity-10 text-success px-3 py-2">
                                                         <i class="fas fa-check me-1"></i>
-                                                        Tersedia: {{ $ticket['available_quantity'] }}
+                                                        Dapat digunakan untuk antrian
                                                     </span>
                                                     @if($ticket['used_quantity'] > 0)
-                                                        <span class="badge bg-warning bg-opacity-10 text-warning px-3 py-2">
-                                                            <i class="fas fa-user-check me-1"></i>
-                                                            Sudah masuk taman
+                                                        <span class="badge bg-info bg-opacity-10 text-info px-3 py-2">
+                                                            <i class="fas fa-door-open me-1"></i>
+                                                            {{ $ticket['used_quantity'] }} sudah masuk taman
                                                         </span>
                                                     @endif
                                                 </div>
@@ -204,21 +205,21 @@
                                                         type="number" 
                                                         wire:model.live="queue_quantity" 
                                                         min="1" 
-                                                        max="{{ $ticket['available_quantity'] }}"
+                                                        max="{{ $total_available_tickets }}"
                                                         class="quantity-input"
                                                     >
                                                     
                                                     <button 
                                                         type="button"
                                                         class="quantity-btn" 
-                                                        wire:click="$set('queue_quantity', {{ min($ticket['available_quantity'], $this->queue_quantity + 1) }})"
-                                                        @if($queue_quantity >= $ticket['available_quantity']) disabled @endif
+                                                        wire:click="$set('queue_quantity', {{ min($total_available_tickets, $this->queue_quantity + 1) }})"
+                                                        @if($queue_quantity >= $total_available_tickets) disabled @endif
                                                     >
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </div>
                                                 <div class="small text-muted ms-2">
-                                                    (Maksimal: {{ $ticket['available_quantity'] }})
+                                                    (Maksimal: {{ $total_available_tickets }} - Total semua tiket)
                                                 </div>
                                             </div>
                                         @endif
@@ -226,6 +227,22 @@
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                    
+                    <!-- Total Available Tickets Summary -->
+                    <div class="mt-4 p-3 bg-info bg-opacity-10 border border-info border-opacity-25 rounded-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-info-circle text-info me-2"></i>
+                                <span class="fw-medium text-info">Total Tiket untuk Antrian</span>
+                            </div>
+                            <span class="badge bg-info bg-opacity-20 text-info px-3 py-2 fs-6">
+                                {{ $total_available_tickets }} tiket
+                            </span>
+                        </div>
+                        <div class="small text-muted mt-1">
+                            Semua tiket bersifat universal dan dapat digunakan berulang kali untuk mengantri di wahana atau restoran manapun.
+                        </div>
                     </div>
                 @endif
             @else

@@ -155,9 +155,13 @@ class CartPageCheckout extends Component
                 'status' => 'paid', // Set as paid for successful payment
             ]);
 
-            // Attach tickets to invoice
-            $ticketIds = collect($this->cartItems)->pluck('product.id')->toArray();
-            $invoice->tickets()->attach($ticketIds);
+            // Attach tickets to invoice with quantities
+            foreach ($this->cartItems as $cartItem) {
+                $invoice->tickets()->attach($cartItem['product']->id, [
+                    'quantity' => $cartItem['quantity'],
+                    'used_quantity' => 0
+                ]);
+            }
 
             DB::commit();
 

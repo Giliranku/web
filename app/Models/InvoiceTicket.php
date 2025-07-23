@@ -12,4 +12,14 @@ class InvoiceTicket extends Model
         'quantity' => 1,
         'used_quantity' => 0
     ];
+
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class);
+    }
 }

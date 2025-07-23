@@ -27,6 +27,7 @@ use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPageCheckout;
 use App\Livewire\Pages\ReservationBooking;
+use App\Livewire\Pages\QueueWaiting;
 
 // Admin Components
 use App\Livewire\Admin\ManageNews;
@@ -79,7 +80,7 @@ Route::get('/attraction/{attraction:id}', WahanaDetails::class)->name('attractio
 // Authentication Routes
 Route::get('/login', LoginPage::class)->name('login');
 Route::get('/register', RegisterPage::class)->name('register');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Google OAuth Routes
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.redirect');
@@ -101,6 +102,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reserve/restaurant/{restaurant}', ReservationBooking::class)->name('restaurant.reserve');
     
     // Queue Routes
+    Route::get('/queue/waiting/{invoiceId}', QueueWaiting::class)->name('queue.waiting');
     Route::get('/order', OrderQueue::class)->name('order.queue');
 });
 

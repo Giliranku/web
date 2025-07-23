@@ -30,7 +30,7 @@ class LoginPage extends Component
 
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            return redirect('/userprofile'); // redirect kalau login sukses
+            return redirect()->intended('/'); // redirect ke home page atau halaman yang diminta sebelumnya
         }
         $this->reset(['email', 'password']);
         $this->error = 'Password anda salah.'; // Gunakan properti, jangan session

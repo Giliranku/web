@@ -273,7 +273,7 @@
                 </div>
 
                 {{-- Google Login --}}
-                <a href="{{ route('google.redirect') }}" class="btn btn-google w-100 d-flex align-items-center justify-content-center" wire:navigate>
+                <a href="{{ route('google.redirect') }}" class="btn btn-google w-100 d-flex align-items-center justify-content-center">
                     <img class="me-2" src="{{ asset('img/Google-G-logo.png') }}" style="width: 20px;" alt="Google">
                     Masuk dengan Google
                 </a>
@@ -385,8 +385,7 @@
                         {{-- Google Login --}}
                         <div class="mb-4">
                             <a href="{{ route('google.redirect') }}" 
-                               class="btn btn-google w-100 rounded-pill py-3 d-flex align-items-center justify-content-center" 
-                               wire:navigate>
+                               class="btn btn-google w-100 rounded-pill py-3 d-flex align-items-center justify-content-center">
                                 <img class="me-2" src="{{ asset('img/Google-G-logo.png') }}" style="width: 18px;" alt="Google">
                                 Masuk dengan Google
                             </a>

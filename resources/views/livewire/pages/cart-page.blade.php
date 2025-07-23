@@ -9,7 +9,7 @@
             <div class="cart-header">
                 <div class="d-flex align-items-center">
                     <a href="{{ url()->previous() }}" class="back-button me-3">
-                        <i class="fas fa-arrow-left"></i>
+                        <i class="bi bi-arrow-left"></i>
                     </a>
                     <h2 class="mb-0">Keranjang Belanja</h2>
                 </div>
@@ -22,8 +22,7 @@
                 <div class="date-selector-card cart-card mb-4 animate-slide-in-up" style="animation-delay: 0.1s;">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center mb-3">
-                            <i class="fas fa-calendar-alt text-primary me-2 fs-5"></i>
-                            <h6 class="mb-0 fw-bold text-gray-800">Pilih Tanggal Kunjungan</h6>
+                            <h6 class="mb-0 fw-bold">Pilih Tanggal Kunjungan</h6>
                         </div>
                         <livewire:date-selector />
                     </div>

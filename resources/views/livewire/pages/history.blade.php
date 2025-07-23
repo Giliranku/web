@@ -1,13 +1,10 @@
 @push('styles')
 @vite([
-    'resources/css/invoice-page.css',  
-    // 'public/js/userprofile.js'
+    'resources/css/invoice-page.css'
 ])
 
 <style>
-        @media (max-width: 76                 <a href="{{ route('invoice', $invoice->id) }}" wire:navigate class="invoice-link">Lihat Invoice <i
-                    class="bi bi-chevron-right"></i></a>             <a href="{{ route('invoice', $invoice->id) }}" wire:navigate class="invoice-link">Lihat Invoice <i
-                    class="bi bi-chevron-right"></i></a>x) {
+        @media (max-width: 768px) {
             .history-table {
                 display: none !important;
             }
@@ -139,9 +136,9 @@
     <div class="container px-2 pb-5 history-card-list" style="display:none;">
         @forelse($invoices as $invoice)
             <div class="history-card">
-                <a href="{{ route('invoice', $invoice->id) }}" class="invoice-link">Lihat Invoice <i
+                <a href="{{ route('invoice', $invoice->id) }}" wire:navigate class="invoice-link">Lihat Invoice <i
                         class="bi bi-chevron-right"></i></a>
-                <div><strong>No. Referal :</strong> {{ $invoice->referral_number }}</div>
+                <div><strong>No. Referal :</strong> {{ $invoice->id }}</div>
                 <div><strong>Tanggal Pembelian :</strong> {{ $invoice->created_at->format('d M Y') }}</div>
                 <div><strong>Metode Pembayaran :</strong> {{ $invoice->payment_method }}</div>
                 <div class="history-total">

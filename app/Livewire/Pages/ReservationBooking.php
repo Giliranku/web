@@ -12,6 +12,7 @@ use Livewire\Component;
 use Livewire\Attributes\On;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReservationBooking extends Component
 {
@@ -21,6 +22,7 @@ class ReservationBooking extends Component
     public $user_tickets = [];
     public $selected_ticket_id;
     public $queue_quantity = 1;
+    public $total_available_tickets = 0;
     
     public function mount($restaurant = null, $attraction = null)
     {
@@ -47,46 +49,84 @@ class ReservationBooking extends Component
         }
         
         $this->loadUserTickets();
+        
+        // Check if user can make new reservations
+        $this->validateCanMakeReservation();
+    }
+    
+    private function validateCanMakeReservation()
+    {
+        if (!Auth::check()) {
+            return;
+        }
+        
+        // Get total tickets user owns
+        $totalTickets = collect($this->user_tickets)->sum('total_quantity');
+        
+        if ($totalTickets == 0) {
+            session()->flash('error', 'Anda belum memiliki tiket. Silakan beli tiket terlebih dahulu.');
+            return redirect('/tiket-ecommerce');
+        }
+        
+        // Count active queues (waiting or called status)
+        $activeQueues = UserAttraction::where('user_id', Auth::id())
+            ->whereIn('status', ['waiting', 'called'])
+            ->count() +
+            UserRestaurant::where('user_id', Auth::id())
+            ->whereIn('status', ['waiting', 'called'])
+            ->count();
+            
+        if ($activeQueues >= $totalTickets) {
+            session()->flash('error', 'Semua tiket Anda sedang digunakan untuk mengantri. Silakan tunggu hingga antrian selesai.');
+            return redirect('/');
+        }
     }
     
     public function loadUserTickets()
     {
-        if (!Auth::check()) return;
+        if (!Auth::check()) {
+            return;
+        }
         
         // Get user's valid tickets with quantities
-        $this->user_tickets = Invoice::with(['tickets' => function($query) {
+        $invoices = Invoice::with(['tickets' => function($query) {
                 $query->withPivot('quantity', 'used_quantity');
             }])
             ->where('user_id', Auth::id())
             ->where('status', 'paid')
-            ->get()
+            ->get();
+        
+        $this->user_tickets = $invoices
             ->flatMap(function ($invoice) {
                 return $invoice->tickets->map(function ($ticket) use ($invoice) {
-                    $availableQuantity = $ticket->pivot->quantity - $ticket->pivot->used_quantity;
+                    // For queue reservations, all tickets are always available (universal tickets)
+                    // used_quantity is only for tracking park entry, not queue usage
+                    
                     return [
                         'id' => $ticket->id,
                         'invoice_id' => $invoice->id,
                         'ticket_name' => $ticket->name,
                         'purchased_date' => $invoice->created_at,
                         'total_quantity' => $ticket->pivot->quantity,
-                        'used_quantity' => $ticket->pivot->used_quantity,
-                        'available_quantity' => $availableQuantity,
-                        'can_reserve' => $availableQuantity > 0,
+                        'used_quantity' => $ticket->pivot->used_quantity, // For park entry only
+                        'available_quantity' => $ticket->pivot->quantity, // Always full quantity for queuing
+                        'can_reserve' => true, // Always can reserve as long as ticket exists
                     ];
                 });
             })
-            ->filter(function($ticket) {
-                return $ticket['can_reserve'];
-            })
             ->toArray();
+            
+        // Calculate total available tickets across all user tickets
+        $this->total_available_tickets = collect($this->user_tickets)
+            ->sum('available_quantity'); // Now this will always be the full quantity
     }
     
     public function updatedSelectedTicketId()
     {
         if ($this->selected_ticket_id) {
-            $selected_ticket = collect($this->user_tickets)->firstWhere('id', $this->selected_ticket_id);
-            if ($selected_ticket) {
-                $this->queue_quantity = min(1, $selected_ticket['available_quantity']);
+            // Keep current quantity if valid, otherwise reset to 1
+            if ($this->queue_quantity > $this->total_available_tickets || $this->queue_quantity < 1) {
+                $this->queue_quantity = 1;
             }
         }
     }
@@ -105,14 +145,15 @@ class ReservationBooking extends Component
         
         // Get the selected ticket data from user_tickets array
         $selected_ticket = collect($this->user_tickets)->firstWhere('id', $this->selected_ticket_id);
+        
         if (!$selected_ticket) {
             session()->flash('error', 'Tiket tidak valid');
             return;
         }
         
-        // Validate quantity
-        if ($this->queue_quantity > $selected_ticket['available_quantity']) {
-            session()->flash('error', 'Jumlah antrian melebihi tiket yang tersedia');
+        // Validate quantity against total available tickets
+        if ($this->queue_quantity > $this->total_available_tickets) {
+            session()->flash('error', 'Jumlah antrian melebihi total tiket yang tersedia');
             return;
         }
         
@@ -120,54 +161,98 @@ class ReservationBooking extends Component
         $now = Carbon::now()->format('H:i');
         $queue_numbers = [];
         
+        // Prepare ticket usage tracking - use tickets in order of selection priority
+        $available_tickets = collect($this->user_tickets)
+            ->filter(function($ticket) {
+                return $ticket['available_quantity'] > 0;
+            })
+            ->sortBy(function($ticket) use ($selected_ticket) {
+                // Prioritize the selected ticket first, then others
+                return $ticket['id'] == $this->selected_ticket_id ? 0 : 1;
+            })
+            ->values()
+            ->toArray(); // Convert to array so we can modify elements
+            
+        $remaining_quantity = $this->queue_quantity;
+        $used_invoices = [];
+        
         // Create multiple queue entries based on quantity
         for ($i = 0; $i < $this->queue_quantity; $i++) {
-            // Get next queue position
-            if ($this->type === 'attraction') {
-                $next_position = UserAttraction::where('attraction_id', $this->location_id)
-                    ->where('reservation_date', $today)
-                    ->max('queue_position') + 1;
+            try {
+                // Find the next available ticket to use
+                $current_ticket = null;
+                foreach ($available_tickets as $index => $ticket) {
+                    if ($ticket['available_quantity'] > 0) {
+                        $current_ticket = $ticket;
+                        // Reduce available quantity for this ticket
+                        $available_tickets[$index]['available_quantity']--;
+                        break;
+                    }
+                }
+                
+                if (!$current_ticket) {
+                    session()->flash('error', 'Tidak ada lagi tiket yang tersedia');
+                    return;
+                }
+                
+                // Track which invoice is being used
+                $used_invoices[] = $current_ticket['invoice_id'];
+                // Get next queue position
+                if ($this->type === 'attraction') {
+                    $next_position = UserAttraction::where('attraction_id', $this->location_id)
+                        ->where('reservation_date', $today)
+                        ->max('queue_position') ?? 0;
+                    $next_position += 1;
+                        
+                    // Create reservation
+                    $reservation = UserAttraction::create([
+                        'user_id' => Auth::id(),
+                        'attraction_id' => $this->location_id,
+                        'invoice_id' => $current_ticket['invoice_id'],
+                        'slot_number' => $next_position,
+                        'queue_position' => $next_position,
+                        'reservation_date' => $today,
+                        'reservation_time' => $now,
+                        'status' => 'waiting',
+                    ]);
                     
-                // Create reservation
-                UserAttraction::create([
-                    'user_id' => Auth::id(),
-                    'attraction_id' => $this->location_id,
-                    'invoice_id' => $selected_ticket['invoice_id'],
-                    'slot_number' => $next_position,
-                    'queue_position' => $next_position,
-                    'reservation_date' => $today,
-                    'reservation_time' => $now,
-                    'status' => 'waiting',
-                ]);
-            } else {
-                $next_position = UserRestaurant::where('restaurant_id', $this->location_id)
-                    ->where('reservation_date', $today)
-                    ->max('queue_position') + 1;
+                } else {
+                    $next_position = UserRestaurant::where('restaurant_id', $this->location_id)
+                        ->where('reservation_date', $today)
+                        ->max('queue_position') ?? 0;
+                    $next_position += 1;
+                        
+                    // Create reservation
+                    $reservation = UserRestaurant::create([
+                        'user_id' => Auth::id(),
+                        'restaurant_id' => $this->location_id,
+                        'invoice_id' => $current_ticket['invoice_id'],
+                        'slot_number' => $next_position,
+                        'queue_position' => $next_position,
+                        'reservation_date' => $today,
+                        'reservation_time' => $now,
+                        'status' => 'waiting',
+                    ]);
+                }
+                
+                $queue_numbers[] = $next_position;
+                
+                // Note: We don't update used_quantity here because queue reservations 
+                // don't consume tickets - used_quantity is only for park entry tracking
                     
-                // Create reservation
-                UserRestaurant::create([
-                    'user_id' => Auth::id(),
-                    'restaurant_id' => $this->location_id,
-                    'invoice_id' => $selected_ticket['invoice_id'],
-                    'slot_number' => $next_position,
-                    'queue_position' => $next_position,
-                    'reservation_date' => $today,
-                    'reservation_time' => $now,
-                    'status' => 'waiting',
-                ]);
+            } catch (\Exception $e) {
+                session()->flash('error', 'Gagal membuat antrian: ' . $e->getMessage());
+                return;
             }
-            
-            $queue_numbers[] = $next_position;
         }
+        
+        // Refresh user tickets to show updated available quantities
+        $this->loadUserTickets();
         
         session()->flash('success', 'Berhasil membuat ' . $this->queue_quantity . ' antrian! Nomor antrian Anda: #' . implode(', #', $queue_numbers));
         
-        // Reload data
-        $this->loadUserTickets();
-        
-        // Reset form
-        $this->reset(['selected_ticket_id', 'queue_quantity']);
-        $this->queue_quantity = 1;
+        // Redirect to queue waiting page - use the primary selected ticket's invoice
+        return $this->redirect(route('queue.waiting', ['invoiceId' => $selected_ticket['invoice_id']]), navigate: true);
     }
     
     public function render()

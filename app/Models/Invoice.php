@@ -20,4 +20,9 @@ class Invoice extends Model
                     ->withPivot('quantity', 'used_quantity')
                     ->withTimestamps();
     }
+
+    public function invoiceTickets()
+    {
+        return $this->hasMany(InvoiceTicket::class);
+    }
 }
