@@ -53,7 +53,7 @@
             </div>
             <div>
                 <div>
-                    <a href="/manage-news-add" class="text-decoration-none me-auto btn btn-primary mt-sm-0 mt-2">Tambahkan<i class="bi bi-plus-circle ms-2"></i></a>
+                    <a href="{{ route('admin.news.create') }}" class="text-decoration-none me-auto btn btn-primary mt-sm-0 mt-2">Tambahkan<i class="bi bi-plus-circle ms-2"></i></a>
                 </div>
             </div>
         </div>

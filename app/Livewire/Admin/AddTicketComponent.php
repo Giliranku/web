@@ -73,7 +73,7 @@ class AddTicketComponent extends Component
             'usage' => $this->usage,
         ]);
 
-        return redirect('/manage-ticket')->with('success', 'Tiket berhasil ditambahkan.');
+        return redirect()->route('admin.ticket.index')->with('success', 'Tiket berhasil ditambahkan.');
     }
 
     public function render()

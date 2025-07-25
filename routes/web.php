@@ -3,6 +3,18 @@
 use App\Livewire\Admin\AttracionListManage;
 use App\Livewire\Admin\AttracionListManageAdd;
 use App\Livewire\Admin\AttracionListManageEdit;
+
+// New Admin Management Components
+use App\Livewire\Admin\ManageStaff;
+use App\Livewire\Admin\AddStaff;
+use App\Livewire\Admin\EditStaff;
+use App\Livewire\Admin\ManageAttractions;
+use App\Livewire\Admin\AddAttraction;
+use App\Livewire\Admin\EditAttraction;
+use App\Livewire\Admin\ManageRestaurants;
+use App\Livewire\Admin\AddRestaurant;
+use App\Livewire\Admin\EditRestaurant;
+
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -138,10 +150,25 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create');
     Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit');
     
+    // Staff Management
+    Route::get('/manage-staff', ManageStaff::class)->name('staff.index');
+    Route::get('/manage-staff/add', AddStaff::class)->name('staff.create');
+    Route::get('/manage-staff/edit/{staff}', EditStaff::class)->name('staff.edit');
+    
     // Attraction Management (Admin level)
+    Route::get('/manage-attractions', ManageAttractions::class)->name('attractions.index');
+    Route::get('/manage-attractions/add', AddAttraction::class)->name('attractions.create');
+    Route::get('/manage-attractions/edit/{attraction}', EditAttraction::class)->name('attractions.edit');
+    
+    // Restaurant Management
+    Route::get('/manage-restaurants', ManageRestaurants::class)->name('restaurants.index');
+    Route::get('/manage-restaurants/add', AddRestaurant::class)->name('restaurants.create');
+    Route::get('/manage-restaurants/edit/{restaurant}', EditRestaurant::class)->name('restaurants.edit');
+    
+    // Legacy Attraction Management (keep for backward compatibility)
     Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
-    Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create');
-    Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit');
+    Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create.legacy');
+    Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit.legacy');
 });
 
 /*

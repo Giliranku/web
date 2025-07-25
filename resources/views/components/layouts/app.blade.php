@@ -160,9 +160,7 @@
 
 <body>
     <div>
-        @persist('navbar')
-            <livewire:partial.navbar />
-        @endpersist
+        <livewire:partial.navbar />
 
         <main id="main-slot-content">
             {{ $slot }}

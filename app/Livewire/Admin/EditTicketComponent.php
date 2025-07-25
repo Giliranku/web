@@ -92,12 +92,12 @@ class EditTicketComponent extends Component
             'logo' => $logoPath,
         ]);
 
-        return redirect()->route('manage-ticket.index')->with('success', 'Tiket berhasil diperbarui.');
+        return redirect()->route('admin.ticket.index')->with('success', 'Tiket berhasil diperbarui.');
     }
 
     public function render()
     {
-        return view('livewire.admin.manage-ticket-edit', [
+        return view('livewire.admin.edit-ticket-component', [
             'ticket' => $this->ticket,
         ])->layout('components.layouts.dashboard-admin');
     }

@@ -11,9 +11,11 @@
             <!-- Header -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h5 class="mb-0">
-                    <span class="border-start border-warning border-4 ps-2">Tambahkan Tiket</span>
+                    <span class="border-start border-warning border-4 ps-2">
+                        <i class="fas fa-plus me-2"></i>Tambahkan Tiket
+                    </span>
                 </h5>
-                <a href="{{ url('/manage-ticket') }}" class="btn-close"></a>
+                <a href="{{ route('admin.ticket.index') }}" class="btn-close"></a>
             </div>
 z
             <!-- Form -->
@@ -27,7 +29,7 @@ z
                                 @if ($logo)
                                     <img src="{{ $logo->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
                                 @else
-                                    <i class="bi bi-camera fs-1 text-muted"></i>
+                                    <i class="fas fa-camera fs-1 text-muted"></i>
                                 @endif
                             </div>
                         </label>
@@ -38,7 +40,7 @@ z
                             style="bottom: -5px; right: 50px;"
                             onclick="document.getElementById('gambar').click()"
                             title="Unggah logo">
-                            <i class="bi bi-pencil-square text-dark fs-5"></i>
+                            <i class="fas fa-edit text-dark fs-5"></i>
                         </button>
 
                         <input type="file" wire:model="logo" class="d-none" id="gambar" accept="image/*">
@@ -57,7 +59,7 @@ z
                             <div class="position-relative">
                                 <input type="text" wire:model="name" class="form-control pe-5" id="nama" placeholder="Nama">
                                 <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="nama">
-                                    <i class="bi bi-pencil-square text-muted"></i>
+                                    <i class="fas fa-edit text-muted"></i>
                                 </button>
                             </div>
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
@@ -70,7 +72,7 @@ z
                                 <div class="position-relative">
                                     <input type="number" wire:model="price_before" class="form-control pe-5" id="harga_awal" placeholder="Harga Awal">
                                     <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="harga_awal">
-                                        <i class="bi bi-pencil-square text-muted"></i>
+                                        <i class="fas fa-edit text-muted"></i>
                                     </button>
                                 </div>
                                 @error('price_before') <span class="text-danger">{{ $message }}</span> @enderror
@@ -82,7 +84,7 @@ z
                                 <div class="position-relative">
                                     <input type="number" wire:model="price" class="form-control pe-5" id="harga_promo" placeholder="Harga Promo">
                                     <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="harga_promo">
-                                        <i class="bi bi-pencil-square text-muted"></i>
+                                        <i class="fas fa-edit text-muted"></i>
                                     </button>
                                 </div>
                                 @error('price') <span class="text-danger">{{ $message }}</span> @enderror
@@ -111,7 +113,7 @@ z
                             <div class="position-relative">
                                 <textarea wire:model="terms_and_conditions" class="form-control pe-5" id="syarat" rows="3" placeholder="Syarat & Ketentuan Tiket"></textarea>
                                 <button type="button" class="btn position-absolute top-0 end-0 mt-2 me-2 p-0 border-0 bg-transparent edit-icon" data-target="syarat">
-                                    <i class="bi bi-pencil-square text-muted"></i>
+                                    <i class="fas fa-edit text-muted"></i>
                                 </button>
                             </div>
                             @error('terms_and_conditions') <span class="text-danger">{{ $message }}</span> @enderror
@@ -123,7 +125,7 @@ z
                             <div class="position-relative">
                                 <textarea wire:model="usage" class="form-control pe-5" id="cara" rows="3" placeholder="Cara Menggunakan Tiket"></textarea>
                                 <button type="button" class="btn position-absolute top-0 end-0 mt-2 me-2 p-0 border-0 bg-transparent edit-icon" data-target="cara">
-                                    <i class="bi bi-pencil-square text-muted"></i>
+                                    <i class="fas fa-edit text-muted"></i>
                                 </button>
                             </div>
                             @error('usage') <span class="text-danger">{{ $message }}</span> @enderror
@@ -133,7 +135,9 @@ z
 
                 <!-- Tombol Submit -->
                 <div class="text-end">
-                    <button type="submit" class="btn btn-primary w-100">Kirim</button>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-save me-2"></i>Simpan Tiket
+                    </button>
                 </div>
             </form>
         </div>

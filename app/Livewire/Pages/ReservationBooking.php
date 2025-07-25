@@ -8,6 +8,7 @@ use App\Models\Attraction;
 use App\Models\Restaurant;
 use App\Models\Ticket;
 use App\Models\Invoice;
+use App\Services\QueueValidationService;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Carbon\Carbon;
@@ -23,9 +24,17 @@ class ReservationBooking extends Component
     public $selected_ticket_id;
     public $queue_quantity = 1;
     public $total_available_tickets = 0;
+    public $estimated_wait_time = 0;
+    public $can_queue = true;
+    public $queue_restriction_message = '';
+    public $user_current_queues = [];
+    
+    protected $queueValidationService;
     
     public function mount($restaurant = null, $attraction = null)
     {
+        $this->queueValidationService = new QueueValidationService();
+        
         // Determine type and location_id based on route parameters
         if ($restaurant) {
             $this->type = 'restaurant';
@@ -52,6 +61,9 @@ class ReservationBooking extends Component
         
         // Check if user can make new reservations
         $this->validateCanMakeReservation();
+        
+        // Load user's current queues and calculate estimated wait time
+        $this->loadUserQueueInfo();
     }
     
     private function validateCanMakeReservation()
@@ -121,6 +133,50 @@ class ReservationBooking extends Component
             ->sum('available_quantity'); // Now this will always be the full quantity
     }
     
+    private function loadUserQueueInfo()
+    {
+        if (!Auth::check()) {
+            return;
+        }
+
+        // Get user's current active queues
+        $this->user_current_queues = $this->queueValidationService->getUserActiveQueues(Auth::id());
+        
+        // Check if user can queue at this location
+        $validation = $this->queueValidationService->canUserQueue(
+            Auth::id(), 
+            $this->type, 
+            $this->location_id
+        );
+        
+        $this->can_queue = $validation['can_queue'];
+        $this->queue_restriction_message = $validation['reason'] ?? '';
+        
+        // Calculate estimated wait time if user can queue
+        if ($this->can_queue) {
+            // Get current queue length
+            $currentQueueCount = $this->getCurrentQueueLength();
+            $estimatedPosition = $currentQueueCount + 1; // User would be next in line
+            
+            $this->estimated_wait_time = $this->location->getEstimatedWaitingTime($estimatedPosition);
+        }
+    }
+    
+    private function getCurrentQueueLength()
+    {
+        if ($this->type === 'attraction') {
+            return UserAttraction::where('attraction_id', $this->location_id)
+                ->whereDate('queue_date', today())
+                ->where('status', 'waiting')
+                ->count();
+        } else {
+            return UserRestaurant::where('restaurant_id', $this->location_id)
+                ->whereDate('queue_date', today())
+                ->where('status', 'waiting')
+                ->count();
+        }
+    }
+    
     public function updatedSelectedTicketId()
     {
         if ($this->selected_ticket_id) {
@@ -135,6 +191,18 @@ class ReservationBooking extends Component
     {
         if (!Auth::check()) {
             session()->flash('error', 'Silakan login terlebih dahulu');
+            return;
+        }
+
+        // Re-validate queue permission before processing
+        $validation = $this->queueValidationService->canUserQueue(
+            Auth::id(), 
+            $this->type, 
+            $this->location_id
+        );
+        
+        if (!$validation['can_queue']) {
+            session()->flash('error', $validation['reason']);
             return;
         }
         

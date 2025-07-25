@@ -393,7 +393,9 @@
         }
     }
 </style>
+@endpush
 
+@push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Setup drag and drop for file uploads
@@ -493,237 +495,256 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-
 @endpush
-
-<div class="container-fluid">
-    <!-- Minimalist Header -->
-    <div class="page-header">
-        <h1 class="page-title">
-            <i class="bi bi-stars me-2"></i>Edit Wahana
-        </h1>
-        <p class="page-subtitle">Perbarui informasi wahana yang Anda kelola</p>
-        <a href="/staff/attraction/dashboard" class="btn btn-secondary">
-            <i class="bi bi-arrow-left me-2"></i>Kembali
-        </a>
-    </div>
-
-    <!-- Success/Error Messages -->
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+<div>
+    <div class="container-fluid">
+        <!-- Minimalist Header -->
+        <div class="page-header">
+            <h1 class="page-title">
+                <i class="bi bi-stars me-2"></i>Edit Wahana
+            </h1>
+            <p class="page-subtitle">Perbarui informasi wahana yang Anda kelola</p>
+            <a href="/staff/attraction/dashboard" class="btn btn-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Kembali
+            </a>
         </div>
-    @endif
 
-    @if (session()->has('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <i class="bi bi-exclamation-triangle me-2"></i>{{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    @endif
-
-    <form wire:submit.prevent="updateAttraction">
-        <div class="row">
-            <!-- Basic Information -->
-            <div class="col-lg-8">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">
-                            <i class="bi bi-info-circle me-2"></i>Informasi Dasar
-                        </h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">
-                                    <i class="bi bi-stars me-1"></i>Nama Wahana
-                                </label>
-                                <input type="text" class="form-control" id="name" wire:model="name" placeholder="Masukkan nama wahana">
-                                @error('name') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="location" class="form-label">
-                                    <i class="bi bi-geo-alt me-1"></i>Lokasi
-                                </label>
-                                <input type="text" class="form-control" id="location" wire:model="location" placeholder="Masukkan lokasi">
-                                @error('location') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-4 mb-3">
-                                <label for="capacity" class="form-label">
-                                    <i class="bi bi-people me-1"></i>Kapasitas
-                                </label>
-                                <input type="number" class="form-control" id="capacity" wire:model="capacity" placeholder="Kapasitas orang">
-                                @error('capacity') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="time_estimation" class="form-label">
-                                    <i class="bi bi-clock me-1"></i>Estimasi Waktu (menit)
-                                </label>
-                                <input type="number" class="form-control" id="time_estimation" wire:model="time_estimation" placeholder="Waktu dalam menit">
-                                @error('time_estimation') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="category" class="form-label">
-                                    <i class="bi bi-tag me-1"></i>Kategori
-                                </label>
-                                <input type="text" class="form-control" id="category" wire:model="category" placeholder="Kategori wahana">
-                                @error('category') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="description" class="form-label">
-                                <i class="bi bi-card-text me-1"></i>Deskripsi
-                            </label>
-                            <textarea class="form-control" id="description" rows="4" wire:model="description" placeholder="Deskripsi wahana..."></textarea>
-                            @error('description') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                        </div>
-                    </div>
-                </div>
+        <!-- Success/Error Messages -->
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
+        @endif
 
-            <!-- Current Images -->
-            <div class="col-lg-4">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">
-                            <i class="bi bi-images me-2"></i>Gambar Saat Ini
-                        </h5>
-                    </div>
-                    <div class="card-body p-4">
-                        @if($cover)
-                            <div class="mb-3">
-                                <label class="form-label">Cover Saat Ini:</label>
-                                <div class="current-image">
-                                    <img src="{{ asset('img/' . $cover) }}" class="img-fluid rounded">
-                                    <div class="image-overlay">
-                                        <span><i class="bi bi-eye-fill"></i> Preview</span>
-                                    </div>
+        @if (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-exclamation-triangle me-2"></i>{{ session('error') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        @endif
+
+        <form wire:submit.prevent="updateAttraction">
+            <div class="row">
+                <!-- Basic Information -->
+                <div class="col-lg-8">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="bi bi-info-circle me-2"></i>Informasi Dasar
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">
+                                        <i class="bi bi-stars me-1"></i>Nama Wahana
+                                    </label>
+                                    <input type="text" class="form-control" id="name" wire:model="name" placeholder="Masukkan nama wahana">
+                                    @error('name') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="location" class="form-label">
+                                        <i class="bi bi-geo-alt me-1"></i>Lokasi
+                                    </label>
+                                    <input type="text" class="form-control" id="location" wire:model="location" placeholder="Masukkan lokasi">
+                                    @error('location') <div class="text-danger mt-1">{{ $message }}</div> @enderror
                                 </div>
                             </div>
-                        @endif
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="capacity" class="form-label">
+                                        <i class="bi bi-people me-1"></i>Kapasitas
+                                    </label>
+                                    <input type="number" class="form-control" id="capacity" wire:model="capacity" placeholder="Kapasitas orang">
+                                    @error('capacity') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="time_estimation" class="form-label">
+                                        <i class="bi bi-clock me-1"></i>Estimasi Waktu (menit)
+                                    </label>
+                                    <input type="number" class="form-control" id="time_estimation" wire:model="time_estimation" placeholder="Waktu dalam menit">
+                                    @error('time_estimation') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="category" class="form-label">
+                                        <i class="bi bi-tag me-1"></i>Kategori
+                                    </label>
+                                    <input type="text" class="form-control" id="category" wire:model="category" placeholder="Kategori wahana">
+                                    @error('category') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                </div>
+                            </div>
 
-                        <div class="row">
-                            @foreach(['img1', 'img2', 'img3'] as $index => $img)
-                                @if($$img)
-                                    <div class="col-6 mb-2">
-                                        <div class="current-image">
-                                            <img src="{{ asset('img/' . $$img) }}" class="img-fluid rounded" style="height: 80px; width: 100%; object-fit: cover;">
-                                            <div class="image-overlay">
-                                                <span><i class="bi bi-eye-fill"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            @endforeach
+                            <!-- Queue Management Settings -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="players_per_round" class="form-label">
+                                        <i class="bi bi-person-plus me-1"></i>Jumlah Pemain per 1 Grup Permainan
+                                    </label>
+                                    <input type="number" class="form-control" id="players_per_round" wire:model="players_per_round" placeholder="1" min="1">
+                                    @error('players_per_round') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                    <div class="form-text">Berapa orang yang bisa bermain dalam 1 grup permainan</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="estimated_time_per_round" class="form-label">
+                                        <i class="bi bi-stopwatch me-1"></i>Waktu per 1 Grup Permainan (menit)
+                                    </label>
+                                    <input type="number" class="form-control" id="estimated_time_per_round" wire:model="estimated_time_per_round" placeholder="10" min="1">
+                                    @error('estimated_time_per_round') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                    <div class="form-text">Estimasi waktu untuk 1 grup permainan</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">
+                                    <i class="bi bi-card-text me-1"></i>Deskripsi
+                                </label>
+                                <textarea class="form-control" id="description" rows="4" wire:model="description" placeholder="Deskripsi wahana..."></textarea>
+                                @error('description') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Modern Image Upload Section -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <h5 class="mb-0">
-                            <i class="bi bi-cloud-upload me-2"></i>Upload Gambar Baru
-                        </h5>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="row">
-                            <!-- Cover Image -->
-                            <div class="col-lg-6 mb-4">
-                                <h6 class="mb-3" style="color: var(--primary-color); font-weight: 600;">
-                                    <i class="bi bi-card-image me-2"></i>Cover Image
-                                </h6>
-                                
-                                <div class="upload-zone" id="coverDropZone">
-                                    <input type="file" id="coverInput" class="d-none" wire:model="newCover" accept="image/*">
-                                    
-                                    @if($newCover)
-                                        <img src="{{ $newCover->temporaryUrl() }}" style="max-width: 100%; max-height: 200px; border-radius: var(--radius);">
-                                        <div class="mt-2 text-success">
-                                            <i class="bi bi-check-circle me-1"></i>File siap diupload
+                <!-- Current Images -->
+                <div class="col-lg-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="bi bi-images me-2"></i>Gambar Saat Ini
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            @if($cover)
+                                <div class="mb-3">
+                                    <label class="form-label">Cover Saat Ini:</label>
+                                    <div class="current-image">
+                                        <img src="{{ asset('img/' . $cover) }}" class="img-fluid rounded">
+                                        <div class="image-overlay">
+                                            <span><i class="bi bi-eye-fill"></i> Preview</span>
                                         </div>
-                                    @else
-                                        <div class="upload-content">
-                                            <div class="upload-icon">
-                                                <i class="bi bi-cloud-upload"></i>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="row">
+                                @foreach(['img1', 'img2', 'img3'] as $index => $img)
+                                    @if($$img)
+                                        <div class="col-6 mb-2">
+                                            <div class="current-image">
+                                                <img src="{{ asset('img/' . $$img) }}" class="img-fluid rounded" style="height: 80px; width: 100%; object-fit: cover;">
+                                                <div class="image-overlay">
+                                                    <span><i class="bi bi-eye-fill"></i></span>
+                                                </div>
                                             </div>
-                                            <div class="upload-text">Drag & Drop atau Klik untuk Upload</div>
-                                            <div class="upload-hint">JPG, JPEG, PNG, WEBP • Max 2MB</div>
                                         </div>
                                     @endif
-                                </div>
-                                @error('newCover') <div class="text-danger mt-2">{{ $message }}</div> @enderror
+                                @endforeach
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <!-- Gallery Images -->
-                            <div class="col-lg-6">
-                                <h6 class="mb-3" style="color: var(--primary-color); font-weight: 600;">
-                                    <i class="bi bi-images me-2"></i>Gallery Images
-                                </h6>
-                                
-                                <div class="row">
-                                    @foreach(['newImg1', 'newImg2', 'newImg3'] as $index => $newImg)
-                                        <div class="col-4 mb-3">
-                                            <div class="upload-zone" style="min-height: 130px; padding: 15px;" id="galleryDropZone{{ $index }}">
-                                                <input type="file" id="galleryInput{{ $index }}" class="d-none" wire:model="{{ $newImg }}" accept="image/*">
-                                                
-                                                @if($$newImg)
-                                                    <img src="{{ ($$newImg)->temporaryUrl() }}" style="max-width: 100%; max-height: 80px; border-radius: var(--radius);">
-                                                @else
-                                                    <div class="upload-content">
-                                                        <div class="upload-icon" style="font-size: 1.5rem;">
-                                                            <i class="bi bi-plus-circle"></i>
-                                                        </div>
-                                                        <div class="upload-text" style="font-size: 0.8rem;">Image {{ $index + 1 }}</div>
-                                                        <div class="upload-hint" style="font-size: 0.7rem;">Opsional</div>
-                                                    </div>
-                                                @endif
+            <!-- Modern Image Upload Section -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="bi bi-cloud-upload me-2"></i>Upload Gambar Baru
+                            </h5>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row">
+                                <!-- Cover Image -->
+                                <div class="col-lg-6 mb-4">
+                                    <h6 class="mb-3" style="color: var(--primary-color); font-weight: 600;">
+                                        <i class="bi bi-card-image me-2"></i>Cover Image
+                                    </h6>
+                                    
+                                    <div class="upload-zone" id="coverDropZone">
+                                        <input type="file" id="coverInput" class="d-none" wire:model="newCover" accept="image/*">
+                                        
+                                        @if($newCover)
+                                            <img src="{{ $newCover->temporaryUrl() }}" style="max-width: 100%; max-height: 200px; border-radius: var(--radius);">
+                                            <div class="mt-2 text-success">
+                                                <i class="bi bi-check-circle me-1"></i>File siap diupload
                                             </div>
-                                            @error($newImg) <div class="text-danger mt-1 small">{{ $message }}</div> @enderror
-                                        </div>
-                                    @endforeach
+                                        @else
+                                            <div class="upload-content">
+                                                <div class="upload-icon">
+                                                    <i class="bi bi-cloud-upload"></i>
+                                                </div>
+                                                <div class="upload-text">Drag & Drop atau Klik untuk Upload</div>
+                                                <div class="upload-hint">JPG, JPEG, PNG, WEBP • Max 2MB</div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    @error('newCover') <div class="text-danger mt-2">{{ $message }}</div> @enderror
+                                </div>
+
+                                <!-- Gallery Images -->
+                                <div class="col-lg-6">
+                                    <h6 class="mb-3" style="color: var(--primary-color); font-weight: 600;">
+                                        <i class="bi bi-images me-2"></i>Gallery Images
+                                    </h6>
+                                    
+                                    <div class="row">
+                                        @foreach(['newImg1', 'newImg2', 'newImg3'] as $index => $newImg)
+                                            <div class="col-4 mb-3">
+                                                <div class="upload-zone" style="min-height: 130px; padding: 15px;" id="galleryDropZone{{ $index }}">
+                                                    <input type="file" id="galleryInput{{ $index }}" class="d-none" wire:model="{{ $newImg }}" accept="image/*">
+                                                    
+                                                    @if($$newImg)
+                                                        <img src="{{ ($$newImg)->temporaryUrl() }}" style="max-width: 100%; max-height: 80px; border-radius: var(--radius);">
+                                                    @else
+                                                        <div class="upload-content">
+                                                            <div class="upload-icon" style="font-size: 1.5rem;">
+                                                                <i class="bi bi-plus-circle"></i>
+                                                            </div>
+                                                            <div class="upload-text" style="font-size: 0.8rem;">Image {{ $index + 1 }}</div>
+                                                            <div class="upload-hint" style="font-size: 0.7rem;">Opsional</div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                                @error($newImg) <div class="text-danger mt-1 small">{{ $message }}</div> @enderror
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Action Buttons -->
-        </div>
+            <!-- Action Buttons -->
 
-        <!-- Action Buttons -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <div class="d-flex justify-content-center gap-3">
-                            <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
-                                <span wire:loading.remove>
-                                    <i class="bi bi-check-circle me-2"></i>Simpan Perubahan
-                                </span>
-                                <span wire:loading>
-                                    <i class="bi bi-hourglass-split me-2"></i>Menyimpan...
-                                </span>
-                            </button>
-                            
-                            <a href="/staff/attraction/dashboard" class="btn btn-secondary">
-                                <i class="bi bi-x-circle me-2"></i>Batal
-                            </a>
+                    <!-- Action Buttons -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="d-flex justify-content-center gap-3">
+                                <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+                                    <span wire:loading.remove>
+                                        <i class="bi bi-check-circle me-2"></i>Simpan Perubahan
+                                    </span>
+                                    <span wire:loading>
+                                        <i class="bi bi-hourglass-split me-2"></i>Menyimpan...
+                                    </span>
+                                </button>
+                                
+                                <a href="/staff/attraction/dashboard" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle me-2"></i>Batal
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

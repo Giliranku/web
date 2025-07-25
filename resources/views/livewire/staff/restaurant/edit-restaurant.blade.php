@@ -462,6 +462,26 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
 
+                        <!-- Queue Management Settings -->
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="players_per_round" class="form-label">
+                                    <i class="bi bi-person-plus me-1"></i>Jumlah Tamu per Giliran
+                                </label>
+                                <input type="number" class="form-control" id="players_per_round" wire:model="players_per_round" placeholder="1" min="1">
+                                @error('players_per_round') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                <div class="form-text">Berapa orang yang bisa dilayani dalam 1 giliran</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="estimated_time_per_round" class="form-label">
+                                    <i class="bi bi-stopwatch me-1"></i>Waktu per Giliran (menit)
+                                </label>
+                                <input type="number" class="form-control" id="estimated_time_per_round" wire:model="estimated_time_per_round" placeholder="30" min="1">
+                                @error('estimated_time_per_round') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                                <div class="form-text">Estimasi waktu untuk 1 giliran makan</div>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="description" class="form-label">
                                 <i class="bi bi-card-text me-1"></i>Deskripsi

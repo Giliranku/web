@@ -27,7 +27,7 @@
                     <div class="vertical-line-admin"></div>
                     <h3 class="ms-2 mb-0">Daftar Wahana</h3>
                 </div>
-                <a href="{{ route('attractions.create') }}" class="btn btn-primary">
+                <a href="{{ route('admin.attractions.create') }}" class="btn btn-primary">
                     Tambahkan <i class="bi bi-plus-circle ms-1"></i>
                 </a>
             </div>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="d-flex gap-3  me-3 flex-column">
-                            <a href="{{ route('attractions.edit', $atr) }}" class="btn btn-warning" style="width:75px;">
+                            <a href="{{ route('admin.attractions.edit', $atr) }}" class="btn btn-warning" style="width:75px;">
                                 <i class="bi bi-pencil-fill" ;"></i>
                             </a>
                             <button type="button" class="btn btn-danger" wire:click="confirmDelete({{ $atr->id }})"

@@ -50,7 +50,7 @@
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
                 </a>
             </li>
-           <li class="nav-item">
+             <li class="nav-item">
                 <a href="#" class="nav-link d-flex align-items-center">
                     <i class="bi bi-pencil-square"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
@@ -62,18 +62,12 @@
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                 </a>
             </li>
-
+            
             {{-- nyalain klo dh siap backend sidebar, tp tunggu akhir aja -jes- --}}
             {{-- <li class="nav-item">
-                <a href="{{ route('attraction.dashboard') }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('attraction.dashboard') ? 'active' : '' }}">
+                <a href="{{ route('restaurant.dashboard') }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('restaurant.dashboard') ? 'active' : '' }}">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('attraction.detail.index') }}" class="nav-link d-flex align-items-center {{ request()->routeIs('attraction.detail.*') ? 'active' : '' }}">
-                    <i class="bi bi-car-front-fill"></i>
-                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Detail Wahana</span>
                 </a>
             </li> --}}
         </ul>

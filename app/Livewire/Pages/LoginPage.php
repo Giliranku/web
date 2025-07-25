@@ -1,11 +1,10 @@
 <?php
 
-
 namespace App\Livewire\Pages;
-
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Services\AuthService;
 
 class LoginPage extends Component
 {
@@ -13,27 +12,72 @@ class LoginPage extends Component
     public $password;
     public $error;
 
+    protected AuthService $authService;
+
+    public function boot(AuthService $authService)
+    {
+        $this->authService = $authService;
+    }
+
+    protected $rules = [
+        'email' => 'required|email',
+        'password' => 'required'
+    ];
+
+    protected $messages = [
+        'email.required' => 'Email wajib diisi.',
+        'email.email' => 'Format email tidak valid.',
+        'password.required' => 'Password wajib diisi.',
+    ];
+
     public function login()
     {
-        $this->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
-        $user = \App\Models\User::where('email', $this->email)->first();
+        $this->validate();
 
-        if (!$user) {
-            // Email tidak ditemukan
+        // Clear previous error
+        $this->error = null;
+
+        // Use AuthService for authentication
+        $result = $this->authService->attemptLogin($this->email, $this->password);
+
+        if ($result['valid']) {
+            // Login successful - redirect to intended page
+            return redirect()->intended('/');
+        } else {
+            // Login failed - show error and reset fields
+            $this->error = $result['error'];
+            $this->resetLoginFields();
+        }
+    }
+
+    /**
+     * Reset login fields for security
+     */
+    private function resetLoginFields()
+    {
+        if ($this->error === 'Email tidak ditemukan.') {
+            // For email not found, reset password only (keep email for user convenience)
             $this->reset(['password']);
-            $this->error = 'Email tidak ditemukan.';
-            return;
+        } elseif ($this->error === 'Password anda salah.') {
+            // For wrong password, reset both email and password for security
+            $this->reset(['email', 'password']);
+        } else {
+            // For other errors, reset password only
+            $this->reset(['password']);
         }
+    }
 
-
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            return redirect()->intended('/'); // redirect ke home page atau halaman yang diminta sebelumnya
+    /**
+     * Clear error when user starts typing
+     */
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+        
+        // Clear error when user starts editing
+        if (in_array($propertyName, ['email', 'password'])) {
+            $this->error = null;
         }
-        $this->reset(['email', 'password']);
-        $this->error = 'Password anda salah.'; // Gunakan properti, jangan session
     }
 
     public function render()

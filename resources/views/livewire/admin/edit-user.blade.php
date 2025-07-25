@@ -12,7 +12,7 @@
                 <div class="vertical-line-admin"></div>
                 <h3 class="card-title ms-2">Edit User</h3>
             </div>
-            <a href="/admin/manage-users" class="btn btn-outline-secondary">
+            <a href="{{ route('admin.manage-users') }}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-2"></i>
                 Kembali
             </a>

@@ -17,6 +17,8 @@ class EditRestaurant extends Component
     public $location;
     public $capacity;
     public $time_estimation;
+    public $players_per_round;
+    public $estimated_time_per_round;
     public $description;
     public $category;
     public $cover;
@@ -33,6 +35,8 @@ class EditRestaurant extends Component
         'location' => 'required|string|max:255',
         'capacity' => 'nullable|integer|min:1',
         'time_estimation' => 'nullable|integer|min:1',
+        'players_per_round' => 'required|integer|min:1',
+        'estimated_time_per_round' => 'required|integer|min:1',
         'description' => 'nullable|string',
         'category' => 'nullable|string|max:100',
         'newCover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -59,6 +63,8 @@ class EditRestaurant extends Component
         $this->location = $this->restaurant->location;
         $this->capacity = $this->restaurant->capacity;
         $this->time_estimation = $this->restaurant->time_estimation;
+        $this->players_per_round = $this->restaurant->players_per_round ?? 1;
+        $this->estimated_time_per_round = $this->restaurant->estimated_time_per_round ?? 30;
         $this->description = $this->restaurant->description;
         $this->category = $this->restaurant->category;
         $this->cover = $this->restaurant->cover;
@@ -77,6 +83,8 @@ class EditRestaurant extends Component
                 'location' => $this->location,
                 'capacity' => $this->capacity,
                 'time_estimation' => $this->time_estimation,
+                'players_per_round' => $this->players_per_round,
+                'estimated_time_per_round' => $this->estimated_time_per_round,
                 'description' => $this->description,
                 'category' => $this->category,
             ];

@@ -264,7 +264,7 @@
                 <h3 class="card-title ms-2 mb-0">Daftar Berita</h3>
             </div>
             <div>
-                <a href="{{ route('news.create') }}" class="text-decoration-none btn add-news-btn mt-sm-0 mt-2">
+                <a href="{{ route('admin.news.create') }}" class="text-decoration-none btn add-news-btn mt-sm-0 mt-2">
                     <i class="bi bi-plus-circle me-2"></i>
                     Tambahkan
                 </a>
@@ -310,7 +310,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-sm-column flex-row gap-2 mt-sm-0 mt-3">
-                        <a href="{{ route('news.edit', ['news' => $news->id]) }}" class="btn btn-warning btn-action">
+                        <a href="{{ route('admin.news.edit', ['news' => $news->id]) }}" class="btn btn-warning btn-action">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
                         <button class="btn btn-secondary btn-action" data-bs-toggle="modal"

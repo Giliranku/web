@@ -27,10 +27,11 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             RestaurantSeeder::class,
             AttractionSeeder::class,
+            UpdateQueueManagementFieldsSeeder::class, // Pastikan queue fields ada sebelum buat antrian
             UserSeeder::class,
             TicketSeeder::class,
             InvoiceSeeder::class,
-            QueueSeeder::class,
+            QueueSeeder::class, // Queue seeder terakhir karena butuh semua data lain
             UpdateInvoiceTicketsQuantitySeeder::class,
         ]);
 

@@ -60,6 +60,30 @@
     .stats-card:hover {
         transform: translateY(-2px);
     }
+
+    /* Custom Modal Styles */
+    .modal-content {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    }
+    
+    .modal-header {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+        border-radius: 15px 15px 0 0;
+        border-bottom: none;
+    }
+    
+    .modal-body {
+        padding: 2rem;
+    }
+    
+    .cancel-icon {
+        font-size: 4rem;
+        color: #dc3545;
+        margin-bottom: 1rem;
+    }
 </style>
 @endpush
 
@@ -83,13 +107,24 @@
                         class="form-control"
                         style="width: auto;"
                     >
-                    <button 
-                        wire:click="callNext"
-                        class="btn btn-primary"
-                        @if(collect($queues)->where('status', 'waiting')->isEmpty()) disabled @endif
-                    >
-                        Panggil Antrian Selanjutnya
-                    </button>
+                    <div class="btn-group">
+                        <button 
+                            wire:click="callNextBatch"
+                            class="btn btn-primary"
+                            @if(collect($queues)->where('status', 'waiting')->isEmpty()) disabled @endif
+                        >
+                            <i class="fas fa-bell me-2"></i>
+                            Panggil 1 Grup Permainan ({{ $location->players_per_round ?? 1 }} orang)
+                        </button>
+                        <button 
+                            wire:click="markServedBatch"
+                            class="btn btn-success"
+                            @if(collect($queues)->where('status', 'called')->isEmpty()) disabled @endif
+                        >
+                            <i class="fas fa-check-double me-2"></i>
+                            Selesai per Grup
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -222,24 +257,14 @@
                                             </button>
                                         @endif
                                         
-                                        @if($queue['status'] === 'called')
-                                            <button 
-                                                wire:click="markServed({{ $queue['id'] }})"
-                                                class="btn btn-success"
-                                                title="Tandai sudah dilayani"
-                                            >
-                                                <i class="fas fa-check me-1"></i>
-                                                Selesai
-                                            </button>
-                                        @endif
-                                        
                                         @if(in_array($queue['status'], ['waiting', 'called']))
                                             <button 
-                                                wire:click="cancelQueue({{ $queue['id'] }})"
                                                 class="btn btn-outline-danger"
-                                                onclick="return confirm('Yakin ingin membatalkan antrian ini?')"
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#cancelModal{{ $queue['id'] }}"
                                                 title="Batalkan antrian"
                                             >
+                                                <i class="fas fa-times me-1"></i>
                                                 Batal
                                             </button>
                                         @endif
@@ -247,6 +272,51 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Cancel Confirmation Modal -->
+                        @if(in_array($queue['status'], ['waiting', 'called']))
+                        <div class="modal fade" id="cancelModal{{ $queue['id'] }}" tabindex="-1" aria-labelledby="cancelModalLabel{{ $queue['id'] }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="cancelModalLabel{{ $queue['id'] }}">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Konfirmasi Pembatalan
+                                        </h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-center">
+                                        <div class="cancel-icon">
+                                            <i class="fas fa-user-times"></i>
+                                        </div>
+                                        <h5 class="mb-3">Apakah Anda yakin ingin membatalkan antrian ini?</h5>
+                                        <div class="alert alert-light border">
+                                            <strong>{{ $queue['user']['name'] ?? 'Unknown User' }}</strong><br>
+                                            <small class="text-muted">Posisi antrian: {{ $queue['queue_position'] }}</small>
+                                        </div>
+                                        <p class="text-muted">
+                                            Tindakan ini tidak dapat dibatalkan. Pengunjung akan kehilangan posisi antrian mereka.
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer justify-content-center">
+                                        <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">
+                                            <i class="fas fa-arrow-left me-2"></i>
+                                            Tidak, Kembali
+                                        </button>
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-danger px-4" 
+                                            wire:click="cancelQueue({{ $queue['id'] }})"
+                                            data-bs-dismiss="modal"
+                                        >
+                                            <i class="fas fa-ban me-2"></i>
+                                            Ya, Batalkan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     @endforeach
                 </div>
             @endif

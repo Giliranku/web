@@ -1,5 +1,8 @@
 import './bootstrap';
 
+// Import Font Awesome CSS
+import '@fortawesome/fontawesome-free/css/all.css';
+
 import 'trix';
 
 import { Calendar } from 'vanilla-calendar-pro';

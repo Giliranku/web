@@ -126,6 +126,55 @@
         </div>
     </div>
 
+    <!-- Queue Information -->
+    @auth
+        @if(!empty($user_current_queues))
+            <div class="card shadow-sm border-0 mb-4 border-warning">
+                <div class="card-header bg-warning text-dark">
+                    <h6 class="mb-0 fw-semibold">
+                        <i class="fas fa-info-circle me-2"></i>Antrian Anda Saat Ini
+                    </h6>
+                </div>
+                <div class="card-body">
+                    @foreach($user_current_queues as $queue)
+                        <div class="d-flex justify-content-between align-items-center mb-2 @if(!$loop->last) border-bottom pb-2 @endif">
+                            <div>
+                                <strong>{{ $queue['location_name'] }}</strong>
+                                <span class="badge bg-secondary ms-2">Posisi {{ $queue['queue_position'] }}</span>
+                            </div>
+                            <div class="text-end">
+                                <div class="text-primary fw-semibold">
+                                    ~{{ $queue['estimated_wait_time'] }} menit
+                                </div>
+                                <small class="text-muted">{{ $queue['rounds_to_wait'] }} grup permainan</small>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        @if($estimated_wait_time > 0 && $can_queue)
+            <div class="card shadow-sm border-0 mb-4 border-info">
+                <div class="card-body text-center">
+                    <h6 class="text-primary mb-2">
+                        <i class="fas fa-clock me-2"></i>Estimasi Waktu Tunggu
+                    </h6>
+                    <div class="display-6 text-info fw-bold">~{{ $estimated_wait_time }} menit</div>
+                    <small class="text-muted">
+                        Berdasarkan {{ ceil(($estimated_wait_time) / ($location->estimated_time_per_round ?? 10)) }} grup permainan sebelum Anda
+                    </small>
+                </div>
+            </div>
+        @endif
+
+        @if(!$can_queue)
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>{{ $queue_restriction_message }}
+            </div>
+        @endif
+    @endauth
+
     <!-- Ticket Selection -->
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
@@ -266,12 +315,16 @@
                     <button 
                         wire:click="makeReservation"
                         wire:loading.attr="disabled"
-                        class="btn btn-success btn-lg w-100 py-3 fw-bold {{ !$selected_ticket_id || $queue_quantity < 1 ? 'disabled' : '' }}"
-                        @if(!$selected_ticket_id || $queue_quantity < 1) disabled @endif
+                        class="btn btn-success btn-lg w-100 py-3 fw-bold {{ !$selected_ticket_id || $queue_quantity < 1 || !$can_queue ? 'disabled' : '' }}"
+                        @if(!$selected_ticket_id || $queue_quantity < 1 || !$can_queue) disabled @endif
                     >
                         <span wire:loading.remove>
                             <i class="fas fa-plus-circle me-2"></i>
-                            Buat {{ $queue_quantity ?? 1 }} Antrian Sekarang
+                            @if($can_queue)
+                                Buat {{ $queue_quantity ?? 1 }} Antrian Sekarang
+                            @else
+                                Tidak Dapat Mengantri
+                            @endif
                         </span>
                         <span wire:loading>
                             <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

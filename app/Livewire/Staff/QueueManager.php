@@ -106,17 +106,46 @@ class QueueManager extends Component
             $this->dispatch('queue-updated', ['message' => 'Antrian selanjutnya telah dipanggil']);
         }
     }
-    
-    public function markServed($queueId)
+
+    // Method baru untuk memanggil multiple users sesuai players_per_round
+    public function callNextBatch()
     {
-        if ($this->type === 'attraction') {
-            UserAttraction::where('id', $queueId)->update(['status' => 'served']);
-        } else {
-            UserRestaurant::where('id', $queueId)->update(['status' => 'served']);
-        }
+        $playersPerRound = $this->location->players_per_round ?? 1;
+        $waitingQueues = collect($this->queues)->where('status', 'waiting')->take($playersPerRound);
         
-        $this->loadQueues();
-        $this->dispatch('queue-updated', ['message' => 'Antrian telah dilayani']);
+        if ($waitingQueues->isNotEmpty()) {
+            $queueIds = $waitingQueues->pluck('id')->toArray();
+            
+            if ($this->type === 'attraction') {
+                UserAttraction::whereIn('id', $queueIds)->update(['status' => 'called']);
+            } else {
+                UserRestaurant::whereIn('id', $queueIds)->update(['status' => 'called']);
+            }
+            
+            $this->loadQueues();
+            $calledCount = count($queueIds);
+            $this->dispatch('queue-updated', ['message' => "{$calledCount} antrian telah dipanggil untuk grup permainan ini"]);
+        }
+    }
+
+    // Method baru untuk menyelesaikan grup yang sedang dipanggil
+    public function markServedBatch()
+    {
+        $calledQueues = collect($this->queues)->where('status', 'called');
+        
+        if ($calledQueues->isNotEmpty()) {
+            $queueIds = $calledQueues->pluck('id')->toArray();
+            
+            if ($this->type === 'attraction') {
+                UserAttraction::whereIn('id', $queueIds)->update(['status' => 'served']);
+            } else {
+                UserRestaurant::whereIn('id', $queueIds)->update(['status' => 'served']);
+            }
+            
+            $this->loadQueues();
+            $servedCount = count($queueIds);
+            $this->dispatch('queue-updated', ['message' => "{$servedCount} antrian telah diselesaikan untuk grup permainan ini"]);
+        }
     }
     
     public function cancelQueue($queueId)

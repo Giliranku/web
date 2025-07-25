@@ -27,6 +27,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'gambar1.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar2.png',
+                'players_per_round' => 4, // 4 orang per grup permainan (1 family)
+                'estimated_time_per_round' => 20, // 20 menit per grup
             ],
             [
                 'name' => 'McDonald\'s Ancol',
@@ -38,6 +40,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'mekdi.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar3.jpg',
+                'players_per_round' => 6, // 6 orang per grup permainan
+                'estimated_time_per_round' => 18, // 18 menit per grup
             ],
             [
                 'name' => 'Pizza Hut Ancol',
@@ -49,6 +53,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar1.png',
                 'img3' => 'solaria.png',
+                'players_per_round' => 8, // 8 orang per grup permainan
+                'estimated_time_per_round' => 35, // 35 menit per grup (lebih lama untuk dine-in)
             ],
             [
                 'name' => 'Chatime Ancol',
@@ -60,6 +66,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar2.png',
                 'img3' => 'gambar3.jpg',
+                'players_per_round' => 3, // 3 orang per grup permainan (small groups)
+                'estimated_time_per_round' => 10, // 10 menit per grup (cepat)
             ],
             [
                 'name' => 'Roti O Ancol',
@@ -71,6 +79,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar1.png',
                 'img3' => 'gambar_hebat.png',
+                'players_per_round' => 2, // 2 orang per grup permainan
+                'estimated_time_per_round' => 8, // 8 menit per grup (sangat cepat)
             ],
             [
                 'name' => 'Raa Cha Ancol',
@@ -82,6 +92,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'solaria.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar2.png',
+                'players_per_round' => 5, // 5 orang per grup permainan
+                'estimated_time_per_round' => 25, // 25 menit per grup
             ],
         ];
 

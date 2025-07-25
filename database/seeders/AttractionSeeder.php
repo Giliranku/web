@@ -26,6 +26,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana1.png',
                 'img2' => 'wahana/wahana-1.png',
                 'img3' => 'dufan.jpeg',
+                'players_per_round' => 4, // 4 orang per grup permainan
+                'estimated_time_per_round' => 15, // 15 menit per grup
             ],
             [
                 'name' => 'SpinReverse',
@@ -37,6 +39,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana2.png',
                 'img2' => 'wahana/wahana-2.png',
                 'img3' => 'kora-kora.jpg',
+                'players_per_round' => 6, // 6 orang per grup permainan
+                'estimated_time_per_round' => 12, // 12 menit per grup
             ],
             [
                 'name' => 'Mercus Tower',
@@ -48,6 +52,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana3.png',
                 'img2' => 'wahana/wahana-3.png',
                 'img3' => 'ferrisWheel.png',
+                'players_per_round' => 8, // 8 orang per grup permainan
+                'estimated_time_per_round' => 18, // 18 menit per grup
             ],
             [
                 'name' => 'Atlantis Water Adventure',
@@ -59,6 +65,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'seaworld.jpeg',
                 'img2' => 'aw.png',
                 'img3' => 'ice-age.jpg',
+                'players_per_round' => 12, // 12 orang per grup permainan
+                'estimated_time_per_round' => 25, // 25 menit per grup
             ],
             [
                 'name' => 'Arung Jeram',
@@ -70,6 +78,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'kegiatanseru1.jpg',
                 'img2' => 'kegiatanseru2.jpg',
                 'img3' => 'kegiatanseru3.jpg',
+                'players_per_round' => 5, // 5 orang per grup permainan
+                'estimated_time_per_round' => 20, // 20 menit per grup
             ],
         ];
         foreach ($attractions as $i => $data) {

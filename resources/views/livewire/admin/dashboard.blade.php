@@ -285,7 +285,7 @@ document.addEventListener('alpine:init', () => {
                         <i class="bi bi-newspaper me-2"></i>
                         Berita Terbaru
                     </h5>
-                    <a href="/manage-news" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('admin.manage-news') }}" class="btn btn-outline-primary btn-sm">
                         Lihat Semua
                         <i class="bi bi-arrow-right ms-1"></i>
                     </a>
@@ -320,7 +320,7 @@ document.addEventListener('alpine:init', () => {
                         <i class="bi bi-newspaper text-muted" style="font-size: 3rem;"></i>
                         <h5 class="text-muted mt-3">Belum ada berita</h5>
                         <p class="text-muted">Tambahkan berita pertama untuk ditampilkan di sini</p>
-                        <a href="/manage-news-add" class="btn btn-primary">
+                        <a href="{{ route('admin.news.create') }}" class="btn btn-primary">
                             <i class="bi bi-plus-circle me-2"></i>
                             Tambah Berita
                         </a>

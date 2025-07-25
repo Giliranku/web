@@ -43,20 +43,26 @@
             </li>
             <li class="nav-item">
                 <a href="/admin/manage-ticket" wire:navigate class="nav-link d-flex align-items-center">
-                    <i class="bi bi-ticket-perforated"></i>
+                    <i class="fas fa-ticket-alt"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Tiket</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
-                    <i class="bi bi-egg-fried"></i>
+                <a href="/admin/manage-attractions" wire:navigate class="nav-link d-flex align-items-center">
+                    <i class="fas fa-star"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Wahana</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/manage-restaurants" wire:navigate class="nav-link d-flex align-items-center">
+                    <i class="fas fa-utensils"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak
                         class="menu-text">Restoran</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
-                    <i class="bi bi-person"></i>
+                <a href="/admin/manage-staff" wire:navigate class="nav-link d-flex align-items-center">
+                    <i class="fas fa-users"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Staff</span>
                 </a>
             </li>

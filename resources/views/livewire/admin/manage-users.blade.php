@@ -55,10 +55,16 @@
         <div class="d-flex align-items-center justify-content-between flex-sm-row flex-column">
             <div class="d-flex align-items-center">
                 <div class="vertical-line-admin"></div>
-                <h3 class="card-title ms-2">Daftar User</h3>
+                <h3 class="card-title ms-2">
+                    <i class="fas fa-users me-2"></i>
+                    Daftar User
+                </h3>
             </div>
             <div class="d-flex align-items-center gap-2">
-                <span class="badge bg-primary">{{ $users->total() }} Total Users</span>
+                <span class="badge bg-primary">
+                    <i class="fas fa-chart-bar me-1"></i>
+                    {{ $users->total() }} Total Users
+                </span>
             </div>
         </div>
     </div>
@@ -125,7 +131,7 @@
                         <button wire:click="showUserDetail({{ $user->id }})" class="btn btn-info btn-sm">
                             <i class="bi bi-eye-fill"></i>
                         </button>
-                        <a href="/admin/manage-users/edit/{{ $user->id }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('admin.edit-user', $user->id) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
                         <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" wire:click="confirmDelete({{ $user->id }})">
@@ -220,7 +226,7 @@
                     </div>
                     <div class="modal-footer border-0">
                         <button type="button" class="btn btn-secondary" wire:click="closeModal">Tutup</button>
-                        <a href="/admin/manage-users/edit/{{ $selectedUser->id }}" class="btn btn-warning">
+                        <a href="{{ route('admin.edit-user', $selectedUser->id) }}" class="btn btn-warning">
                             <i class="bi bi-pencil-fill me-2"></i>
                             Edit User
                         </a>
