@@ -218,7 +218,7 @@
    <div class="container my-5">
       <div class="text-center mb-5">
          <h2 class="display-5 fw-bold text-primary">Selamat Datang di Giliranku</h2>
-         <p class="lead text-dark">Wahana Seru Sepuasnya!</p>
+         <p class="lead ">Wahana Seru Sepuasnya!</p>
          <hr class="section-divider w-25 mx-auto">
       </div>
 

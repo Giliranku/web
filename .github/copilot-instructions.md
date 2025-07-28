@@ -28,6 +28,20 @@ The project uses a modern, accessible color scheme:
 
 **Queue States**: `waiting` → `called` (by staff) → `served` (completed) or `cancelled`
 
+## Livewire Component Guidelines
+
+**Always check and make sure the there is only one root element in the Livewire component.**: multiple @push is allowed, but only one root element is allowed in the Livewire component. Often caused by missing closing tags or incorrect nesting of HTML elements.
+
+**Use @push('scripts')** for adding scripts in Livewire components, and ensure they are loaded after the Livewire scripts.
+
+**Use @push('styles')** for adding styles in Livewire components, and ensure they are loaded after the Livewire styles.
+
+**Dark mode compatibility**: Ensure all components and styles are compatible with dark mode. Use CSS variables for colors to easily switch themes. Often caused by hardcoded colors in CSS files or inline styles. Classes like `bg-white`, ``, etc. should be replaced with CSS variables like `var(--bs-body-bg)` and `var(--bs-text-color)`.
+
+**Preferred Javascript Libraries**: Use Alpine.js for interactivity, avoiding jQuery where possible. Use Livewire's built-in methods for DOM manipulation and event handling.
+
+**Use Livewire's built-in methods for DOM manipulation and event handling**: Avoid using jQuery or other libraries for DOM manipulation. Use Livewire's `wire:click`, `wire:model`, and other directives for interactivity.
+
 ## Development Patterns
 
 ### File Organization
@@ -104,7 +118,7 @@ Dual testing approach:
 ## Integration Points
 - **Google OAuth**: Full social login implementation in `GoogleAuthController`
 - **Trix Editor**: Rich text editing for news/content with image upload routes
-- **Bootstrap 5**: Primary UI framework with custom CSS extensions
+- **Bootstrap 5**: Primary UI framework with custom CSS extensions (Specifically Bootstrap 5.3)
 - **Vite**: Asset bundling for SCSS/JS with Laravel plugin
 
 When modifying queue logic, always test with multiple users across different attractions to ensure position calculations remain accurate.

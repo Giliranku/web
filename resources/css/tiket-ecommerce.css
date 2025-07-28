@@ -1,0 +1,307 @@
+/* Tiket E-commerce Styles */
+:root {
+    --primary: #4ABDAC;
+    --secondary: #FC4A1A; 
+    --warning: #F7B733;
+    --light: #FFFFFF;
+    --dark: #000000;
+}
+
+.hero-ecommerce {
+    background: linear-gradient(135deg, var(--primary), #3a9d94);
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+}
+
+.search-card {
+    background: linear-gradient(135deg, var(--light), #f8f9fa);
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.search-card:hover {
+    box-shadow: 0 10px 30px rgba(74, 189, 172, 0.2);
+    transform: translateY(-2px);
+}
+
+.ticket-card {
+    border: none;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.ticket-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(74, 189, 172, 0.15);
+}
+
+.promo-badge {
+    background: linear-gradient(45deg, var(--secondary), #e03d0f);
+    color: white;
+    border-radius: 15px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.ticket-image-container {
+    background: linear-gradient(135deg, #f8f9fa, var(--light));
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+.price-main {
+    color: var(--primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.price-old {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+.benefit-item {
+    color: var(--primary);
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.btn-primary-custom {
+    background: linear-gradient(45deg, var(--primary), #3a9d94);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 189, 172, 0.4);
+    color: white;
+}
+
+.btn-secondary-custom {
+    background: linear-gradient(45deg, var(--secondary), #e03d0f);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary-custom:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(252, 74, 26, 0.4);
+    color: white;
+}
+
+.btn-outline-custom {
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 25px;
+    padding: 8px 20px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-custom:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.search-input {
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    padding: 12px 20px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(74, 189, 172, 0.25);
+}
+
+.cart-section {
+    background: linear-gradient(135deg, #f8f9fa, var(--light));
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.empty-state {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+}
+
+.section-divider {
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border: none;
+    margin: 2rem auto;
+    width: 100px;
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Detail dropdown animation */
+.collapse {
+    transition: all 0.3s ease;
+}
+
+.btn-detail-toggle {
+    transition: all 0.3s ease;
+}
+
+.btn-detail-toggle[aria-expanded="true"] {
+    background: var(--primary) !important;
+    color: white !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-detail-toggle[aria-expanded="true"] i {
+    transform: rotate(180deg);
+}
+
+/* Detail section styling */
+.detail-section {
+    margin-bottom: 1.5rem;
+}
+
+.detail-container {
+    background: white !important;
+    border-radius: 15px;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.detail-content {
+    border-left: 4px solid var(--primary);
+    transition: all 0.3s ease;
+    min-height: 60px;
+}
+
+.detail-content:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    transform: translateX(2px);
+}
+
+/* Ensure text is visible */
+.detail-content p,
+.detail-container * {
+    color: #333 !important;
+    opacity: 1 !important;
+}
+
+/* Override any conflicting styles */
+.collapse.show {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+@media (max-width: 768px) {
+    .hero-ecommerce {
+        padding: 2rem 0;
+    }
+    
+    .ticket-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .price-main {
+        font-size: 1.5rem;
+    }
+}
+
+/* Modal Styling */
+.modal-content {
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    border: none;
+}
+
+.modal-header {
+    position: relative;
+    border: none;
+}
+
+.modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #3a9d94;
+}
+
+/* Modal animation improvements */
+.modal.fade .modal-dialog {
+    transform: translate(0, -50px);
+    transition: transform 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: translate(0, 0);
+}
+
+/* Better mobile modal */
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 1rem 0.5rem;
+    }
+    
+    .modal-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+        max-height: 50vh;
+    }
+    
+    .modal-footer {
+        padding: 1rem;
+    }
+}

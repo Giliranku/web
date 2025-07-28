@@ -39,7 +39,7 @@
                             style="bottom: -5px; right: 50px;"
                             onclick="document.getElementById('avatar').click()"
                             title="Unggah avatar">
-                            <i class="fas fa-camera text-dark fs-5"></i>
+                            <i class="fas fa-camera  fs-5"></i>
                         </button>
 
                         <input type="file" wire:model="avatar" class="d-none" id="avatar" accept="image/*">

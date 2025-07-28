@@ -217,7 +217,7 @@
 
             {{-- Title --}}
             <div class="text-center mb-4">
-                <h2 class="fw-bold text-dark mb-2">Selamat Datang</h2>
+                <h2 class="fw-bold  mb-2">Selamat Datang</h2>
                 <p class="text-muted">Masuk ke akun Giliranku Anda</p>
             </div>
 
@@ -234,7 +234,7 @@
 
                 {{-- Email Input --}}
                 <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark mb-2">Email</label>
+                    <label class="form-label fw-semibold  mb-2">Email</label>
                     <input type="email" class="form-control" wire:model="email" placeholder="Masukkan email Anda">
                     @error('email')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -243,7 +243,7 @@
 
                 {{-- Password Input --}}
                 <div class="mb-4">
-                    <label class="form-label fw-semibold text-dark mb-2">Password</label>
+                    <label class="form-label fw-semibold  mb-2">Password</label>
                     <div class="position-relative">
                         <input type="password" id="inputPassword" class="form-control pe-5" wire:model="password" placeholder="Masukkan password Anda">
                         <i class="bi bi-eye-slash password-toggle" id="togglePassword"></i>
@@ -340,7 +340,7 @@
 
                         {{-- Email Input --}}
                         <div class="mb-3">
-                            <label class="form-label fw-semibold text-dark small">Email</label>
+                            <label class="form-label fw-semibold  small">Email</label>
                             <input type="email" class="form-control rounded-pill px-4 py-3" 
                                    placeholder="Masukkan email Anda" wire:model="email">
                             @error('email')
@@ -350,7 +350,7 @@
 
                         {{-- Password Input --}}
                         <div class="mb-3 position-relative">
-                            <label class="form-label fw-semibold text-dark small">Password</label>
+                            <label class="form-label fw-semibold  small">Password</label>
                             <input type="password" id="inputPasswordMobile" 
                                    class="form-control rounded-pill px-4 py-3 pe-5" 
                                    placeholder="Masukkan password Anda" wire:model="password">

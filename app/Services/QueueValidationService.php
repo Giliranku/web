@@ -18,32 +18,40 @@ class QueueValidationService
     {
         $date = $date ?? Carbon::today();
         
-        // Cek antrian yang sudah ada di semua tempat
-        $existingQueues = $this->getUserActiveQueues($userId, $date);
-        
-        foreach ($existingQueues as $queue) {
-            // Jika user sudah mengantri di tempat yang sama, tidak boleh
-            if ($queue['type'] === $targetType && $queue['location_id'] === $targetId) {
-                return [
-                    'can_queue' => false,
-                    'reason' => 'Anda sudah mengantri di tempat ini.'
-                ];
+        try {
+            // Cek antrian yang sudah ada di semua tempat
+            $existingQueues = $this->getUserActiveQueues($userId, $date);
+            
+            foreach ($existingQueues as $queue) {
+                // Jika user sudah mengantri di tempat yang sama, tidak boleh
+                if ($queue['type'] === $targetType && $queue['location_id'] === $targetId) {
+                    return [
+                        'can_queue' => false,
+                        'reason' => 'Anda sudah mengantri di tempat ini.'
+                    ];
+                }
+                
+                // Cek apakah user masih dalam 1 grup permainan (tidak bisa mengantri di tempat lain)
+                if (!$queue['can_queue_elsewhere']) {
+                    return [
+                        'can_queue' => false,
+                        'reason' => 'Anda tidak dapat mengantri di tempat lain karena antrian Anda di ' . 
+                                   $queue['location_name'] . ' tinggal 1 grup permainan lagi.'
+                    ];
+                }
             }
             
-            // Cek apakah user masih dalam 1 grup permainan (tidak bisa mengantri di tempat lain)
-            if (!$queue['can_queue_elsewhere']) {
-                return [
-                    'can_queue' => false,
-                    'reason' => 'Anda tidak dapat mengantri di tempat lain karena antrian Anda di ' . 
-                               $queue['location_name'] . ' tinggal 1 grup permainan lagi.'
-                ];
-            }
+            return [
+                'can_queue' => true,
+                'reason' => null
+            ];
+        } catch (\Exception $e) {
+            \Log::error('Error in canUserQueue: ' . $e->getMessage());
+            return [
+                'can_queue' => false,
+                'reason' => 'Terjadi kesalahan saat memvalidasi antrian.'
+            ];
         }
-        
-        return [
-            'can_queue' => true,
-            'reason' => null
-        ];
     }
     
     /**
@@ -57,12 +65,23 @@ class QueueValidationService
         // Antrian wahana
         $attractionQueues = UserAttraction::with('attraction')
             ->where('user_id', $userId)
-            ->whereDate('queue_date', $date)
+            ->whereDate('reservation_date', $date)
             ->where('status', 'waiting')
             ->get();
             
         foreach ($attractionQueues as $queue) {
             $attraction = $queue->attraction;
+            
+            // Skip if attraction is null (data integrity issue)
+            if (!$attraction) {
+                \Log::warning('UserAttraction queue found with null attraction', [
+                    'queue_id' => $queue->id,
+                    'attraction_id' => $queue->attraction_id,
+                    'user_id' => $queue->user_id
+                ]);
+                continue;
+            }
+            
             $position = $queue->queue_position;
             $estimatedWaitTime = $attraction->getEstimatedWaitingTime($position);
             $canQueueElsewhere = $attraction->canUserQueueElsewhere($position);
@@ -81,12 +100,23 @@ class QueueValidationService
         // Antrian restoran
         $restaurantQueues = UserRestaurant::with('restaurant')
             ->where('user_id', $userId)
-            ->whereDate('queue_date', $date)
+            ->whereDate('reservation_date', $date)
             ->where('status', 'waiting')
             ->get();
             
         foreach ($restaurantQueues as $queue) {
             $restaurant = $queue->restaurant;
+            
+            // Skip if restaurant is null (data integrity issue)
+            if (!$restaurant) {
+                \Log::warning('UserRestaurant queue found with null restaurant', [
+                    'queue_id' => $queue->id,
+                    'restaurant_id' => $queue->restaurant_id,
+                    'user_id' => $queue->user_id
+                ]);
+                continue;
+            }
+            
             $position = $queue->queue_position;
             $estimatedWaitTime = $restaurant->getEstimatedWaitingTime($position);
             $canQueueElsewhere = $restaurant->canUserQueueElsewhere($position);

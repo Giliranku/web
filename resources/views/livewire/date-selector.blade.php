@@ -1,23 +1,46 @@
 <div x-data="{
     selectedDate: @entangle('selectedDate'),
     calendarId: 'calendar-' + Math.random().toString(36).substr(2, 9),
+    calendarRetries: 0,
+    showFallbackInput: false,
 
     initCalendar() {
         // Wait for Calendar library to be available
         if (typeof Calendar === 'undefined') {
-            setTimeout(() => this.initCalendar(), 100);
+            // Retry for up to 3 seconds
+            if (!this.calendarRetries) this.calendarRetries = 0;
+            if (this.calendarRetries < 30) {
+                this.calendarRetries++;
+                setTimeout(() => this.initCalendar(), 100);
+            } else {
+                console.warn('Calendar library not available, using fallback date input');
+                this.showFallbackInput = true;
+            }
             return;
         }
 
-        const options = {
-            type: 'default',
-            onClickDate: (self) => {
-                this.selectedDate = self.context.selectedDates[0];
-            },
-        };
+        // Ensure DOM element exists
+        const calendarElement = document.getElementById(this.calendarId);
+        if (!calendarElement) {
+            setTimeout(() => this.initCalendar(), 50);
+            return;
+        }
 
-        const calendar = new Calendar('#' + this.calendarId, options)
-        calendar.init();
+        try {
+            const options = {
+                type: 'default',
+                onClickDate: (self) => {
+                    this.selectedDate = self.context.selectedDates[0];
+                },
+            };
+
+            const calendar = new Calendar('#' + this.calendarId, options);
+            calendar.init();
+        } catch (error) {
+            console.error('Calendar initialization error:', error);
+            // Fallback: show simple date input
+            this.showFallbackInput = true;
+        }
     },
 
     formattedDate() {
@@ -35,7 +58,7 @@
             return 'Pilih Tanggal Kunjungan';
         }
     },
-}" x-init="initCalendar()">
+}" x-init="$nextTick(() => initCalendar())">
     <div class="modern-date-selector">
         <div class="date-selector-button" data-bs-toggle="dropdown" aria-expanded="false">
             <div class="date-icon">
@@ -57,7 +80,19 @@
                 <i class="fas fa-calendar-check me-2"></i>
                 <span>Pilih Tanggal Kunjungan Anda</span>
             </div>
-            <div :id="calendarId" x-ref="calendarContainer" class="calendar-container"></div>
+            
+            <!-- Calendar Container -->
+            <div x-show="!showFallbackInput" :id="calendarId" x-ref="calendarContainer" class="calendar-container"></div>
+            
+            <!-- Fallback Date Input -->
+            <div x-show="showFallbackInput" class="p-3">
+                <label class="form-label">Pilih Tanggal:</label>
+                <input type="date" 
+                       class="form-control" 
+                       x-model="selectedDate"
+                       :min="new Date().toISOString().split('T')[0]">
+            </div>
+            
             <div class="calendar-footer">
                 <small class="text-muted">
                     <i class="fas fa-info-circle me-1"></i>

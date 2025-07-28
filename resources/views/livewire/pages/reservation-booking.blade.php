@@ -76,7 +76,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
-                    <h2 class="h3 fw-semibold text-dark mb-2">
+                    <h2 class="h3 fw-semibold  mb-2">
                         Antrian Instan - {{ $location->name ?? 'Unknown Location' }}
                     </h2>
                     <p class="text-muted mb-0">
@@ -107,7 +107,7 @@
     @endif
 
     <!-- Current Date & Time Info -->
-    <div class="card shadow-sm border-0 mb-4 bg-light">
+    <div class="card shadow-sm border-0 mb-4 bg-body">
         <div class="card-body">
             <div class="row align-items-center">
                 <div class="col-md-6">
@@ -130,7 +130,7 @@
     @auth
         @if(!empty($user_current_queues))
             <div class="card shadow-sm border-0 mb-4 border-warning">
-                <div class="card-header bg-warning text-dark">
+                <div class="card-header bg-warning ">
                     <h6 class="mb-0 fw-semibold">
                         <i class="fas fa-info-circle me-2"></i>Antrian Anda Saat Ini
                     </h6>
@@ -178,7 +178,7 @@
     <!-- Ticket Selection -->
     <div class="card shadow-sm border-0 mb-4">
         <div class="card-body">
-            <h3 class="h5 fw-medium text-dark mb-3">
+            <h3 class="h5 fw-medium  mb-3">
                 <i class="fas fa-ticket-alt me-2 text-primary"></i>Pilih Tiket
             </h3>
             
@@ -213,7 +213,7 @@
                                     <label class="form-check-label w-100" for="ticket_{{ $ticket['id'] }}">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="flex-grow-1">
-                                                <div class="fw-bold text-dark h5 mb-2">{{ $ticket['ticket_name'] }}</div>
+                                                <div class="fw-bold  h5 mb-2">{{ $ticket['ticket_name'] }}</div>
                                                 <div class="small text-muted mb-2">
                                                     <i class="fas fa-calendar me-1"></i>
                                                     Dibeli: {{ Carbon\Carbon::parse($ticket['purchased_date'])->format('d M Y') }}
@@ -239,7 +239,7 @@
                                         
                                         @if($selected_ticket_id == $ticket['id'])
                                             <div class="queue-quantity-selector mt-3 pt-3 border-top">
-                                                <label class="fw-medium text-dark me-3">Jumlah Antrian:</label>
+                                                <label class="fw-medium  me-3">Jumlah Antrian:</label>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <button 
                                                         type="button"
@@ -333,7 +333,7 @@
                     </button>
                     
                     @if($selected_ticket_id && $queue_quantity >= 1)
-                        <div class="mt-4 p-4 bg-light rounded-3">
+                        <div class="mt-4 p-4 bg-body-secondary rounded-3">
                             <div class="text-center">
                                 <div class="fw-bold mb-2 text-primary h5">
                                     <i class="fas fa-info-circle me-2"></i>Ringkasan Antrian

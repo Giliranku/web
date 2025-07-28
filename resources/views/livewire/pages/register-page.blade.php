@@ -240,7 +240,7 @@
 
             {{-- Title --}}
             <div class="text-center mb-4">
-                <h2 class="fw-bold text-dark mb-2">Bergabung Dengan Kami</h2>
+                <h2 class="fw-bold  mb-2">Bergabung Dengan Kami</h2>
                 <p class="text-muted">Buat akun Giliranku Anda</p>
             </div>
 
@@ -257,7 +257,7 @@
 
                 {{-- Name Input --}}
                 <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark mb-2">Nama Lengkap</label>
+                    <label class="form-label fw-semibold  mb-2">Nama Lengkap</label>
                     <input type="text" class="form-control" wire:model="name" placeholder="Masukkan nama lengkap Anda">
                     @error('name')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -266,7 +266,7 @@
 
                 {{-- Email Input --}}
                 <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark mb-2">Email</label>
+                    <label class="form-label fw-semibold  mb-2">Email</label>
                     <input type="email" class="form-control" wire:model="email" placeholder="Masukkan email Anda">
                     @error('email')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -275,7 +275,7 @@
 
                 {{-- Phone Input --}}
                 <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark mb-2">Nomor HP</label>
+                    <label class="form-label fw-semibold  mb-2">Nomor HP</label>
                     <input type="tel" class="form-control" wire:model="number" placeholder="Masukkan nomor HP Anda">
                     @error('number')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -284,7 +284,7 @@
 
                 {{-- Password Input --}}
                 <div class="mb-3">
-                    <label class="form-label fw-semibold text-dark mb-2">Password</label>
+                    <label class="form-label fw-semibold  mb-2">Password</label>
                     <div class="position-relative">
                         <input type="password" id="inputPassword" class="form-control pe-5" wire:model="password" placeholder="Masukkan password Anda">
                         <i class="bi bi-eye-slash password-toggle" id="togglePassword"></i>
@@ -296,7 +296,7 @@
 
                 {{-- Confirm Password Input --}}
                 <div class="mb-4">
-                    <label class="form-label fw-semibold text-dark mb-2">Konfirmasi Password</label>
+                    <label class="form-label fw-semibold  mb-2">Konfirmasi Password</label>
                     <div class="position-relative">
                         <input type="password" id="inputConfirmPassword" class="form-control pe-5" wire:model="password_confirmation" placeholder="Masukkan ulang password Anda">
                         <i class="bi bi-eye-slash password-toggle" id="toggleConfirmPassword"></i>
@@ -388,7 +388,7 @@
 
                         {{-- Name Input --}}
                         <div class="mb-3">
-                            <label class="form-label fw-semibold text-dark small">Nama Lengkap</label>
+                            <label class="form-label fw-semibold  small">Nama Lengkap</label>
                             <input type="text" class="form-control rounded-pill px-4 py-3" 
                                    placeholder="Masukkan nama lengkap Anda" wire:model="name">
                             @error('name')
@@ -398,7 +398,7 @@
 
                         {{-- Email Input --}}
                         <div class="mb-3">
-                            <label class="form-label fw-semibold text-dark small">Email</label>
+                            <label class="form-label fw-semibold  small">Email</label>
                             <input type="email" class="form-control rounded-pill px-4 py-3" 
                                    placeholder="Masukkan email Anda" wire:model="email">
                             @error('email')
@@ -408,7 +408,7 @@
 
                         {{-- Phone Input --}}
                         <div class="mb-3">
-                            <label class="form-label fw-semibold text-dark small">Nomor HP</label>
+                            <label class="form-label fw-semibold  small">Nomor HP</label>
                             <input type="tel" class="form-control rounded-pill px-4 py-3" 
                                    placeholder="Masukkan nomor HP Anda" wire:model="number">
                             @error('number')
@@ -418,7 +418,7 @@
 
                         {{-- Password Input --}}
                         <div class="mb-3 position-relative">
-                            <label class="form-label fw-semibold text-dark small">Password</label>
+                            <label class="form-label fw-semibold  small">Password</label>
                             <input type="password" id="inputPasswordMobile" 
                                    class="form-control rounded-pill px-4 py-3 pe-5" 
                                    placeholder="Masukkan password Anda" wire:model="password">
@@ -431,7 +431,7 @@
 
                         {{-- Confirm Password Input --}}
                         <div class="mb-3 position-relative">
-                            <label class="form-label fw-semibold text-dark small">Konfirmasi Password</label>
+                            <label class="form-label fw-semibold  small">Konfirmasi Password</label>
                             <input type="password" id="inputConfirmPasswordMobile" 
                                    class="form-control rounded-pill px-4 py-3 pe-5" 
                                    placeholder="Masukkan ulang password Anda" wire:model="password_confirmation">

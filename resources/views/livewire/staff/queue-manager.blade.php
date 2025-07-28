@@ -93,7 +93,7 @@
         <div class="card-body">
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center">
                 <div class="mb-3 mb-md-0">
-                    <h2 class="h3 fw-semibold text-dark mb-1">
+                    <h2 class="h3 fw-semibold  mb-1">
                         Manajemen Antrian - {{ $location->name ?? 'Unknown Location' }}
                     </h2>
                     <p class="text-muted mb-0">
@@ -139,7 +139,7 @@
                         <i class="fas fa-users" style="font-size: 2rem; color: var(--bs-primary);"></i>
                     </div>
                     <div class="small fw-medium text-muted">Total Antrian</div>
-                    <div class="h2 fw-bold text-dark">{{ count($queues) }}</div>
+                    <div class="h2 fw-bold ">{{ count($queues) }}</div>
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@
     <!-- Queue List -->
     <div class="card shadow-sm border-0">
         <div class="card-body">
-            <h3 class="h5 fw-medium text-dark mb-4">
+            <h3 class="h5 fw-medium  mb-4">
                 <i class="fas fa-list me-2"></i>Daftar Antrian
             </h3>
             
@@ -209,7 +209,7 @@
                                     
                                     <!-- Queue Info -->
                                     <div class="flex-grow-1">
-                                        <div class="fw-bold text-dark h5 mb-1">
+                                        <div class="fw-bold  h5 mb-1">
                                             {{ $queue['user']['name'] ?? 'Unknown User' }}
                                         </div>
                                         <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
@@ -228,7 +228,7 @@
                                         </div>
                                         <div class="mt-2">
                                             <span class="badge 
-                                                {{ $queue['status'] === 'waiting' ? 'bg-warning text-dark' : '' }}
+                                                {{ $queue['status'] === 'waiting' ? 'bg-warning ' : '' }}
                                                 {{ $queue['status'] === 'called' ? 'bg-info text-white' : '' }}
                                                 {{ $queue['status'] === 'served' ? 'bg-success text-white' : '' }}
                                                 {{ $queue['status'] === 'cancelled' ? 'bg-danger text-white' : '' }}

@@ -32,7 +32,7 @@
                                 @endif
 
                                 @if (!($new_logo || $ticket->logo))
-                                    <i class="bi bi-camera fs-1 text-muted text-dark" id="camera-icon"></i>
+                                    <i class="bi bi-camera fs-1 text-muted " id="camera-icon"></i>
                                 @endif
                             </div>
                         </label>
@@ -42,7 +42,7 @@
                             style="bottom: -5px; right: 50px;"
                             onclick="document.getElementById('gambar').click()"
                             title="Ganti logo">
-                            <i class="bi bi-pencil-square text-dark fs-5"></i>
+                            <i class="bi bi-pencil-square  fs-5"></i>
                         </button>
 
                         <input type="file" wire:model="new_logo" class="d-none" id="gambar" accept="image/*">

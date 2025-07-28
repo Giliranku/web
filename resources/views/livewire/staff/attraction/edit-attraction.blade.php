@@ -5,7 +5,7 @@
         --primary-color: #4ABDAC;
         --secondary-color: #FC4A1A;
         --warning-color: #F7B733;
-        --text-dark: #2c3e50;
+        --: #2c3e50;
         --text-light: #6c757d;
         --border-light: #e9ecef;
         --bg-light: #f8f9fa;
@@ -38,7 +38,7 @@
         border-bottom: 1px solid var(--border-light);
         padding: 1.25rem;
         font-weight: 600;
-        color: var(--text-dark);
+        color: var(--);
     }
     
     .form-control, .form-select {
@@ -57,7 +57,7 @@
     
     .form-label {
         font-weight: 500;
-        color: var(--text-dark);
+        color: var(--);
         margin-bottom: 0.5rem;
         font-size: 0.9rem;
         font-family: 'Inclusive Sans', Arial, sans-serif;
@@ -227,7 +227,7 @@
         position: absolute;
         top: 10px;
         right: 15px;
-        color: var(--text-dark);
+        color: var(--);
         font-size: 28px;
         font-weight: bold;
         cursor: pointer;
@@ -289,7 +289,7 @@
         animation: loading 1s linear infinite;
     }
         font-weight: 500;
-        color: var(--text-dark);
+        color: var(--);
         margin-bottom: 0.25rem;
     }
     
@@ -329,7 +329,7 @@
     }
     
     .page-title {
-        color: var(--text-dark);
+        color: var(--);
         font-weight: 600;
         margin-bottom: 0.5rem;
         font-size: 1.75rem;

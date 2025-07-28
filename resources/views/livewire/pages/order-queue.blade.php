@@ -37,34 +37,34 @@
           $isCurrentUser = isset($restaurant->user_queue_position) && $restaurant->user_queue_position !== null;
           $isFirst = $isCurrentUser && $restaurant->user_queue_position === 0;
         @endphp
-        <div class="card resto-card mb-4" style="height:auto;">
+        <div class="card resto-card mb-4 bg-body text-body" style="height:auto;">
           <div class="card-body row g-3 flex-column flex-lg-row">
             <div class="col-12 col-lg-4 order-2 order-lg-1 d-flex flex-column h-100 justify-content-between align-items-start">
               <div>
                 <h4 class="resto-title mb-1">{{ $restaurant->name }}</h4>
-                <p class="text-muted resto-subtitle mb-2">{{ $restaurant->location }}</p>
+                <p class="text-body-secondary resto-subtitle mb-2">{{ $restaurant->location }}</p>
                 <div class="d-flex align-items-center mb-3" style="gap:2rem;">
                   <div class="d-flex flex-column align-items-start me-4">
                     <div class="d-flex align-items-center mb-0">
                       <i class="bi bi-person-fill fs-2 me-2"></i>
                       <span class="fw-bold fs-3">{{ $restaurant->users_count }}</span>
                     </div>
-                    <span style="color:#111; font-size:1.15rem; font-weight:500;">Antrian</span>
+                    <span class="text-body-secondary" style="font-size:1.15rem; font-weight:500;">Antrian</span>
                   </div>
-                  <span class="mx-2" style="display:inline-block; width:1px; height:64px; background:#111; border-radius:1px;"></span>
+                  <span class="mx-2 border-start" style="display:inline-block; width:1px; height:64px; border-radius:1px;"></span>
                   <div class="d-flex flex-column align-items-start">
                     <div class="d-flex align-items-center mb-0">
                       <i class="bi bi-clock-fill fs-2 me-2"></i>
                       <span class="fw-bold fs-3">{{ $restaurant->time_estimation }}</span>
                     </div>
-                    <span style="color:#111; font-size:1.15rem; font-weight:500;">Menit</span>
+                    <span class="text-body-secondary" style="font-size:1.15rem; font-weight:500;">Menit</span>
                   </div>
                 </div>
                 <div class="text-danger mb-2" style="font-size: 0.85rem;">*Pesan untuk 2 orang</div>
                 <p class="resto-description mb-3">{{ $restaurant->description }}</p>
                 @if($isCurrentUser)
-                  <span class="status-sticker mb-2"
-                        style="background:{{ $isFirst ? '#28a745' : '#dc3545' }}; color:#fff; min-width:160px; min-height:40px; display:inline-flex; align-items:center; justify-content:center; font-size:1rem; border-radius:999px; font-weight:600; opacity:0.85; pointer-events:none;">
+                  <span class="badge mb-2 {{ $isFirst ? 'bg-success' : 'bg-danger' }}" 
+                        style="min-width:160px; min-height:40px; display:inline-flex; align-items:center; justify-content:center; font-size:1rem; border-radius:999px; font-weight:600;">
                       {{ $isFirst ? 'Siap Masuk' : 'Mengantri' }}
                   </span>
                 @endif
@@ -103,34 +103,34 @@
           $isCurrentUser = isset($attraction->user_queue_position) && $attraction->user_queue_position !== null;
           $isFirst = $isCurrentUser && $attraction->user_queue_position === 0;
         @endphp
-        <div class="card resto-card mb-4" style="height:auto;">
+        <div class="card resto-card mb-4 bg-body text-body" style="height:auto;">
           <div class="card-body row g-3 flex-column flex-lg-row">
             <div class="col-12 col-lg-4 order-2 order-lg-1 d-flex flex-column h-100 justify-content-between align-items-start">
               <div>
                 <h4 class="resto-title mb-1">{{ $attraction->name }}</h4>
-                <p class="text-muted resto-subtitle mb-2">{{ $attraction->location ?? 'Taman Bermain Ancol' }}</p>
+                <p class="text-body-secondary resto-subtitle mb-2">{{ $attraction->location ?? 'Taman Bermain Ancol' }}</p>
                 <div class="d-flex align-items-center mb-3" style="gap:2rem;">
                   <div class="d-flex flex-column align-items-start me-4">
                     <div class="d-flex align-items-center mb-0">
                       <i class="bi bi-person-fill fs-2 me-2"></i>
                       <span class="fw-bold fs-3">{{ $attraction->users_count }}</span>
                     </div>
-                    <span style="color:#111; font-size:1.15rem; font-weight:500;">Antrian</span>
+                    <span class="text-body-secondary" style="font-size:1.15rem; font-weight:500;">Antrian</span>
                   </div>
-                  <span class="mx-2" style="display:inline-block; width:1px; height:64px; background:#111; border-radius:1px;"></span>
+                  <span class="mx-2 border-start" style="display:inline-block; width:1px; height:64px; border-radius:1px;"></span>
                   <div class="d-flex flex-column align-items-start">
                     <div class="d-flex align-items-center mb-0">
                       <i class="bi bi-clock-fill fs-2 me-2"></i>
                       <span class="fw-bold fs-3">{{ $attraction->time_estimation ?? '-' }}</span>
                     </div>
-                    <span style="color:#111; font-size:1.15rem; font-weight:500;">Menit</span>
+                    <span class="text-body-secondary" style="font-size:1.15rem; font-weight:500;">Menit</span>
                   </div>
                 </div>
                 <div class="text-danger mb-2" style="font-size: 0.85rem;">*Pesan untuk 2 orang</div>
                 <p class="resto-description mb-3">{{ $attraction->description }}</p>
                 @if($isCurrentUser)
-                  <span class="status-sticker mb-2"
-                        style="background:{{ $isFirst ? '#28a745' : '#dc3545' }}; color:#fff; min-width:160px; min-height:40px; display:inline-flex; align-items:center; justify-content:center; font-size:1rem; border-radius:999px; font-weight:600; opacity:0.85; pointer-events:none;">
+                  <span class="badge mb-2 {{ $isFirst ? 'bg-success' : 'bg-danger' }}" 
+                        style="min-width:160px; min-height:40px; display:inline-flex; align-items:center; justify-content:center; font-size:1rem; border-radius:999px; font-weight:600;">
                       {{ $isFirst ? 'Siap Masuk' : 'Mengantri' }}
                   </span>
                 @endif

@@ -11,6 +11,9 @@ import 'vanilla-calendar-pro/styles/layout.css';
 import 'vanilla-calendar-pro/styles/themes/light.css';
 import 'vanilla-calendar-pro/styles/themes/dark.css';
 
+// Import accessibility components
+import './accessibility';
+
 window.Calendar = Calendar;
 
 document.addEventListener('livewire:navigated', () => {

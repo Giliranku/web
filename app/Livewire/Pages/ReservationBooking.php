@@ -31,9 +31,16 @@ class ReservationBooking extends Component
     
     protected $queueValidationService;
     
+    private function ensureQueueServiceInitialized()
+    {
+        if (!$this->queueValidationService) {
+            $this->queueValidationService = new QueueValidationService();
+        }
+    }
+    
     public function mount($restaurant = null, $attraction = null)
     {
-        $this->queueValidationService = new QueueValidationService();
+        $this->ensureQueueServiceInitialized();
         
         // Determine type and location_id based on route parameters
         if ($restaurant) {
@@ -48,22 +55,21 @@ class ReservationBooking extends Component
         
         // Load location data
         if ($this->type === 'attraction') {
-            $this->location = Attraction::find($this->location_id);
+            $this->location = Attraction::findOrFail($this->location_id);
         } else {
-            $this->location = Restaurant::find($this->location_id);
+            $this->location = Restaurant::findOrFail($this->location_id);
         }
         
-        if (!$this->location) {
-            abort(404, 'Lokasi tidak ditemukan.');
+        // Only load user-specific data if authenticated
+        if (Auth::check()) {
+            $this->loadUserTickets();
+            
+            // Check if user can make new reservations
+            $this->validateCanMakeReservation();
+            
+            // Load user's current queues and calculate estimated wait time
+            $this->loadUserQueueInfo();
         }
-        
-        $this->loadUserTickets();
-        
-        // Check if user can make new reservations
-        $this->validateCanMakeReservation();
-        
-        // Load user's current queues and calculate estimated wait time
-        $this->loadUserQueueInfo();
     }
     
     private function validateCanMakeReservation()
@@ -139,26 +145,37 @@ class ReservationBooking extends Component
             return;
         }
 
-        // Get user's current active queues
-        $this->user_current_queues = $this->queueValidationService->getUserActiveQueues(Auth::id());
-        
-        // Check if user can queue at this location
-        $validation = $this->queueValidationService->canUserQueue(
-            Auth::id(), 
-            $this->type, 
-            $this->location_id
-        );
-        
-        $this->can_queue = $validation['can_queue'];
-        $this->queue_restriction_message = $validation['reason'] ?? '';
-        
-        // Calculate estimated wait time if user can queue
-        if ($this->can_queue) {
-            // Get current queue length
-            $currentQueueCount = $this->getCurrentQueueLength();
-            $estimatedPosition = $currentQueueCount + 1; // User would be next in line
+        try {
+            $this->ensureQueueServiceInitialized();
             
-            $this->estimated_wait_time = $this->location->getEstimatedWaitingTime($estimatedPosition);
+            // Get user's current active queues
+            $this->user_current_queues = $this->queueValidationService->getUserActiveQueues(Auth::id());
+            
+            // Check if user can queue at this location
+            $validation = $this->queueValidationService->canUserQueue(
+                Auth::id(), 
+                $this->type, 
+                $this->location_id
+            );
+            
+            $this->can_queue = $validation['can_queue'];
+            $this->queue_restriction_message = $validation['reason'] ?? '';
+            
+            // Calculate estimated wait time if user can queue
+            if ($this->can_queue && $this->location) {
+                // Get current queue length
+                $currentQueueCount = $this->getCurrentQueueLength();
+                $estimatedPosition = $currentQueueCount + 1; // User would be next in line
+                
+                $this->estimated_wait_time = $this->location->getEstimatedWaitingTime($estimatedPosition);
+            }
+        } catch (\Exception $e) {
+            // Log the error and set safe defaults
+            \Log::error('Error loading user queue info: ' . $e->getMessage());
+            $this->user_current_queues = [];
+            $this->can_queue = false;
+            $this->queue_restriction_message = 'Terjadi kesalahan saat memuat informasi antrian.';
+            $this->estimated_wait_time = 0;
         }
     }
     
@@ -166,12 +183,12 @@ class ReservationBooking extends Component
     {
         if ($this->type === 'attraction') {
             return UserAttraction::where('attraction_id', $this->location_id)
-                ->whereDate('queue_date', today())
+                ->whereDate('reservation_date', today())
                 ->where('status', 'waiting')
                 ->count();
         } else {
             return UserRestaurant::where('restaurant_id', $this->location_id)
-                ->whereDate('queue_date', today())
+                ->whereDate('reservation_date', today())
                 ->where('status', 'waiting')
                 ->count();
         }
@@ -194,15 +211,24 @@ class ReservationBooking extends Component
             return;
         }
 
-        // Re-validate queue permission before processing
-        $validation = $this->queueValidationService->canUserQueue(
-            Auth::id(), 
-            $this->type, 
-            $this->location_id
-        );
-        
-        if (!$validation['can_queue']) {
-            session()->flash('error', $validation['reason']);
+        // Ensure queue validation service is initialized
+        $this->ensureQueueServiceInitialized();
+
+        try {
+            // Re-validate queue permission before processing
+            $validation = $this->queueValidationService->canUserQueue(
+                Auth::id(), 
+                $this->type, 
+                $this->location_id
+            );
+            
+            if (!$validation['can_queue']) {
+                session()->flash('error', $validation['reason']);
+                return;
+            }
+        } catch (\Exception $e) {
+            \Log::error('Error validating user queue permission: ' . $e->getMessage());
+            session()->flash('error', 'Terjadi kesalahan saat memvalidasi antrian. Silakan coba lagi.');
             return;
         }
         

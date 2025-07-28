@@ -27,12 +27,12 @@
                                 <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
                             @endif
                         @else
-                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
                                 <i class="bi bi-person-fill text-muted" style="font-size: 4vw;"></i>
                             </div>
                         @endif
                         <!-- Tombol edit foto: ICON PENCIL -->
-            <button class="d-flex btn position-absolute bg-light" type="button"
+            <button class="d-flex btn position-absolute" type="button"
                 style="margin-left: 14vw; margin-top:5vw; height: 5vw; width: 5vw; align-items:center; justify-content:center; border-radius:100%; box-shadow:0 0 10px #bbb;"
                 onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
 
@@ -67,21 +67,21 @@
                                             <li class="list-group-item rounded-bottom-3 shadow "
                                                 style="background: #ffe8ad;">
                                                 <a href="#"
-                                                    class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                    class="text-decoration-none  d-flex justify-content-between align-items-center">
                                                     Wahana
                                                     <i class="bi bi-chevron-right"></i>
                                                 </a>
                                             </li>
                                             <li class="list-group-item" style="background: #ffe8ad;">
                                                 <a href="#"
-                                                    class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                    class="text-decoration-none  d-flex justify-content-between align-items-center">
                                                     Restoran
                                                     <i class="bi bi-chevron-right"></i>
                                                 </a>
                                             </li>
                                             <li class="list-group-item" style="background: #ffe8ad;">
                                                 <a href="#"
-                                                    class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                    class="text-decoration-none  d-flex justify-content-between align-items-center">
                                                     Aksesibilitas
                                                     <i class="bi bi-chevron-right"></i>
                                                 </a>
@@ -249,11 +249,11 @@
     <div class="d-block d-md-none position-relative" style="overflow-x: hidden">
 
         <div class="position-absolute top-5 end-0 mt-2 me-4 " style="z-index: 2">
-            <button class="d-flex btn bg-light justify-content-center align-items-center" type="button"
+            <button class="d-flex btn justify-content-center align-items-center" type="button"
                 style="  height: 10vw; width: 10vw;  border-radius:100%; box-shadow:0 0 10px #bbb;"
                 onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
 
-                <i class="bi bi-pencil text-dark " style="font-size:5vw;"></i>
+                <i class="bi bi-pencil  " style="font-size:5vw;"></i>
             </button>
         </div>
 
@@ -279,7 +279,7 @@
                                 <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
                             @endif
                         @else
-                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
                                 <i class="bi bi-person-fill text-muted" style="font-size: 10vw;"></i>
                             </div>
                         @endif
@@ -310,21 +310,21 @@
                                             <li class="list-group-item rounded-bottom-3 shadow "
                                                 style="background: #ffe8ad;">
                                                 <a href="#"
-                                                    class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                    class="text-decoration-none  d-flex justify-content-between align-items-center">
                                                     Wahana
                                                     <i class="bi bi-chevron-right"></i>
                                                 </a>
                                             </li>
                                             <li class="list-group-item" style="background: #ffe8ad;">
                                                 <a href="#"
-                                                    class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                    class="text-decoration-none  d-flex justify-content-between align-items-center">
                                                     Restoran
                                                     <i class="bi bi-chevron-right"></i>
                                                 </a>
                                             </li>
                                             <li class="list-group-item" style="background: #ffe8ad;">
                                                 <a href="#"
-                                                    class="text-decoration-none text-dark d-flex justify-content-between align-items-center">
+                                                    class="text-decoration-none  d-flex justify-content-between align-items-center">
                                                     Aksesibilitas
                                                     <i class="bi bi-chevron-right"></i>
                                                 </a>

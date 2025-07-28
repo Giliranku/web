@@ -1,18 +1,18 @@
 <div 
     x-data
     :style="$store.sidebar.collapsed ? 'width: 80px; height: 100vh;' : 'width: 250px; height: 100vh;'"
-    class="bg-white text-dark border-end position-fixed top-0 start-0 d-flex flex-column shadow"
+    class="bg-body text-body border-end border-opacity-25 position-fixed top-0 start-0 d-flex flex-column shadow"
     style="transition: width 0.3s; z-index: 1030;"
 >
     <div class="d-flex justify-content-end p-2">
-        <button class="btn btn-sm" @click="$store.sidebar.collapsed = !$store.sidebar.collapsed">
+        <button class="btn btn-sm text-body-secondary" @click="$store.sidebar.collapsed = !$store.sidebar.collapsed" aria-label="Toggle sidebar">
             <i class="bi" :class="$store.sidebar.collapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
         </button>
     </div>
 
     <!-- Logo dan Judul -->
     <div 
-        class="border-bottom flex-shrink-0 d-flex align-items-center position-relative"
+        class="border-bottom border-opacity-25 flex-shrink-0 d-flex align-items-center position-relative"
         :class="$store.sidebar.collapsed ? 'justify-content-center py-3 flex-column' : 'p-3 ms-3'"
         style="transition: all 0.3s; min-height: 60px;">
         <img 
@@ -31,7 +31,7 @@
             x-transition:leave="transition-opacity duration-300"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="sidebar-title"
+            class="sidebar-title text-body-emphasis fw-bold"
             style="
                 position: absolute;
                 left: 60px;
@@ -45,19 +45,19 @@
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
         <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
+                <a href="#" class="nav-link d-flex align-items-center text-body-secondary" aria-label="Beranda">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
                 </a>
             </li>
              <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
+                <a href="#" class="nav-link d-flex align-items-center text-body-secondary" aria-label="Edit Restoran">
                     <i class="bi bi-pencil-square"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
                 </a>
             </li>
              <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
+                <a href="#" class="nav-link d-flex align-items-center text-body-secondary" aria-label="Kelola Antrian">
                     <i class="bi bi-people"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                 </a>
@@ -75,13 +75,14 @@
 
     <!-- Fixed bottom area -->
     <div 
-        class="border-top p-2 d-flex flex-column gap-2 flex-shrink-0"
+        class="border-top border-opacity-25 p-2 d-flex flex-column gap-2 flex-shrink-0"
         :class="$store.sidebar.collapsed ? 'align-items-center' : ''"
         class="sidebar-bg-fix">
         <button 
-            class="btn d-flex align-items-center w-100"
+            class="btn btn-outline-secondary d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
+            aria-label="Bantuan"
         >
             <i class="bi bi-question-circle" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 
@@ -93,9 +94,10 @@
             >Bantuan</span>
         </button>
         <button 
-            class="btn d-flex align-items-center w-100"
+            class="btn btn-outline-secondary d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
+            aria-label="Profile"
         >
             <i class="bi bi-person-circle" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 
@@ -107,10 +109,11 @@
             >Profile</span>
         </button>
         <button 
-            class="btn d-flex align-items-center w-100"
+            class="btn btn-outline-danger d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
             onclick="if(confirm('Apakah Anda yakin ingin keluar?')) { document.getElementById('logout-form').submit(); }"
+            aria-label="Keluar"
         >
             <i class="bi bi-box-arrow-right" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 

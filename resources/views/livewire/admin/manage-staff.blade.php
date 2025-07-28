@@ -14,7 +14,7 @@
         </div>
 
         <!-- Role Filter -->
-        <div class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom">
+        <div class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom">
             <div class="dropdown-label">Role</div>
             <select wire:model.live="filterRole" class="form-select custom-dropdown">
                 <option value="">Semua Role</option>

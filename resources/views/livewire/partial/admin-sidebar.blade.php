@@ -1,5 +1,5 @@
 <div x-data :style="$store.sidebar.collapsed ? 'width: 80px; height: 100vh;' : 'width: 250px; height: 100vh;'"
-    class="bg-white text-dark border-end position-fixed top-0 start-0 d-flex flex-column shadow"
+    class="bg-body text-body border-end position-fixed top-0 start-0 d-flex flex-column shadow"
     style="transition: width 0.3s; z-index: 1030;">
     <div class="d-flex justify-content-end p-2">
         <button class="btn btn-sm" @click="$store.sidebar.collapsed = !$store.sidebar.collapsed">

@@ -190,10 +190,10 @@
     {{-- Mobile View --}}
     <div class="d-block d-md-none position-relative" style="overflow-x: hidden">
         <div class="position-absolute top-5 end-0 mt-2 me-4 " style="z-index: 2">
-            <button class="d-flex btn bg-light justify-content-center align-items-center" type="button"
+            <button class="d-flex btn justify-content-center align-items-center" type="button"
                 style="height: 10vw; width: 10vw; border-radius:100%; box-shadow:0 0 10px #bbb;"
                 data-bs-toggle="modal" data-bs-target="#editPhotoModal" aria-label="Edit Foto">
-                <i class="bi bi-pencil text-dark " style="font-size:5vw;"></i>
+                <i class="bi bi-pencil  " style="font-size:5vw;"></i>
             </button>
         </div>
 

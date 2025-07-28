@@ -1,25 +1,22 @@
 /* ============================================
-   CART & CHECKOUT PAGE STYLES
+   CART & CHECKOUT PAGE STYLES - DARK MODE COMPATIBLE
    ============================================ */
 
-/* Variables for consistent theming */
+/* Note: This file uses Bootstrap 5.3 CSS custom properties for dark mode compatibility.
+   Custom color variables are kept for specific design elements that don't map to Bootstrap semantic colors.
+   Most colors now use Bootstrap's CSS custom properties (--bs-*) for automatic dark mode support. */
+
+/* Custom variables for specific design elements */
 :root {
+    /* Keep custom colors for specific design needs */
     --primary-color: #2563eb;
     --primary-light: #3b82f6;
     --primary-dark: #1d4ed8;
     --success-color: #059669;
     --warning-color: #d97706;
     --danger-color: #dc2626;
-    --gray-50: #f9fafb;
-    --gray-100: #f3f4f6;
-    --gray-200: #e5e7eb;
-    --gray-300: #d1d5db;
-    --gray-400: #9ca3af;
-    --gray-500: #6b7280;
-    --gray-600: #4b5563;
-    --gray-700: #374151;
-    --gray-800: #1f2937;
-    --gray-900: #111827;
+    
+    /* Shadow and layout variables */
     --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
     --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -37,16 +34,16 @@
 
 /* Global Improvements */
 .cart-container {
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    background: var(--bs-body-bg);
     min-height: 100vh;
     padding: var(--spacing-lg) 0;
 }
 
 .cart-card {
-    background: #ffffff;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius-lg);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--bs-border-color);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -109,10 +106,10 @@
 
 /* Cart Item Styles */
 .cart-item {
-    background: #ffffff;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-sm);
-    border: 1px solid var(--gray-100);
+    border: 1px solid var(--bs-border-color);
     margin-bottom: var(--spacing-lg);
     transition: all 0.3s ease;
     overflow: hidden;
@@ -120,7 +117,7 @@
 
 .cart-item:hover {
     box-shadow: var(--shadow-md);
-    border-color: var(--primary-color);
+    border-color: var(--bs-primary);
 }
 
 .ticket-icon-wrapper {
@@ -153,14 +150,14 @@
 }
 
 .item-details h5 {
-    color: #1e293b !important;
+    color: var(--bs-body-emphasis) !important;
     font-weight: 700;
     margin-bottom: var(--spacing-xs);
     font-size: 1.1rem;
 }
 
 .item-subtitle {
-    color: #64748b !important;
+    color: var(--bs-secondary-color) !important;
     font-size: 0.875rem;
     margin-bottom: var(--spacing-sm);
 }
@@ -199,47 +196,47 @@
 .empty-cart {
     text-align: center;
     padding: var(--spacing-2xl);
-    background: linear-gradient(135deg, var(--gray-50) 0%, #ffffff 100%);
+    background: var(--bs-tertiary-bg);
     border-radius: var(--border-radius-lg);
-    border: 2px dashed var(--gray-200);
+    border: 2px dashed var(--bs-border-color);
 }
 
 .empty-cart-icon {
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, var(--gray-200) 0%, var(--gray-300) 100%);
+    background: linear-gradient(135deg, var(--bs-secondary-bg) 0%, var(--bs-tertiary-bg) 100%);
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-bottom: var(--spacing-lg);
-    color: var(--gray-400);
+    color: var(--bs-secondary-color);
     font-size: 2.5rem;
 }
 
 .empty-cart h4 {
-    color: var(--gray-600);
+    color: var(--bs-body-color);
     margin-bottom: var(--spacing-sm);
     font-weight: 600;
 }
 
 .empty-cart p {
-    color: var(--gray-500);
+    color: var(--bs-secondary-color);
     margin-bottom: var(--spacing-xl);
 }
 
 /* Order Summary Styles */
 .order-summary {
-    background: #ffffff;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius-lg);
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--bs-border-color);
     position: sticky;
     top: 2rem;
 }
 
 .order-summary-header {
-    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-info) 100%);
     color: white;
     padding: var(--spacing-lg);
     border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
@@ -269,9 +266,9 @@
 .summary-total {
     font-size: 1.25rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: var(--bs-primary);
     padding-top: var(--spacing-sm);
-    border-top: 2px solid var(--gray-100);
+    border-top: 2px solid var(--bs-border-color);
     margin-top: var(--spacing-md);
 }
 
@@ -341,8 +338,8 @@
 
 /* Date Selector Styles */
 .date-selector-card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
@@ -356,8 +353,8 @@
 }
 
 .payment-card {
-    background: #ffffff;
-    border: 2px solid #e2e8f0 !important;
+    background: var(--bs-body-bg);
+    border: 2px solid var(--bs-border-color) !important;
     border-radius: var(--border-radius);
     padding: var(--spacing-lg);
     text-align: center;
@@ -366,7 +363,7 @@
     position: relative;
     overflow: hidden;
     text-decoration: none;
-    color: #334155;
+    color: var(--bs-body-color);
 }
 
 .payment-card::before {
@@ -376,17 +373,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-info) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
 .payment-card:hover {
-    border-color: var(--primary-color) !important;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.15);
+    border-color: var(--bs-primary) !important;
+    box-shadow: 0 4px 15px rgba(var(--bs-primary-rgb), 0.15);
     transform: translateY(-4px);
     text-decoration: none;
-    color: #334155;
+    color: var(--bs-body-color);
 }
 
 .payment-card:hover::before {
@@ -394,9 +391,9 @@
 }
 
 input[type="radio"]:checked + .payment-card {
-    border-color: var(--primary-color) !important;
-    background: rgba(37, 99, 235, 0.05);
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.15);
+    border-color: var(--bs-primary) !important;
+    background: rgba(var(--bs-primary-rgb), 0.05);
+    box-shadow: 0 4px 15px rgba(var(--bs-primary-rgb), 0.15);
 }
 
 input[type="radio"]:checked + .payment-card::before {
@@ -413,7 +410,7 @@ input[type="radio"]:checked + .payment-card::before {
 
 .payment-label {
     font-weight: 600;
-    color: #334155;
+    color: var(--bs-body-color);
     position: relative;
     z-index: 1;
     margin: 0 0 var(--spacing-xs) 0;
@@ -422,29 +419,29 @@ input[type="radio"]:checked + .payment-card::before {
 .payment-card small {
     position: relative;
     z-index: 1;
-    color: #64748b;
+    color: var(--bs-secondary-color);
 }
 
 /* Form Styles */
 .form-section {
-    background: #ffffff;
+    background: var(--bs-body-bg);
     border-radius: var(--border-radius);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--bs-border-color);
     margin-bottom: var(--spacing-xl);
 }
 
 .form-section-header {
-    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    background: var(--bs-tertiary-bg);
     padding: var(--spacing-lg);
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--bs-border-color);
     border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .form-section-header h5,
 .form-section-header h6 {
     margin: 0;
-    color: #334155;
+    color: var(--bs-body-emphasis);
     font-weight: 700;
     display: flex;
     align-items: center;
@@ -456,24 +453,24 @@ input[type="radio"]:checked + .payment-card::before {
 }
 
 .form-control {
-    border: 2px solid #e2e8f0;
+    border: 2px solid var(--bs-border-color);
     border-radius: 8px;
     padding: var(--spacing-md);
     font-size: 1rem;
     transition: all 0.3s ease;
-    background: #ffffff;
-    color: #334155;
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
 }
 
 .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 4px rgba(var(--bs-primary-rgb), 0.1);
     outline: none;
-    background: #ffffff;
+    background: var(--bs-body-bg);
 }
 
 .form-label {
-    color: #475569;
+    color: var(--bs-body-color);
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
     display: flex;
@@ -502,62 +499,76 @@ input[type="radio"]:checked + .payment-card::before {
 }
 
 .alert-success {
-    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
-    color: var(--success-color);
-    border-left: 4px solid var(--success-color);
+    background: var(--bs-success-bg-subtle);
+    color: var(--bs-success-text);
+    border-left: 4px solid var(--bs-success);
 }
 
 .alert-info {
-    background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
-    color: var(--primary-color);
-    border-left: 4px solid var(--primary-color);
+    background: var(--bs-info-bg-subtle);
+    color: var(--bs-info-text);
+    border-left: 4px solid var(--bs-info);
 }
 
 .alert-danger {
-    background: linear-gradient(135deg, #fef2f2 0%, #fef1f1 100%);
-    color: var(--danger-color);
-    border-left: 4px solid var(--danger-color);
+    background: var(--bs-danger-bg-subtle);
+    color: var(--bs-danger-text);
+    border-left: 4px solid var(--bs-danger);
 }
 
-/* Color utilities and overrides to prevent dark colors */
+/* Color utilities and overrides for dark mode compatibility */
 .text-gray-800 {
-    color: #334155 !important;
+    color: var(--bs-body-color) !important;
+}
+
+.text-gray-600 {
+    color: var(--bs-secondary-color) !important;
+}
+
+.text-gray-500 {
+    color: var(--bs-tertiary-color) !important;
+}
+
+.bg-white {
+    background-color: var(--bs-body-bg) !important;
+}
+
+.bg-gray-50 {
+    background-color: var(--bs-secondary-bg) !important;
+}
+
+.bg-gray-100 {
+    background-color: var(--bs-tertiary-bg) !important;
+}
+
+.border-gray-200 {
+    border-color: var(--bs-border-color) !important;
+}
+
+.border-gray-300 {
+    border-color: var(--bs-border-color-translucent) !important;
 }
 
 .text-muted {
-    color: #64748b !important;
-}
-
-.bg-light {
-    background-color: #f8fafc !important;
+    color: var(--bs-secondary-color) !important;
 }
 
 .border-dark {
-    border-color: #e2e8f0 !important;
+    border-color: var(--bs-border-color) !important;
 }
 
-/* Ensure all cards and backgrounds stay light */
+/* Remove forced light theme - let Bootstrap handle dark mode */
+/* Dark mode compatible cards and backgrounds */
 .card, .cart-card, .cart-item, .form-section, .order-summary {
-    background: #ffffff !important;
-    color: #334155 !important;
+    background: var(--bs-body-bg) !important;
+    color: var(--bs-body-color) !important;
 }
 
-.card-body {
-    background: transparent !important;
-    color: inherit !important;
-}
-
-/* Override any Bootstrap dark classes */
-.bg-dark, .text-dark {
-    background: #ffffff !important;
-    color: #334155 !important;
-}
-
-/* Ensure dropdown menus stay light */
+/* Ensure dropdown menus are dark mode compatible */
 .dropdown-menu {
-    background: #ffffff !important;
-    border: 1px solid #e2e8f0 !important;
-    color: #334155 !important;
+    background: var(--bs-body-bg) !important;
+    border: 1px solid var(--bs-border-color) !important;
+    color: var(--bs-body-color) !important;
 }
 
 /* Responsive Design */

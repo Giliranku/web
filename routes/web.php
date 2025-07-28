@@ -86,6 +86,8 @@ Route::get('/about-us', ContactUs::class)->name('about');
 Route::get('/news', NewsUser::class)->name('news.index');
 Route::get('/news-detail/{id}', NewsUserDetail::class)->name('news.detail');
 Route::get('/search', Sorting::class)->name('queues.index');
+Route::get('/tickets', TiketEcommerce::class)->name('tickets');
+Route::get('/attractions', Sorting::class)->name('attractions');
 Route::get('/restaurant/{restaurant:id}', WahanaDetails::class)->name('restaurant.detail');
 Route::get('/attraction/{attraction:id}', WahanaDetails::class)->name('attraction.detail');
 

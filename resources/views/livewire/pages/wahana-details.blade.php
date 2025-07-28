@@ -38,7 +38,7 @@
     .header-title {
         font-size: 2.2rem;
         font-weight: 700;
-        color: #2c3e50;
+        /* color: #2c3e50; */
         margin-bottom: 0.75rem;
         line-height: 1.2;
     }
@@ -88,7 +88,7 @@
 <div class="container py-4">
     <!-- Breadcrumb -->
     <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb bg-light rounded p-3">
+        <ol class="breadcrumb rounded p-3">
             <li class="breadcrumb-item">
                 <a href="{{ route('home') }}" wire:navigate class="text-decoration-none text-primary">
                     <i class="fas fa-home me-1"></i>Beranda
@@ -99,7 +99,7 @@
                     {{ $this->getTypeName() }}
                 </a>
             </li>
-            <li class="breadcrumb-item active text-dark" aria-current="page">
+            <li class="breadcrumb-item active " aria-current="page">
                 <strong>{{ $item->name }}</strong>
             </li>
         </ol>

@@ -27,7 +27,7 @@
             </div>
         </footer>
         <hr>
-        <div class="text-center text-muted">
+        <div class="text-center text-body-secondary">
             <p>© 2025 Giliranku. All Rights Reserved</p>
         </div>
     </div>

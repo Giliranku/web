@@ -50,7 +50,7 @@
     .article-content {
         font-size: 1.1rem;
         line-height: 1.8;
-        color: #333;
+        /* color: #333; * Remove For Dark mode Support */ 
     }
     
     .article-content h1,
@@ -61,7 +61,7 @@
     .article-content h6 {
         margin-top: 2rem;
         margin-bottom: 1rem;
-        color: #2c3e50;
+        font-weight: bolder
     }
     
     .article-content ul,
@@ -100,13 +100,13 @@
             {!! $news->content !!}
         </div>
 
-        <p class="card-text opacity-50 text-dark mt-5">
+        <p class="card-text opacity-50  mt-5">
             Keywords: {{ $news->keywords }}
         </p>
     </div>
 
     <div class="px-xl-5 mx-xl-5 px-2 mx-2 mt-5 pt-5">
-        <h3 class="card-title text-dark text-center mb-4">Baca Berita Lainnya</h3>
+        <h3 class="card-title  text-center mb-4">Baca Berita Lainnya</h3>
         <div class="d-flex justify-content-center align-items-center w-100">
             <div class="d-flex gap-5 flex-wrap align-items-center justify-content-center my-1 my-md-5">
                 @foreach($otherNews as $item)
@@ -119,9 +119,9 @@
                                 style="height: 10rem; object-fit: contain;">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div>
-                                    <h5 class="card-title fs-3 text-dark">{{ $item->title }}</h5>
-                                    <p class="card-text text-dark">{{ $item->description }}</p>
-                                    <p class="card-text opacity-50 text-dark">Keywords: {{ $item->keywords }}</p>
+                                    <h5 class="card-title fs-3 ">{{ $item->title }}</h5>
+                                    <p class="card-text ">{{ $item->description }}</p>
+                                    <p class="card-text opacity-50 ">Keywords: {{ $item->keywords }}</p>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center mt-3">
                                     <a href="/news-detail/{{ $item->id }}" class="text-decoration-none me-auto">See More</a>

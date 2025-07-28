@@ -24,7 +24,7 @@
                 'Wahana'
             ]
         }"
-        class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
+        class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
         @click.outside="open = false">
 
         <!-- Label -->
@@ -37,7 +37,7 @@
         </div>
 
         <!-- Dropdown Options -->
-        <div class="dropdown-list bg-light dark:text-dark" x-show="open" x-transition>
+        <div class="dropdown-list bg-body-secondary" x-show="open" x-transition>
             <template x-for="option in options" :key="option">
             <div class="dropdown-item" @click="select(option)" x-text="option"></div>
             </template>

@@ -153,31 +153,31 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label text-muted small text-uppercase fw-bold">Nama Attraction</label>
-                                        <p class="fw-bold text-dark">{{ $attraction->name }}</p>
+                                        <p class="fw-bold ">{{ $attraction->name }}</p>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label text-muted small text-uppercase fw-bold">Lokasi</label>
-                                        <p class="text-dark">
+                                        <p class="">
                                             <i class="bi bi-geo-alt-fill text-danger me-1"></i>
                                             {{ $attraction->location }}
                                         </p>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label text-muted small text-uppercase fw-bold">Kategori</label>
-                                        <p class="text-dark">{{ $attraction->category ?? 'Attraction' }}</p>
+                                        <p class="">{{ $attraction->category ?? 'Attraction' }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label text-muted small text-uppercase fw-bold">Kapasitas</label>
-                                        <p class="text-dark">
+                                        <p class="">
                                             <i class="bi bi-people-fill text-info me-1"></i>
                                             {{ $attraction->capacity ?? 'Tidak ditentukan' }} orang
                                         </p>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label text-muted small text-uppercase fw-bold">Durasi</label>
-                                        <p class="text-dark">
+                                        <p class="">
                                             <i class="bi bi-clock-fill text-warning me-1"></i>
                                             {{ $attraction->time_estimation ?? 'Tidak ditentukan' }} menit
                                         </p>
@@ -197,7 +197,7 @@
                                 <hr>
                                 <div>
                                     <label class="form-label text-muted small text-uppercase fw-bold">Deskripsi</label>
-                                    <p class="text-dark">{{ $attraction->description }}</p>
+                                    <p class="">{{ $attraction->description }}</p>
                                 </div>
                             @endif
                         </div>
@@ -221,7 +221,7 @@
                                          style="max-height: 200px; object-fit: cover; width: 100%;">
                                 </div>
                             @else
-                                <div class="bg-light p-4 rounded mb-3">
+                                <div class="bg-body-secondary p-4 rounded mb-3">
                                     <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
                                     <p class="text-muted mt-2 mb-0">Tidak ada gambar cover</p>
                                 </div>
@@ -265,7 +265,7 @@
                             <div class="text-warning mb-3">
                                 <i class="bi bi-exclamation-triangle-fill" style="font-size: 4rem;"></i>
                             </div>
-                            <h4 class="text-dark mb-2">Belum Ada Attraction yang Ditugaskan</h4>
+                            <h4 class=" mb-2">Belum Ada Attraction yang Ditugaskan</h4>
                             <p class="text-muted mb-4">Anda belum ditugaskan untuk mengelola attraction. Silakan hubungi administrator untuk penugasan.</p>
                             <button class="btn btn-warning">
                                 <i class="bi bi-telephone-fill me-2"></i>

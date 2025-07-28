@@ -28,7 +28,7 @@
                 { label: 'Email', value: 'email' }
             ]
         }"
-        class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
+        class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
         @click.outside="open = false">
 
             <!-- Label -->
@@ -41,7 +41,7 @@
             </div>
 
             <!-- Dropdown Options -->
-            <div class="dropdown-list bg-light dark:text-dark" x-show="open" x-transition>
+            <div class="dropdown-list bg-body-secondary" x-show="open" x-transition>
                 <template x-for="option in options" :key="option.value">
                     <div class="dropdown-item" @click="select(option.label, option.value)" x-text="option.label"></div>
                 </template>
@@ -92,7 +92,7 @@
                                     <img src="{{ asset('storage/' . $user->avatar) }}" class="rounded-circle" width="60" height="60" alt="Avatar" style="object-fit:cover;">
                                 @endif
                             @else
-                                <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
+                                <div class="bg-body-secondary rounded-circle d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
                                     <i class="bi bi-person-fill text-muted fs-4"></i>
                                 </div>
                             @endif
@@ -175,7 +175,7 @@
                                         <img src="{{ asset('storage/' . $selectedUser->avatar) }}" class="rounded-circle mb-3" width="120" height="120" alt="Avatar" style="object-fit:cover;">
                                     @endif
                                 @else
-                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 120px; height: 120px;">
+                                    <div class="bg-body-secondary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 120px; height: 120px;">
                                         <i class="bi bi-person-fill text-muted" style="font-size: 3rem;"></i>
                                     </div>
                                 @endif

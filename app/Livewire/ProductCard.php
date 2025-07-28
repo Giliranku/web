@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Ticket;
+use Livewire\Attributes\On;
 
 class ProductCard extends Component
 {
@@ -13,6 +14,13 @@ class ProductCard extends Component
     public function mount()
     {
         // Load the quantity for this specific product from the session
+        $this->quantity = session('cart.' . $this->product->id . '.quantity', 0);
+    }
+
+    #[On('cartUpdated')] 
+    public function refreshQuantity()
+    {
+        // Sync quantity from session when cart is updated from other components
         $this->quantity = session('cart.' . $this->product->id . '.quantity', 0);
     }
 

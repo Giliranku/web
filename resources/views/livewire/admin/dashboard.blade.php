@@ -264,7 +264,7 @@ document.addEventListener('alpine:init', () => {
             <div class="col-md-6 mb-3">
                 <div class="card dashboard-card shadow border-0">
                     <div class="card-body d-flex align-items-center">
-                        <div class="stat-icon text-dark me-3">
+                        <div class="stat-icon  me-3">
                             <i class="bi bi-ticket-perforated-fill"></i>
                         </div>
                         <div class="flex-grow-1">

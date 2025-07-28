@@ -16,71 +16,11 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     @endassets
     @stack('styles')
-    <!-- Alpine store for theme state -->
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.store('themeSwitcher', {
-                theme: localStorage.getItem('theme') || 'light',
-                setTheme(val) {
-                    this.theme = val;
-                    localStorage.setItem('theme', val);
-                    document.documentElement.setAttribute('data-bs-theme', val);
-                },
-                initTheme() {
-                    document.documentElement.setAttribute('data-bs-theme', this.theme);
-                }
-            });
-            Alpine.store('themeSwitcher').initTheme();
-        });
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('accessibilityMenu', function() {
-            return {
-                open: false,
-                speechActive: false,
-                utterance: null,
-                toggleSpeech() {
-                    if (this.speechActive) {
-                        window.speechSynthesis.cancel();
-                        this.speechActive = false;
-                    } else {
-                        const slotContent = document.getElementById('main-slot-content');
-                        if (slotContent) {
-                            const text = slotContent.innerText.trim();
-                            if (text) {
-                                window.speechSynthesis.cancel();
-                                this.utterance = new window.SpeechSynthesisUtterance(text);
-
-                                const voices = window.speechSynthesis.getVoices();
-                                const indonesianVoice = voices.find(v => v.lang.startsWith('id') && v.localService && !v.name.toLowerCase().includes('google'));
-                                if (indonesianVoice) {
-                                    this.utterance.voice = indonesianVoice;
-                                } else {
-                                    const localVoice = voices.find(v => v.localService);
-                                    if (localVoice) this.utterance.voice = localVoice;
-                                }
-                                this.utterance.rate = 1;
-                                this.utterance.pitch = 1;
-
-                                this.utterance.onend = () => {
-                                    this.speechActive = false;
-                                };
-                                this.utterance.onerror = () => {
-                                    this.speechActive = false;
-                                };
-
-                                window.speechSynthesis.speak(this.utterance);
-                                this.speechActive = true;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    });
-    </script>
 
     {{-- Declare stack of scripts --}}
     @stack('scripts')

@@ -60,7 +60,7 @@
 
     <!-- Breadcrumb -->
     <div class="container mt-4 mb-2 px-4">
-        <a href="#" class="text-dark d-flex align-items-center mb-2" style="text-decoration:none; font-weight:500;">
+        <a href="#" class=" d-flex align-items-center mb-2" style="text-decoration:none; font-weight:500;">
             <i class="bi bi-arrow-left me-2"></i> Kembali ke profil
         </a>
     </div>
@@ -102,7 +102,7 @@
     <div class="container px-4 pb-5 history-table">
         <div class="table-responsive rounded" style="overflow-x:auto;">
             <table class="table align-middle mb-0" style="min-width:700px;">
-                <thead class="bg-light">
+                <thead class="bg-body-secondary">
                     <tr>
                         <th>No. Referal</th>
                         <th>Tanggal Pembelian</th>

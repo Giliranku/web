@@ -28,7 +28,7 @@
 
                 <!-- Icon edit luar lingkaran -->
                 <div class="mt-2 text-end pe-4">
-                    <i class="bi bi-pencil-square text-dark" style="cursor: pointer;"></i>
+                    <i class="bi bi-pencil-square " style="cursor: pointer;"></i>
                 </div>
 
                 <p class="fw-semibold mt-3">Gambar Depan</p>

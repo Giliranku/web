@@ -2,32 +2,106 @@
 @vite([
     'resources/sass/app.scss',
     'resources/js/app.js',
-    'resources/css/main.css'
+    'resources/css/main.css',
+    'resources/css/tiket-ecommerce.css'
 ])
 @endpush
 
-<div class="container py-5">
-    <!-- Header Section -->
-    <div class="text-center mb-5">
-        <h1 class="h2 fw-bold text-dark mb-3">Beli Tiket Giliranku</h1>
-        <p class="text-muted lead">Satu tiket, akses semua wahana dan restoran!</p>
+@push('scripts')
+<script>
+console.log('🎫 Tiket E-commerce page loaded');
+
+// Initialize modals when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('� Initializing ticket modals...');
+    
+    // Initialize all modals
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (typeof bootstrap !== 'undefined') {
+            new bootstrap.Modal(modal, {
+                backdrop: true,
+                keyboard: true,
+                focus: true
+            });
+        }
+    });
+    
+    console.log(`✅ Initialized ${modals.length} modals`);
+});
+
+// Listen for cart updates to close modal and sync components
+document.addEventListener('livewire:initialized', function() {
+    Livewire.on('cartUpdated', function() {
+        console.log('🛒 Cart updated, checking if modal should close...');
+        
+        // Close any open modal when item is added to cart
+        const openModal = document.querySelector('.modal.show');
+        if (openModal) {
+            const modalInstance = bootstrap.Modal.getInstance(openModal);
+            if (modalInstance) {
+                modalInstance.hide();
+                console.log('✅ Modal closed after cart update');
+            }
+        }
+    });
+});
+</script>
+@endpush
+
+<div class="overflow-x-hidden">
+    <!-- Hero Section -->
+    <div class="hero-ecommerce">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="display-5 fw-bold mb-3">🎢 Beli Tiket Giliranku</h1>
+                <p class="lead mb-4">Satu tiket untuk semua keseruan! Akses unlimited ke wahana dan restoran favorit</p>
+                <hr class="section-divider bg-light mx-auto">
+                <div class="row g-3 justify-content-center mt-4">
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-ticket-perforated" style="font-size: 2rem;"></i>
+                            <p class="mb-0 mt-2">Universal Access</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-clock" style="font-size: 2rem;"></i>
+                            <p class="mb-0 mt-2">Skip The Line</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-shield-check" style="font-size: 2rem;"></i>
+                            <p class="mb-0 mt-2">Secure Payment</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-6">
+                        <div class="text-center">
+                            <i class="bi bi-phone" style="font-size: 2rem;"></i>
+                            <p class="mb-0 mt-2">Digital Queue</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Search & Filter -->
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex align-items-center gap-3">
-                        <livewire:date-selector />
-                        <div class="flex-grow-1">
-                            <div class="input-group">
-                                <span class="input-group-text bg-transparent border-end-0">
-                                    <i class="bi bi-search text-muted"></i>
-                                </span>
+    <div class="container">
+        <!-- Search & Filter Section -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8">
+                <div class="search-card p-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4">
+                            <livewire:date-selector />
+                        </div>
+                        <div class="col-md-8">
+                            <div class="position-relative">
+                                <i class="bi bi-search position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%); color: var(--primary);"></i>
                                 <input type="search" 
-                                       class="form-control border-start-0" 
-                                       placeholder="Cari tiket..." 
+                                       class="form-control search-input ps-5" 
+                                       placeholder="Cari tiket berdasarkan nama atau lokasi..." 
                                        wire:model.live="search">
                             </div>
                         </div>
@@ -35,119 +109,295 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Tickets Grid -->
-    <div class="row g-4 mb-5">
-        @forelse ($products as $product)
-            <div class="col-lg-6">
-                <div class="card border-0 shadow-sm h-100 overflow-hidden">
-                    <!-- Promo Badge -->
-                    @if($product->price < $product->price_before)
-                        <div class="position-absolute top-0 start-0 m-3 z-1">
-                            <span class="badge bg-danger rounded-pill px-3 py-2">
-                                <i class="bi bi-fire me-1"></i>Promo
-                            </span>
-                        </div>
+
+        <!-- Tickets Grid -->
+        <div class="row g-4 mb-5">
+            <!-- Debug Info (Remove this in production) -->
+            <div class="col-12 mb-3">
+                <small class="text-muted">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Ditemukan {{ count($products) }} tiket tersedia
+                    @if($search)
+                        dengan pencarian "{{ $search }}"
                     @endif
-                    
-                    <div class="row g-0 h-100">
-                        <!-- Ticket Image -->
-                        <div class="col-md-4 d-flex align-items-center justify-content-center p-4 bg-light">
-                            <img src="{{ asset($product->logo) }}" 
-                                 class="img-fluid rounded" 
-                                 style="max-width: 120px; max-height: 80px; object-fit: contain;" 
-                                 alt="{{ $product->name }}">
-                        </div>
+                </small>
+            </div>
+            
+            @forelse ($products as $product)
+                <div class="col-lg-6 fade-in">
+                    <div class="ticket-card h-100">
+                        <!-- Promo Badge -->
+                        @if($product->price < $product->price_before)
+                            <div class="position-absolute top-0 start-0 m-3" style="z-index: 10;">
+                                <div class="promo-badge">
+                                    <i class="bi bi-fire me-1"></i>PROMO SPESIAL
+                                </div>
+                            </div>
+                        @endif
                         
-                        <!-- Ticket Info -->
-                        <div class="col-md-8">
-                            <div class="card-body d-flex flex-column h-100">
-                                <div class="flex-grow-1">
-                                    <h5 class="card-title fw-bold text-dark mb-2">{{ $product->name }}</h5>
-                                    <p class="text-muted small mb-3">
-                                        <i class="bi bi-geo-alt me-1"></i>{{ $product->location }}
-                                    </p>
-                                    
-                                    <!-- Pricing -->
-                                    <div class="mb-3">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="h5 fw-bold text-primary mb-0">
-                                                Rp {{ number_format($product->price, 0, ',', '.') }}
-                                            </span>
-                                            @if($product->price < $product->price_before)
-                                                <span class="text-muted text-decoration-line-through small">
-                                                    Rp {{ number_format($product->price_before, 0, ',', '.') }}
+                        <div class="row g-0 h-100">
+                            <!-- Ticket Image -->
+                            <div class="col-md-5">
+                                <div class="ticket-image-container h-100">
+                                    <img src="{{ asset($product->logo) }}" 
+                                         class="img-fluid" 
+                                         style="max-width: 140px; max-height: 100px; object-fit: contain;" 
+                                         alt="{{ $product->name }}">
+                                </div>
+                            </div>
+                            
+                            <!-- Ticket Info -->
+                            <div class="col-md-7">
+                                <div class="p-4 d-flex flex-column h-100">
+                                    <div class="flex-grow-1">
+                                        <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $product->name }}</h4>
+                                        <p class="text-muted mb-3">
+                                            <i class="bi bi-geo-alt me-1" style="color: var(--primary);"></i>{{ $product->location }}
+                                        </p>
+                                        
+                                        <!-- Pricing -->
+                                        <div class="mb-3">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="price-main">
+                                                    Rp {{ number_format($product->price, 0, ',', '.') }}
                                                 </span>
+                                                @if($product->price < $product->price_before)
+                                                    <span class="price-old">
+                                                        Rp {{ number_format($product->price_before, 0, ',', '.') }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            @if($product->price < $product->price_before)
+                                                <small class="text-success fw-semibold">
+                                                    Hemat Rp {{ number_format($product->price_before - $product->price, 0, ',', '.') }}!
+                                                </small>
                                             @endif
+                                        </div>
+                                        
+                                        <!-- Benefits -->
+                                        <div class="mb-3">
+                                            <div class="benefit-item">
+                                                <i class="bi bi-check-circle-fill me-2"></i>Akses semua wahana seru
+                                            </div>
+                                            <div class="benefit-item">
+                                                <i class="bi bi-check-circle-fill me-2"></i>Akses semua restoran premium
+                                            </div>
+                                            <div class="benefit-item">
+                                                <i class="bi bi-check-circle-fill me-2"></i>Sistem antrian digital pintar
+                                            </div>
+                                            <div class="benefit-item">
+                                                <i class="bi bi-check-circle-fill me-2"></i>Free Wi-Fi sepanjang hari
+                                            </div>
                                         </div>
                                     </div>
                                     
-                                    <!-- Benefits -->
-                                    <div class="mb-3">
-                                        <small class="text-success d-block">
-                                            <i class="bi bi-check-circle-fill me-1"></i>Akses semua wahana
-                                        </small>
-                                        <small class="text-success d-block">
-                                            <i class="bi bi-check-circle-fill me-1"></i>Akses semua restoran
-                                        </small>
-                                        <small class="text-success d-block">
-                                            <i class="bi bi-check-circle-fill me-1"></i>Sistem antrian digital
-                                        </small>
+                                    <!-- Action Buttons -->
+                                    <div class="d-flex justify-content-between align-items-center gap-2">
+                                        <button class="btn btn-outline-custom btn-sm" type="button" 
+                                                data-bs-toggle="modal" 
+                                                data-bs-target="#ticketModal-{{ $product->id }}">
+                                            <i class="bi bi-info-circle me-1"></i>Detail Tiket
+                                        </button>
+                                        <div class="flex-grow-1 text-end">
+                                            <livewire:product-card :product="$product" :key="$product->id" />
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <!-- Action Buttons -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="btn btn-outline-secondary btn-sm" type="button" 
-                                            data-bs-toggle="collapse" data-bs-target="#details-{{ $product->id }}">
-                                        <i class="bi bi-info-circle me-1"></i>Detail
-                                    </button>
-                                    <livewire:product-card :product="$product" :key="$product->id" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Collapsible Details -->
-                    <div class="collapse" id="details-{{ $product->id }}">
-                        <div class="card-footer bg-light border-0">
-                            <h6 class="fw-semibold mb-2">Syarat & Ketentuan:</h6>
-                            <p class="small text-muted mb-2">{{ Str::limit($product->terms_and_conditions, 150) }}</p>
-                            <h6 class="fw-semibold mb-2">Cara Penggunaan:</h6>
-                            <p class="small text-muted mb-0">{{ Str::limit($product->usage, 150) }}</p>
+                </div>
+            @empty
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="bi bi-ticket-perforated display-1"></i>
+                        <h3 class="text-muted mt-3">Oops! Tidak ada tiket ditemukan</h3>
+                        <p class="text-muted">Coba ubah kata kunci pencarian atau filter tanggal Anda</p>
+                        <button class="btn btn-primary-custom mt-3" onclick="window.location.reload()">
+                            <i class="bi bi-arrow-clockwise me-2"></i>Muat Ulang
+                        </button>
+                    </div>
+                </div>
+            @endforelse
+        </div>
+
+        <!-- Ticket Detail Modals -->
+        @foreach($products as $product)
+            <div class="modal fade" id="ticketModal-{{ $product->id }}" tabindex="-1" aria-labelledby="ticketModalLabel-{{ $product->id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content" style="border-radius: 20px; border: none; overflow: hidden;">
+                        <!-- Modal Header with Gradient -->
+                        <div class="modal-header position-relative" style="background: linear-gradient(135deg, var(--primary), #3a9d94); color: white; border: none; padding: 2rem;">
+                            <div class="d-flex align-items-center w-100">
+                                <div class="me-4">
+                                    <div class="bg-white bg-opacity-20 rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                                        <img src="{{ asset($product->logo) }}" 
+                                             class="img-fluid" 
+                                             style="max-width: 50px; max-height: 50px; object-fit: contain;" 
+                                             alt="{{ $product->name }}">
+                                    </div>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h4 class="modal-title fw-bold mb-2" id="ticketModalLabel-{{ $product->id }}">
+                                        {{ $product->name }}
+                                    </h4>
+                                    <p class="mb-0 opacity-90">
+                                        <i class="bi bi-geo-alt me-1"></i>{{ $product->location }}
+                                    </p>
+                                </div>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            
+                            <!-- Promo Badge in Modal -->
+                            @if($product->price < $product->price_before)
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-danger bg-opacity-90" style="font-size: 0.75rem; padding: 6px 12px;">
+                                        <i class="bi bi-fire me-1"></i>PROMO SPESIAL
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <!-- Modal Body -->
+                        <div class="modal-body p-4">
+                            <!-- Pricing Section -->
+                            <div class="mb-4 p-3 rounded-3" style="background: linear-gradient(135deg, #f8f9fa, var(--light)); border: 1px solid #e9ecef;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="d-flex align-items-center gap-3 mb-2">
+                                            <span class="h3 mb-0 fw-bold" style="color: var(--primary);">
+                                                Rp {{ number_format($product->price, 0, ',', '.') }}
+                                            </span>
+                                            @if($product->price < $product->price_before)
+                                                <span class="text-decoration-line-through text-muted">
+                                                    Rp {{ number_format($product->price_before, 0, ',', '.') }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                        @if($product->price < $product->price_before)
+                                            <small class="text-success fw-semibold">
+                                                <i class="bi bi-arrow-down me-1"></i>
+                                                Hemat Rp {{ number_format($product->price_before - $product->price, 0, ',', '.') }}!
+                                            </small>
+                                        @endif
+                                    </div>
+                                    <div class="text-end">
+                                        <livewire:product-card :product="$product" :key="'modal-'.$product->id" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Benefits Section -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-3" style="color: var(--dark);">
+                                    <i class="bi bi-star-fill me-2" style="color: var(--warning);"></i>Keuntungan Tiket
+                                </h6>
+                                <div class="row g-2">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill me-2" style="color: var(--primary);"></i>
+                                            <span class="small">Akses semua wahana seru</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill me-2" style="color: var(--primary);"></i>
+                                            <span class="small">Akses semua restoran premium</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill me-2" style="color: var(--primary);"></i>
+                                            <span class="small">Sistem antrian digital pintar</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="bi bi-check-circle-fill me-2" style="color: var(--primary);"></i>
+                                            <span class="small">Free Wi-Fi sepanjang hari</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Terms and Conditions -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-3" style="color: var(--primary);">
+                                    <i class="bi bi-file-text me-2"></i>Syarat & Ketentuan
+                                </h6>
+                                <div class="p-3 rounded-3" style="background: linear-gradient(135deg, #f8f9fa, #ffffff); border-left: 4px solid var(--primary);">
+                                    @if($product->terms_and_conditions)
+                                        <p class="mb-0 text-dark small" style="line-height: 1.6;">
+                                            {{ $product->terms_and_conditions }}
+                                        </p>
+                                    @else
+                                        <p class="mb-0 text-muted small" style="font-style: italic;">
+                                            Syarat dan ketentuan akan diinformasikan lebih lanjut setelah pembelian tiket.
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                            
+                            <!-- Usage Instructions -->
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-3" style="color: var(--secondary);">
+                                    <i class="bi bi-lightbulb me-2"></i>Cara Penggunaan
+                                </h6>
+                                <div class="p-3 rounded-3" style="background: linear-gradient(135deg, #fff8f5, #ffffff); border-left: 4px solid var(--secondary);">
+                                    @if($product->usage)
+                                        <p class="mb-0 text-dark small" style="line-height: 1.6;">
+                                            {{ $product->usage }}
+                                        </p>
+                                    @else
+                                        <p class="mb-0 text-muted small" style="font-style: italic;">
+                                            Panduan penggunaan tiket akan diberikan setelah pembelian.
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal Footer -->
+                        <div class="modal-footer border-0 p-4 pt-0">
+                            <div class="d-flex justify-content-center w-100">
+                                <button type="button" class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">
+                                    <i class="bi bi-arrow-left me-2"></i>Tutup
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        @empty
-            <div class="col-12">
-                <div class="text-center py-5">
-                    <i class="bi bi-ticket-perforated display-1 text-muted"></i>
-                    <h4 class="text-muted mt-3">Tidak ada tiket yang tersedia</h4>
-                    <p class="text-muted">Coba ubah kriteria pencarian Anda</p>
+        @endforeach
+
+        <!-- Cart Actions -->
+        @if(count($products) > 0)
+        <div class="cart-section">
+            <div class="text-center mb-4">
+                <h3 class="fw-bold" style="color: var(--dark);">Siap untuk petualangan seru?</h3>
+                <p class="text-muted">Lihat keranjang belanja atau langsung checkout untuk mendapatkan tiketmu!</p>
+            </div>
+            <div class="row g-3 justify-content-center">
+                <div class="col-md-4">
+                    <a href="/cartPage" class="btn btn-outline-custom w-100 py-3 d-flex align-items-center justify-content-center" wire:navigate>
+                        <i class="bi bi-cart3 me-2"></i>
+                        <span>Lihat Keranjang</span>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/cart-checkout" class="btn btn-primary-custom w-100 py-3 d-flex align-items-center justify-content-center" wire:navigate>
+                        <i class="bi bi-credit-card me-2"></i>
+                        <span>Checkout Sekarang</span>
+                    </a>
                 </div>
             </div>
-        @endforelse
-    </div>
-    <!-- Cart Actions -->
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <a href="/cartPage" class="btn btn-outline-primary w-100 py-3" wire:navigate>
-                                <i class="bi bi-cart3 me-2"></i>Lihat Keranjang
-                            </a>
-                        </div>
-                        <div class="col-md-6">
-                            <a href="/cart-checkout" class="btn btn-primary w-100 py-3" wire:navigate>
-                                <i class="bi bi-credit-card me-2"></i>Checkout Sekarang
-                            </a>
-                        </div>
-                    </div>
-                </div>
+            <div class="text-center mt-4">
+                <small class="text-muted">
+                    <i class="bi bi-shield-check me-1"></i>
+                    Pembayaran 100% aman dengan enkripsi SSL
+                </small>
             </div>
         </div>
+        @endif
     </div>
 </div>

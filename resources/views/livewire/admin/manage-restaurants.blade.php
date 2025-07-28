@@ -1,5 +1,4 @@
-@push('styles')
-    @vite([
+@push('styles')        class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"    @vite([
         'resources/css/jesselyn.css',
         'resources/css/sorting.css',
     ])
@@ -14,7 +13,7 @@
         </div>
 
         <!-- Location Filter -->
-        <div class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom">
+        <div class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom">
             <div class="dropdown-label">Lokasi</div>
             <select wire:model.live="filterLocation" class="form-select custom-dropdown">
                 <option value="">Semua Lokasi</option>
@@ -29,7 +28,7 @@
         </div>
 
         <!-- Staff Filter -->
-        <div class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom">
+        <div class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom">
             <div class="dropdown-label">Staff</div>
             <select wire:model.live="filterStaff" class="form-select custom-dropdown">
                 <option value="">Semua Staff</option>
@@ -71,7 +70,7 @@
                     @if($restaurant->cover)
                         <img src="{{ asset('storage/' . $restaurant->cover) }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $restaurant->name }}">
                     @else
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <div class="card-img-top bg-body-secondary d-flex align-items-center justify-content-center" style="height: 200px;">
                             <i class="fas fa-utensils fs-1 text-muted"></i>
                         </div>
                     @endif

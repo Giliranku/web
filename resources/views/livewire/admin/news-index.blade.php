@@ -235,7 +235,7 @@
             this.open = false;
         }
     }"
-    class="position-relative shadow border rounded bg-light custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
+    class="position-relative shadow border rounded bg-body-secondary custom-input-sort flex-grow-1 flex-md-grow-0 height-custom"
     @click.outside="open = false">
 
     <div class="dropdown-label">Urutkan Dari</div>
@@ -245,7 +245,7 @@
         <i class="bi bi-chevron-down dropdown-icon"></i>
     </div>
 
-    <div class="dropdown-list bg-light dark:text-dark" x-show="open" x-transition>
+    <div class="dropdown-list bg-body-secondary" x-show="open" x-transition>
         <template x-for="[value, label] in Object.entries(options)" :key="value">
             <div class="dropdown-item"
                  @click="select(value)"

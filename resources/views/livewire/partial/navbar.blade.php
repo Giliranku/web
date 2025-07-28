@@ -1,3 +1,34 @@
+<script>
+// Define navbarData immediately for Alpine.js
+window.navbarData = function() {
+  return {
+    isScrolled: false,
+    cartCount: 0,
+    init() {
+      this.hideCartBadgeIfZero();
+    },
+    hideCartBadgeIfZero() {
+      this.$nextTick(() => {
+        const badge = this.$refs.cartBadge;
+        this.cartCount = badge ? parseInt(badge.textContent) || 0 : 0;
+      });
+    },
+    goToCart() {
+      @auth
+        window.location.href = '{{ route("cart-page") }}';
+      @else
+        window.location.href = '{{ route("login") }}';
+      @endauth
+    },
+    logout() {
+      if (confirm('Apakah Anda yakin ingin keluar?')) {
+        document.getElementById('logout-form')?.submit();
+      }
+    }
+  };
+};
+</script>
+
 <div x-data="navbarData()" x-init="init()" @scroll.window="isScrolled = window.scrollY > 50">
 <nav class="navbar navbar-expand-lg sticky-top" :class="{ 'scrolled': isScrolled }">
   <div class="container-fluid px-4">
@@ -74,8 +105,8 @@
                      @click="open = !open">
               @endif
             @else
-              <div class="profile-avatar d-flex align-items-center justify-content-center bg-light" @click="open = !open">
-                <i class="bi bi-person-fill text-muted" style="font-size: 1.2rem;"></i>
+              <div class="profile-avatar d-flex align-items-center justify-content-center bg-body-secondary" @click="open = !open">
+                <i class="bi bi-person-fill text-body-secondary" style="font-size: 1.2rem;"></i>
               </div>
             @endif
             
@@ -126,74 +157,4 @@
   @csrf
 </form>
 @endauth
-@push('scripts')
-<script>
-// Define navbarData function globally before Alpine.js initialization
-window.navbarData = function() {
-  return {
-    isScrolled: false,
-    cartCount: 0,
-    
-    init() {
-      // Initialize cart badge visibility
-      this.hideCartBadgeIfZero();
-      
-      // Listen to Livewire navigation events
-      document.addEventListener('livewire:navigated', () => {
-        this.$nextTick(() => {
-          this.hideCartBadgeIfZero();
-        });
-      });
-    },
-    
-    hideCartBadgeIfZero() {
-      this.$nextTick(() => {
-        const badge = this.$refs.cartBadge;
-        if (badge) {
-          const count = parseInt(badge.textContent) || 0;
-          this.cartCount = count;
-        }
-      });
-    },
-    
-    updateCartBadge(count) {
-      this.cartCount = count;
-    },
-    
-    goToCart() {
-      @auth
-        window.location.href = '{{ route("cart-page") }}';
-      @else
-        window.location.href = '{{ route("login") }}';
-      @endauth
-    },
-    
-    logout() {
-      if (confirm('Apakah Anda yakin ingin keluar?')) {
-        const logoutForm = document.getElementById('logout-form');
-        if (logoutForm) {
-          logoutForm.submit();
-        }
-      }
-    }
-  }
-}
-
-// Ensure Alpine.js is properly initialized after DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-  // Make sure Alpine is available
-  if (typeof window.Alpine !== 'undefined') {
-    window.Alpine.start();
-  }
-});
-
-// Handle Livewire navigation
-document.addEventListener('livewire:navigated', function() {
-  // Refresh Alpine components after Livewire navigation
-  if (window.Alpine) {
-    window.Alpine.initTree(document.body);
-  }
-});
-</script>
-@endpush
 </div>

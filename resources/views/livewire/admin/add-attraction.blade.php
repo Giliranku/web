@@ -39,7 +39,7 @@
                             style="bottom: 160px; right: 10px;"
                             onclick="document.getElementById('cover').click()"
                             title="Unggah cover">
-                            <i class="fas fa-camera text-dark fs-5"></i>
+                            <i class="fas fa-camera fs-5"></i>
                         </button>
 
                         <input type="file" wire:model="cover" class="d-none" id="cover" accept="image/*">

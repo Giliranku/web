@@ -41,7 +41,7 @@
                             style="bottom: -5px; right: 50px;"
                             onclick="document.getElementById('avatar').click()"
                             title="Ubah avatar">
-                            <i class="fas fa-camera text-dark fs-5"></i>
+                            <i class="fas fa-camera  fs-5"></i>
                         </button>
 
                         <input type="file" wire:model="new_avatar" class="d-none" id="avatar" accept="image/*">

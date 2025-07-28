@@ -40,7 +40,7 @@ z
                             style="bottom: -5px; right: 50px;"
                             onclick="document.getElementById('gambar').click()"
                             title="Unggah logo">
-                            <i class="fas fa-edit text-dark fs-5"></i>
+                            <i class="fas fa-edit  fs-5"></i>
                         </button>
 
                         <input type="file" wire:model="logo" class="d-none" id="gambar" accept="image/*">
