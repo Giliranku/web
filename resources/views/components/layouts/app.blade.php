@@ -35,6 +35,8 @@
         <main id="main-slot-content">
             {{ $slot }}
         </main>
+        
+        <livewire:partial.queue-floating-widget />
         <livewire:partial.accessibility-widget />
 
 

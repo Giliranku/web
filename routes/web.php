@@ -39,7 +39,6 @@ use App\Livewire\Pages\TiketEcommerce;
 use App\Livewire\Pages\CartPage;
 use App\Livewire\Pages\CartPageCheckout;
 use App\Livewire\Pages\ReservationBooking;
-use App\Livewire\Pages\QueueWaiting;
 
 // Admin Components
 use App\Livewire\Admin\ManageNews;
@@ -115,8 +114,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reserve/attraction/{attraction}', ReservationBooking::class)->name('attraction.reserve');
     Route::get('/reserve/restaurant/{restaurant}', ReservationBooking::class)->name('restaurant.reserve');
     
-    // Queue Routes
-    Route::get('/queue/waiting/{invoiceId}', QueueWaiting::class)->name('queue.waiting');
     Route::get('/order', OrderQueue::class)->name('order.queue');
 });
 

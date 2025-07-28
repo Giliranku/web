@@ -1,17 +1,17 @@
 <div 
     x-data="accessibilityMenu"
-    class="position-fixed bottom-0 end-0 m-4 accessibility-widget"
-    style="z-index: 1050;"
+    class="position-fixed accessibility-widget"
+    style="bottom: 20px; right: 16px; z-index: 1050;"
 >
     <!-- Floating Action Button -->
     <template x-if="!open">
         <button 
             class="btn btn-primary rounded-circle shadow-lg pulse-animation"
-            style="width: 70px; height: 70px; border: none; background: var(--bs-primary);"
+            style="width: 60px; height: 60px; border: none; background: var(--bs-primary);"
             @click="open = true"
             aria-label="Menu Aksesibilitas"
         >
-            <i class="bi bi-universal-access text-white" style="font-size: 1.8rem;"></i>
+            <i class="bi bi-universal-access text-white" style="font-size: 1.6rem;"></i>
         </button>
     </template>
 
@@ -25,8 +25,8 @@
         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
         x-transition:leave-end="opacity-0 scale-95 translate-y-4"
         @click.outside="open = false"
-        class="position-fixed bottom-0 end-0 mb-5 me-4 bg-body rounded-4 shadow-lg border border-opacity-25"
-        style="width: 380px; z-index: 1060; backdrop-filter: blur(10px);"
+        class="position-fixed bg-body rounded-4 shadow-lg border border-opacity-25"
+        style="bottom: 100px; left: 16px; right: 16px; width: auto; max-width: 380px; margin-left: auto; z-index: 1060; backdrop-filter: blur(10px);"
     >
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center p-4 border-bottom border-opacity-25 bg-body-secondary rounded-top-4">

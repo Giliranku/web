@@ -212,25 +212,25 @@
                                     >
                                     <label class="form-check-label w-100" for="ticket_{{ $ticket['id'] }}">
                                         <div class="d-flex justify-content-between align-items-start">
-                                            <div class="flex-grow-1">
-                                                <div class="fw-bold  h5 mb-2">{{ $ticket['ticket_name'] }}</div>
+                                            <div class="flex-grow-1 pe-2">
+                                                <div class="fw-bold h5 mb-2" style="word-break: break-word;">{{ $ticket['ticket_name'] }}</div>
                                                 <div class="small text-muted mb-2">
                                                     <i class="fas fa-calendar me-1"></i>
                                                     Dibeli: {{ Carbon\Carbon::parse($ticket['purchased_date'])->format('d M Y') }}
                                                 </div>
-                                                <div class="d-flex gap-3">
+                                                <div class="d-flex flex-wrap gap-2">
                                                     <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">
                                                         <i class="fas fa-ticket-alt me-1"></i>
                                                         Total: {{ $ticket['total_quantity'] }}
                                                     </span>
-                                                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2">
+                                                    <span class="badge bg-success bg-opacity-10 text-success px-2 py-1">
                                                         <i class="fas fa-check me-1"></i>
-                                                        Dapat digunakan untuk antrian
+                                                        <span class="d-none d-sm-inline">Dapat digunakan untuk </span>Antrian
                                                     </span>
                                                     @if($ticket['used_quantity'] > 0)
-                                                        <span class="badge bg-info bg-opacity-10 text-info px-3 py-2">
+                                                        <span class="badge bg-info bg-opacity-10 text-info px-2 py-1">
                                                             <i class="fas fa-door-open me-1"></i>
-                                                            {{ $ticket['used_quantity'] }} sudah masuk taman
+                                                            {{ $ticket['used_quantity'] }} <span class="d-none d-sm-inline">sudah </span>masuk<span class="d-none d-sm-inline"> taman</span>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -239,7 +239,11 @@
                                         
                                         @if($selected_ticket_id == $ticket['id'])
                                             <div class="queue-quantity-selector mt-3 pt-3 border-top">
-                                                <label class="fw-medium  me-3">Jumlah Antrian:</label>
+                                                <div class="mb-2">
+                                                    <label class="fw-medium text-body-emphasis">
+                                                        <span class="d-none d-sm-inline">Jumlah </span>Antrian:
+                                                    </label>
+                                                </div>
                                                 <div class="d-flex align-items-center gap-2">
                                                     <button 
                                                         type="button"
@@ -267,8 +271,9 @@
                                                         <i class="fas fa-plus"></i>
                                                     </button>
                                                 </div>
-                                                <div class="small text-muted ms-2">
-                                                    (Maksimal: {{ $total_available_tickets }} - Total semua tiket)
+                                                <div class="small text-muted mt-1">
+                                                    <span class="d-none d-sm-inline">Maksimal: {{ $total_available_tickets }} - Total semua tiket</span>
+                                                    <span class="d-sm-none">Maks: {{ $total_available_tickets }}</span>
                                                 </div>
                                             </div>
                                         @endif
@@ -280,17 +285,20 @@
                     
                     <!-- Total Available Tickets Summary -->
                     <div class="mt-4 p-3 bg-info bg-opacity-10 border border-info border-opacity-25 rounded-3">
-                        <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-info-circle text-info me-2"></i>
-                                <span class="fw-medium text-info">Total Tiket untuk Antrian</span>
+                                <span class="fw-medium text-info">
+                                    <span class="d-none d-sm-inline">Total Tiket untuk </span>Antrian
+                                </span>
                             </div>
                             <span class="badge bg-info bg-opacity-20 text-info px-3 py-2 fs-6">
                                 {{ $total_available_tickets }} tiket
                             </span>
                         </div>
-                        <div class="small text-muted mt-1">
-                            Semua tiket bersifat universal dan dapat digunakan berulang kali untuk mengantri di wahana atau restoran manapun.
+                        <div class="small text-muted mt-2">
+                            <span class="d-none d-md-inline">Semua tiket bersifat universal dan dapat digunakan berulang kali untuk mengantri di wahana atau restoran manapun.</span>
+                            <span class="d-md-none">Tiket universal untuk semua wahana & restoran.</span>
                         </div>
                     </div>
                 @endif

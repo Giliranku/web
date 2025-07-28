@@ -343,10 +343,13 @@ class ReservationBooking extends Component
         // Refresh user tickets to show updated available quantities
         $this->loadUserTickets();
         
+        // Dispatch event to update floating queue widget
+        $this->dispatch('queueUpdated');
+        
         session()->flash('success', 'Berhasil membuat ' . $this->queue_quantity . ' antrian! Nomor antrian Anda: #' . implode(', #', $queue_numbers));
         
-        // Redirect to queue waiting page - use the primary selected ticket's invoice
-        return $this->redirect(route('queue.waiting', ['invoiceId' => $selected_ticket['invoice_id']]), navigate: true);
+        // Redirect to invoice page since queue.waiting is removed
+        return $this->redirect(route('invoice.show', ['id' => $selected_ticket['invoice_id']]), navigate: true);
     }
     
     public function render()

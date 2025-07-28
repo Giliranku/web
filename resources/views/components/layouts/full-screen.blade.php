@@ -31,6 +31,9 @@
 
         {{ $slot }}
 
+        @persist('queue-floating-widget')
+            <livewire:partial.queue-floating-widget />
+        @endpersist
         @persist('accessibility-widget')
             <livewire:partial.accessibility-widget />
         @endpersist

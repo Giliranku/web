@@ -168,6 +168,9 @@ class CartPageCheckout extends Component
             // Clear cart after successful payment
             session()->forget('cart');
             $this->refreshCart();
+            
+            // Dispatch event to update queue widget
+            $this->dispatch('ticketPurchased');
 
             session()->flash('success', 'Pembayaran berhasil diproses! Invoice #' . $invoice->id . ' telah dibuat.');
 
