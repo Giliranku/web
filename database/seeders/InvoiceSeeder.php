@@ -26,8 +26,23 @@ class InvoiceSeeder extends Seeder
 
         // Create multiple invoices for different users
         foreach ($users->take(8) as $index => $user) {
-            $selectedTickets = $tickets->random(rand(1, 3)); // 1-3 tickets per invoice
-            $total = $selectedTickets->sum('price');
+            // Safely get random tickets based on available count
+            $maxTickets = min(3, $tickets->count()); // Don't exceed available tickets
+            $ticketCount = rand(1, $maxTickets);
+            $selectedTickets = $tickets->random($ticketCount);
+            
+            // Calculate total correctly for selected tickets with quantities
+            $total = 0;
+            $invoiceData = [];
+            
+            foreach ($selectedTickets as $ticket) {
+                $quantity = rand(1, 4);
+                $total += $ticket->price * $quantity;
+                $invoiceData[] = [
+                    'ticket' => $ticket,
+                    'quantity' => $quantity
+                ];
+            }
 
             $invoice = Invoice::create([
                 'user_id' => $user->id,
@@ -37,12 +52,11 @@ class InvoiceSeeder extends Seeder
                 'created_at' => Carbon::now()->subDays(rand(1, 30)), // Random days ago
             ]);
 
-            // Attach tickets to invoice with random quantities
-            foreach ($selectedTickets as $ticket) {
-                $quantity = rand(1, 4); // 1-4 tickets per type
-                $invoice->tickets()->attach($ticket->id, [
-                    'quantity' => $quantity,
-                    'used_quantity' => $invoice->status === 'paid' ? rand(0, $quantity) : 0, // Some used if paid
+            // Attach tickets to invoice with predefined quantities
+            foreach ($invoiceData as $item) {
+                $invoice->tickets()->attach($item['ticket']->id, [
+                    'quantity' => $item['quantity'],
+                    'used_quantity' => $invoice->status === 'paid' ? rand(0, $item['quantity']) : 0, // Some used if paid
                 ]);
             }
         }
