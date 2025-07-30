@@ -99,12 +99,179 @@ nav {
 
 /* Accessibility Features */
 .high-contrast {
-    filter: contrast(200%) brightness(120%) !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* High contrast styling that preserves positioning */
+.high-contrast *:not(.position-fixed):not([style*="position: fixed"]):not([style*="position:fixed"]):not(.accessibility-widget):not(.accessibility-widget *):not(.queue-floating-widget):not(.queue-floating-widget *) {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Additional safety net for specific elements that should maintain positioning */
+.high-contrast .position-fixed,
+.high-contrast [style*="position: fixed"],
+.high-contrast [style*="position:fixed"] {
+    position: fixed !important;
+}
+
+.high-contrast .btn {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+.high-contrast .btn:hover,
+.high-contrast .btn:focus {
+    background-color: #333333 !important;
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+}
+
+/* Force floating widgets to maintain position in high contrast */
+.high-contrast .accessibility-widget,
+.high-contrast .queue-floating-widget {
+    position: fixed !important;
+}
+
+.high-contrast .accessibility-widget[style*="position"] {
+    position: fixed !important;
+}
+
+.high-contrast .queue-floating-widget[style*="position"] {
+    position: fixed !important;
+}
+
+/* Accessibility widget should remain visible and functional in high contrast */
+.high-contrast .accessibility-widget {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 16px !important;
+    z-index: 1050 !important;
+}
+
+/* Fix widget positioning in high contrast mode */
+.high-contrast .accessibility-widget[style*="bottom"][style*="right"] {
+    bottom: 20px !important;
+    right: 16px !important;
+    position: fixed !important;
+}
+
+.high-contrast .accessibility-widget-btn {
+    background-color: var(--bs-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--bs-primary) !important;
+    z-index: 9999 !important;
+    width: 60px !important;
+    height: 60px !important;
+}
+
+/* Override high contrast for accessibility widget panel - make it readable */
+.high-contrast .accessibility-widget .bg-body,
+.high-contrast .accessibility-widget .bg-body-secondary {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.high-contrast .accessibility-widget .bg-body *,
+.high-contrast .accessibility-widget .bg-body-secondary * {
+    background-color: transparent !important;
+    color: #000000 !important;
+}
+
+/* Fix accessibility widget panel positioning */
+.high-contrast .accessibility-widget > div[x-show] {
+    position: fixed !important;
+    bottom: 100px !important;
+    left: 16px !important;
+    right: 16px !important;
+    width: auto !important;
+    max-width: 380px !important;
+    margin-left: auto !important;
+    z-index: 1060 !important;
+    background-color: #ffffff !important;
+    border: 2px solid #000000 !important;
+}
+
+/* Make sure accessibility widget buttons inside the panel remain functional */
+.high-contrast .accessibility-widget .btn {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
+    /* display: flex !important;
+    align-items: center !important;
+    justify-content: center !important; */
+}
+
+.high-contrast .accessibility-widget .btn:hover,
+.high-contrast .accessibility-widget .btn:focus {
+    background-color: #f0f0f0 !important;
+    color: #000000 !important;
+    border-color: #000000 !important;
+}
+
+/* Fix grid layout for accessibility theme buttons */
+.high-contrast .accessibility-widget .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+}
+
+.high-contrast .accessibility-widget .col-6 {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+    padding: 0.25rem !important;
+}
+
+.high-contrast .accessibility-widget .d-flex {
+    display: flex !important;
+}
+
+.high-contrast .accessibility-widget .align-items-center {
+    align-items: center !important;
+}
+
+.high-contrast .accessibility-widget .justify-content-between {
+    justify-content: space-between !important;
+}
+
+.high-contrast .accessibility-widget .text-center {
+    text-align: center !important;
+}
+
+/* Keep the main widget button distinctive */
+.high-contrast .accessibility-widget-btn {
+    background-color: var(--bs-primary) !important;
+    color: #ffffff !important;
+    border-color: var(--bs-primary) !important;
+}
+
+/* Fix icon color in accessibility widget button for high contrast */
+.high-contrast .accessibility-widget-btn .text-white,
+.high-contrast .accessibility-widget-btn i {
+    color: #ffffff !important;
+}
+
+/* Fix all other icons and text in accessibility widget panel */
+.high-contrast .accessibility-widget .text-white {
+    color: #000000 !important;
+}
+
+.high-contrast .accessibility-widget .bg-body .text-white,
+.high-contrast .accessibility-widget .bg-body-secondary .text-white {
+    color: #000000 !important;
+}
+
+.high-contrast .accessibility-widget .btn-close {
+    filter: none !important;
+    color: #000000 !important;
 }
 
 /* Enhanced high contrast for dark mode */
 [data-bs-theme="dark"] .high-contrast {
-    filter: contrast(250%) brightness(150%) !important;
+    background-color: #000000 !important;
+    color: #ffffff !important;
 }
 
 /* Pulse animation for accessibility button */
@@ -1037,4 +1204,254 @@ button[style*="background: none"] {
 
 .navbar-toggler-icon::after {
     top: 8px;
+}
+
+/* ===== QUEUE FLOATING WIDGET STYLES ===== */
+.queue-floating-widget {
+    font-family: 'Inclusive Sans', system-ui, -apple-system, sans-serif;
+}
+
+.queue-toggle-btn {
+    background: linear-gradient(135deg, #F7B733 0%, #FC4A1A 100%) !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(247, 183, 51, 0.4);
+    animation: gentle-bounce 2s infinite ease-in-out;
+}
+
+.queue-toggle-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(247, 183, 51, 0.6);
+    animation-play-state: paused;
+}
+
+@keyframes gentle-bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+}
+
+/* Queue Panel */
+.queue-panel {
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(var(--bs-border-color-rgb), 0.25) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Queue Header */
+.queue-header {
+    backdrop-filter: blur(5px);
+}
+
+.queue-icon-wrapper {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Queue Item */
+.queue-item {
+    background: var(--bs-body-tertiary);
+    border: 1px solid rgba(var(--bs-border-color-rgb), 0.25) !important;
+    transition: all 0.3s ease;
+}
+
+.queue-item:hover {
+    background: var(--bs-body-secondary);
+    border-color: var(--bs-primary) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+/* Status Bar */
+.status-bar {
+    background: linear-gradient(135deg, var(--bs-success) 0%, var(--bs-success-dark, #157347) 100%);
+}
+
+.status-bar.bg-warning {
+    background: linear-gradient(135deg, var(--bs-warning) 0%, #e0a800 100%) !important;
+}
+
+/* Pulse Indicator */
+.pulse-indicator {
+    animation: pulse-dot 1.5s infinite;
+}
+
+@keyframes pulse-dot {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Queue Info Grid */
+.queue-info-grid {
+    background: rgba(var(--bs-body-color-rgb), 0.03);
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Empty State */
+.empty-state .empty-icon {
+    margin-bottom: 1rem;
+}
+
+/* Attraction Icon */
+.attraction-icon {
+    width: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Queue Widget Mobile Responsive */
+@media (max-width: 576px) {
+    .queue-floating-widget {
+        right: 10px !important;
+        bottom: 85px !important;
+    }
+    
+    .queue-toggle-btn {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .queue-toggle-btn i {
+        font-size: 1.2rem !important;
+    }
+    
+    .queue-panel {
+        width: calc(100vw - 20px) !important;
+        left: -280px !important;
+        bottom: 60px !important;
+        max-height: 350px !important;
+    }
+    
+    .queue-item {
+        margin-bottom: 0.75rem !important;
+    }
+    
+    .queue-content {
+        padding: 0.75rem !important;
+    }
+}
+
+/* Queue Widget Dark Mode */
+[data-bs-theme="dark"] .queue-panel {
+    background: var(--bs-body-bg) !important;
+    border-color: rgba(var(--bs-border-color-rgb), 0.25) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-bs-theme="dark"] .queue-item {
+    background: var(--bs-body-tertiary);
+    border-color: rgba(var(--bs-border-color-rgb), 0.25) !important;
+}
+
+[data-bs-theme="dark"] .queue-item:hover {
+    background: var(--bs-body-secondary);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+[data-bs-theme="dark"] .queue-info-grid {
+    background: rgba(var(--bs-body-color-rgb), 0.05);
+}
+
+/* Queue Panel Scrollbar */
+.queue-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.queue-panel::-webkit-scrollbar-track {
+    background: var(--bs-light);
+    border-radius: 3px;
+}
+
+.queue-panel::-webkit-scrollbar-thumb {
+    background: var(--bs-secondary);
+    border-radius: 3px;
+}
+
+.queue-panel::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-primary);
+}
+
+/* Queue Widget Protection - Ensure it works on all pages */
+.queue-floating-widget {
+    position: fixed !important;
+    bottom: 100px !important;
+    right: 16px !important;
+    z-index: 1049 !important;
+    font-family: 'Inclusive Sans', system-ui, -apple-system, sans-serif !important;
+    pointer-events: auto !important;
+}
+
+.queue-floating-widget * {
+    box-sizing: border-box !important;
+}
+
+.queue-floating-widget .queue-toggle-btn {
+    position: relative !important;
+    background: linear-gradient(135deg, #F7B733 0%, #FC4A1A 100%) !important;
+    border: none !important;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(247, 183, 51, 0.4) !important;
+    animation: gentle-bounce 2s infinite ease-in-out !important;
+}
+
+.queue-floating-widget .queue-panel {
+    position: absolute !important;
+    bottom: 75px !important;
+    left: -320px !important;
+    width: 340px !important;
+    max-height: 500px !important;
+    overflow-y: auto !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(var(--bs-border-color-rgb), 0.25) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    background: var(--bs-body-bg) !important;
+    border-radius: 1rem !important;
+    z-index: 1050 !important;
+}
+
+/* Override any potential conflicts from other CSS files */
+.queue-floating-widget .btn,
+.queue-floating-widget .badge,
+.queue-floating-widget .card {
+    font-family: 'Inclusive Sans', system-ui, -apple-system, sans-serif !important;
+}
+
+/* Ensure mobile responsiveness is not affected */
+@media (max-width: 576px) {
+    .queue-floating-widget {
+        right: 10px !important;
+        bottom: 85px !important;
+    }
+    
+    .queue-floating-widget .queue-toggle-btn {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .queue-floating-widget .queue-panel {
+        width: calc(100vw - 20px) !important;
+        left: -280px !important;
+        bottom: 60px !important;
+        max-height: 350px !important;
+    }
 }

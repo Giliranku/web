@@ -6,6 +6,10 @@ document.addEventListener('alpine:init', () => {
         
         init() {
             this.applyTheme();
+            // Apply theme immediately on page load
+            document.addEventListener('DOMContentLoaded', () => {
+                this.applyTheme();
+            });
         },
         
         setTheme(theme) {
@@ -16,6 +20,7 @@ document.addEventListener('alpine:init', () => {
         
         applyTheme() {
             document.documentElement.setAttribute('data-bs-theme', this.theme);
+            document.body.setAttribute('data-bs-theme', this.theme);
         }
     });
 
@@ -29,6 +34,13 @@ document.addEventListener('alpine:init', () => {
             this.applyFontSize();
             this.applyDyslexicFont();
             this.applyHighContrast();
+            
+            // Apply settings immediately on page load
+            document.addEventListener('DOMContentLoaded', () => {
+                this.applyFontSize();
+                this.applyDyslexicFont();
+                this.applyHighContrast();
+            });
         },
         
         setFontSize(size) {
@@ -65,8 +77,10 @@ document.addEventListener('alpine:init', () => {
         applyHighContrast() {
             if (this.highContrast) {
                 document.body.classList.add('high-contrast');
+                document.documentElement.classList.add('high-contrast');
             } else {
                 document.body.classList.remove('high-contrast');
+                document.documentElement.classList.remove('high-contrast');
             }
         }
     });
@@ -79,9 +93,19 @@ document.addEventListener('alpine:init', () => {
             utterance: null,
             
             init() {
-                // Ensure stores are initialized
-                this.$store.themeSwitcher.init();
-                this.$store.accessibility.init();
+                // Ensure stores are initialized and applied
+                this.$nextTick(() => {
+                    this.$store.themeSwitcher.init();
+                    this.$store.accessibility.init();
+                    
+                    // Force apply states after short delay to ensure DOM is ready
+                    setTimeout(() => {
+                        this.$store.themeSwitcher.applyTheme();
+                        this.$store.accessibility.applyFontSize();
+                        this.$store.accessibility.applyDyslexicFont();
+                        this.$store.accessibility.applyHighContrast();
+                    }, 100);
+                });
             },
             
             increaseFontSize() {
@@ -143,4 +167,40 @@ document.addEventListener('alpine:init', () => {
             }
         }
     });
+});
+
+// Global initialization function to ensure accessibility settings are applied
+document.addEventListener('DOMContentLoaded', function() {
+    // Wait for Alpine to be ready
+    document.addEventListener('alpine:init', () => {
+        // Initialize stores on every page load
+        setTimeout(() => {
+            if (window.Alpine && window.Alpine.store) {
+                window.Alpine.store('themeSwitcher').init();
+                window.Alpine.store('accessibility').init();
+            }
+        }, 50);
+    });
+    
+    // Fallback initialization without Alpine
+    setTimeout(() => {
+        // Apply theme from localStorage
+        const theme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-bs-theme', theme);
+        document.body.setAttribute('data-bs-theme', theme);
+        
+        // Apply accessibility settings from localStorage
+        const fontSize = parseInt(localStorage.getItem('fontSize')) || 100;
+        const scale = fontSize / 100;
+        document.documentElement.style.setProperty('--accessibility-font-scale', scale);
+        
+        if (localStorage.getItem('dyslexicFont') === 'true') {
+            document.body.classList.add('dyslexic-font');
+        }
+        
+        if (localStorage.getItem('highContrast') === 'true') {
+            document.body.classList.add('high-contrast');
+            document.documentElement.classList.add('high-contrast');
+        }
+    }, 10);
 });

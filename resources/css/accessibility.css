@@ -85,15 +85,8 @@ p, li, td, th, div, label, input, textarea, select {
   font-size: inherit !important;
 }
 
-/* High Contrast Mode */
-.high-contrast {
-  filter: contrast(150%) brightness(120%);
-}
-
-/* Dark mode support untuk high contrast */
-[data-bs-theme="dark"] .high-contrast {
-  filter: contrast(200%) brightness(150%);
-}
+/* High Contrast Mode - removed conflicting filter approach */
+/* High contrast styling is now handled in main.css for better control */
 
 /* Accessibility widget font size should remain fixed */
 .accessibility-widget-text {

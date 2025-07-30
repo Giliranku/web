@@ -26,7 +26,7 @@
                                 style="height: 10rem; object-fit: contain;">
                             <div class="card-body d-flex flex-column justify-content-between">
                                 <div>
-                                    <h5 class="card-title fs-3 ">{{ $item->title }}</h5>
+                                    <h5 class="card-title fs-3">{{ $item->title }}</h5>
                                     <p class="card-text ">{{ $item->description }}</p>
                                     <p class="card-text opacity-50 ">Keywords: {{ $item->keywords }}</p>
                                 </div>
