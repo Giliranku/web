@@ -101,27 +101,48 @@
                                     <input wire:model.live="metode" class="form-check-input d-none" id="mastercard" 
                                            type="radio" value="mastercard" name="metode" />
                                     <label for="mastercard" class="payment-card">
-                                        <i class="fab fa-cc-mastercard payment-icon text-warning"></i>
-                                        <h6 class="payment-label">Mastercard</h6>
-                                        <small class="text-muted">Kartu kredit/debit</small>
+                                        <div class="payment-icon-wrapper">
+                                            <i class="fab fa-cc-mastercard payment-icon" style="color: var(--bs-danger); font-size: 2rem;"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6 class="payment-label mb-1">Mastercard</h6>
+                                            <small class="text-muted">Kartu kredit/debit</small>
+                                        </div>
+                                        <div class="payment-check">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
                                     </label>
                                 </div>
                                 <div class="payment-method">
                                     <input wire:model.live="metode" class="form-check-input d-none" id="ovo" 
                                            type="radio" name="metode" value="ovo" />
                                     <label for="ovo" class="payment-card">
-                                        <i class="fas fa-mobile-alt payment-icon" style="color: #8e44ad;"></i>
-                                        <h6 class="payment-label">OVO</h6>
-                                        <small class="text-muted">E-wallet</small>
+                                        <div class="payment-icon-wrapper">
+                                            <i class="fas fa-mobile-alt payment-icon" style="color: var(--bs-primary); font-size: 2rem;"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6 class="payment-label mb-1">OVO</h6>
+                                            <small class="text-muted">E-wallet digital</small>
+                                        </div>
+                                        <div class="payment-check">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
                                     </label>
                                 </div>
                                 <div class="payment-method">
                                     <input wire:model.live="metode" class="form-check-input d-none" id="bca" 
                                            type="radio" name="metode" value="bca" />
                                     <label for="bca" class="payment-card">
-                                        <i class="fas fa-university payment-icon text-primary"></i>
-                                        <h6 class="payment-label">BCA Virtual Account</h6>
-                                        <small class="text-muted">Transfer bank</small>
+                                        <div class="payment-icon-wrapper">
+                                            <i class="fas fa-university payment-icon" style="color: var(--bs-info); font-size: 2rem;"></i>
+                                        </div>
+                                        <div class="payment-info">
+                                            <h6 class="payment-label mb-1">BCA Virtual Account</h6>
+                                            <small class="text-muted">Transfer bank instan</small>
+                                        </div>
+                                        <div class="payment-check">
+                                            <i class="fas fa-check-circle"></i>
+                                        </div>
                                     </label>
                                 </div>
                             </div>
@@ -189,7 +210,7 @@
                     @elseif ($metode === 'ovo')
                         <div class="form-section animate-slide-in-up" style="animation-delay: 0.4s;">
                             <div class="form-section-header">
-                                <h6 class="mb-0 fw-bold" style="color: #8e44ad;">
+                                <h6 class="mb-0 fw-bold" style="color: var(--bs-primary);">
                                     <i class="fas fa-mobile-alt me-2"></i>Detail OVO
                                 </h6>
                             </div>
@@ -333,7 +354,7 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('livewire:navigated', function() {
     // Auto format credit card number
     const cardInput = document.getElementById('ccn');
     if (cardInput) {

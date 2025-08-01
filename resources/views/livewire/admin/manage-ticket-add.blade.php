@@ -8,7 +8,3 @@
 <div class="pt-5">
     <livewire:add-ticket-component />
 </div>
-
-@push('scripts')
-    @livewireScripts
-@endpush

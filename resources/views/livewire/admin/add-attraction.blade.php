@@ -104,9 +104,9 @@
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-                        <!-- Lokasi dan Kategori -->
+                        <!-- Lokasi -->
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="location" class="form-label fw-semibold">Lokasi</label>
                                 <select wire:model="location" class="form-select" id="location">
                                     <option value="">Pilih Lokasi</option>
@@ -119,19 +119,6 @@
                                     <option value="Jakarta Bird Land Ancol">Jakarta Bird Land Ancol</option>
                                 </select>
                                 @error('location') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="category" class="form-label fw-semibold">Kategori</label>
-                                <select wire:model="category" class="form-select" id="category">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Wahana Air">Wahana Air</option>
-                                    <option value="Wahana Darat">Wahana Darat</option>
-                                    <option value="Wahana Anak">Wahana Anak</option>
-                                    <option value="Wahana Ekstrem">Wahana Ekstrem</option>
-                                    <option value="Edukasi">Edukasi</option>
-                                    <option value="Pertunjukan">Pertunjukan</option>
-                                </select>
-                                @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
 

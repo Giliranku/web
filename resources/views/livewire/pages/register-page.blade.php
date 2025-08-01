@@ -2,58 +2,59 @@
 <style>
     .register-container {
         min-height: 100vh;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg, var(--bs-light) 0%, var(--bs-gray-300) 100%);
     }
     
     .register-card {
-        background: rgba(255, 255, 255, 0.95);
+        background: var(--bs-body-bg);
         backdrop-filter: blur(10px);
         border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 40px var(--bs-box-shadow-lg);
+        border: 1px solid var(--bs-border-color-translucent);
     }
     
     .form-control {
-        border: 2px solid #e8ecef;
+        border: 2px solid var(--bs-border-color);
         border-radius: 12px;
         padding: 15px 20px;
         font-size: 16px;
         transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.8);
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
     }
     
     .form-control:focus {
-        border-color: #4f46e5;
-        box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.15);
-        background: white;
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.2rem var(--bs-primary-bg-subtle);
+        background: var(--bs-body-bg);
         transform: translateY(-2px);
     }
     
     .btn-primary {
-        background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-primary-dark) 100%);
         border: none;
         border-radius: 12px;
         padding: 15px 30px;
         font-weight: 600;
         font-size: 16px;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        box-shadow: 0 4px 15px var(--bs-primary-bg-subtle);
     }
     
     .btn-primary:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+        box-shadow: 0 8px 25px var(--bs-primary-bg-subtle);
     }
     
     .btn-google {
-        background: white;
-        border: 2px solid #e8ecef;
+        background: var(--bs-body-bg);
+        border: 2px solid var(--bs-border-color);
         border-radius: 12px;
         padding: 15px 30px;
-        color: #374151;
+        color: var(--bs-body-color);
         font-weight: 600;
         transition: all 0.3s ease;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 10px var(--bs-box-shadow);
     }
     
     .btn-google:hover {
@@ -69,13 +70,15 @@
         right: 20px;
         transform: translateY(-50%);
         cursor: pointer;
-        color: #6b7280;
+        color: var(--bs-secondary-color);
         font-size: 18px;
         transition: color 0.3s ease;
+        z-index: 10;
+        user-select: none;
     }
     
     .password-toggle:hover {
-        color: #4f46e5;
+        color: var(--bs-primary);
     }
     
     .divider {
@@ -91,7 +94,7 @@
         left: 0;
         right: 0;
         height: 1px;
-        background: linear-gradient(90deg, transparent, #d1d5db, transparent);
+        background: linear-gradient(90deg, transparent, var(--bs-border-color), transparent);
     }
     
     .divider span {
@@ -160,6 +163,11 @@
             background: #f3f4f6;
             color: #6b7280;
         }
+        
+        /* Adjust password toggle for mobile with labels */
+        .password-toggle {
+            top: 60% !important;
+        }
     }
 </style>
 @endpush
@@ -167,61 +175,30 @@
 @push('scripts')
     <script>
         // Password toggle functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Desktop password toggle
-            const togglePassword = document.getElementById('togglePassword');
-            const inputPassword = document.getElementById('inputPassword');
-            
-            if (togglePassword && inputPassword) {
-                togglePassword.addEventListener('click', function() {
-                    const type = inputPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-                    inputPassword.setAttribute('type', type);
-                    
-                    this.classList.toggle('bi-eye');
-                    this.classList.toggle('bi-eye-slash');
-                });
+        document.addEventListener('livewire:navigated', function() {
+            // Function to add password toggle functionality
+            function addPasswordToggle(toggleId, inputId) {
+                const toggleElement = document.getElementById(toggleId);
+                const inputElement = document.getElementById(inputId);
+                
+                if (toggleElement && inputElement) {
+                    toggleElement.addEventListener('click', function() {
+                        const type = inputElement.getAttribute('type') === 'password' ? 'text' : 'password';
+                        inputElement.setAttribute('type', type);
+                        
+                        this.classList.toggle('bi-eye');
+                        this.classList.toggle('bi-eye-slash');
+                    });
+                }
             }
 
-            // Desktop confirm password toggle
-            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-            const inputConfirmPassword = document.getElementById('inputConfirmPassword');
-            
-            if (toggleConfirmPassword && inputConfirmPassword) {
-                toggleConfirmPassword.addEventListener('click', function() {
-                    const type = inputConfirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-                    inputConfirmPassword.setAttribute('type', type);
-                    
-                    this.classList.toggle('bi-eye');
-                    this.classList.toggle('bi-eye-slash');
-                });
-            }
+            // Desktop password toggles
+            addPasswordToggle('togglePassword', 'inputPassword');
+            addPasswordToggle('toggleConfirmPassword', 'inputConfirmPassword');
 
             // Mobile password toggles
-            const togglePasswordMobile = document.getElementById('togglePasswordMobile');
-            const inputPasswordMobile = document.getElementById('inputPasswordMobile');
-            
-            if (togglePasswordMobile && inputPasswordMobile) {
-                togglePasswordMobile.addEventListener('click', function() {
-                    const type = inputPasswordMobile.getAttribute('type') === 'password' ? 'text' : 'password';
-                    inputPasswordMobile.setAttribute('type', type);
-                    
-                    this.classList.toggle('bi-eye');
-                    this.classList.toggle('bi-eye-slash');
-                });
-            }
-
-            const toggleConfirmPasswordMobile = document.getElementById('toggleConfirmPasswordMobile');
-            const inputConfirmPasswordMobile = document.getElementById('inputConfirmPasswordMobile');
-            
-            if (toggleConfirmPasswordMobile && inputConfirmPasswordMobile) {
-                toggleConfirmPasswordMobile.addEventListener('click', function() {
-                    const type = inputConfirmPasswordMobile.getAttribute('type') === 'password' ? 'text' : 'password';
-                    inputConfirmPasswordMobile.setAttribute('type', type);
-                    
-                    this.classList.toggle('bi-eye');
-                    this.classList.toggle('bi-eye-slash');
-                });
-            }
+            addPasswordToggle('togglePasswordMobile', 'inputPasswordMobile');
+            addPasswordToggle('toggleConfirmPasswordMobile', 'inputConfirmPasswordMobile');
         });
     </script>
 @endpush
@@ -331,7 +308,7 @@
             {{-- Login Link --}}
             <div class="text-center mt-4">
                 <span class="text-muted">Sudah punya akun?</span>
-                <a href="/login" wire:navigate class="text-decoration-none fw-semibold" style="color: #4f46e5;">Masuk sekarang</a>
+                <a href="/login" wire:navigate class="text-decoration-none fw-semibold" style="color: var(--bs-primary);">Masuk sekarang</a>
             </div>
 
             {{-- Social Links --}}
@@ -422,8 +399,7 @@
                             <input type="password" id="inputPasswordMobile" 
                                    class="form-control rounded-pill px-4 py-3 pe-5" 
                                    placeholder="Masukkan password Anda" wire:model="password">
-                            <i class="bi bi-eye-slash password-toggle" id="togglePasswordMobile" 
-                               style="position: absolute; top: 60%; right: 20px; transform: translateY(-50%); cursor: pointer; color: #6b7280;"></i>
+                            <i class="bi bi-eye-slash password-toggle" id="togglePasswordMobile"></i>
                             @error('password')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
                             @enderror
@@ -435,8 +411,7 @@
                             <input type="password" id="inputConfirmPasswordMobile" 
                                    class="form-control rounded-pill px-4 py-3 pe-5" 
                                    placeholder="Masukkan ulang password Anda" wire:model="password_confirmation">
-                            <i class="bi bi-eye-slash password-toggle" id="toggleConfirmPasswordMobile" 
-                               style="position: absolute; top: 60%; right: 20px; transform: translateY(-50%); cursor: pointer; color: #6b7280;"></i>
+                            <i class="bi bi-eye-slash password-toggle" id="toggleConfirmPasswordMobile"></i>
                             @error('password_confirmation')
                                 <div class="text-danger small mt-1">{{ $message }}</div>
                             @enderror
@@ -471,7 +446,7 @@
                         {{-- Login Link --}}
                         <div class="text-center mb-3">
                             <span class="text-muted">Sudah punya akun?</span>
-                            <a href="/login" wire:navigate class="fw-semibold" style="color: #4f46e5;">Masuk sekarang!</a>
+                            <a href="/login" wire:navigate class="fw-semibold" style="color: var(--bs-primary);">Masuk sekarang!</a>
                         </div>
                     </form>
 

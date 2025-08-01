@@ -29,7 +29,7 @@
                                 @if ($new_logo)
                                     <img src="{{ $new_logo->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
                                 @elseif($ticket->logo)
-                                    <img src="{{ asset('storage/' . $ticket->logo) }}" alt="Current Logo" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
+                                    <img src="{{ asset('storage/' . $ticket->logo) }}" alt="Current Logo" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;" wire:key="current-logo-{{ $ticket->id }}">
                                 @else
                                     <i class="fas fa-camera fs-1 text-muted"></i>
                                 @endif
@@ -45,10 +45,18 @@
                             <i class="fas fa-edit  fs-5"></i>
                         </button>
 
-                        <input type="file" wire:model="new_logo" class="d-none" id="gambar" accept="image/*">
+                        <input type="file" wire:model.live="new_logo" class="d-none" id="gambar" accept="image/*">
                         @error('new_logo')
                             <div class="text-danger mt-2">{{ $message }}</div>
                         @enderror
+
+                        <!-- Loading indicator -->
+                        <div wire:loading wire:target="new_logo" class="mt-2">
+                            <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <small class="text-muted d-block">Uploading...</small>
+                        </div>
 
                         <p class="text-muted small mt-2">
                             Logo resmi yang akan muncul pada ecommerce Tiket. Format PNG, JPG. Max size 1 MB.
@@ -151,7 +159,7 @@
 <!-- Script: Fokus ke input saat ikon diklik -->
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('livewire:navigated', () => {
         document.querySelectorAll('.edit-icon').forEach(icon => {
             icon.addEventListener('click', () => {
                 const targetId = icon.getAttribute('data-target');

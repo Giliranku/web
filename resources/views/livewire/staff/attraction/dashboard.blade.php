@@ -162,10 +162,6 @@
                                             {{ $attraction->location }}
                                         </p>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="form-label text-muted small text-uppercase fw-bold">Kategori</label>
-                                        <p class="">{{ $attraction->category ?? 'Attraction' }}</p>
-                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -215,7 +211,7 @@
                         <div class="card-body text-center">
                             @if($attraction->cover)
                                 <div class="mb-3">
-                                    <img src="{{ asset('img/' . $attraction->cover) }}" 
+                                    <img src="{{ $this->getImageUrl($attraction->cover) }}" 
                                          alt="{{ $attraction->name }}" 
                                          class="img-fluid gallery-img shadow-sm"
                                          style="max-height: 200px; object-fit: cover; width: 100%;">
@@ -231,21 +227,21 @@
                                 <div class="row g-2">
                                     @if($attraction->img1)
                                         <div class="col-4">
-                                            <img src="{{ asset('img/' . $attraction->img1) }}" 
+                                            <img src="{{ $this->getImageUrl($attraction->img1) }}" 
                                                  class="img-fluid gallery-img shadow-sm" 
                                                  style="height: 60px; object-fit: cover; width: 100%;">
                                         </div>
                                     @endif
                                     @if($attraction->img2)
                                         <div class="col-4">
-                                            <img src="{{ asset('img/' . $attraction->img2) }}" 
+                                            <img src="{{ $this->getImageUrl($attraction->img2) }}" 
                                                  class="img-fluid gallery-img shadow-sm" 
                                                  style="height: 60px; object-fit: cover; width: 100%;">
                                         </div>
                                     @endif
                                     @if($attraction->img3)
                                         <div class="col-4">
-                                            <img src="{{ asset('img/' . $attraction->img3) }}" 
+                                            <img src="{{ $this->getImageUrl($attraction->img3) }}" 
                                                  class="img-fluid gallery-img shadow-sm" 
                                                  style="height: 60px; object-fit: cover; width: 100%;">
                                         </div>

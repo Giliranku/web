@@ -37,7 +37,7 @@
                                     class="modern-input @error('email') error @enderror" 
                                     id="email"
                                     wire:model="email" 
-                                    placeholder="admin@giliranku.com"
+                                    placeholder="Masukkan email"
                                     required>
                             </div>
                             @error('email')
@@ -110,7 +110,7 @@ function togglePassword() {
 }
 
 // Add ripple effect to buttons
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('livewire:navigated', function() {
     const buttons = document.querySelectorAll('.modern-btn');
     
     buttons.forEach(button => {
@@ -423,33 +423,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     .login-title {
         font-size: 1.5rem;
-    }
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-    .login-card {
-        background: rgba(33, 37, 41, 0.95);
-        border-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .login-title {
-        color: #4ABDAC;
-    }
-    
-    .login-subtitle,
-    .login-footer p {
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .modern-input {
-        background: rgba(255, 255, 255, 0.1);
-        color: #FFFFFF;
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .modern-input:focus {
-        background: rgba(255, 255, 255, 0.15);
     }
 }
 </style>

@@ -60,7 +60,7 @@
 
     <!-- Breadcrumb -->
     <div class="container mt-4 mb-2 px-4">
-        <a href="#" class=" d-flex align-items-center mb-2" style="text-decoration:none; font-weight:500;">
+        <a href="/userprofile" class=" d-flex align-items-center mb-2" style="text-decoration:none; font-weight:500;">
             <i class="bi bi-arrow-left me-2"></i> Kembali ke profil
         </a>
     </div>

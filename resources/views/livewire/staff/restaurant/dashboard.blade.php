@@ -215,7 +215,7 @@
                         <div class="card-body text-center">
                             @if($restaurant->cover)
                                 <div class="mb-3">
-                                    <img src="{{ asset('img/' . $restaurant->cover) }}" 
+                                    <img src="{{ $this->getImageUrl($restaurant->cover) }}" 
                                          alt="{{ $restaurant->name }}" 
                                          class="img-fluid gallery-img shadow-sm"
                                          style="max-height: 200px; object-fit: cover; width: 100%;">

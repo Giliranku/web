@@ -35,6 +35,18 @@
   font-display: swap;
 }
 
+[data-bs-theme="dark"] {
+  body > div > div.login-container > div.d-none.d-md-flex.align-items-center.justify-content-center.min-vh-100.p-4 {
+    background-color: var(--bs-dark);
+  }
+}
+
+body > div > div:nth-child(2) > div > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Accessibility font class */
 .dyslexic-font {
   font-family: 'OpenDyslexic', 'Arial', sans-serif !important;
@@ -151,8 +163,48 @@ p, li, td, th, div, label, input, textarea, select {
 
 /* Better contrast for dark mode links */
 [data-bs-theme="dark"] a {
-  color: var(--bs-link-color);
+  color: white;
 }
+
+/* h1-h6 change to white on dark mode */
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] h3,
+[data-bs-theme="dark"] h4,
+[data-bs-theme="dark"] h5,
+[data-bs-theme="dark"] h6 {
+  color: white;
+}
+[data-bs-theme="dark"] #main-slot-content > div > div.d-none.d-md-block > div.container-fluid.px-4 > div > div.col-lg-3.col-md-4 > div > div.activity-accordion > div > div.p-2 {
+  background: var(--bs-dark) !important;
+}
+
+/* Replace bg-white with dark and the child color change to white if dark mode */
+[data-bs-theme="dark"] .bg-white {
+  background-color: var(--bs-dark) !important;
+  color: white !important;
+}
+
+/* Ensure text color is white in dark mode */
+[data-bs-theme="dark"] .text-dark {
+  color: white !important;
+}
+
+[data-bs-theme="dark"] .field-container {
+  background-color: var(--bs-dark) !important;
+  color: white;
+}
+
+[data-bs-theme="dark"] .bg-light{ 
+  background-color: var(--bs-dark) !important;
+  color: white !important;
+}
+
+/* If span color: var(--dark) then change color to white on dark mode */
+[data-bs-theme="dark"] span {
+  color: white;
+}
+
 
 [data-bs-theme="dark"] a:hover {
   color: var(--bs-link-hover-color);

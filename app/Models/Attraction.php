@@ -32,7 +32,18 @@ class Attraction extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_attractions')->using(UserAttraction::class);
+        return $this->belongsToMany(User::class, 'user_attractions')
+            ->using(UserAttraction::class)
+            ->withPivot([
+                'id',
+                'invoice_id',
+                'slot_number',
+                'queue_position',
+                'reservation_date',
+                'reservation_time',
+                'status'
+            ])
+            ->withTimestamps();
     }
 
     public function userAttractions(): HasMany

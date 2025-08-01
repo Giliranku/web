@@ -17,7 +17,6 @@
                 </h5>
                 <a href="{{ route('admin.ticket.index') }}" class="btn-close"></a>
             </div>
-z
             <!-- Form -->
             <form wire:submit="save" enctype="multipart/form-data">
                 <div class="row mb-4 d-flex align-items-center">
@@ -147,7 +146,7 @@ z
 <!-- Script: Fokus ke input saat ikon diklik -->
 @push('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('livewire:navigated', () => {
         document.querySelectorAll('.edit-icon').forEach(icon => {
             icon.addEventListener('click', () => {
                 const targetId = icon.getAttribute('data-target');

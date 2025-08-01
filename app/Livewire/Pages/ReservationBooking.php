@@ -348,8 +348,9 @@ class ReservationBooking extends Component
         
         session()->flash('success', 'Berhasil membuat ' . $this->queue_quantity . ' antrian! Nomor antrian Anda: #' . implode(', #', $queue_numbers));
         
-        // Redirect to invoice page since queue.waiting is removed
-        return $this->redirect(route('invoice.show', ['id' => $selected_ticket['invoice_id']]), navigate: true);
+        // Redirect to user profile with appropriate tab based on queue type
+        $tab = $this->type === 'attraction' ? 'wahana' : 'restoran';
+        return $this->redirect(route('userprofile', ['tab' => $tab]), navigate: true);
     }
     
     public function render()

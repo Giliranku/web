@@ -186,7 +186,7 @@
                 @if(empty($user_tickets))
                     <div class="text-center py-5">
                         <div class="mb-4">
-                            <i class="fas fa-ticket-alt" style="font-size: 3rem; color: #dee2e6;"></i>
+                            <i class="fas fa-ticket-alt" style="font-size: 3rem; color: var(--bs-gray-300);"></i>
                         </div>
                         <div class="text-muted mb-3 h5">Anda belum memiliki tiket</div>
                         <p class="text-muted mb-4">Untuk membuat antrian, Anda perlu memiliki tiket terlebih dahulu</p>
@@ -292,7 +292,7 @@
                                     <span class="d-none d-sm-inline">Total Tiket untuk </span>Antrian
                                 </span>
                             </div>
-                            <span class="badge bg-info bg-opacity-20 text-info px-3 py-2 fs-6">
+                            <span class="badge bg-info bg-opacity-20 text-light px-3 py-2 fs-6">
                                 {{ $total_available_tickets }} tiket
                             </span>
                         </div>
@@ -305,7 +305,7 @@
             @else
                 <div class="text-center py-5">
                     <div class="mb-4">
-                        <i class="fas fa-sign-in-alt" style="font-size: 3rem; color: #dee2e6;"></i>
+                        <i class="fas fa-sign-in-alt" style="font-size: 3rem; color: var(--bs-gray-300);"></i>
                     </div>
                     <div class="text-muted mb-3 h5">Silakan login untuk melakukan antrian</div>
                     <a href="{{ route('login') }}" wire:navigate class="btn btn-primary btn-lg px-4">
@@ -391,7 +391,7 @@
     setInterval(updateTime, 1000);
     
     // Auto-dismiss alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('livewire:navigated', function() {
         setTimeout(function() {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(function(alert) {

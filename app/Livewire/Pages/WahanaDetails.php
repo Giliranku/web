@@ -46,20 +46,20 @@ class WahanaDetails extends Component
         
         // Always add cover image first if exists
         if ($this->item->cover) {
-            $this->images[] = asset('img/' . $this->item->cover);
+            $this->images[] = $this->getImageUrl($this->item->cover);
         }
         
         // Add additional images only if they exist and are different from cover
         if ($this->item->img1 && $this->item->img1 !== $this->item->cover) {
-            $this->images[] = asset('img/' . $this->item->img1);
+            $this->images[] = $this->getImageUrl($this->item->img1);
         }
         
         if ($this->item->img2 && $this->item->img2 !== $this->item->cover && $this->item->img2 !== $this->item->img1) {
-            $this->images[] = asset('img/' . $this->item->img2);
+            $this->images[] = $this->getImageUrl($this->item->img2);
         }
         
         if ($this->item->img3 && $this->item->img3 !== $this->item->cover && $this->item->img3 !== $this->item->img1 && $this->item->img3 !== $this->item->img2) {
-            $this->images[] = asset('img/' . $this->item->img3);
+            $this->images[] = $this->getImageUrl($this->item->img3);
         }
         
         // Remove duplicates just in case
@@ -103,6 +103,31 @@ class WahanaDetails extends Component
     public function getImageCount()
     {
         return count($this->images);
+    }
+
+    /**
+     * Get the correct image URL, handling both seeder images and admin uploads
+     */
+    private function getImageUrl($imageName)
+    {
+        if (!$imageName) {
+            return asset('img/default-placeholder.jpg');
+        }
+
+        // Check if it's a storage path (admin uploads)
+        $storagePath = public_path('storage/' . $imageName);
+        if (file_exists($storagePath)) {
+            return asset('storage/' . $imageName);
+        }
+
+        // Check if it's in the img directory (seeder images)
+        $imgPath = public_path('img/' . $imageName);
+        if (file_exists($imgPath)) {
+            return asset('img/' . $imageName);
+        }
+
+        // Fallback to default if image not found
+        return asset('img/default-placeholder.jpg');
     }
 
     public function render()

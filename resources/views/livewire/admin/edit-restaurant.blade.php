@@ -29,7 +29,7 @@
                                 @if ($new_cover)
                                     <img src="{{ $new_cover->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                 @elseif($restaurant->cover)
-                                    <img src="{{ asset('storage/' . $restaurant->cover) }}" alt="Current Cover" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                    <img src="{{ $this->getImageUrl($restaurant->cover) }}" alt="Current Cover" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                 @else
                                     <i class="fas fa-utensils fs-1 text-muted"></i>
                                 @endif
@@ -62,7 +62,7 @@
                                         @if ($new_img1)
                                             <img src="{{ $new_img1->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @elseif($restaurant->img1)
-                                            <img src="{{ asset('storage/' . $restaurant->img1) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                            <img src="{{ $this->getImageUrl($restaurant->img1) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @else
                                             <i class="fas fa-plus text-muted"></i>
                                         @endif
@@ -77,7 +77,7 @@
                                         @if ($new_img2)
                                             <img src="{{ $new_img2->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @elseif($restaurant->img2)
-                                            <img src="{{ asset('storage/' . $restaurant->img2) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                            <img src="{{ $this->getImageUrl($restaurant->img2) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @else
                                             <i class="fas fa-plus text-muted"></i>
                                         @endif
@@ -92,7 +92,7 @@
                                         @if ($new_img3)
                                             <img src="{{ $new_img3->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @elseif($restaurant->img3)
-                                            <img src="{{ asset('storage/' . $restaurant->img3) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                            <img src="{{ $this->getImageUrl($restaurant->img3) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @else
                                             <i class="fas fa-plus text-muted"></i>
                                         @endif
@@ -127,21 +127,6 @@
                                     <option value="Jakarta Bird Land Ancol">Jakarta Bird Land Ancol</option>
                                 </select>
                                 @error('location') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="category" class="form-label fw-semibold">Kategori</label>
-                                <select wire:model="category" class="form-select" id="category">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Fast Food">Fast Food</option>
-                                    <option value="Casual Dining">Casual Dining</option>
-                                    <option value="Fine Dining">Fine Dining</option>
-                                    <option value="Café">Café</option>
-                                    <option value="Seafood">Seafood</option>
-                                    <option value="Indonesian">Indonesian</option>
-                                    <option value="International">International</option>
-                                    <option value="Snack & Beverage">Snack & Beverage</option>
-                                </select>
-                                @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
 

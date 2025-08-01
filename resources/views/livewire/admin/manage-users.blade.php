@@ -3,6 +3,228 @@
     'resources/css/jesselyn.css',
     'resources/css/sorting.css',
 ])
+<style>
+    /* Custom Pagination Styling - Clean Approach */
+    .pagination-custom {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+    
+    .pagination-custom .page-item {
+        margin: 0;
+        list-style: none;
+    }
+    
+    .pagination-custom .page-link {
+        color: var(--bs-primary);
+        background-color: var(--bs-body-bg);
+        border: 1px solid var(--bs-border-color);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        min-width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.875rem;
+    }
+    
+    .pagination-custom .page-link:hover {
+        color: white;
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+        transform: translateY(-1px);
+        text-decoration: none;
+    }
+    
+    .pagination-custom .page-item.active .page-link {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+        color: white;
+        box-shadow: 0 2px 8px rgba(var(--bs-primary-rgb), 0.3);
+    }
+    
+    .pagination-custom .page-item.disabled .page-link {
+        color: var(--bs-secondary-color);
+        background-color: var(--bs-secondary-bg);
+        border-color: var(--bs-border-color);
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+    
+    .pagination-custom .page-item.disabled .page-link:hover {
+        transform: none;
+        background-color: var(--bs-secondary-bg);
+        border-color: var(--bs-border-color);
+        color: var(--bs-secondary-color);
+    }
+    
+    /* Dark mode support */
+    [data-bs-theme="dark"] .pagination-custom .page-link {
+        background-color: var(--bs-dark);
+        border-color: var(--bs-border-color-translucent);
+        color: var(--bs-body-color);
+    }
+    
+    [data-bs-theme="dark"] .pagination-custom .page-link:hover {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+        color: white;
+    }
+    
+    [data-bs-theme="dark"] .pagination-custom .page-item.active .page-link {
+        background-color: var(--bs-primary);
+        border-color: var(--bs-primary);
+        color: white;
+    }
+    
+    [data-bs-theme="dark"] .pagination-custom .page-item.disabled .page-link {
+        background-color: var(--bs-secondary-bg);
+        border-color: var(--bs-border-color-translucent);
+        color: var(--bs-secondary-color);
+    }
+    
+    /* Pagination container styling */
+    .pagination-wrapper {
+        background: var(--bs-body-bg);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid var(--bs-border-color);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .pagination-info {
+        color: var(--bs-secondary-color);
+        font-size: 0.875rem;
+        text-align: center;
+    }
+    
+    [data-bs-theme="dark"] .pagination-wrapper {
+        background: var(--bs-dark);
+        border-color: var(--bs-border-color-translucent);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Enhanced Delete Modal Animations - Single Fade In Only */
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    
+    @keyframes ripple {
+        0% { 
+            transform: translateX(-50%) scale(0.8);
+            opacity: 1;
+        }
+        100% { 
+            transform: translateX(-50%) scale(1.2);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    /* Modal entrance - No slide, only fade */
+    .modal.fade .modal-dialog {
+        transition: opacity 0.15s linear;
+    }
+    
+    .modal.show .modal-dialog {
+        opacity: 1;
+    }
+    
+    /* Simple fade for elements - no slide up */
+    .user-info {
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    /* Button loading state */
+    .btn-loading {
+        position: relative;
+        pointer-events: none;
+    }
+    
+    .btn-loading::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 20px;
+        height: 20px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    /* Icon bounce animation */
+    .icon-bounce {
+        animation: iconBounce 0.6s ease-in-out;
+    }
+    
+    @keyframes iconBounce {
+        0%, 20%, 60%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-10px); }
+        80% { transform: translateY(-5px); }
+    }
+    
+    /* Responsive adjustments for delete modal */
+    @media (max-width: 576px) {
+        .delete-modal-dialog {
+            margin: 1rem;
+        }
+        
+        .delete-modal-header {
+            padding: 1.5rem 1.5rem 0.5rem !important;
+        }
+        
+        .delete-modal-body {
+            padding: 1.5rem !important;
+        }
+        
+        .delete-modal-footer {
+            padding: 0.5rem 1.5rem 1.5rem !important;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .delete-modal-footer .btn {
+            width: 100%;
+            margin: 0 !important;
+        }
+        
+        .delete-icon-bg {
+            width: 60px !important;
+            height: 60px !important;
+        }
+        
+        .delete-icon-bg i {
+            font-size: 1.5rem !important;
+        }
+    }
+</style>
 @endpush
 
 <div class="p-5">
@@ -134,7 +356,11 @@
                         <a href="{{ route('admin.edit-user', $user->id) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal" wire:click="confirmDelete({{ $user->id }})">
+                        <button class="btn btn-danger btn-sm" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#deleteModal" 
+                                wire:click="confirmDelete({{ $user->id }})"
+                                type="button">
                             <i class="bi bi-trash-fill"></i>
                         </button>
                     </div>
@@ -151,8 +377,52 @@
 
     <!-- Pagination -->
     @if($users->hasPages())
-        <div class="d-flex justify-content-center mt-4">
-            {{ $users->links() }}
+        <div class="d-flex justify-content-center mt-5">
+            <div class="pagination-wrapper">
+                <div class="pagination-info">
+                    Showing {{ $users->firstItem() }} to {{ $users->lastItem() }} of {{ $users->total() }} results
+                </div>
+                
+                <!-- Custom Pagination -->
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-custom">
+                        {{-- Previous Page Link --}}
+                        @if ($users->onFirstPage())
+                            <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $users->previousPageUrl() }}" wire:navigate>Previous</a>
+                            </li>
+                        @endif
+
+                        {{-- Pagination Elements --}}
+                        @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                            @if ($page == $users->currentPage())
+                                <li class="page-item active">
+                                    <span class="page-link">{{ $page }}</span>
+                                </li>
+                            @else
+                                <li class="page-item">
+                                    <a class="page-link" href="{{ $url }}" wire:navigate>{{ $page }}</a>
+                                </li>
+                            @endif
+                        @endforeach
+
+                        {{-- Next Page Link --}}
+                        @if ($users->hasMorePages())
+                            <li class="page-item">
+                                <a class="page-link" href="{{ $users->nextPageUrl() }}" wire:navigate>Next</a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <span class="page-link">Next</span>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
+            </div>
         </div>
     @endif
 
@@ -237,29 +507,122 @@
         <div class="modal-backdrop fade show"></div>
     @endif
 
-    <!-- Delete Confirmation Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content rounded-4">
-                <div class="modal-body text-center p-5">
-                    <button type="button" class="btn position-absolute top-0 end-0 m-3 p-0" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="bi bi-x-lg fs-5"></i>
+    <!-- Delete Confirmation Modal - Redesigned -->
+    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-md delete-modal-dialog" role="document">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px; overflow: hidden;">
+                <!-- Modal Header with Gradient -->
+                <div class="modal-header border-0 text-white position-relative delete-modal-header" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); padding: 2rem 2rem 1rem;">
+                    <button type="button" class="btn-close btn-close-white position-absolute" style="top: 1rem; right: 1rem;" 
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                    
+                    <!-- Animated Icon -->
+                    <div class="w-100 text-center">
+                        <div class="delete-icon-container mb-3" style="position: relative;">
+                            <div class="delete-icon-bg" style="
+                                width: 80px; 
+                                height: 80px; 
+                                background: rgba(255,255,255,0.2);
+                                border-radius: 50%;
+                                margin: 0 auto;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                animation: pulse 2s infinite;
+                                backdrop-filter: blur(10px);
+                            ">
+                                <i class="fas fa-trash-alt icon-bounce" style="font-size: 2rem; color: white;"></i>
+                            </div>
+                            <!-- Warning rings -->
+                            <div style="
+                                position: absolute;
+                                top: -10px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                width: 100px;
+                                height: 100px;
+                                border: 2px solid rgba(255,255,255,0.3);
+                                border-radius: 50%;
+                                animation: ripple 2s infinite;
+                            "></div>
+                        </div>
+                        <h4 class="modal-title fw-bold mb-0" id="deleteModalLabel" style="font-size: 1.5rem;">Konfirmasi Penghapusan</h4>
+                    </div>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body text-center delete-modal-body" style="padding: 2rem;">
+                    <div class="alert alert-warning border-0 mb-4" style="background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%); border-radius: 15px;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-exclamation-triangle text-warning me-2" style="font-size: 1.2rem;"></i>
+                            <div>
+                                <strong>Peringatan!</strong> Tindakan ini tidak dapat dibatalkan.
+                                <br><small class="text-muted">Semua data akan terhapus secara permanen dari sistem.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="mb-3" style="font-size: 1.1rem; color: #6c757d;">
+                        Apakah Anda yakin ingin menghapus user:
+                    </p>
+
+                    <div class="user-info p-3 mb-4" style="
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        border-radius: 15px;
+                        border-left: 4px solid #ff6b6b;
+                    ">
+                        <h5 class="fw-bold text-primary mb-2" style="font-size: 1.3rem;">
+                            <i class="fas fa-user me-2 text-danger"></i>
+                            "{{ $selectedUser?->name ?? 'user ini' }}"
+                        </h5>
+                        @if($selectedUser)
+                            <small class="text-muted">
+                                <i class="fas fa-envelope me-1"></i>{{ $selectedUser->email }}
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-calendar me-1"></i>Member sejak {{ $selectedUser->created_at->format('d M Y') }}
+                            </small>
+                        @endif
+                    </div>
+
+                    <p class="text-muted mb-4">
+                        Semua data termasuk profil, preferensi, riwayat pembelian, dan antrian akan terhapus permanen.
+                    </p>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer border-0 justify-content-center delete-modal-footer" style="padding: 1rem 2rem 2rem;">
+                    <button type="button" class="btn btn-lg px-4 me-3 btn-hover-effect" 
+                            wire:click="deleteUser"
+                            data-bs-dismiss="modal"
+                            style="
+                                background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+                                border: none;
+                                border-radius: 25px;
+                                color: white;
+                                font-weight: 600;
+                                box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+                                transition: all 0.3s ease;
+                            "
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(255, 107, 107, 0.6)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(255, 107, 107, 0.4)'">
+                        <i class="fas fa-trash-alt me-2"></i>Ya, Hapus User
                     </button>
-                    <div class="text-danger mb-4">
-                        <i class="bi bi-exclamation-triangle-fill" style="font-size: 4rem;"></i>
-                    </div>
-                    <p class="mb-1">Apakah Anda yakin akan menghapus user ini?</p>
-                    <h5 class="fw-bold mb-4 mt-2">Tindakan ini tidak dapat dibatalkan!</h5>
-                    <div class="d-flex justify-content-center gap-4">
-                        <button type="button" class="btn btn-danger" wire:click="deleteUser" data-bs-dismiss="modal">
-                            <i class="bi bi-trash-fill me-2"></i>
-                            Ya, Hapus
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                            <i class="bi bi-x-circle me-2"></i>
-                            Batal
-                        </button>
-                    </div>
+
+                    <button type="button" class="btn btn-lg px-4 btn-hover-effect" 
+                            data-bs-dismiss="modal"
+                            style="
+                                background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+                                border: none;
+                                border-radius: 25px;
+                                color: white;
+                                font-weight: 600;
+                                box-shadow: 0 4px 15px rgba(108, 117, 125, 0.4);
+                                transition: all 0.3s ease;
+                            "
+                            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(108, 117, 125, 0.6)'"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(108, 117, 125, 0.4)'">
+                        <i class="fas fa-times me-2"></i>Batal
+                    </button>
                 </div>
             </div>
         </div>
@@ -268,9 +631,9 @@
 
 @push('scripts')
 <script>
-// Close modal when clicking outside
+// Close modal when clicking outside (only for user detail modal)
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('modal-backdrop')) {
+    if (e.target.classList.contains('modal-backdrop') && !document.getElementById('deleteModal').classList.contains('show')) {
         @this.closeModal();
     }
 });

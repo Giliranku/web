@@ -122,7 +122,7 @@
                                             <div class="alert alert-success mb-0 py-2">
                                                 <small class="mb-0">
                                                     <i class="bi bi-info-circle me-1"></i>
-                                                    Silakan datang ke lokasi sekarang!
+                                                    Anda dapat mengunjungi lokasi.
                                                 </small>
                                             </div>
                                         @endif
@@ -278,7 +278,7 @@ document.addEventListener('livewire:navigated', function() {
 });
 
 // Also run on initial load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('livewire:navigated', function() {
     if ('Notification' in window && Notification.permission === 'default') {
         Notification.requestPermission();
     }

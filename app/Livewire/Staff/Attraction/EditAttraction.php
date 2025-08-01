@@ -20,7 +20,6 @@ class EditAttraction extends Component
     public $players_per_round;
     public $estimated_time_per_round;
     public $description;
-    public $category;
     public $cover;
     public $img1;
     public $img2;
@@ -38,7 +37,6 @@ class EditAttraction extends Component
         'players_per_round' => 'required|integer|min:1',
         'estimated_time_per_round' => 'required|integer|min:1',
         'description' => 'nullable|string',
-        'category' => 'nullable|string|max:100',
         'newCover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         'newImg1' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         'newImg2' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
@@ -66,7 +64,6 @@ class EditAttraction extends Component
         $this->players_per_round = $this->attraction->players_per_round ?? 1;
         $this->estimated_time_per_round = $this->attraction->estimated_time_per_round ?? 10;
         $this->description = $this->attraction->description;
-        $this->category = $this->attraction->category;
         $this->cover = $this->attraction->cover;
         $this->img1 = $this->attraction->img1;
         $this->img2 = $this->attraction->img2;
@@ -86,7 +83,6 @@ class EditAttraction extends Component
                 'players_per_round' => $this->players_per_round,
                 'estimated_time_per_round' => $this->estimated_time_per_round,
                 'description' => $this->description,
-                'category' => $this->category,
             ];
 
             // Handle cover image upload

@@ -14,8 +14,9 @@ class RestaurantSeeder extends Seeder
      */
     public function run(): void
     {
-        // Assign each restaurant to a unique staff_restaurant (sequentially)
-        $staffRestaurants = Staff::where('role', 'staff_restaurant')->get();
+        // Get restaurant staff in order - each will be assigned to exactly one restaurant
+        $staffRestaurants = Staff::where('role', 'staff_restaurant')->orderBy('id')->get();
+        
         $restaurants = [
             [
                 'name' => 'KFC Ancol',
@@ -27,8 +28,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'gambar1.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar2.png',
-                'players_per_round' => 4, // 4 orang per grup permainan (1 family)
-                'estimated_time_per_round' => 20, // 20 menit per grup
+                'players_per_round' => 10, // Fast food - 10 tamu per giliran
+                'estimated_time_per_round' => 15, // 15 menit per giliran
             ],
             [
                 'name' => 'McDonald\'s Ancol',
@@ -40,8 +41,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'mekdi.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar3.jpg',
-                'players_per_round' => 6, // 6 orang per grup permainan
-                'estimated_time_per_round' => 18, // 18 menit per grup
+                'players_per_round' => 10, // Fast food - 10 tamu per giliran  
+                'estimated_time_per_round' => 15, // 15 menit per giliran
             ],
             [
                 'name' => 'Pizza Hut Ancol',
@@ -53,8 +54,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar1.png',
                 'img3' => 'solaria.png',
-                'players_per_round' => 8, // 8 orang per grup permainan
-                'estimated_time_per_round' => 35, // 35 menit per grup (lebih lama untuk dine-in)
+                'players_per_round' => 4, // Fine dining - 4 tamu per giliran
+                'estimated_time_per_round' => 45, // 45 menit per giliran
             ],
             [
                 'name' => 'Chatime Ancol',
@@ -66,8 +67,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar2.png',
                 'img3' => 'gambar3.jpg',
-                'players_per_round' => 3, // 3 orang per grup permainan (small groups)
-                'estimated_time_per_round' => 10, // 10 menit per grup (cepat)
+                'players_per_round' => 8, // Coffee shop - 8 tamu per giliran
+                'estimated_time_per_round' => 20, // 20 menit per giliran
             ],
             [
                 'name' => 'Roti O Ancol',
@@ -79,8 +80,8 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'fastfood.png',
                 'img2' => 'gambar1.png',
                 'img3' => 'gambar_hebat.png',
-                'players_per_round' => 2, // 2 orang per grup permainan
-                'estimated_time_per_round' => 8, // 8 menit per grup (sangat cepat)
+                'players_per_round' => 8, // Coffee shop - 8 tamu per giliran  
+                'estimated_time_per_round' => 20, // 20 menit per giliran
             ],
             [
                 'name' => 'Raa Cha Ancol',
@@ -92,17 +93,20 @@ class RestaurantSeeder extends Seeder
                 'img1' => 'solaria.png',
                 'img2' => 'fastfood.png',
                 'img3' => 'gambar2.png',
-                'players_per_round' => 5, // 5 orang per grup permainan
-                'estimated_time_per_round' => 25, // 25 menit per grup
+                'players_per_round' => 6, // Default - 6 tamu per giliran
+                'estimated_time_per_round' => 30, // 30 menit per giliran
             ],
         ];
 
+        // Assign each restaurant to exactly one staff member (one-to-one relationship)
         foreach ($restaurants as $i => $restaurantData) {
-            $staff = $staffRestaurants[$i % $staffRestaurants->count()] ?? null;
-            if ($staff) {
-                $restaurantData['staff_id'] = $staff->id;
+            if (isset($staffRestaurants[$i])) {
+                $restaurantData['staff_id'] = $staffRestaurants[$i]->id;
+                Restaurant::create($restaurantData);
+            } else {
+                // If we run out of staff, create restaurant without staff assignment
+                Restaurant::create($restaurantData);
             }
-            Restaurant::create($restaurantData);
         }
     }
 }

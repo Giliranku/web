@@ -53,7 +53,7 @@
 }
 
 .cart-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    background: linear-gradient(135deg, var(--bs-primary) 0%, var(--bs-secondary) 100%);
     color: white;
     padding: var(--spacing-xl);
     border-radius: var(--border-radius-lg) var(--border-radius-lg) 0 0;
@@ -357,13 +357,16 @@
     border: 2px solid var(--bs-border-color) !important;
     border-radius: var(--border-radius);
     padding: var(--spacing-lg);
-    text-align: center;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
     overflow: hidden;
     text-decoration: none;
     color: var(--bs-body-color);
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 1rem;
 }
 
 .payment-card::before {
@@ -381,7 +384,7 @@
 .payment-card:hover {
     border-color: var(--bs-primary) !important;
     box-shadow: 0 4px 15px rgba(var(--bs-primary-rgb), 0.15);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     text-decoration: none;
     color: var(--bs-body-color);
 }
@@ -400,10 +403,26 @@ input[type="radio"]:checked + .payment-card::before {
     opacity: 0.1;
 }
 
+.payment-icon-wrapper {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--bs-primary-rgb), 0.1);
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+}
+
 .payment-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-sm);
-    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.payment-info {
+    flex-grow: 1;
     position: relative;
     z-index: 1;
 }
@@ -414,6 +433,20 @@ input[type="radio"]:checked + .payment-card::before {
     position: relative;
     z-index: 1;
     margin: 0 0 var(--spacing-xs) 0;
+}
+
+.payment-check {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    color: var(--bs-primary);
+    font-size: 1.2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+input[type="radio"]:checked + .payment-card .payment-check {
+    opacity: 1;
 }
 
 .payment-card small {

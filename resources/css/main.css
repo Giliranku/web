@@ -417,6 +417,32 @@ body {
     color: var(--bs-primary) !important;
 }
 
+/* Staff Sidebar Active States */
+.nav-link.active {
+    background-color: var(--bs-primary) !important;
+    color: white !important;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.nav-link.active i {
+    color: var(--bs-white) !important;
+}
+
+.nav-link.active:hover,
+.nav-link.active:focus {
+    background-color: var(--bs-primary-dark, var(--bs-primary)) !important;
+    color: var(--bs-white) !important;
+    transform: translateX(4px);
+}
+
+/* Dark mode active state adjustments */
+[data-bs-theme="dark"] .nav-link.active {
+    background-color: var(--bs-primary) !important;
+    box-shadow: 0 2px 8px rgba(var(--bs-primary-rgb), 0.3);
+}
+
 /* Responsive accessibility widget */
 @media (max-width: 768px) {
     .position-fixed.bottom-0.end-0.m-4 > div[x-show="open"] {
@@ -586,6 +612,10 @@ body {
 
 .home-gradient-bg {
     background: linear-gradient(135deg, var(--bs-light), var(--bs-secondary-bg));
+}
+
+[data-bs-theme="dark"] .home-gradient-bg {
+    background: linear-gradient(135deg, var(--bs-dark), var(--bs-gray-800));
 }
 
 /* Dark mode adaptive search input */
@@ -867,7 +897,6 @@ button[style*="background: none"] {
 }
 
 .nav-link.active {
-    color: var(--bs-primary) !important;
     background: linear-gradient(135deg, rgba(var(--bs-primary-rgb), 0.1), rgba(var(--bs-info-rgb), 0.1));
     box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.15);
 }
@@ -1065,7 +1094,7 @@ button[style*="background: none"] {
 /* Login Button */
 .login-btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    /* color: white; */
+    color: white;
     padding: 0.75rem 1.75rem;
     border-radius: 14px;
     text-decoration: none;
@@ -1440,7 +1469,7 @@ button[style*="background: none"] {
 @media (max-width: 576px) {
     .queue-floating-widget {
         right: 10px !important;
-        bottom: 85px !important;
+        bottom: 90px !important; /* Sejajar dengan accessibility widget + spacing */
     }
     
     .queue-floating-widget .queue-toggle-btn {
@@ -1453,5 +1482,20 @@ button[style*="background: none"] {
         left: -280px !important;
         bottom: 60px !important;
         max-height: 350px !important;
+    }
+    
+    /* Accessibility widget alignment for mobile */
+    .accessibility-widget {
+        right: 10px !important;
+        bottom: 20px !important;
+    }
+    
+    .accessibility-widget .accessibility-widget-btn {
+        width: 50px !important;
+        height: 50px !important;
+    }
+    
+    .accessibility-widget .accessibility-widget-btn i {
+        font-size: 1.4rem !important;
     }
 }

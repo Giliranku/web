@@ -50,6 +50,13 @@ class EditTicketComponent extends Component
         $this->usage = $ticket->usage;
     }
 
+    public function updatedNewLogo()
+    {
+        $this->validate([
+            'new_logo' => 'nullable|image|max:1024',
+        ]);
+    }
+
     public function update()
     {
         $this->validate([

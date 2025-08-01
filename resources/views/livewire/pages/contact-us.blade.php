@@ -15,7 +15,7 @@
 
 /* === Hero Section - Minimalist === */
 .hero-section {
-    background: #ffffff;
+    /* background: #ffffff; */
     padding: 6rem 0 4rem;
     border-bottom: 1px solid #e9ecef;
 }
@@ -23,14 +23,14 @@
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     font-weight: 300;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #6c757d;
+    /* color: #6c757d; */
     font-weight: 300;
     line-height: 1.6;
     max-width: 600px;
@@ -56,7 +56,7 @@
 
 .btn-minimal-primary {
     background: #4ABDAC;
-    color: white;
+    color: white !important;
 }
 
 .btn-minimal-primary:hover {
@@ -68,7 +68,7 @@
 /* === Stats Section - Clean === */
 .stats-section {
     padding: 4rem 0;
-    background: #f8f9fa;
+    /* background: #f8f9fa; */
 }
 
 .stat-item {
@@ -85,14 +85,14 @@
 
 .stat-label {
     font-size: 1rem;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     font-weight: 500;
     margin-bottom: 0.5rem;
 }
 
 .stat-desc {
     font-size: 0.9rem;
-    color: #6c757d;
+    /* color: #6c757d; */
 }
 
 /* === Content Sections === */
@@ -103,7 +103,7 @@
 .section-title {
     font-size: 2.5rem;
     font-weight: 300;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 1rem;
     text-align: center;
 }
@@ -127,7 +127,7 @@
 
 .service-item {
     padding: 2rem;
-    background: white;
+    /* background: white; */
     border: 1px solid #e9ecef;
     text-align: center;
     transition: all 0.3s ease;
@@ -155,19 +155,19 @@
 .service-title {
     font-size: 1.25rem;
     font-weight: 500;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 1rem;
 }
 
 .service-desc {
-    color: #6c757d;
+    /* color: #6c757d; */
     line-height: 1.6;
     font-size: 0.95rem;
 }
 
 /* === Values Section === */
 .values-section {
-    background: #f8f9fa;
+    /* background: #f8f9fa; */
     padding: 4rem 0;
 }
 
@@ -190,19 +190,19 @@
 
 .value-title {
     font-weight: 500;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 0.5rem;
 }
 
 .value-desc {
-    color: #6c757d;
+    /* color: #6c757d; */
     font-size: 0.9rem;
 }
 
 /* === CTA Section === */
 .cta-section {
     padding: 5rem 0;
-    background: white;
+    /* background: white; */
     text-align: center;
     border-top: 1px solid #e9ecef;
 }
@@ -210,7 +210,7 @@
 .cta-title {
     font-size: 2rem;
     font-weight: 300;
-    color: #2c3e50;
+    /* color: #2c3e50; */
     margin-bottom: 1rem;
 }
 

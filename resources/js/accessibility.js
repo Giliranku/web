@@ -7,7 +7,7 @@ document.addEventListener('alpine:init', () => {
         init() {
             this.applyTheme();
             // Apply theme immediately on page load
-            document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('livewire:navigated', () => {
                 this.applyTheme();
             });
         },
@@ -36,7 +36,7 @@ document.addEventListener('alpine:init', () => {
             this.applyHighContrast();
             
             // Apply settings immediately on page load
-            document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('livewire:navigated', () => {
                 this.applyFontSize();
                 this.applyDyslexicFont();
                 this.applyHighContrast();
@@ -170,7 +170,7 @@ document.addEventListener('alpine:init', () => {
 });
 
 // Global initialization function to ensure accessibility settings are applied
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('livewire:navigated', function() {
     // Wait for Alpine to be ready
     document.addEventListener('alpine:init', () => {
         // Initialize stores on every page load

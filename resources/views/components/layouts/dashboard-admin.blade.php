@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ $title ?? 'Page Title' }}</title>
+    <title>{{ $title ?? 'Admin Dashboard - Giliranku' }}</title>
 
     @assets
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,6 @@
             });
         });
     </script>
-<script src="https://cdn.tiny.cloud/1/havl6thb50958e9icgg288e5y2f7ve1lsmu8gf6sffkj292y/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         body .main-content {
             margin-left: 250px;
@@ -67,9 +66,5 @@
             {{ $slot }}
         </main>
     </div>
-    
-    @persist('accessibility-widget')
-        <livewire:partial.accessibility-widget />
-    @endpersist
 </body>
 </html>

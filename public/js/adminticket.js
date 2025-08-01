@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('livewire:navigated', function () {
     const input = document.getElementById('gambar');
     const preview = document.getElementById('preview');
     const cameraIcon = document.getElementById('camera-icon');

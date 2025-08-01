@@ -513,7 +513,7 @@
          @forelse($items as $index => $item)
             <div class="result-card fade-in-up" style="animation-delay: {{ $index * 0.1 }}s;">
                <div class="result-content">
-                  <img src="{{ asset('img/'.$item->cover) }}" alt="{{ $item->name }}" class="result-image">
+                  <img src="{{ $this->getImageUrl($item->cover) }}" alt="{{ $item->name }}" class="result-image">
                   
                   <div class="result-info">
                      <div class="result-type {{ strtolower($item->type) === 'restoran' ? 'restaurant' : 'attraction' }}">

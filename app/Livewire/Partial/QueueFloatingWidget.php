@@ -114,7 +114,7 @@ class QueueFloatingWidget extends Component
     private function calculateEstimatedTime($queue)
     {
         if ($queue->status === 'called') {
-            return 'Sekarang!';
+            return '0 menit';
         }
 
         $queueAhead = $queue->queue_position - 1;

@@ -45,31 +45,38 @@
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
         <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
+                <a href="/staff/attraction/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.attraction.dashboard') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-house"></i>
-                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Dasbor</span>
                 </a>
             </li>
-             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
-                    <i class="bi bi-pencil-square"></i>
-                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
-                </a>
-            </li>
-             <li class="nav-item">
-                <a href="#" class="nav-link d-flex align-items-center">
-                    <i class="bi bi-people"></i>
-                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
-                </a>
-            </li>
-            
-            {{-- nyalain klo dh siap backend sidebar, tp tunggu akhir aja -jes- --}}
-            {{-- <li class="nav-item">
-                <a href="{{ route('restaurant.dashboard') }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('restaurant.dashboard') ? 'active' : '' }}">
-                    <i class="bi bi-house"></i>
-                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Beranda</span>
-                </a>
-            </li> --}}
+            @if($attraction)
+                <li class="nav-item">
+                    <a href="/staff/attraction/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.attraction.edit') ? 'active' : 'text-body-secondary' }}">
+                        <i class="bi bi-pencil-square"></i>
+                        <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Wahana</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/staff/attraction/queue/{{ $attraction->id }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.attraction.queue') ? 'active' : 'text-body-secondary' }}">
+                        <i class="bi bi-people"></i>
+                        <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
+                    </a>
+                </li>
+            @else
+                <li class="nav-item">
+                    <span class="nav-link d-flex align-items-center text-muted">
+                        <i class="bi bi-pencil-square"></i>
+                        <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Wahana</span>
+                    </span>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link d-flex align-items-center text-muted">
+                        <i class="bi bi-people"></i>
+                        <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
+                    </span>
+                </li>
+            @endif
         </ul>
     </div>
 
@@ -92,7 +99,9 @@
                     : 'max-width:130px; opacity:1; margin-left:0;'"
             >Bantuan</span>
         </button>
-        <button 
+        <a 
+            href="/staff/profile" 
+            wire:navigate
             class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
@@ -105,7 +114,7 @@
                     ? 'max-width:0; opacity:0; margin-left:0;' 
                     : 'max-width:120px; opacity:1; margin-left:0;'"
             >Profile</span>
-        </button>
+        </a>
         <button 
             class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"

@@ -12,8 +12,7 @@ class AdminAuthController extends Controller
      */
     public function logout(Request $request)
     {
-        $request->session()->forget(['admin_id', 'admin_name']);
-        $request->session()->forget(['staff_id', 'staff_name', 'staff_type']);
+        $request->session()->forget(['staff_id', 'staff_name', 'staff_email', 'staff_role']);
         
         $request->session()->invalidate();
         $request->session()->regenerateToken();

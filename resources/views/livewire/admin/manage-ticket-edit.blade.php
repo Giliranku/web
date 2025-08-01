@@ -146,7 +146,7 @@
 
 @push('scripts')
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('livewire:navigated', () => {
             document.querySelectorAll('.edit-icon').forEach(icon => {
                 icon.addEventListener('click', () => {
                     const targetId = icon.getAttribute('data-target');

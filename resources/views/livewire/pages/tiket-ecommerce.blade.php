@@ -12,8 +12,8 @@
 console.log('🎫 Tiket E-commerce page loaded');
 
 // Initialize modals when page loads
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('� Initializing ticket modals...');
+document.addEventListener('livewire:navigated', function() {
+    console.log('🚀 Initializing ticket modals...');
     
     // Initialize all modals
     const modals = document.querySelectorAll('.modal');
@@ -150,7 +150,7 @@ document.addEventListener('livewire:initialized', function() {
                             <div class="col-md-7">
                                 <div class="p-4 d-flex flex-column h-100">
                                     <div class="flex-grow-1">
-                                        <h4 class="fw-bold mb-2" style="color: var(--dark);">{{ $product->name }}</h4>
+                                        <h4 class="fw-bold mb-2">{{ $product->name }}</h4>
                                         <p class="text-muted mb-3">
                                             <i class="bi bi-geo-alt me-1" style="color: var(--primary);"></i>{{ $product->location }}
                                         </p>
@@ -289,7 +289,7 @@ document.addEventListener('livewire:initialized', function() {
                             
                             <!-- Benefits Section -->
                             <div class="mb-4">
-                                <h6 class="fw-bold mb-3" style="color: var(--dark);">
+                                <h6 class="fw-bold mb-3">
                                     <i class="bi bi-star-fill me-2" style="color: var(--warning);"></i>Keuntungan Tiket
                                 </h6>
                                 <div class="row g-2">
@@ -343,7 +343,7 @@ document.addEventListener('livewire:initialized', function() {
                                 <h6 class="fw-bold mb-3" style="color: var(--secondary);">
                                     <i class="bi bi-lightbulb me-2"></i>Cara Penggunaan
                                 </h6>
-                                <div class="p-3 rounded-3" style="background: linear-gradient(135deg, #fff8f5, #ffffff); border-left: 4px solid var(--secondary);">
+                                <div class="p-3 rounded-3" style="background: linear-gradient(135deg, var(--bs-warning-bg-subtle), var(--bs-body-bg)); border-left: 4px solid var(--bs-secondary);">
                                     @if($product->usage)
                                         <p class="mb-0 text-dark small" style="line-height: 1.6;">
                                             {{ $product->usage }}
@@ -374,7 +374,7 @@ document.addEventListener('livewire:initialized', function() {
         @if(count($products) > 0)
         <div class="cart-section">
             <div class="text-center mb-4">
-                <h3 class="fw-bold" style="color: var(--dark);">Siap untuk petualangan seru?</h3>
+                <h3 class="fw-bold">Siap untuk petualangan seru?</h3>
                 <p class="text-muted">Lihat keranjang belanja atau langsung checkout untuk mendapatkan tiketmu!</p>
             </div>
             <div class="row g-3 justify-content-center">

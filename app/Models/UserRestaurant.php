@@ -2,12 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserRestaurant extends Model
+class UserRestaurant extends Pivot
 {
     protected $table = 'user_restaurants';
+    
+    // Pivot models should have incrementing set to true if they have auto-incrementing IDs
+    public $incrementing = true;
+    
+    // Pivot models should have timestamps enabled if they use timestamps
+    public $timestamps = true;
     
     protected $fillable = [
         'user_id', 

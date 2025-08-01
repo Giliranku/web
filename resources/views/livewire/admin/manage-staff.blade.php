@@ -19,8 +19,8 @@
             <select wire:model.live="filterRole" class="form-select custom-dropdown">
                 <option value="">Semua Role</option>
                 <option value="admin">Admin</option>
-                <option value="staff">Staff</option>
-                <option value="manager">Manager</option>
+                <option value="staff_restaurant">Staff Restaurant</option>
+                <option value="staff_attraction">Staff Attraction</option>
             </select>
         </div>
     </div>
@@ -63,8 +63,16 @@
                             @endif
                             <div>
                                 <h5 class="card-title mb-1">{{ $member->name }}</h5>
-                                <span class="badge bg-{{ $member->role === 'admin' ? 'danger' : ($member->role === 'manager' ? 'warning' : 'info') }}">
-                                    {{ ucfirst($member->role) }}
+                                <span class="badge bg-{{ $member->role === 'admin' ? 'danger' : ($member->role === 'staff_restaurant' ? 'warning' : 'info') }}">
+                                    @if($member->role === 'admin')
+                                        Admin
+                                    @elseif($member->role === 'staff_restaurant')
+                                        Staff Restaurant
+                                    @elseif($member->role === 'staff_attraction')
+                                        Staff Attraction
+                                    @else
+                                        {{ ucfirst($member->role) }}
+                                    @endif
                                 </span>
                             </div>
                         </div>

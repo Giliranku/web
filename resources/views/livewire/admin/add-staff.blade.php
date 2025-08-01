@@ -110,8 +110,8 @@
                             <select wire:model="role" class="form-select" id="role">
                                 <option value="">Pilih Role</option>
                                 <option value="admin">Admin</option>
-                                <option value="manager">Manager</option>
-                                <option value="staff">Staff</option>
+                                <option value="staff_restaurant">Staff Restaurant</option>
+                                <option value="staff_attraction">Staff Attraction</option>
                             </select>
                             @error('role') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>

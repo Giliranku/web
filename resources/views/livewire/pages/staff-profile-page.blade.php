@@ -2,6 +2,83 @@
 @vite([
     'resources/css/user-profile-page.css'
 ])
+<style>
+    /* Elegant spinner overlay */
+    .spinner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10;
+    }
+
+    .spinner-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fadeInUp 0.3s ease;
+    }
+
+    .elegant-spinner {
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #ffffff;
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    .elegant-spinner-mobile {
+        width: 2rem;
+        height: 2rem;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #ffffff;
+        animation: spin 1s ease-in-out infinite;
+    }
+
+    .spinner-text {
+        color: white;
+        font-weight: 500;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .spinner-text-mobile {
+        color: white;
+        font-weight: 500;
+        font-size: 0.7rem;
+        margin-top: 0.25rem;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
 @endpush
 
 <div>
@@ -49,11 +126,13 @@
                         <!-- Hidden file input -->
                         <input type="file" id="avatarInput" wire:model="newAvatar" accept="image/*" style="display: none;">
                         
-                        <!-- Loading spinner for avatar upload -->
+                        <!-- Loading spinner for avatar upload - Redesigned -->
                         @if($uploading)
-                            <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
+                            <div class="spinner-overlay">
+                                <div class="spinner-content">
+                                    <div class="elegant-spinner"></div>
+                                    <div class="spinner-text">Uploading...</div>
+                                </div>
                             </div>
                         @endif
                     </div>
@@ -210,11 +289,13 @@
             <!-- Hidden file input for mobile -->
             <input type="file" id="avatarInputMobile" wire:model="newAvatar" accept="image/*" style="display: none;">
             
-            <!-- Loading spinner for avatar upload (mobile) -->
+            <!-- Loading spinner for avatar upload (mobile) - Redesigned -->
             @if($uploading)
-                <div class="position-absolute d-flex align-items-center justify-content-center" 
-                     style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                    <span class="spinner-border text-primary" role="status"></span>
+                <div class="spinner-overlay">
+                    <div class="spinner-content">
+                        <div class="elegant-spinner-mobile"></div>
+                        <div class="spinner-text-mobile">Uploading...</div>
+                    </div>
                 </div>
             @endif
         </div>
@@ -242,11 +323,13 @@
                             </div>
                         @endif
                         
-                        <!-- Loading spinner for avatar upload (mobile) -->
+                        <!-- Loading spinner for avatar upload (mobile) - Redesigned -->
                         @if($uploading)
-                            <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
+                            <div class="spinner-overlay">
+                                <div class="spinner-content">
+                                    <div class="elegant-spinner-mobile"></div>
+                                    <div class="spinner-text-mobile">Uploading...</div>
+                                </div>
                             </div>
                         @endif
                     </div>

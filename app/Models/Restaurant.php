@@ -32,7 +32,18 @@ class Restaurant extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_restaurants')->using(UserRestaurant::class);
+        return $this->belongsToMany(User::class, 'user_restaurants')
+            ->using(UserRestaurant::class)
+            ->withPivot([
+                'id',
+                'invoice_id',
+                'slot_number',
+                'queue_position',
+                'reservation_date',
+                'reservation_time',
+                'status'
+            ])
+            ->withTimestamps();
     }
 
     public function userRestaurants(): HasMany

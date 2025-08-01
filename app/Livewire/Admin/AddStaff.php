@@ -20,7 +20,7 @@ class AddStaff extends Component
         'password' => 'required|min:8|confirmed',
         'number' => 'required|string|max:20',
         'location' => 'required|string',
-        'role' => 'required|in:admin,staff,manager',
+        'role' => 'required|in:admin,staff_restaurant,staff_attraction',
         'avatar' => 'nullable|image|max:1024'
     ];
 

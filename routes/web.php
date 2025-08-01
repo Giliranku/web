@@ -63,6 +63,10 @@ use App\Livewire\Staff\AttractionManagement;
 use App\Livewire\Staff\Restaurant\Dashboard as RestaurantDashboard;
 use App\Livewire\Staff\Attraction\Dashboard as AttractionDashboard;
 use App\Livewire\Staff\QueueManager;
+use App\Livewire\Staff\StaffProfile;
+
+// Profile Components
+use App\Livewire\Admin\AdminProfile;
 
 // Controllers
 use App\Http\Controllers\AuthController;
@@ -102,7 +106,7 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 // Authenticated User Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/history', History::class)->name('history');
-    Route::get('/userprofile', UserProfile::class)->name('userprofile');
+    Route::get('/userprofile/{tab?}', UserProfile::class)->name('userprofile');
     Route::get('/invoice/{id}', InvoicePage::class)->name('invoice');
     
     // E-commerce Routes
@@ -114,7 +118,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/reserve/attraction/{attraction}', ReservationBooking::class)->name('attraction.reserve');
     Route::get('/reserve/restaurant/{restaurant}', ReservationBooking::class)->name('restaurant.reserve');
     
-    Route::get('/order', OrderQueue::class)->name('order.queue');
+    // Route::get('/order', OrderQueue::class)->name('order.queue');
 });
 
 /*
@@ -127,47 +131,50 @@ Route::middleware(['auth'])->group(function () {
 */
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    // Admin Authentication
+    // Admin Authentication (no middleware required)
     Route::get('/login', AdminLoginPage::class)->name('login');
     Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
     
-    // Admin Dashboard & Management
-    Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
-    Route::get('/profile', StaffProfilePage::class)->name('profile');
-    
-    // User Management
-    Route::get('/manage-users', ManageUsers::class)->name('manage-users');
-    Route::get('/manage-users/edit/{userId}', EditUser::class)->name('edit-user');
-    
-    // News Management
-    Route::get('/manage-news', NewsIndex::class)->name('manage-news');
-    Route::get('/manage-news-add', NewsCreate::class)->name('news.create');
-    Route::get('/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
-    
-    // Ticket Management
-    Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');
-    Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create');
-    Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit');
-    
-    // Staff Management
-    Route::get('/manage-staff', ManageStaff::class)->name('staff.index');
-    Route::get('/manage-staff/add', AddStaff::class)->name('staff.create');
-    Route::get('/manage-staff/edit/{staff}', EditStaff::class)->name('staff.edit');
-    
-    // Attraction Management (Admin level)
-    Route::get('/manage-attractions', ManageAttractions::class)->name('attractions.index');
-    Route::get('/manage-attractions/add', AddAttraction::class)->name('attractions.create');
-    Route::get('/manage-attractions/edit/{attraction}', EditAttraction::class)->name('attractions.edit');
-    
-    // Restaurant Management
-    Route::get('/manage-restaurants', ManageRestaurants::class)->name('restaurants.index');
-    Route::get('/manage-restaurants/add', AddRestaurant::class)->name('restaurants.create');
-    Route::get('/manage-restaurants/edit/{restaurant}', EditRestaurant::class)->name('restaurants.edit');
-    
-    // Legacy Attraction Management (keep for backward compatibility)
-    Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
-    Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create.legacy');
-    Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit.legacy');
+    // Protected Admin Routes
+    Route::middleware(['admin'])->group(function () {
+        // Admin Dashboard & Management
+        Route::get('/dashboard', AdminDashboard::class)->name('dashboard');
+        Route::get('/profile', AdminProfile::class)->name('profile');
+        
+        // User Management
+        Route::get('/manage-users', ManageUsers::class)->name('manage-users');
+        Route::get('/manage-users/edit/{userId}', EditUser::class)->name('edit-user');
+        
+        // News Management
+        Route::get('/manage-news', NewsIndex::class)->name('manage-news');
+        Route::get('/manage-news-add', NewsCreate::class)->name('news.create');
+        Route::get('/manage-news-edit/{news}', ManageNewsEdit::class)->name('news.edit');
+        
+        // Ticket Management
+        Route::get('/manage-ticket', ManageTicketComponent::class)->name('ticket.index');
+        Route::get('/manage-ticket-add', AddTicketComponent::class)->name('ticket.create');
+        Route::get('/manage-ticket-edit/{ticket}', EditTicketComponent::class)->name('ticket.edit');
+        
+        // Staff Management
+        Route::get('/manage-staff', ManageStaff::class)->name('staff.index');
+        Route::get('/manage-staff/add', AddStaff::class)->name('staff.create');
+        Route::get('/manage-staff/edit/{staff}', EditStaff::class)->name('staff.edit');
+        
+        // Attraction Management (Admin level)
+        Route::get('/manage-attractions', ManageAttractions::class)->name('attractions.index');
+        Route::get('/manage-attractions/add', AddAttraction::class)->name('attractions.create');
+        Route::get('/manage-attractions/edit/{attraction}', EditAttraction::class)->name('attractions.edit');
+        
+        // Restaurant Management
+        Route::get('/manage-restaurants', ManageRestaurants::class)->name('restaurants.index');
+        Route::get('/manage-restaurants/add', AddRestaurant::class)->name('restaurants.create');
+        Route::get('/manage-restaurants/edit/{restaurant}', EditRestaurant::class)->name('restaurants.edit');
+        
+        // Legacy Attraction Management (keep for backward compatibility)
+        Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
+        Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create.legacy');
+        Route::get('/attraction-list/edit/{attraction}', AttracionListManageEdit::class)->name('attractions.edit.legacy');
+    });
 });
 
 /*
@@ -180,7 +187,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 | Staff roles are determined by their session data.
 */
 
-Route::prefix('staff')->name('staff.')->group(function () {
+Route::prefix('staff')->name('staff.')->middleware(['staff'])->group(function () {
+    
+    // Staff Profile (for both restaurant and attraction staff)
+    Route::get('/profile', StaffProfile::class)->name('profile');
     
     // Restaurant Staff Routes
     Route::prefix('restaurant')->name('restaurant.')->group(function () {

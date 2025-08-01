@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ $title ?? "Giliranku" }}</title>
+    <title>{{ $title ?? "Giliranku - Queue System" }}</title>
 
     @assets
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,6 +44,29 @@
             <livewire:partial.footer />
         @endpersist
     </div>
+
+    <script>
+        // Initialize Bootstrap tooltips
+        document.addEventListener('livewire:navigated', function() {
+            // Check if Bootstrap is loaded
+            if (typeof window.bootstrap !== 'undefined') {
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            }
+        });
+        
+        // Reinitialize tooltips after Livewire updates
+        document.addEventListener('livewire:navigated', function() {
+            if (typeof window.bootstrap !== 'undefined') {
+                var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+                var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                    return new bootstrap.Tooltip(tooltipTriggerEl);
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

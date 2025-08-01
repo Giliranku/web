@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ $title ?? 'Page Title' }}</title>
+    <title>{{ $title ?? 'Restaurant Management Dashboard - Giliranku' }}</title>
 
     @assets
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,6 @@
             });
         });
     </script>
-<script src="https://cdn.tiny.cloud/1/havl6thb50958e9icgg288e5y2f7ve1lsmu8gf6sffkj292y/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         body .main-content {
             margin-left: 250px;
@@ -55,6 +54,29 @@
                 width: calc(100vw - 80px) !important;
             }
         }
+        
+        /* Enhanced sidebar navigation styling */
+        .nav-item .nav-link {
+            margin: 2px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-item .nav-link:not(.active):hover {
+            background-color: var(--bs-body-secondary) !important;
+            transform: translateX(4px);
+        }
+        
+        .nav-item .nav-link i {
+            width: 20px;
+            margin-right: 12px;
+            text-align: center;
+        }
+        
+        .nav-item .nav-link.active {
+            background: linear-gradient(135deg, var(--bs-primary), var(--bs-info)) !important;
+            box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.3);
+        }
     </style>
 
     @stack('scripts')
@@ -68,9 +90,5 @@
             {{ $slot }}
         </main>
     </div>
-    
-    @persist('accessibility-widget')
-        <livewire:partial.accessibility-widget />
-    @endpersist
 </body>
 </html>

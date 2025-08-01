@@ -397,7 +397,7 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('livewire:navigated', function() {
     // Setup drag and drop for file uploads
     setupDragDrop('coverDropZone', 'coverInput');
     for (let i = 0; i < 3; i++) {
@@ -566,13 +566,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </label>
                                     <input type="number" class="form-control" id="time_estimation" wire:model="time_estimation" placeholder="Waktu dalam menit">
                                     @error('time_estimation') <div class="text-danger mt-1">{{ $message }}</div> @enderror
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="category" class="form-label">
-                                        <i class="bi bi-tag me-1"></i>Kategori
-                                    </label>
-                                    <input type="text" class="form-control" id="category" wire:model="category" placeholder="Kategori wahana">
-                                    @error('category') <div class="text-danger mt-1">{{ $message }}</div> @enderror
                                 </div>
                             </div>
 

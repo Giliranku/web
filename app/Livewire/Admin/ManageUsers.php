@@ -49,6 +49,7 @@ class ManageUsers extends Component
     public function confirmDelete($userId)
     {
         $this->deleteUserId = $userId;
+        $this->selectedUser = User::find($userId);
     }
 
     public function deleteUser()
@@ -61,6 +62,7 @@ class ManageUsers extends Component
             }
         }
         $this->deleteUserId = null;
+        $this->selectedUser = null;
     }
 
     public function render()

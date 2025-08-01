@@ -1,0 +1,6 @@
+/* Trix Editor Custom Styles */
+.trix-editor {
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border: 1px solid var(--bs-border-color);
+}

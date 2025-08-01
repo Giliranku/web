@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\UserAttraction;
+use App\Models\UserRestaurant;
 
 class UserProfile extends Component
 {
@@ -18,11 +20,13 @@ class UserProfile extends Component
     public $avatar;
     public $newAvatar;
     public $uploading = false;
-    public function mount()
+    public $activeTab = 'profile'; // Default tab
+    
+    public function mount($tab = 'profile')
     {
         $user = Auth::user();
         if (!$user) {
-            return redirect('/login'); // jika belum login
+            return redirect('/login');
         }
 
         $this->name = $user->name;
@@ -30,7 +34,18 @@ class UserProfile extends Component
         $this->number = $user->number;
         $this->location = $user->location;
         $this->avatar = $user->avatar;
+        
+        // Set the active tab from URL parameter
+        if (in_array($tab, ['profile', 'wahana', 'restoran'])) {
+            $this->activeTab = $tab;
+        }
     }
+
+    public function setActiveTab($tab)
+    {
+        $this->activeTab = $tab;
+    }
+    
     public function updateProfile()
     {
         $this->validate([
@@ -54,7 +69,6 @@ class UserProfile extends Component
 
     public function updatedNewAvatar()
     {
-        // Auto upload when file is selected
         if ($this->newAvatar) {
             $this->updateAvatar();
         }
@@ -71,12 +85,10 @@ class UserProfile extends Component
 
             $user = Auth::user();
 
-            // Delete old avatar if exists and not from Google
             if ($user->avatar && !str_contains($user->avatar, 'googleusercontent.com') && !str_contains($user->avatar, 'http')) {
                 Storage::disk('public')->delete($user->avatar);
             }
 
-            // Store new avatar
             $path = $this->newAvatar->store('avatars', 'public');
             
             $user->update([
@@ -92,13 +104,32 @@ class UserProfile extends Component
         } catch (\Exception $e) {
             session()->flash('error', 'Gagal mengupload foto: ' . $e->getMessage());
         } finally {
-            // Reset states
             $this->uploading = false;
             $this->reset('newAvatar');
         }
     }
+    
     public function render()
     {
-        return view('livewire.pages.user-profile');
+        $user = Auth::user();
+        
+        $userAttractions = UserAttraction::with('attraction')
+            ->where('user_id', $user->id)
+            ->forDate(today())
+            ->waiting()
+            ->orderByQueue()
+            ->get();
+            
+        $userRestaurants = UserRestaurant::with('restaurant')
+            ->where('user_id', $user->id)
+            ->forDate(today())
+            ->waiting()
+            ->orderByQueue()
+            ->get();
+
+        return view('livewire.pages.user-profile', [
+            'userAttractions' => $userAttractions,
+            'userRestaurants' => $userRestaurants,
+        ])->layout('components.layouts.app');
     }
 }

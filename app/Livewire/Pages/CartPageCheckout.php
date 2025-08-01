@@ -25,13 +25,13 @@ class CartPageCheckout extends Component
     public $totalAmount = 0;
 
     protected $rules = [
-        'metode' => 'required|in:credit_card,debit_card,ovo,dana,gopay',
+        'metode' => 'required|in:mastercard,ovo,bca',
         'namaLengkap' => 'required|string|min:3|max:100',
         'email' => 'required|email|max:255',
         'noTelp' => 'required|string|min:10|max:15',
-        'cardNumber' => 'required_if:metode,credit_card,debit_card|string|min:16|max:19',
-        'cardExpiry' => 'required_if:metode,credit_card,debit_card|string|size:5',
-        'cvv' => 'required_if:metode,credit_card,debit_card|string|size:3',
+        'cardNumber' => 'required_if:metode,mastercard|string|min:16|max:19',
+        'cardExpiry' => 'required_if:metode,mastercard|string|size:7',
+        'cvv' => 'required_if:metode,mastercard|string|size:3',
         'ovoPhone' => 'required_if:metode,ovo|string|min:10|max:15',
     ];
 
@@ -92,7 +92,7 @@ class CartPageCheckout extends Component
     public function updatedMetode($value)
     {
         // Clear payment method specific fields when method changes
-        if (!in_array($value, ['credit_card', 'debit_card'])) {
+        if ($value !== 'mastercard') {
             $this->reset(['cardNumber', 'cardExpiry', 'cvv']);
         }
         if ($value !== 'ovo') {
@@ -147,12 +147,21 @@ class CartPageCheckout extends Component
         try {
             DB::beginTransaction();
 
+            // Determine payment status based on method
+            $paymentStatus = 'paid';
+            $successMessage = 'Pembayaran berhasil diproses!';
+            
+            // For BCA Virtual Account, simulate instant payment success
+            if ($this->metode === 'bca') {
+                $successMessage = 'Pembayaran Virtual Account BCA berhasil diproses secara instan!';
+            }
+
             // Create invoice record
             $invoice = Invoice::create([
                 'user_id' => Auth::id(),
                 'total_price' => $this->totalAmount,
                 'payment_method' => $this->metode,
-                'status' => 'paid', // Set as paid for successful payment
+                'status' => $paymentStatus,
             ]);
 
             // Attach tickets to invoice with quantities
@@ -172,7 +181,7 @@ class CartPageCheckout extends Component
             // Dispatch event to update queue widget
             $this->dispatch('ticketPurchased');
 
-            session()->flash('success', 'Pembayaran berhasil diproses! Invoice #' . $invoice->id . ' telah dibuat.');
+            session()->flash('success', $successMessage . ' Invoice #' . $invoice->id . ' telah dibuat.');
 
             // Reset form fields
             $this->reset([

@@ -6,7 +6,7 @@
     <!-- Floating Action Button -->
     <template x-if="!open">
         <button 
-            class="btn btn-primary rounded-circle shadow-lg pulse-animation accessibility-widget-btn"
+            class="btn btn-primary rounded-circle shadow-lg pulse-animation accessibility-widget-btn d-flex justify-content-center align-items-center"
             style="width: 60px; height: 60px; border: none; background: var(--bs-primary); position: relative; z-index: 1051;"
             @click="open = true"
             aria-label="Menu Aksesibilitas"

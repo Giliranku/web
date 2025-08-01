@@ -122,3 +122,23 @@ Dual testing approach:
 - **Vite**: Asset bundling for SCSS/JS with Laravel plugin
 
 When modifying queue logic, always test with multiple users across different attractions to ensure position calculations remain accurate.
+
+
+## Livewire Note
+- Don't rely on DOMContentLoaded
+It's common practice to place JavaScript inside a DOMContentLoaded event listener so that the code you want to run only executes after the page has fully loaded.
+
+When using wire:navigate, DOMContentLoaded is only fired on the first page visit, not subsequent visits.
+
+To run code on every page visit, swap every instance of DOMContentLoaded with livewire:navigated:
+
+document.addEventListener('DOMContentLoaded', () => { 
+document.addEventListener('livewire:navigated', () => { 
+    // ...
+})
+Now, any code placed inside this listener will be run on the initial page visit, and also after Livewire has finished navigating to subsequent pages.
+
+Listening to this event is useful for things like initializing third-party libraries.
+
+- Dark Mode Support
+[data-bs-theme="dark"] is used to apply dark mode styles in Bootstrap 5.3. Ensure all components and styles are compatible with dark mode by using CSS variables for colors. If the background color is set to white, the text color should be set to a dark color, and vice versa. Avoid hardcoded colors in CSS files or inline styles.

@@ -282,7 +282,7 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('livewire:navigated', function() {
     // Setup drag and drop for file uploads
     setupDragDrop('coverDropZone', 'coverInput');
     for (let i = 0; i < 3; i++) {

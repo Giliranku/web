@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{{ $title ?? 'Page Title' }}</title>
+    <title>{{ $title ?? 'Giliranku' }}</title>
     @vite(['resources/sass/app.scss',
             'resources/js/app.js',
             'resources/css/accessibility.css',
@@ -30,10 +30,6 @@
     <div>
 
         {{ $slot }}
-
-        @persist('queue-floating-widget')
-            <livewire:partial.queue-floating-widget />
-        @endpersist
         @persist('accessibility-widget')
             <livewire:partial.accessibility-widget />
         @endpersist

@@ -11,7 +11,7 @@ class NewsUser extends Component
 
     public function mount()
     {
-        $this->news = News::all();
+        $this->news = News::orderBy('created_at', 'desc')->get();
     }
 
     public function render()

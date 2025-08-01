@@ -12,12 +12,14 @@
    }
    
    .hero-section {
-      background: linear-gradient(135deg, var(--primary), #3a9d94);
+      background: linear-gradient(135deg, var(--bs-primary), #3a9d94);
    }
    
    .card-hover {
       transition: all 0.3s ease;
       border: none;
+      background: var(--bs-body-bg);
+      color: var(--bs-body-color);
    }
    
    .card-hover:hover {
@@ -25,15 +27,19 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
    }
    
+   [data-bs-theme="dark"] .card-hover:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+   }
+   
    .section-divider {
       height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      background: linear-gradient(90deg, var(--bs-primary), var(--bs-secondary));
       border: none;
       margin: 3rem 0;
    }
    
    .btn-primary-custom {
-      background: linear-gradient(45deg, var(--primary), #3a9d94);
+      background: linear-gradient(45deg, var(--bs-primary), #3a9d94);
       border: none;
       border-radius: 25px;
       padding: 12px 30px;
@@ -45,10 +51,11 @@
    .btn-primary-custom:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(74, 189, 172, 0.4);
+      color: white;
    }
    
    .btn-secondary-custom {
-      background: linear-gradient(45deg, var(--secondary), #e03d0f);
+      background: linear-gradient(45deg, var(--bs-danger), #e03d0f);
       border: none;
       border-radius: 25px;
       padding: 12px 30px;
@@ -60,18 +67,20 @@
    .btn-secondary-custom:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(252, 74, 26, 0.4);
+      color: white;
    }
    
    .stats-card {
-      background: linear-gradient(135deg, var(--light), #f8f9fa);
+      background: var(--bs-body-bg);
       border-radius: 15px;
       padding: 2rem;
-      border: 2px solid var(--primary);
+      border: 2px solid var(--bs-primary);
       transition: all 0.3s ease;
+      color: var(--bs-body-color);
    }
    
    .stats-card:hover {
-      background: linear-gradient(135deg, var(--primary), #3a9d94);
+      background: linear-gradient(135deg, var(--bs-primary), #3a9d94);
       color: white;
    }
    
@@ -230,7 +239,7 @@
          </div>
          <div class="col-lg-8">
             <div class="ps-lg-4">
-               <h3 class="fw-bold mb-4" style="color: var(--dark);">Taman Hiburan Giliranku</h3>
+               <h3 class="fw-bold mb-4" style="color: var(--bs-body-color);">Taman Hiburan Giliranku</h3>
                <p class="fs-5 text-muted leading-relaxed">
                   Nikmati sensasi petualangan tak terlupakan di Taman Hiburan Giliranku, destinasi seru yang cocok untuk segala usia, mulai dari keluarga, teman-teman, hingga para pencari adrenalin sejati. 
                </p>
@@ -268,7 +277,7 @@
    <!-- Ticket Purchase CTA -->
    <div class="py-5 home-gradient-bg">
       <div class="container text-center">
-         <h2 class="fw-bold mb-3" style="color: var(--dark);">Beli <span style="color: var(--primary);">Tiket</span> Sekarang!</h2>
+         <h2 class="fw-bold mb-3" style="color: var(--bs-body-color);">Beli <span style="color: var(--bs-primary);">Tiket</span> Sekarang!</h2>
          <p class="lead text-muted mb-4">Dapatkan akses ke semua wahana seru dengan harga terbaik</p>
          <a class="btn btn-primary-custom btn-lg px-5" href="#" role="button">
             <i class="bi bi-ticket-perforated me-2"></i>Beli Tiket
@@ -279,8 +288,8 @@
    <!-- Queue System Section -->
    <div class="container my-5">
       <div class="text-center mb-5">
-         <h3 class="fw-bold" style="color: var(--dark);">
-            <span style="color: var(--primary);">Sudah punya tiket</span> dan mau menikmati semua wahana?
+         <h3 class="fw-bold" style="color: var(--bs-body-color);">
+            <span style="color: var(--bs-primary);">Sudah punya tiket</span> dan mau menikmati semua wahana?
          </h3>
          <p class="lead text-muted mt-3">Yuk coba sistem antrian online kami!</p>
       </div>
@@ -290,10 +299,10 @@
             <a href="" class="text-decoration-none">
                <div class="card card-hover h-100 text-center p-4">
                   <div class="card-body">
-                     <div class="mb-3" style="color: var(--primary);">
+                     <div class="mb-3" style="color: var(--bs-primary);">
                         <i class="bi bi-car-front-fill" style="font-size: 4rem;"></i>
                      </div>
-                     <h4 class="card-title fw-bold" style="color: var(--dark);">Wahana</h4>
+                     <h4 class="card-title fw-bold" style="color: var(--bs-body-color);">Wahana</h4>
                      <p class="card-text text-muted">Kamu bisa ngantri disini!</p>
                      <div class="mt-3">
                         <span class="btn btn-outline-primary btn-sm">Lihat Antrian</span>
@@ -307,10 +316,10 @@
             <a href="" class="text-decoration-none">
                <div class="card card-hover h-100 text-center p-4">
                   <div class="card-body">
-                     <div class="mb-3" style="color: var(--secondary);">
+                     <div class="mb-3" style="color: var(--bs-secondary);">
                         <i class="bi bi-house-door" style="font-size: 4rem;"></i>
                      </div>
-                     <h4 class="card-title fw-bold" style="color: var(--dark);">Restoran</h4>
+                     <h4 class="card-title fw-bold" style="color: var(--bs-body-color);">Restoran</h4>
                      <p class="card-text text-muted">Bisa juga ngantri disini!</p>
                      <div class="mt-3">
                         <span class="btn btn-outline-danger btn-sm">Lihat Antrian</span>
@@ -324,8 +333,8 @@
    <!-- Attractions Section -->
    <div class="container my-5">
       <div class="text-center mb-5">
-         <h3 class="fw-bold" style="color: var(--dark);">
-            Giliranku punya banyak <span style="color: var(--primary);">wahana</span> lho!
+         <h3 class="fw-bold" style="color: var(--bs-body-color);">
+            Giliranku punya banyak <span style="color: var(--bs-primary);">wahana</span> lho!
          </h3>
          <hr class="section-divider w-25 mx-auto">
       </div>

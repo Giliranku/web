@@ -21,104 +21,57 @@ class UserSeeder extends Seeder
             'number' => 29292929229,
         ]);
 
-        // Create additional realistic users for queue simulation
-        $users = [
-            [
-                'name' => 'Ahmad Santoso',
-                'email' => 'ahmad.santoso@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567890,
-            ],
-            [
-                'name' => 'Sari Dewi',
-                'email' => 'sari.dewi@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567891,
-            ],
-            [
-                'name' => 'Budi Pratama',
-                'email' => 'budi.pratama@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567892,
-            ],
-            [
-                'name' => 'Indira Putri',
-                'email' => 'indira.putri@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567893,
-            ],
-            [
-                'name' => 'Rizki Firmansyah',
-                'email' => 'rizki.firmansyah@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567894,
-            ],
-            [
-                'name' => 'Maya Salsabila',
-                'email' => 'maya.salsabila@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567895,
-            ],
-            [
-                'name' => 'Dedi Kurniawan',
-                'email' => 'dedi.kurniawan@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567896,
-            ],
-            [
-                'name' => 'Lia Wulandari',
-                'email' => 'lia.wulandari@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567897,
-            ],
-            [
-                'name' => 'Fajar Nugroho',
-                'email' => 'fajar.nugroho@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567898,
-            ],
-            [
-                'name' => 'Rini Astuti',
-                'email' => 'rini.astuti@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567899,
-            ],
-            [
-                'name' => 'Wahyu Setiawan',
-                'email' => 'wahyu.setiawan@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567800,
-            ],
-            [
-                'name' => 'Dina Marlina',
-                'email' => 'dina.marlina@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567801,
-            ],
-            [
-                'name' => 'Eko Prabowo',
-                'email' => 'eko.prabowo@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567802,
-            ],
-            [
-                'name' => 'Novi Permatasari',
-                'email' => 'novi.permatasari@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567803,
-            ],
-            [
-                'name' => 'Agus Susanto',
-                'email' => 'agus.susanto@gmail.com',
-                'password' => Hash::make('password123'),
-                'number' => 81234567804,
-            ],
+        // Create realistic users for comprehensive queue simulation - need many users for 30+ queues per location
+        // Create users using a systematic approach to avoid duplicates
+        $baseNames = [
+            'Ahmad', 'Budi', 'Citra', 'Dedi', 'Eka', 'Fajar', 'Gilang', 'Hani', 'Indira', 'Jasmine',
+            'Kevin', 'Luna', 'Malik', 'Nadia', 'Oscar', 'Priya', 'Qonita', 'Ryan', 'Sari', 'Taufik',
+            'Ulfa', 'Vina', 'Wulan', 'Yoga', 'Zahra', 'Aldi', 'Bella', 'Cakra', 'Diandra', 'Eko',
+            'Fita', 'Gilberd', 'Hana', 'Ivan', 'Jessica', 'Kiesha', 'Lestari', 'Maudy', 'Nikita', 'Olla',
+            'Paula', 'Queen', 'Raisa', 'Syahrini', 'Titi', 'Uya', 'Vanessa', 'Wendy', 'Yuki', 'Zaskia'
+        ];
+        
+        $suffixes = [
+            'Pratama', 'Sari', 'Putri', 'Wijaya', 'Santoso', 'Dewi', 'Firmansyah', 'Lestari', 'Nugroho', 'Astuti',
+            'Setiawan', 'Marlina', 'Prabowo', 'Permatasari', 'Susanto', 'Maharani', 'Prasetyo', 'Fadillah', 'Kencana', 'Budiman',
+            'Puspita', 'Hidayat', 'Wati', 'Bagus', 'Suardana', 'Wirawan', 'Putra', 'Gunawan', 'Ayu', 'Yoga',
+            'Mahendra', 'Eka', 'Artha', 'Indira', 'Adi', 'Anastasia', 'Hutapea', 'Simanjuntak', 'Silalahi', 'Situmorang',
+            'Panjaitan', 'Tarigan', 'Marbun', 'Simbolon', 'Siahaan', 'Pakpahan', 'Sinaga', 'Siregar', 'Turnip', 'Simatupang'
         ];
 
-        foreach ($users as $userData) {
-            User::create($userData);
+        $userCount = 0;
+        
+        // Generate unique combinations - create exactly 401 users for comprehensive testing  
+        for ($i = 0; $i < count($baseNames); $i++) {
+            for ($j = 0; $j < count($suffixes); $j++) { // Use all suffixes for maximum coverage
+                $name = $baseNames[$i] . ' ' . $suffixes[$j];
+                $emailSlug = strtolower(str_replace(' ', '.', $name));
+                
+                User::create([
+                    'name' => $name,
+                    'email' => $emailSlug . '.' . $userCount . '@gmail.com', // Add counter to ensure uniqueness
+                    'password' => Hash::make('password123'),
+                    'number' => 81234567000 + $userCount,
+                ]);
+                
+                $userCount++;
+                
+                // Create exactly 400 users (plus 1 test user = 401 total)
+                if ($userCount >= 400) break 2;
+            }
         }
 
-        $this->command->info('Created ' . (count($users) + 1) . ' users for queue simulation');
+        // Add additional numeric users if needed to reach exactly 400
+        while ($userCount < 400) {
+            User::create([
+                'name' => 'User ' . ($userCount + 1),
+                'email' => 'user.' . ($userCount + 1) . '@gmail.com',
+                'password' => Hash::make('password123'),
+                'number' => 81234567000 + $userCount,
+            ]);
+            $userCount++;
+        }
+
+        $this->command->info('Created ' . ($userCount + 1) . ' users for comprehensive queue simulation (401 total)');
     }
 }

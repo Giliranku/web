@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('livewire:navigated', function () {
     // Ambil semua tombol edit (untuk tiap field)
     document.querySelectorAll('.edit-field-btn').forEach(function (btn) {
         let isEdit = false; // state edit untuk masing-masing tombol

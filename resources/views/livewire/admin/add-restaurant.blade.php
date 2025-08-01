@@ -120,21 +120,6 @@
                                 </select>
                                 @error('location') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                            <div class="col-md-6">
-                                <label for="category" class="form-label fw-semibold">Kategori</label>
-                                <select wire:model="category" class="form-select" id="category">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Fast Food">Fast Food</option>
-                                    <option value="Casual Dining">Casual Dining</option>
-                                    <option value="Fine Dining">Fine Dining</option>
-                                    <option value="Café">Café</option>
-                                    <option value="Seafood">Seafood</option>
-                                    <option value="Indonesian">Indonesian</option>
-                                    <option value="International">International</option>
-                                    <option value="Snack & Beverage">Snack & Beverage</option>
-                                </select>
-                                @error('category') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
                         </div>
 
                         <!-- Kapasitas dan Estimasi Waktu -->

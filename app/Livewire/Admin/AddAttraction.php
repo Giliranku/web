@@ -11,7 +11,7 @@ class AddAttraction extends Component
 {
     use WithFileUploads;
 
-    public $name, $location, $capacity, $time_estimation, $description, $category, $staff_id;
+    public $name, $location, $capacity, $time_estimation, $description, $staff_id;
     public $cover, $img1, $img2, $img3;
 
     protected $rules = [
@@ -20,7 +20,6 @@ class AddAttraction extends Component
         'capacity' => 'required|integer|min:1',
         'time_estimation' => 'required|integer|min:1',
         'description' => 'required|string',
-        'category' => 'required|string',
         'staff_id' => 'nullable|exists:staff,id',
         'cover' => 'required|image|max:2048',
         'img1' => 'nullable|image|max:2048',
@@ -38,7 +37,6 @@ class AddAttraction extends Component
         'time_estimation.integer' => 'Estimasi waktu harus berupa angka.',
         'time_estimation.min' => 'Estimasi waktu minimal 1 menit.',
         'description.required' => 'Deskripsi wajib diisi.',
-        'category.required' => 'Kategori wajib diisi.',
         'cover.required' => 'Cover image wajib diunggah.',
         'cover.image' => 'Cover harus berupa gambar.',
         'cover.max' => 'Ukuran cover maksimal 2MB.',
@@ -58,8 +56,7 @@ class AddAttraction extends Component
             'capacity' => $this->capacity,
             'time_estimation' => $this->time_estimation,
             'description' => $this->description,
-            'category' => $this->category,
-            'staff_id' => $this->staff_id,
+            'staff_id' => $this->staff_id ?: null, // Convert empty string to null
             'cover' => $this->cover->store('attractions', 'public'),
         ];
 

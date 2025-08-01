@@ -90,4 +90,40 @@ class Sorting extends Component
                 return $items;
         }
     }
+
+    // Helper method untuk menangani path gambar
+    public function getImageUrl($imagePath)
+    {
+        if (!$imagePath) {
+            return asset('img/default-image.jpg'); // fallback image
+        }
+
+        // Jika gambar dari seeder (tanpa slash di depan dan tidak mengandung path storage)
+        if (!str_starts_with($imagePath, '/') && !str_contains($imagePath, 'storage/')) {
+            // Cek apakah file ada di public/img/
+            if (file_exists(public_path('img/' . $imagePath))) {
+                return asset('img/' . $imagePath);
+            }
+        }
+
+        // Jika gambar dari upload (mengandung storage/ atau dimulai dengan /)
+        if (str_contains($imagePath, 'storage/') || str_starts_with($imagePath, '/')) {
+            $cleanPath = str_replace(['storage/', '/storage/', 'public/'], '', $imagePath);
+            return asset('storage/' . $cleanPath);
+        }
+
+        // Jika path sudah lengkap dengan storage
+        if (str_starts_with($imagePath, 'storage/')) {
+            return asset($imagePath);
+        }
+
+        // Default: coba di storage terlebih dahulu
+        $storagePath = 'storage/' . $imagePath;
+        if (file_exists(public_path($storagePath))) {
+            return asset($storagePath);
+        }
+
+        // Fallback: coba di img
+        return asset('img/' . $imagePath);
+    }
 }

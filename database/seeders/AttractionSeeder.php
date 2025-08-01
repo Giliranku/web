@@ -14,7 +14,9 @@ class AttractionSeeder extends Seeder
      */
     public function run(): void
     {
-        $staffAttractions = Staff::where('role', 'staff_attraction')->get();
+        // Get attraction staff in order - each will be assigned to exactly one attraction
+        $staffAttractions = Staff::where('role', 'staff_attraction')->orderBy('id')->get();
+        
         $attractions = [
             [
                 'name' => 'DoAndFun',
@@ -26,8 +28,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana1.png',
                 'img2' => 'wahana/wahana-1.png',
                 'img3' => 'dufan.jpeg',
-                'players_per_round' => 4, // 4 orang per grup permainan
-                'estimated_time_per_round' => 15, // 15 menit per grup
+                'players_per_round' => 12, // Bumper car style - 12 pemain per ronde
+                'estimated_time_per_round' => 8, // 8 menit per ronde
             ],
             [
                 'name' => 'SpinReverse',
@@ -39,8 +41,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana2.png',
                 'img2' => 'wahana/wahana-2.png',
                 'img3' => 'kora-kora.jpg',
-                'players_per_round' => 6, // 6 orang per grup permainan
-                'estimated_time_per_round' => 12, // 12 menit per grup
+                'players_per_round' => 20, // Roller coaster style - 20 pemain per ronde
+                'estimated_time_per_round' => 10, // 10 menit per ronde
             ],
             [
                 'name' => 'Mercus Tower',
@@ -52,8 +54,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana3.png',
                 'img2' => 'wahana/wahana-3.png',
                 'img3' => 'ferrisWheel.png',
-                'players_per_round' => 8, // 8 orang per grup permainan
-                'estimated_time_per_round' => 18, // 18 menit per grup
+                'players_per_round' => 30, // Ferris wheel style - 30 pemain per ronde
+                'estimated_time_per_round' => 15, // 15 menit per ronde
             ],
             [
                 'name' => 'Atlantis Water Adventure',
@@ -65,8 +67,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'seaworld.jpeg',
                 'img2' => 'aw.png',
                 'img3' => 'ice-age.jpg',
-                'players_per_round' => 12, // 12 orang per grup permainan
-                'estimated_time_per_round' => 25, // 25 menit per grup
+                'players_per_round' => 25, // Water adventure - 25 pemain per ronde
+                'estimated_time_per_round' => 20, // 20 menit per ronde
             ],
             [
                 'name' => 'Arung Jeram',
@@ -78,16 +80,21 @@ class AttractionSeeder extends Seeder
                 'img1' => 'kegiatanseru1.jpg',
                 'img2' => 'kegiatanseru2.jpg',
                 'img3' => 'kegiatanseru3.jpg',
-                'players_per_round' => 5, // 5 orang per grup permainan
-                'estimated_time_per_round' => 20, // 20 menit per grup
+                'players_per_round' => 6, // Default - 6 pemain per ronde
+                'estimated_time_per_round' => 15, // 15 menit per ronde
             ],
         ];
+        
+        // Assign each attraction to exactly one staff member (one-to-one relationship)
         foreach ($attractions as $i => $data) {
-            $staff = $staffAttractions[$i % $staffAttractions->count()] ?? null;
-            if ($staff) {
-                $data['staff_id'] = $staff->id;
+            if (isset($staffAttractions[$i])) {
+                $data['staff_id'] = $staffAttractions[$i]->id;
+                Attraction::create($data);
+            } else {
+                // If we run out of staff, create attraction without staff assignment
+                // This shouldn't happen with the updated StaffSeeder
+                Attraction::create($data);
             }
-            Attraction::create($data);
         }
     }
 }

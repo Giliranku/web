@@ -3,22 +3,21 @@
 window.navbarData = function() {
   return {
     isScrolled: false,
-    cartCount: 0,
     init() {
-      this.hideCartBadgeIfZero();
-    },
-    hideCartBadgeIfZero() {
-      this.$nextTick(() => {
-        const badge = this.$refs.cartBadge;
-        this.cartCount = badge ? parseInt(badge.textContent) || 0 : 0;
+      // Initialize scroll listener only
+      
+      // Listen for cart updates from ProductCard
+      window.addEventListener('cart-updated', () => {
+        // Trigger Livewire refresh for cart count
+        @this.call('refreshCartCount');
       });
-    },
-    goToCart() {
-      @auth
-        window.location.href = '{{ route("cart-page") }}';
-      @else
-        window.location.href = '{{ route("login") }}';
-      @endauth
+      
+      // Also listen for Livewire cartUpdated event
+      document.addEventListener('livewire:init', () => {
+        Livewire.on('cartUpdated', () => {
+          @this.call('refreshCartCount');
+        });
+      });
     },
     logout() {
       if (confirm('Apakah Anda yakin ingin keluar?')) {
@@ -82,10 +81,31 @@ window.navbarData = function() {
       
       <div class="d-flex align-items-center gap-3">
         {{-- Cart Icon --}}
-        <div class="cart-icon" @click="goToCart()">
-          <i class="bi bi-cart-fill"></i>
-          <span class="cart-badge" x-ref="cartBadge" x-text="cartCount" x-show="cartCount > 0" style="display: none;">0</span>
-        </div>
+        @auth
+        <a href="{{ route('cart-page') }}" 
+           wire:navigate 
+           class="cart-icon text-decoration-none" 
+           title="Cart ({{ $cartCount }} items)"
+           style="pointer-events: auto !important; z-index: 999 !important;"
+           onclick="console.log('Cart clicked!'); return true;">
+          <i class="bi bi-cart-fill" style="pointer-events: none;"></i>
+          @if($cartCount > 0)
+            <span class="cart-badge" style="pointer-events: none;">{{ $cartCount }}</span>
+          @endif
+        </a>
+        @else
+        <a href="{{ route('login') }}" 
+           wire:navigate 
+           class="cart-icon text-decoration-none" 
+           title="Login to shop"
+           style="pointer-events: auto !important; z-index: 999 !important;"
+           onclick="console.log('Login clicked!'); return true;">
+          <i class="bi bi-cart-fill" style="pointer-events: none;"></i>
+          @if($cartCount > 0)
+            <span class="cart-badge" style="pointer-events: none;">{{ $cartCount }}</span>
+          @endif
+        </a>
+        @endauth
 
         <div class="navbar-divider d-none d-lg-block"></div>
 

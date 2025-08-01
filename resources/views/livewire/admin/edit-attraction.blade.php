@@ -5,34 +5,7 @@
     ])
 @endpush
 
-<div class="contain                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="capacity" class="form-label fw-semibold">Kapasitas</label>
-                                <input wire:model="capacity" type="number" class="form-control" id="capacity" placeholder="0" min="1">
-                                @error('capacity') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="time_estimation" class="form-label fw-semibold">Estimasi Waktu (menit)</label>
-                                <input wire:model="time_estimation" type="number" class="form-control" id="time_estimation" placeholder="0" min="1">
-                                @error('time_estimation') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                        </div>
-
-                        <!-- Queue Management Settings -->
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="players_per_round" class="form-label fw-semibold">Jumlah Pemain per 1 Grup Permainan</label>
-                                <input wire:model="players_per_round" type="number" class="form-control" id="players_per_round" placeholder="1" min="1">
-                                @error('players_per_round') <span class="text-danger">{{ $message }}</span> @enderror
-                                <div class="form-text">Berapa orang yang bisa bermain dalam 1 grup permainan</div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="estimated_time_per_round" class="form-label fw-semibold">Waktu per 1 Grup Permainan (menit)</label>
-                                <input wire:model="estimated_time_per_round" type="number" class="form-control" id="estimated_time_per_round" placeholder="10" min="1">
-                                @error('estimated_time_per_round') <span class="text-danger">{{ $message }}</span> @enderror
-                                <div class="form-text">Estimasi waktu untuk 1 grup permainan</div>
-                            </div>
-                        </div>stify-content-center align-items-center min-vh-100">
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="w-100 h-100" style="max-width: 1400px;">
         <div class="modal-content p-4 shadow rounded">
             <!-- Header -->
@@ -56,7 +29,7 @@
                                 @if ($new_cover)
                                     <img src="{{ $new_cover->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                 @elseif($attraction->cover)
-                                    <img src="{{ asset('storage/' . $attraction->cover) }}" alt="Current Cover" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                    <img src="{{ $this->getImageUrl($attraction->cover) }}" alt="Current Cover" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                 @else
                                     <i class="fas fa-image fs-1 text-muted"></i>
                                 @endif
@@ -89,7 +62,7 @@
                                         @if ($new_img1)
                                             <img src="{{ $new_img1->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @elseif($attraction->img1)
-                                            <img src="{{ asset('storage/' . $attraction->img1) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                            <img src="{{ $this->getImageUrl($attraction->img1) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @else
                                             <i class="fas fa-plus text-muted"></i>
                                         @endif
@@ -104,7 +77,7 @@
                                         @if ($new_img2)
                                             <img src="{{ $new_img2->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @elseif($attraction->img2)
-                                            <img src="{{ asset('storage/' . $attraction->img2) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                            <img src="{{ $this->getImageUrl($attraction->img2) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @else
                                             <i class="fas fa-plus text-muted"></i>
                                         @endif
@@ -119,7 +92,7 @@
                                         @if ($new_img3)
                                             <img src="{{ $new_img3->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @elseif($attraction->img3)
-                                            <img src="{{ asset('storage/' . $attraction->img3) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
+                                            <img src="{{ $this->getImageUrl($attraction->img3) }}" alt="Current Image" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
                                         @else
                                             <i class="fas fa-plus text-muted"></i>
                                         @endif
@@ -139,9 +112,9 @@
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
 
-                        <!-- Lokasi dan Kategori -->
+                        <!-- Lokasi -->
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <label for="location" class="form-label fw-semibold">Lokasi</label>
                                 <select wire:model="location" class="form-select" id="location">
                                     <option value="">Pilih Lokasi</option>
@@ -154,19 +127,6 @@
                                     <option value="Jakarta Bird Land Ancol">Jakarta Bird Land Ancol</option>
                                 </select>
                                 @error('location') <span class="text-danger">{{ $message }}</span> @enderror
-                            </div>
-                            <div class="col-md-6">
-                                <label for="category" class="form-label fw-semibold">Kategori</label>
-                                <select wire:model="category" class="form-select" id="category">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Wahana Air">Wahana Air</option>
-                                    <option value="Wahana Darat">Wahana Darat</option>
-                                    <option value="Wahana Anak">Wahana Anak</option>
-                                    <option value="Wahana Ekstrem">Wahana Ekstrem</option>
-                                    <option value="Edukasi">Edukasi</option>
-                                    <option value="Pertunjukan">Pertunjukan</option>
-                                </select>
-                                @error('category') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                         </div>
 
@@ -181,6 +141,22 @@
                                 <label for="time_estimation" class="form-label fw-semibold">Estimasi Waktu (menit)</label>
                                 <input wire:model="time_estimation" type="number" class="form-control" id="time_estimation" placeholder="0" min="1">
                                 @error('time_estimation') <span class="text-danger">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+
+                        <!-- Queue Management Settings -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="players_per_round" class="form-label fw-semibold">Jumlah Pemain per 1 Grup Permainan</label>
+                                <input wire:model="players_per_round" type="number" class="form-control" id="players_per_round" placeholder="1" min="1">
+                                @error('players_per_round') <span class="text-danger">{{ $message }}</span> @enderror
+                                <div class="form-text">Berapa orang yang bisa bermain dalam 1 grup permainan</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="estimated_time_per_round" class="form-label fw-semibold">Waktu per 1 Grup Permainan (menit)</label>
+                                <input wire:model="estimated_time_per_round" type="number" class="form-control" id="estimated_time_per_round" placeholder="10" min="1">
+                                @error('estimated_time_per_round') <span class="text-danger">{{ $message }}</span> @enderror
+                                <div class="form-text">Estimasi waktu untuk 1 grup permainan</div>
                             </div>
                         </div>
 

@@ -13,7 +13,7 @@ class EditAttraction extends Component
     use WithFileUploads;
 
     public Attraction $attraction;
-    public $name, $location, $capacity, $time_estimation, $description, $category, $staff_id;
+    public $name, $location, $capacity, $time_estimation, $description, $staff_id;
     public $players_per_round, $estimated_time_per_round;
     public $new_cover, $new_img1, $new_img2, $new_img3;
 
@@ -25,7 +25,6 @@ class EditAttraction extends Component
         'players_per_round' => 'required|integer|min:1',
         'estimated_time_per_round' => 'required|integer|min:1',
         'description' => 'required|string',
-        'category' => 'required|string',
         'staff_id' => 'nullable|exists:staff,id',
         'new_cover' => 'nullable|image|max:2048',
         'new_img1' => 'nullable|image|max:2048',
@@ -43,7 +42,6 @@ class EditAttraction extends Component
         $this->players_per_round = $attraction->players_per_round ?? 1;
         $this->estimated_time_per_round = $attraction->estimated_time_per_round ?? 10;
         $this->description = $attraction->description;
-        $this->category = $attraction->category;
         $this->staff_id = $attraction->staff_id;
     }
 
@@ -59,8 +57,7 @@ class EditAttraction extends Component
             'players_per_round' => $this->players_per_round,
             'estimated_time_per_round' => $this->estimated_time_per_round,
             'description' => $this->description,
-            'category' => $this->category,
-            'staff_id' => $this->staff_id,
+            'staff_id' => $this->staff_id ?: null, // Convert empty string to null
         ];
 
         if ($this->new_cover) {
@@ -94,6 +91,26 @@ class EditAttraction extends Component
         $this->attraction->update($data);
 
         return redirect()->route('admin.attractions.index')->with('success', 'Wahana berhasil diperbarui.');
+    }
+
+    public function getImageUrl($imagePath)
+    {
+        if (!$imagePath) {
+            return null;
+        }
+
+        // Check if it's an external URL
+        if (str_starts_with($imagePath, 'http')) {
+            return $imagePath;
+        }
+
+        // Check if it contains slash (storage path)
+        if (str_contains($imagePath, '/')) {
+            return asset('storage/' . $imagePath);
+        }
+
+        // If no slash, it's probably from seeder in public/img directory
+        return asset('img/' . $imagePath);
     }
 
     public function render()

@@ -39,11 +39,33 @@ class User extends Authenticatable
 
     public function attractions()
     {
-        return $this->belongsToMany(Attraction::class, 'user_attractions')->using(UserAttraction::class);
+        return $this->belongsToMany(Attraction::class, 'user_attractions')
+            ->using(UserAttraction::class)
+            ->withPivot([
+                'id',
+                'invoice_id',
+                'slot_number',
+                'queue_position',
+                'reservation_date',
+                'reservation_time',
+                'status'
+            ])
+            ->withTimestamps();
     }
 
     public function restaurants(){
-        return $this->belongsToMany(Restaurant::class, 'user_restaurants')->using(UserRestaurant::class);
+        return $this->belongsToMany(Restaurant::class, 'user_restaurants')
+            ->using(UserRestaurant::class)
+            ->withPivot([
+                'id',
+                'invoice_id',
+                'slot_number',
+                'queue_position',
+                'reservation_date',
+                'reservation_time',
+                'status'
+            ])
+            ->withTimestamps();
     }
 
     /**

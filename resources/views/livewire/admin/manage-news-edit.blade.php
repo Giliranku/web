@@ -224,7 +224,7 @@
 @push('scripts')
     <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('livewire:navigated', function() {
             const trixEditor = document.querySelector('trix-editor');
             const contentInput = document.getElementById('content');
 

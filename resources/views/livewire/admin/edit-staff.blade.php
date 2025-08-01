@@ -109,11 +109,11 @@
                         <!-- Role -->
                         <div class="mb-3">
                             <label for="role" class="form-label fw-semibold">Role</label>
-                            <select wire:model="role" class="form-select" id="role">
+                            <select wire:model.live="role" class="form-select" id="role">
                                 <option value="">Pilih Role</option>
                                 <option value="admin">Admin</option>
-                                <option value="manager">Manager</option>
-                                <option value="staff">Staff</option>
+                                <option value="staff_restaurant">Staff Restaurant</option>
+                                <option value="staff_attraction">Staff Attraction</option>
                             </select>
                             @error('role') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
@@ -128,6 +128,50 @@
                                     @endif
                                     @if($staff->restaurant)
                                         <p class="mb-0"><i class="fas fa-utensils me-1"></i>Mengelola Restoran: <strong>{{ $staff->restaurant->name }}</strong></p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Assignment Management -->
+                        @if($role === 'staff_restaurant' || $role === 'staff_attraction')
+                            <div class="card mb-3">
+                                <div class="card-header">
+                                    <h6 class="mb-0">
+                                        <i class="fas fa-tasks me-1"></i>
+                                        Penugasan {{ $role === 'staff_restaurant' ? 'Restoran' : 'Wahana' }}
+                                    </h6>
+                                    <small class="text-muted">Satu staff hanya dapat mengelola satu {{ $role === 'staff_restaurant' ? 'restoran' : 'wahana' }}</small>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Assignment Selection -->
+                                    <div class="mb-3">
+                                        <label for="assignment_id" class="form-label fw-semibold">
+                                            Pilih {{ $role === 'staff_restaurant' ? 'Restoran' : 'Wahana' }}
+                                        </label>
+                                        <select wire:model="assignment_id" class="form-select" id="assignment_id">
+                                            <option value="">Tidak Ada Penugasan</option>
+                                            @foreach($availableLocations as $location)
+                                                <option value="{{ $location->id }}">
+                                                    {{ $location->name }}
+                                                    @if($location->staff_id && $location->staff_id !== $staff->id)
+                                                        (Sudah dikelola)
+                                                    @elseif($location->staff_id === $staff->id)
+                                                        (Saat ini dikelola)
+                                                    @else
+                                                        (Tersedia)
+                                                    @endif
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('assignment_id') <span class="text-danger">{{ $message }}</span> @enderror
+                                    </div>
+
+                                    @if($availableLocations->isEmpty())
+                                        <div class="alert alert-warning">
+                                            <i class="fas fa-exclamation-triangle me-1"></i>
+                                            Tidak ada {{ $role === 'staff_restaurant' ? 'restoran' : 'wahana' }} yang tersedia untuk penugasan.
+                                        </div>
                                     @endif
                                 </div>
                             </div>

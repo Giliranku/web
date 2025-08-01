@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Ticket;
+use App\Livewire\Partial\Navbar;
 use Livewire\Attributes\On;
 
 class ProductCard extends Component
@@ -57,8 +58,14 @@ class ProductCard extends Component
             'quantity' => $this->quantity
         ]);
 
-        // Tell other components (like the main cart total) that an update happened
+        // Dispatch global event for all components to listen
         $this->dispatch('cartUpdated');
+        
+        // Browser event as fallback for cross-component communication
+        $this->js('window.dispatchEvent(new CustomEvent("cart-updated"))');
+        
+        // Force refresh navbar specifically
+        $this->dispatch('cartUpdated')->to(Navbar::class);
     }
 
     public function render()

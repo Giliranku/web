@@ -1,28 +1,27 @@
-/* Tiket E-commerce Styles */
+/* Tiket E-commerce Styles - Dark Mode Compatible */
 :root {
-    --primary: #4ABDAC;
-    --secondary: #FC4A1A; 
-    --warning: #F7B733;
-    --light: #FFFFFF;
-    --dark: #000000;
+    --primary: var(--bs-primary);
+    --secondary: var(--bs-secondary); 
+    --warning: var(--bs-warning);
+    --light: var(--bs-light);
+    --dark: var(--bs-dark);
 }
 
 .hero-ecommerce {
-    background: linear-gradient(135deg, var(--primary), #3a9d94);
-    color: white;
+    background: linear-gradient(135deg, var(--primary), #3a9d94);    color: var(--bs-light);
     padding: 4rem 0;
     margin-bottom: 3rem;
 }
 
 .search-card {
-    background: linear-gradient(135deg, var(--light), #f8f9fa);
-    border: 2px solid var(--primary);
+    background: var(--bs-body-bg);
+    border: 2px solid var(--bs-primary);
     border-radius: 20px;
     transition: all 0.3s ease;
 }
 
 .search-card:hover {
-    box-shadow: 0 10px 30px rgba(74, 189, 172, 0.2);
+    box-shadow: 0 10px 30px var(--bs-primary-bg-subtle);
     transform: translateY(-2px);
 }
 
@@ -31,18 +30,18 @@
     border-radius: 20px;
     transition: all 0.3s ease;
     overflow: hidden;
-    background: white;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    background: var(--bs-body-bg);
+    box-shadow: var(--bs-box-shadow);
 }
 
 .ticket-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(74, 189, 172, 0.15);
+    box-shadow: var(--bs-box-shadow-lg);
 }
 
 .promo-badge {
-    background: linear-gradient(45deg, var(--secondary), #e03d0f);
-    color: white;
+    background: linear-gradient(45deg, var(--bs-secondary), var(--bs-secondary-dark));
+    color: var(--bs-light);
     border-radius: 15px;
     padding: 8px 16px;
     font-weight: 600;
@@ -138,7 +137,7 @@
 }
 
 .cart-section {
-    background: linear-gradient(135deg, #f8f9fa, var(--light));
+    /* background: linear-gradient(135deg, #f8f9fa, var(--light)); */
     border-radius: 20px;
     padding: 2rem;
     margin-top: 3rem;
