@@ -83,6 +83,8 @@
 </head>
 <body x-data x-bind:class="{ 'sidebar-collapsed': $store.sidebar.collapsed }" class="overflow-x-hidden">
     <livewire:partial.attraction-sidebar/>
+    
+        <livewire:partial.accessibility-widget />
     <div id="mainContent" class="main-content" x-cloak>
         <main id="main-slot-content">
             {{ $slot }}

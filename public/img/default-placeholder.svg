@@ -1,0 +1,8 @@
+<!-- Default placeholder SVG for missing ticket images -->
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#f8f9fa"/>
+    <rect x="40" y="60" width="120" height="80" rx="8" fill="#4ABDAC"/>
+    <circle cx="100" cy="100" r="20" fill="white"/>
+    <path d="M90 100L96 106L110 92" stroke="#4ABDAC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="100" y="160" text-anchor="middle" fill="#6c757d" font-family="Arial, sans-serif" font-size="12">Tiket Giliranku</text>
+</svg>

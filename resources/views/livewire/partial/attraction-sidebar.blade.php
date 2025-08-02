@@ -45,20 +45,20 @@
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
         <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
             <li class="nav-item">
-                <a href="/staff/attraction/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.attraction.dashboard') ? 'active' : 'text-body-secondary' }}">
+                <a href="/staff/attraction/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('staff/attraction/dashboard') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Dasbor</span>
                 </a>
             </li>
             @if($attraction)
                 <li class="nav-item">
-                    <a href="/staff/attraction/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.attraction.edit') ? 'active' : 'text-body-secondary' }}">
+                    <a href="/staff/attraction/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('staff/attraction/edit*') ? 'active' : 'text-body-secondary' }}">
                         <i class="bi bi-pencil-square"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Wahana</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/staff/attraction/queue/{{ $attraction->id }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.attraction.queue') ? 'active' : 'text-body-secondary' }}">
+                    <a href="/staff/attraction/queue/{{ $attraction->id }}" wire:navigate class="nav-link d-flex align-items-center {{ str_contains(request()->path(), 'staff/attraction/queue') ? 'active' : 'text-body-secondary' }}">
                         <i class="bi bi-people"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                     </a>
@@ -85,7 +85,9 @@
         class="border-top p-2 d-flex flex-column gap-2 flex-shrink-0"
         :class="$store.sidebar.collapsed ? 'align-items-center' : ''"
         class="sidebar-bg-fix">
-        <button 
+        <a 
+            href="/staff/support" 
+            wire:navigate
             class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
@@ -98,7 +100,7 @@
                     ? 'max-width:0; opacity:0; margin-left:0;' 
                     : 'max-width:130px; opacity:1; margin-left:0;'"
             >Bantuan</span>
-        </button>
+        </a>
         <a 
             href="/staff/profile" 
             wire:navigate
@@ -136,3 +138,51 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('livewire:navigated', () => {
+    // Update active states after Livewire navigation
+    updateAttractionSidebarActiveStates();
+});
+
+function updateAttractionSidebarActiveStates() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        let isActive = false;
+        
+        // Check for exact match first
+        if (href === currentPath) {
+            isActive = true;
+        }
+        // Check for queue paths with parameters
+        else if (currentPath.includes('/staff/attraction/queue/') && href && href.includes('/staff/attraction/queue/')) {
+            isActive = true;
+        }
+        // Check for edit paths
+        else if (currentPath.includes('/staff/attraction/edit') && href && href.includes('/staff/attraction/edit')) {
+            isActive = true;
+        }
+        // Check for dashboard
+        else if (currentPath === '/staff/attraction/dashboard' && href && href.includes('/staff/attraction/dashboard')) {
+            isActive = true;
+        }
+        
+        // Update classes
+        if (isActive) {
+            link.classList.remove('text-body-secondary');
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+            link.classList.add('text-body-secondary');
+        }
+    });
+}
+
+// Run on initial load
+document.addEventListener('DOMContentLoaded', updateAttractionSidebarActiveStates);
+</script>
+@endpush>

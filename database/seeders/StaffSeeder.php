@@ -30,94 +30,55 @@ class StaffSeeder extends Seeder
             'role' => 'admin',
         ]);
 
-        // Restaurant staff - one for each restaurant (6 total)
-        Staff::create([
-            'name' => 'Restaurant Manager 1',
-            'email' => 'restaurant1@giliranku.com',
-            'number' => '089646528016',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_restaurant',
-        ]);
-        
-        Staff::create([
-            'name' => 'Restaurant Manager 2',
-            'email' => 'restaurant2@giliranku.com',
-            'number' => '089646528018',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_restaurant',
-        ]);
-        
-        Staff::create([
-            'name' => 'Restaurant Manager 3',
-            'email' => 'restaurant3@giliranku.com',
-            'number' => '089646528022',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_restaurant',
-        ]);
-        
-        Staff::create([
-            'name' => 'Restaurant Manager 4',
-            'email' => 'restaurant4@giliranku.com',
-            'number' => '089646528024',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_restaurant',
-        ]);
-        
-        Staff::create([
-            'name' => 'Restaurant Manager 5',
-            'email' => 'restaurant5@giliranku.com',
-            'number' => '089646528025',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_restaurant',
-        ]);
-        
-        Staff::create([
-            'name' => 'Restaurant Manager 6',
-            'email' => 'restaurant6@giliranku.com',
-            'number' => '089646528027',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_restaurant',
-        ]);
+        // Restaurant staff - one for each restaurant (now we have 13 restaurants)
+        $restaurantStaff = [
+            ['name' => 'KFC Manager', 'email' => 'kfc@giliranku.com'],
+            ['name' => 'McDonald\'s Manager', 'email' => 'mcdonalds@giliranku.com'],
+            ['name' => 'Pizza Hut Manager', 'email' => 'pizzahut@giliranku.com'],
+            ['name' => 'Chatime Manager', 'email' => 'chatime@giliranku.com'],
+            ['name' => 'Roti O Manager', 'email' => 'rotio@giliranku.com'],
+            ['name' => 'Raa Cha Manager', 'email' => 'raacha@giliranku.com'],
+            ['name' => 'Starbucks Manager', 'email' => 'starbucks@giliranku.com'],
+            ['name' => 'Solaria Manager', 'email' => 'solaria@giliranku.com'],
+            ['name' => 'Burger King Manager', 'email' => 'burgerking@giliranku.com'],
+            ['name' => 'Sushi Tei Manager', 'email' => 'sushitei@giliranku.com'],
+            ['name' => 'Padang Manager', 'email' => 'padang@giliranku.com'],
+            ['name' => 'Bakso Malang Manager', 'email' => 'bakso@giliranku.com'],
+            ['name' => 'Es Teler Manager', 'email' => 'esteler@giliranku.com'],
+        ];
 
-        // Attraction staff - one for each attraction (5 total)
-        Staff::create([
-            'name' => 'Attraction Manager 1',
-            'email' => 'attraction1@giliranku.com',
-            'number' => '089646528019',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_attraction',
-        ]);
-        
-        Staff::create([
-            'name' => 'Attraction Manager 2',
-            'email' => 'attraction2@giliranku.com',
-            'number' => '089646528020',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_attraction',
-        ]);
-        
-        Staff::create([
-            'name' => 'Attraction Manager 3',
-            'email' => 'attraction3@giliranku.com',
-            'number' => '089646528023',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_attraction',
-        ]);
-        
-        Staff::create([
-            'name' => 'Attraction Manager 4',
-            'email' => 'attraction4@giliranku.com',
-            'number' => '089646528026',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_attraction',
-        ]);
-        
-        Staff::create([
-            'name' => 'Attraction Manager 5',
-            'email' => 'attraction5@giliranku.com',
-            'number' => '089646528028',
-            'password' => bcrypt('password123'),
-            'role' => 'staff_attraction',
-        ]);
+        foreach ($restaurantStaff as $index => $staff) {
+            Staff::create([
+                'name' => $staff['name'],
+                'email' => $staff['email'],
+                'number' => '089647' . str_pad(528001 + $index, 6, '0', STR_PAD_LEFT),
+                'password' => bcrypt('password123'),
+                'role' => 'staff_restaurant',
+            ]);
+        }
+
+        // Attraction staff - one for each attraction (now we have 10 attractions)
+        $attractionStaff = [
+            ['name' => 'DoAndFun Manager', 'email' => 'doandfun@giliranku.com'],
+            ['name' => 'SpinReverse Manager', 'email' => 'spinreverse@giliranku.com'],
+            ['name' => 'Mercus Tower Manager', 'email' => 'mercustower@giliranku.com'],
+            ['name' => 'Atlantis Manager', 'email' => 'atlantis@giliranku.com'],
+            ['name' => 'Arung Jeram Manager', 'email' => 'arungjeram@giliranku.com'],
+            ['name' => 'Sky Warrior Manager', 'email' => 'skywarrior@giliranku.com'],
+            ['name' => 'Thunder Storm Manager', 'email' => 'thunderstorm@giliranku.com'],
+            ['name' => 'Magic Carpet Manager', 'email' => 'magiccarpet@giliranku.com'],
+            ['name' => 'Bumper Car Manager', 'email' => 'bumpercar@giliranku.com'],
+            ['name' => 'Haunted Mansion Manager', 'email' => 'haunted@giliranku.com'],
+        ];
+
+        foreach ($attractionStaff as $index => $staff) {
+            Staff::create([
+                'name' => $staff['name'],
+                'email' => $staff['email'],
+                'number' => '089648' . str_pad(528001 + $index, 6, '0', STR_PAD_LEFT),
+                'password' => bcrypt('password123'),
+                'role' => 'staff_attraction',
+            ]);
+        }
     }
 }

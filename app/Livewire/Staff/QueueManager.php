@@ -66,14 +66,14 @@ class QueueManager extends Component
             $this->queues = UserAttraction::with('user')
                 ->where('attraction_id', $this->location_id)
                 ->forDate($this->selected_date)
-                ->orderByQueue()
+                ->orderByPriority() // Use new priority ordering that handles Fast Pass
                 ->get()
                 ->toArray();
         } else {
             $this->queues = UserRestaurant::with('user')
                 ->where('restaurant_id', $this->location_id)
                 ->forDate($this->selected_date)
-                ->orderByQueue()
+                ->orderByPriority() // Use new priority ordering that handles Fast Pass
                 ->get()
                 ->toArray();
         }
@@ -93,7 +93,16 @@ class QueueManager extends Component
     
     public function callNext()
     {
-        $nextQueue = collect($this->queues)->where('status', 'waiting')->first();
+        // Prioritize Fast Pass first, then regular
+        $waitingQueues = collect($this->queues)->where('status', 'waiting');
+        
+        // Check for Fast Pass waiting first
+        $nextQueue = $waitingQueues->where('priority_level', 1)->first();
+        
+        // If no Fast Pass waiting, get regular queue
+        if (!$nextQueue) {
+            $nextQueue = $waitingQueues->where('priority_level', 2)->first();
+        }
         
         if ($nextQueue) {
             if ($this->type === 'attraction') {
@@ -103,7 +112,8 @@ class QueueManager extends Component
             }
             
             $this->loadQueues();
-            $this->dispatch('queue-updated', ['message' => 'Antrian selanjutnya telah dipanggil']);
+            $priorityType = $nextQueue['priority_level'] == 1 ? 'Fast Pass' : 'Regular';
+            $this->dispatch('queue-updated', ['message' => "Antrian {$priorityType} selanjutnya telah dipanggil"]);
         }
     }
 
@@ -111,10 +121,24 @@ class QueueManager extends Component
     public function callNextBatch()
     {
         $playersPerRound = $this->location->players_per_round ?? 1;
-        $waitingQueues = collect($this->queues)->where('status', 'waiting')->take($playersPerRound);
+        $waitingQueues = collect($this->queues)->where('status', 'waiting');
         
-        if ($waitingQueues->isNotEmpty()) {
-            $queueIds = $waitingQueues->pluck('id')->toArray();
+        // Prioritize Fast Pass users first, then regular users
+        $fastPassQueues = $waitingQueues->where('priority_level', 1);
+        $regularQueues = $waitingQueues->where('priority_level', 2);
+        
+        // Combine: Fast Pass first, then fill with regular if needed
+        $selectedQueues = $fastPassQueues->take($playersPerRound);
+        
+        if ($selectedQueues->count() < $playersPerRound) {
+            $remainingSlots = $playersPerRound - $selectedQueues->count();
+            $selectedQueues = $selectedQueues->merge(
+                $regularQueues->take($remainingSlots)
+            );
+        }
+        
+        if ($selectedQueues->isNotEmpty()) {
+            $queueIds = $selectedQueues->pluck('id')->toArray();
             
             if ($this->type === 'attraction') {
                 UserAttraction::whereIn('id', $queueIds)->update(['status' => 'called']);
@@ -124,7 +148,19 @@ class QueueManager extends Component
             
             $this->loadQueues();
             $calledCount = count($queueIds);
-            $this->dispatch('queue-updated', ['message' => "{$calledCount} antrian telah dipanggil untuk grup permainan ini"]);
+            $fastPassCount = $selectedQueues->where('priority_level', 1)->count();
+            $regularCount = $selectedQueues->where('priority_level', 2)->count();
+            
+            $message = "{$calledCount} antrian telah dipanggil";
+            if ($fastPassCount > 0 && $regularCount > 0) {
+                $message .= " ({$fastPassCount} Fast Pass, {$regularCount} Regular)";
+            } elseif ($fastPassCount > 0) {
+                $message .= " (semua Fast Pass)";
+            } else {
+                $message .= " (semua Regular)";
+            }
+            
+            $this->dispatch('queue-updated', ['message' => $message]);
         }
     }
 

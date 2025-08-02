@@ -58,9 +58,8 @@
     @stack('scripts')
 </head>
 <body x-data x-bind:class="{ 'sidebar-collapsed': $store.sidebar.collapsed }" class="overflow-x-hidden">
-    @persist('admin-sidebar')
-        <livewire:partial.admin-sidebar/>
-    @endpersist
+    <livewire:partial.admin-sidebar/>
+    <livewire:partial.accessibility-widget />
     <div id="mainContent" class="main-content" x-cloak>
         <main id="main-slot-content">
             {{ $slot }}

@@ -139,10 +139,11 @@ document.addEventListener('livewire:initialized', function() {
                             <!-- Ticket Image -->
                             <div class="col-md-5">
                                 <div class="ticket-image-container h-100">
-                                    <img src="{{ asset($product->logo) }}" 
+                                    <img src="{{ $product->getLogoUrl() }}" 
                                          class="img-fluid" 
                                          style="max-width: 140px; max-height: 100px; object-fit: contain;" 
-                                         alt="{{ $product->name }}">
+                                         alt="{{ $product->name }}"
+                                         onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                                 </div>
                             </div>
                             
@@ -231,10 +232,11 @@ document.addEventListener('livewire:initialized', function() {
                             <div class="d-flex align-items-center w-100">
                                 <div class="me-4">
                                     <div class="bg-white bg-opacity-20 rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                                        <img src="{{ asset($product->logo) }}" 
+                                        <img src="{{ $product->getLogoUrl() }}" 
                                              class="img-fluid" 
                                              style="max-width: 50px; max-height: 50px; object-fit: contain;" 
-                                             alt="{{ $product->name }}">
+                                             alt="{{ $product->name }}"
+                                             onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

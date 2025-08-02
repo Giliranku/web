@@ -193,6 +193,18 @@
                         </div>
 
                         <div class="mb-4">
+                            <label for="category" class="form-label">Kategori Berita</label>
+                            <select wire:model.defer="category" class="form-control" id="category">
+                                <option value="">Pilih Kategori</option>
+                                <option value="info">Info Giliranku</option>
+                                <option value="promo">Promo Spesial</option>
+                                <option value="kegiatan">Kegiatan Seru</option>
+                                <option value="wahana">Info Wahana</option>
+                            </select>
+                            @error('category') <span class="text-danger small">{{ $message }}</span> @enderror
+                        </div>
+
+                        <div class="mb-4">
                             <label for="description" class="form-label">Deskripsi Singkat</label>
                             <textarea class="form-control" id="description" rows="4" wire:model.defer="description" 
                                       placeholder="Tulis deskripsi singkat berita..."></textarea>

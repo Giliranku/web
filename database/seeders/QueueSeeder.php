@@ -105,6 +105,8 @@ class QueueSeeder extends Seeder
             if ($i >= count($userBatchArray)) break;
             
             $reservationTime = $baseTime->copy()->addMinutes($i * 5);
+            // 30% chance of Fast Pass for served users
+            $priorityLevel = rand(1, 10) <= 3 ? 1 : 2;
             
             UserRestaurant::create([
                 'user_id' => $userBatchArray[$i]['id'],
@@ -112,6 +114,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'served',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -126,6 +129,8 @@ class QueueSeeder extends Seeder
             if ($i >= count($userBatchArray)) break;
             
             $reservationTime = $baseTime->copy()->addMinutes($i * 5);
+            // 25% chance of Fast Pass for called users
+            $priorityLevel = rand(1, 10) <= 2.5 ? 1 : 2;
             
             UserRestaurant::create([
                 'user_id' => $userBatchArray[$i]['id'],
@@ -133,6 +138,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'called',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -147,6 +153,8 @@ class QueueSeeder extends Seeder
             if ($i >= count($userBatchArray)) break;
             
             $reservationTime = $baseTime->copy()->addMinutes($i * 5);
+            // 20% chance of Fast Pass for waiting users (more realistic for queues)
+            $priorityLevel = rand(1, 10) <= 2 ? 1 : 2;
             
             UserRestaurant::create([
                 'user_id' => $userBatchArray[$i]['id'],
@@ -154,6 +162,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'waiting',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -170,6 +179,8 @@ class QueueSeeder extends Seeder
             if (!$cancelledUser) break;
             
             $reservationTime = $baseTime->copy()->addMinutes(($totalUsers + $i) * 5);
+            // 15% chance of Fast Pass for cancelled users (less likely to cancel)
+            $priorityLevel = rand(1, 10) <= 1.5 ? 1 : 2;
             
             UserRestaurant::create([
                 'user_id' => $cancelledUser->id,
@@ -177,6 +188,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'cancelled',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -255,6 +267,8 @@ class QueueSeeder extends Seeder
             if ($i >= count($userBatchArray)) break;
             
             $reservationTime = $baseTime->copy()->addMinutes($i * 3);
+            // 30% chance of Fast Pass for served users
+            $priorityLevel = rand(1, 10) <= 3 ? 1 : 2;
             
             UserAttraction::create([
                 'user_id' => $userBatchArray[$i]['id'],
@@ -262,6 +276,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'served',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -276,6 +291,8 @@ class QueueSeeder extends Seeder
             if ($i >= count($userBatchArray)) break;
             
             $reservationTime = $baseTime->copy()->addMinutes($i * 3);
+            // 25% chance of Fast Pass for called users
+            $priorityLevel = rand(1, 10) <= 2.5 ? 1 : 2;
             
             UserAttraction::create([
                 'user_id' => $userBatchArray[$i]['id'],
@@ -283,6 +300,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'called',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -297,6 +315,8 @@ class QueueSeeder extends Seeder
             if ($i >= count($userBatchArray)) break;
             
             $reservationTime = $baseTime->copy()->addMinutes($i * 3);
+            // 20% chance of Fast Pass for waiting users
+            $priorityLevel = rand(1, 10) <= 2 ? 1 : 2;
             
             UserAttraction::create([
                 'user_id' => $userBatchArray[$i]['id'],
@@ -304,6 +324,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'waiting',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),
@@ -320,6 +341,8 @@ class QueueSeeder extends Seeder
             if (!$cancelledUser) break;
             
             $reservationTime = $baseTime->copy()->addMinutes(($totalUsers + $i) * 3);
+            // 15% chance of Fast Pass for cancelled users
+            $priorityLevel = rand(1, 10) <= 1.5 ? 1 : 2;
             
             UserAttraction::create([
                 'user_id' => $cancelledUser->id,
@@ -327,6 +350,7 @@ class QueueSeeder extends Seeder
                 'queue_position' => $queuePosition++,
                 'slot_number' => $queuePosition - 1,
                 'status' => 'cancelled',
+                'priority_level' => $priorityLevel,
                 'invoice_id' => $invoices->random()->id,
                 'reservation_date' => Carbon::today(),
                 'reservation_time' => $reservationTime->format('H:i'),

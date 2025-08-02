@@ -86,7 +86,15 @@ class CartPageCheckout extends Component
     public function mount()
     {
         // Initial calculation on page load
-        $this->refreshCart(); 
+        $this->refreshCart();
+        
+        // Auto-fill form with user data if logged in
+        if (Auth::check()) {
+            $user = Auth::user();
+            $this->namaLengkap = $user->name ?? '';
+            $this->email = $user->email ?? '';
+            $this->noTelp = $user->number ?? '';
+        }
     }
 
     public function updatedMetode($value)
@@ -97,6 +105,11 @@ class CartPageCheckout extends Component
         }
         if ($value !== 'ovo') {
             $this->reset(['ovoPhone']);
+        } else {
+            // Auto-fill OVO phone with user's phone number if available
+            if (Auth::check() && empty($this->ovoPhone)) {
+                $this->ovoPhone = Auth::user()->number ?? '';
+            }
         }
     }
 

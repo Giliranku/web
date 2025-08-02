@@ -636,75 +636,47 @@
          <hr class="section-divider w-25 mx-auto">
       </div>
 
-      <div class="row g-4">
-         <div class="col-12">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm">
-                  <div class="row g-0">
-                     <div class="col-md-6">
-                        <div class="image-container">
-                           <img src="{{asset('img/kegiatanseru1.jpg')}}" class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="Gambar Acara Pertunjukan Robot">
+      @if($kegiatanNews->count() > 0)
+         @foreach($kegiatanNews as $kegiatan)
+         <div class="row g-4 mb-4">
+            <div class="col-12">
+               <a href="/news-detail/{{ $kegiatan->id }}" class="text-decoration-none" wire:navigate>
+                  <div class="card card-hover border-0 shadow-sm">
+                     <div class="row g-0">
+                        <div class="col-md-6">
+                           <div class="image-container">
+                              <img src="{{ $kegiatan->image_url }}" class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="{{ $kegiatan->title }}">
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="card-body d-flex flex-column justify-content-center h-100 p-4">
-                           <h4 class="card-title fw-bold" style="color: var(--primary);">Robot Show Dufan</h4>
-                           <p class="card-text text-muted">Saksikan pertunjukan robot yang mengagumkan dengan teknologi terdepan dan efek visual yang memukau.</p>
-                           <div class="mt-3">
-                              <span class="btn btn-outline-primary">Lihat Detail</span>
+                        <div class="col-md-6">
+                           <div class="card-body d-flex flex-column justify-content-center h-100 p-4">
+                              <h4 class="card-title fw-bold" style="color: var(--primary);">{{ $kegiatan->title }}</h4>
+                              <p class="card-text text-muted">{{ $kegiatan->description }}</p>
+                              <div class="mt-3">
+                                 <span class="btn btn-outline-primary">Lihat Detail</span>
+                              </div>
                            </div>
                         </div>
                      </div>
                   </div>
-               </div>
-            </a>
+               </a>
+            </div>
          </div>
-
-         <div class="col-md-4">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/kegiatanseru2.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Acara Layangan Jakarta">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--dark);">Bertualang Seru</h6>
-                     <p class="card-text text-muted small">Petualangan seru menanti Anda</p>
-                  </div>
+         @endforeach
+      @else
+         <div class="row g-4">
+            <div class="col-12 text-center">
+               <div class="py-5">
+                  <i class="bi bi-calendar-event display-1 text-muted opacity-50"></i>
+                  <h4 class="mt-3 text-muted">Belum ada kegiatan seru</h4>
+                  <p class="text-muted">Nantikan kegiatan seru dari kami!</p>
                </div>
-            </a>
+            </div>
          </div>
-
-         <div class="col-md-4">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/kegiatanseru3.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Acara Layangan Jakarta">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--dark);">Bermain Layangan</h6>
-                     <p class="card-text text-muted small">Nikmati kebebasan di udara terbuka</p>
-                  </div>
-               </div>
-            </a>
-         </div>
-
-         <div class="col-md-4">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/kegiatanseru4.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Acara Layangan Jakarta">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--dark);">Menyelam</h6>
-                     <p class="card-text text-muted small">Jelajahi keindahan bawah air</p>
-                  </div>
-               </div>
-            </a>
-         </div>
-      </div>
+      @endif
 
       <div class="text-center mt-4">
-         <a class="btn btn-outline-primary" href="#">
+         <a class="btn btn-outline-primary" href="/news?category=kegiatan" wire:navigate>
             Lihat kegiatan seru lainnya <i class="bi bi-arrow-right ms-1"></i>
          </a>
       </div>
@@ -717,61 +689,41 @@
          <hr class="section-divider w-25 mx-auto">
       </div>
 
-      <div class="row g-4">
-         <div class="col-md-4">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/atlantis.jpeg')}}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Gambar Promo Atlantis">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--secondary);">Berenang paling HEMAT</h6>
-                     <p class="card-text text-muted">cuman di ATLANTIS!</p>
-                     <div class="mt-3">
-                        <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
+      @if($promoNews->count() > 0)
+         <div class="row g-4">
+            @foreach($promoNews as $promo)
+            <div class="col-md-4">
+               <a href="/news-detail/{{ $promo->id }}" class="text-decoration-none" wire:navigate>
+                  <div class="card card-hover border-0 shadow-sm h-100">
+                     <div class="image-container">
+                        <img src="{{ $promo->image_url }}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="{{ $promo->title }}">
+                     </div>
+                     <div class="card-body text-center">
+                        <h6 class="card-title fw-bold" style="color: var(--secondary);">{{ $promo->title }}</h6>
+                        <p class="card-text text-muted">{{ Str::limit($promo->description, 60) }}</p>
+                        <div class="mt-3">
+                           <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
+                        </div>
                      </div>
                   </div>
-               </div>
-            </a>
+               </a>
+            </div>
+            @endforeach
          </div>
-
-         <div class="col-md-4">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/dufan.jpeg')}}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Gambar Promo Dufan">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--secondary);">Main sambil belajar di</h6>
-                     <p class="card-text text-muted">SEAWORLD HEMAT!</p>
-                     <div class="mt-3">
-                        <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
-                     </div>
-                  </div>
+      @else
+         <div class="row g-4">
+            <div class="col-12 text-center">
+               <div class="py-5">
+                  <i class="bi bi-tag display-1 text-muted opacity-50"></i>
+                  <h4 class="mt-3 text-muted">Belum ada promo spesial</h4>
+                  <p class="text-muted">Nantikan promo menarik dari kami!</p>
                </div>
-            </a>
+            </div>
          </div>
-
-         <div class="col-md-4">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/seaworld.jpeg')}}" class="card-img-top" style="height: 250px; object-fit: cover;" alt="Gambar Promo Seaworld">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--secondary);">Main di DUFAN,</h6>
-                     <p class="card-text text-muted">HEMAT sepuasnya!</p>
-                     <div class="mt-3">
-                        <span class="badge" style="background-color: var(--warning); color: var(--dark);">Promo Terbatas</span>
-                     </div>
-                  </div>
-               </div>
-            </a>
-         </div>
-      </div>
+      @endif
 
       <div class="text-center mt-4">
-         <a class="btn btn-outline-danger" href="#">
+         <a class="btn btn-outline-danger" href="/news?category=promo" wire:navigate>
             Lihat promo lainnya <i class="bi bi-arrow-right ms-1"></i>
          </a>
       </div>
@@ -784,67 +736,66 @@
          <hr class="section-divider w-25 mx-auto">
       </div>
 
-      <div class="row g-4">
-         <div class="col-12">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm">
-                  <div class="row g-0">
-                     <div class="col-md-6">
-                        <div class="image-container">
-                           <img src="{{asset('img/info1.jpg')}}" class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="Gambar Pantai Ancol">
+      @if($infoNews->count() > 0)
+         <div class="row g-4">
+            @foreach($infoNews->take(1) as $mainInfo)
+            <div class="col-12">
+               <a href="/news-detail/{{ $mainInfo->id }}" class="text-decoration-none" wire:navigate>
+                  <div class="card card-hover border-0 shadow-sm">
+                     <div class="row g-0">
+                        <div class="col-md-6">
+                           <div class="image-container">
+                              <img src="{{ $mainInfo->image_url }}" class="img-fluid w-100" style="height: 300px; object-fit: cover;" alt="{{ $mainInfo->title }}">
+                           </div>
                         </div>
-                     </div>
-                     <div class="col-md-6">
-                        <div class="card-body d-flex flex-column justify-content-center h-100 p-4">
-                           <h4 class="card-title fw-bold" style="color: var(--primary);">Kenapa Harus ke Ancol?</h4>
-                           <p class="card-text text-muted">Temukan alasan mengapa Ancol menjadi destinasi wisata favorit keluarga Indonesia dengan berbagai fasilitas lengkap dan wahana seru.</p>
-                           <div class="mt-3">
-                              <span class="btn btn-outline-primary">Baca Selengkapnya</span>
+                        <div class="col-md-6">
+                           <div class="card-body d-flex flex-column justify-content-center h-100 p-4">
+                              <h4 class="card-title fw-bold" style="color: var(--primary);">{{ $mainInfo->title }}</h4>
+                              <p class="card-text text-muted">{{ $mainInfo->description }}</p>
+                              <div class="mt-3">
+                                 <span class="btn btn-outline-primary">Baca Selengkapnya</span>
+                              </div>
                            </div>
                         </div>
                      </div>
                   </div>
-               </div>
-            </a>
-         </div>
+               </a>
+            </div>
+            @endforeach
 
-         <div class="col-md-6">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/info2.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Wahana Dufan">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--dark);">Klarifikasi Tornado Tutup</h6>
-                     <p class="card-text text-muted">Informasi terbaru mengenai status wahana Tornado</p>
-                     <div class="mt-3">
-                        <span class="btn btn-outline-secondary btn-sm">Baca Selengkapnya</span>
+            @foreach($infoNews->skip(1)->take(2) as $info)
+            <div class="col-md-6">
+               <a href="/news-detail/{{ $info->id }}" class="text-decoration-none" wire:navigate>
+                  <div class="card card-hover border-0 shadow-sm h-100">
+                     <div class="image-container">
+                        <img src="{{ $info->image_url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ $info->title }}">
+                     </div>
+                     <div class="card-body text-center">
+                        <h6 class="card-title fw-bold" style="color: var(--dark);">{{ $info->title }}</h6>
+                        <p class="card-text text-muted">{{ Str::limit($info->description, 80) }}</p>
+                        <div class="mt-3">
+                           <span class="btn btn-outline-secondary btn-sm">Baca Selengkapnya</span>
+                        </div>
                      </div>
                   </div>
-               </div>
-            </a>
+               </a>
+            </div>
+            @endforeach
          </div>
-
-         <div class="col-md-6">
-            <a href="" class="text-decoration-none">
-               <div class="card card-hover border-0 shadow-sm h-100">
-                  <div class="image-container">
-                     <img src="{{asset('img/info3.jpg')}}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Gambar Konser Ancol">
-                  </div>
-                  <div class="card-body text-center">
-                     <h6 class="card-title fw-bold" style="color: var(--dark);">Merayakan Konser di Tengah Pantai Ancol</h6>
-                     <p class="card-text text-muted">Pengalaman unik konser dengan pemandangan pantai yang memukau</p>
-                     <div class="mt-3">
-                        <span class="btn btn-outline-secondary btn-sm">Baca Selengkapnya</span>
-                     </div>
-                  </div>
+      @else
+         <div class="row g-4">
+            <div class="col-12 text-center">
+               <div class="py-5">
+                  <i class="bi bi-info-circle display-1 text-muted opacity-50"></i>
+                  <h4 class="mt-3 text-muted">Belum ada info</h4>
+                  <p class="text-muted">Nantikan informasi terbaru dari kami!</p>
                </div>
-            </a>
+            </div>
          </div>
-      </div>
+      @endif
 
       <div class="text-center mt-4">
-         <a class="btn btn-outline-primary" href="#">
+         <a class="btn btn-outline-primary" href="/news?category=info" wire:navigate>
             Lihat informasi lainnya <i class="bi bi-arrow-right ms-1"></i>
          </a>
       </div>

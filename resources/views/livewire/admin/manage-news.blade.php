@@ -97,39 +97,14 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-6">
-            <div x-data="{
-                open: false,
-                selected: @entangle('selectedCategory'),
-                select(option) {
-                    this.selected = option;
-                    this.open = false;
-                    $wire.set('selectedCategory', option);
-                },
-                options: [
-                    'Semua Kategori',
-                    'Restoran',
-                    'Wahana',
-                    'Event'
-                ]
-            }"
-            class="position-relative shadow border rounded bg-body-secondary custom-input-sort height-custom"
-            @click.outside="open = false">
-
-            <!-- Label -->
-            <div class="dropdown-label">Kategori</div>
-
-            <!-- Trigger -->
-            <div class="custom-dropdown" @click="open = !open">
-                <span x-text="selected" class="text-truncate" style="font-size: 1rem;"></span>
-                <i class="bi bi-chevron-down dropdown-icon"></i>
-            </div>
-
-            <!-- Dropdown Options -->
-            <div class="dropdown-list bg-body-secondary" x-show="open" x-transition>
-                <template x-for="option in options" :key="option">
-                <div class="dropdown-item" @click="select(option)" x-text="option"></div>
-                </template>
-            </div>
+            <div class="position-relative shadow border rounded bg-body-secondary custom-input-sort height-custom">
+                <label class="dropdown-label">Kategori</label>
+                <select wire:model.live="categoryFilter" class="form-select border-0 bg-transparent">
+                    <option value="">Semua Kategori</option>
+                    @foreach($categories as $key => $label)
+                        <option value="{{ $key }}">{{ $label }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
@@ -163,15 +138,23 @@
                     <div class="row align-items-center">
                         <div class="col-lg-8 col-md-7 col-12 mb-3 mb-md-0">
                             <div class="d-flex align-items-center flex-sm-row flex-column text-center text-sm-start">
-                                <img src="{{ asset('img/' . $news->image) }}" 
+                                <img src="{{ $news->image_url }}" 
                                      class="news-image mb-3 mb-sm-0 me-sm-4" 
                                      alt="{{ $news->title }}">
                                 <div>
                                     <h5 class="card-title mb-1">{{ $news->title }}</h5>
                                     <p class="text-muted mb-1 small">{{ $news->description }}</p>
                                     <div class="d-flex align-items-center gap-2 justify-content-center justify-content-sm-start">
-                                        <span class="badge bg-{{ $news->category === 'Event' ? 'primary' : ($news->category === 'Restoran' ? 'warning' : 'info') }}">
-                                            {{ $news->category }}
+                                        @php
+                                            $categoryColors = [
+                                                'info' => 'info',
+                                                'promo' => 'warning',
+                                                'kegiatan' => 'primary',
+                                                'wahana' => 'success'
+                                            ];
+                                        @endphp
+                                        <span class="badge bg-{{ $categoryColors[$news->category] ?? 'secondary' }}">
+                                            {{ $categories[$news->category] ?? 'Unknown' }}
                                         </span>
                                         <small class="text-muted">
                                             <i class="bi bi-calendar3 me-1"></i>

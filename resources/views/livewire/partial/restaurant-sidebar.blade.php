@@ -43,22 +43,22 @@
 
     <!-- Scrollable menu area -->
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
-        <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
+                <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
             <li class="nav-item">
-                <a href="/staff/restaurant/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.restaurant.dashboard') ? 'active' : 'text-body-secondary' }}" aria-label="Dasbor">
+                <a href="/staff/restaurant/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('staff/restaurant/dashboard') ? 'active' : 'text-body-secondary' }}" aria-label="Dasbor">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Dasbor</span>
                 </a>
             </li>
             @if($restaurant)
                 <li class="nav-item">
-                    <a href="/staff/restaurant/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.restaurant.edit') ? 'active' : 'text-body-secondary' }}" aria-label="Edit Restoran">
+                    <a href="/staff/restaurant/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('staff/restaurant/edit*') ? 'active' : 'text-body-secondary' }}" aria-label="Edit Restoran">
                         <i class="bi bi-pencil-square"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/staff/restaurant/queue/{{ $restaurant->id }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.restaurant.queue') ? 'active' : 'text-body-secondary' }}" aria-label="Kelola Antrian">
+                    <a href="/staff/restaurant/queue/{{ $restaurant->id }}" wire:navigate class="nav-link d-flex align-items-center {{ str_contains(request()->path(), 'staff/restaurant/queue') ? 'active' : 'text-body-secondary' }}" aria-label="Kelola Antrian">
                         <i class="bi bi-people"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                     </a>
@@ -85,7 +85,9 @@
         class="border-top border-opacity-25 p-2 d-flex flex-column gap-2 flex-shrink-0"
         :class="$store.sidebar.collapsed ? 'align-items-center' : ''"
         class="sidebar-bg-fix">
-        <button 
+        <a 
+            href="/staff/support" 
+            wire:navigate
             class="btn btn-outline-secondary d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
@@ -99,7 +101,7 @@
                     ? 'max-width:0; opacity:0; margin-left:0;' 
                     : 'max-width:130px; opacity:1; margin-left:0;'"
             >Bantuan</span>
-        </button>
+        </a>
         <a 
             href="/staff/profile" 
             wire:navigate
@@ -139,3 +141,51 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('livewire:navigated', () => {
+    // Update active states after Livewire navigation
+    updateSidebarActiveStates();
+});
+
+function updateSidebarActiveStates() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        let isActive = false;
+        
+        // Check for exact match first
+        if (href === currentPath) {
+            isActive = true;
+        }
+        // Check for queue paths with parameters
+        else if (currentPath.includes('/staff/restaurant/queue/') && href && href.includes('/staff/restaurant/queue/')) {
+            isActive = true;
+        }
+        // Check for edit paths
+        else if (currentPath.includes('/staff/restaurant/edit') && href && href.includes('/staff/restaurant/edit')) {
+            isActive = true;
+        }
+        // Check for dashboard
+        else if (currentPath === '/staff/restaurant/dashboard' && href && href.includes('/staff/restaurant/dashboard')) {
+            isActive = true;
+        }
+        
+        // Update classes
+        if (isActive) {
+            link.classList.remove('text-body-secondary');
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+            link.classList.add('text-body-secondary');
+        }
+    });
+}
+
+// Run on initial load
+document.addEventListener('DOMContentLoaded', updateSidebarActiveStates);
+</script>
+@endpush>
