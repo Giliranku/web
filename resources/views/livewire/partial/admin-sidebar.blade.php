@@ -26,7 +26,7 @@
 
     <!-- Scrollable menu area -->
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
-        <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
+        <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden overflow-y-auto" style="min-height:100vh;">
             <li class="nav-item">
                 <a href="/admin/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/dashboard') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-house"></i>
