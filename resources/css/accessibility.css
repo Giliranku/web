@@ -267,3 +267,9 @@ p, li, td, th, div, label, input, textarea, select {
     animation: none;
   }
 }
+
+[data-bs-theme="dark"] body > div > div.position-fixed.accessibility-widget > div > div.p-4.bg-body > div.row.g-3 > div:nth-child(1) > button {
+  background-color: var(--bs-dark);
+  color: var(--bs-light)  ;
+  border-color: var(--bs-light);
+}

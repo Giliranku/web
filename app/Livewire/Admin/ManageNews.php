@@ -3,61 +3,67 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\News;
 
 class ManageNews extends Component
 {
+    use WithPagination;
+
     public $search = '';
-    public $selectedCategory = 'Semua Kategori';
+    public $categoryFilter = '';
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedCategoryFilter()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        // For testing purposes, we'll use sample data
-        // In production, this should come from the News model
-        $news = collect([
-            (object)[
-                'id' => 1,
-                'title' => 'Kenapa Harus ke Ancol?',
-                'category' => 'Event',
-                'image' => 'info3.jpg',
-                'description' => 'Berita terbaru tentang Ancol',
-                'created_at' => now()->subDays(2)
-            ],
-            (object)[
-                'id' => 2,
-                'title' => 'Restoran Baru di Dufan',
-                'category' => 'Restoran',
-                'image' => 'restaurant1.jpg',
-                'description' => 'Restoran terbaru dengan menu spesial',
-                'created_at' => now()->subDays(1)
-            ],
-            (object)[
-                'id' => 3,
-                'title' => 'Wahana Baru Tornado',
-                'category' => 'Wahana',
-                'image' => 'tornado.jpg',
-                'description' => 'Wahana terbaru yang menantang',
-                'created_at' => now()
-            ]
-        ]);
+        $query = News::with('staff');
 
-        // Filter by search
-        if ($this->search) {
-            $news = $news->filter(function ($item) {
-                return stripos($item->title, $this->search) !== false;
-            });
+        // Apply search
+        if (!empty($this->search)) {
+            $query->search($this->search);
         }
 
-        // Filter by category
-        if ($this->selectedCategory !== 'Semua Kategori') {
-            $news = $news->filter(function ($item) {
-                return $item->category === $this->selectedCategory;
-            });
+        // Apply category filter
+        if (!empty($this->categoryFilter)) {
+            $query->byCategory($this->categoryFilter);
         }
+
+        $news = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        $categories = [
+            'info' => 'Info Giliranku',
+            'promo' => 'Promo Spesial', 
+            'kegiatan' => 'Kegiatan Seru',
+            'wahana' => 'Info Wahana'
+        ];
 
         return view('livewire.admin.manage-news', [
-            'newsList' => $news,
-            'totalNews' => $news->count()
+            'news' => $news,
+            'categories' => $categories,
+            'totalNews' => $news->total()
         ])->layout('components.layouts.dashboard-admin');
+    }
+
+    public function deleteNews($id)
+    {
+        $news = News::findOrFail($id);
+        
+        // Delete the news cover file if it exists
+        if ($news->news_cover && file_exists(storage_path('app/public/' . $news->news_cover))) {
+            unlink(storage_path('app/public/' . $news->news_cover));
+        }
+
+        $news->delete();
+        
+        session()->flash('success', 'Berita berhasil dihapus.');
     }
 }

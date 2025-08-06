@@ -59,8 +59,8 @@
         }
     },
 }" x-init="$nextTick(() => initCalendar())">
-    <div class="modern-date-selector">
-        <div class="date-selector-button" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="modern-date-selector dropdown">
+        <div class="date-selector-button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside" data-bs-offset="0,2">
             <div class="date-icon">
                 <i class="bi bi-calendar"></i>
             </div>
@@ -107,7 +107,7 @@
 <style>
 .modern-date-selector {
     position: relative;
-    z-index: 9999;
+    z-index: 1050;
 }
 
 .date-selector-button {
@@ -205,17 +205,34 @@
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     padding: 0;
-    margin-top: 8px;
+    margin-top: 0px !important;
     overflow: hidden;
-    animation: dropdownSlide 0.3s ease-out;
-    z-index: 9999 !important;
-    position: relative !important;
+    animation: dropdownSlide 0.2s ease-out;
+    z-index: 1060 !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform-origin: top center;
+    transform: none !important;
+    inset: auto auto auto 0px !important;
+    margin: 2px 0 0 0 !important;
+}
+
+/* Override Bootstrap dropdown positioning */
+.dropdown-menu.modern-dropdown {
+    position: absolute !important;
+    top: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    margin-top: 2px !important;
 }
 
 @keyframes dropdownSlide {
     from {
         opacity: 0;
-        transform: translateY(-10px) scale(0.95);
+        transform: translateY(-5px) scale(0.98);
     }
     to {
         opacity: 1;
@@ -234,7 +251,7 @@
 }
 
 .calendar-container {
-    padding: 20px;
+    padding: 16px;
 }
 
 .calendar-footer {
@@ -253,7 +270,7 @@
     font-weight: 700;
     color: #334155;
     font-size: 1.1rem;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .calendar-container .calendar-day {
@@ -296,7 +313,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .calendar-container .calendar-nav button {
@@ -319,7 +336,7 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
 }
 
 .calendar-container .calendar-day-label {
@@ -358,10 +375,23 @@
     
     .modern-dropdown {
         min-width: 280px !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-top: 2px !important;
     }
     
     .calendar-container {
-        padding: 16px;
+        padding: 12px;
+    }
+    
+    /* Force mobile positioning */
+    .dropdown-menu.modern-dropdown {
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+        margin-top: 2px !important;
     }
 }
 </style>

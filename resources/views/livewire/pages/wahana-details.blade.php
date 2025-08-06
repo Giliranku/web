@@ -2,108 +2,11 @@
 @push('styles')
 @vite([
     'resources/css/queue-detail.css',
+    'resources/css/wahana-detail.css',
 ])
-<style>
-    .custom-thumb {
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border-radius: 8px;
-    }
-    
-    .custom-thumb:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    
-    .text-justify {
-        text-align: justify;
-    }
-    
-    .card {
-        border-radius: 10px;
-    }
-    
-    .btn {
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        transition: all 0.3s ease;
-    }
-    
-    .btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    }
-    
-    /* Header styling */
-    .header-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        /* color: #2c3e50; */
-        margin-bottom: 0.75rem;
-        line-height: 1.2;
-    }
-    
-    .type-badge {
-        font-size: 0.9rem;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        border-radius: 20px !important;
-        padding: 8px 16px !important;
-        border: 1px solid rgba(13, 110, 253, 0.2);
-    }
-    
-    /* Main image container */
-    .main-image-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-    }
-    
-    /* Responsive adjustments for single image */
-    @media (max-width: 991.98px) {
-        .single-image {
-            margin: 0 auto;
-        }
-    }
-    
-    /* Thumbnail container styling */
-    .thumbnail-container {
-        max-height: 637px;
-        overflow: hidden; /* Hide overflow completely */
-        padding: 8px; /* Add padding for better spacing */
-    }
-    
-    /* Remove all scrollbar styling */
-    .thumbnail-container::-webkit-scrollbar {
-        display: none;
-    }
-    
-    /* For Firefox - hide scrollbar completely */
-    .thumbnail-container {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-</style>
 @endpush
 <div class="container py-4">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb rounded p-3">
-            <li class="breadcrumb-item">
-                <a href="{{ route('home') }}" wire:navigate class="text-decoration-none text-primary">
-                    <i class="fas fa-home me-1"></i>Beranda
-                </a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="{{ route('queues.index') }}" wire:navigate class="text-decoration-none text-primary">
-                    {{ $this->getTypeName() }}
-                </a>
-            </li>
-            <li class="breadcrumb-item active " aria-current="page">
-                <strong>{{ $item->name }}</strong>
-            </li>
-        </ol>
-    </nav>    <div x-data="{ mainImage: @entangle('mainImage'), fade: false }">
+    <div x-data="{ mainImage: @entangle('mainImage'), fade: false }">
         <div class="row">
             <!-- Main Image -->
             <div class="{{ count($images) > 1 ? 'col-lg-7' : 'col-12' }} col-md-12 mb-3">
@@ -172,10 +75,10 @@
 
     <div class="mt-4">
         <!-- Header dengan Title dan Button -->
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-5 gap-3">
             <div class="flex-grow-1">
-                <h2 class="header-title">{{ $item->name }}</h2>
-                <span class="badge bg-primary bg-opacity-10 text-primary type-badge">
+                <h1 class="header-title">{{ $item->name }}</h1>
+                <span class="badge type-badge">
                     <i class="fas fa-tag me-1"></i>{{ $this->getTypeName() }}
                 </span>
             </div>
@@ -183,8 +86,8 @@
                 <button 
                     wire:click="orderQueue"
                     wire:loading.attr="disabled"
-                    class="btn {{ $this->getButtonClass() }} text-white fw-bold px-4 py-2 w-100 w-md-auto"
-                    style="min-width: 200px;"
+                    class="btn btn-light text-dark fw-bold px-4 py-2 w-100 w-md-auto border shadow-sm"
+                    style="min-width: 200px; background-color: white; color: #333; border-color: #ddd;"
                 >
                     <span wire:loading.remove>{{ $this->getButtonText() }}</span>
                     <span wire:loading>
@@ -195,45 +98,53 @@
             </div>
         </div>
         
-        <!-- Informasi Detail dalam Card -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-12 col-md-4">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-users me-2 text-primary"></i>
-                            <div class="flex-grow-1">
-                                <small class="text-muted d-block">Kapasitas</small>
-                                <strong>{{ $currentCapacity }}/{{ $item->capacity }}</strong>
-                                <div class="progress mt-1" style="height: 4px;">
-                                    <div class="progress-bar bg-primary" role="progressbar" 
-                                         style="width: {{ ($currentCapacity / $item->capacity) * 100 }}%"
-                                         aria-valuenow="{{ $currentCapacity }}" 
-                                         aria-valuemin="0" 
-                                         aria-valuemax="{{ $item->capacity }}">
-                                    </div>
+        <!-- Informasi Detail -->
+        <div class="row g-4 mb-5">
+            <div class="col-12 col-md-4">
+                <div class="info-item h-100">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="fas fa-users text-primary" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <small class="text-muted d-block mb-1">Kapasitas Saat Ini</small>
+                            <strong class="fs-5">{{ $currentCapacity }}/{{ $item->capacity }} orang</strong>
+                            <div class="progress mt-2" style="height: 6px;">
+                                <div class="progress-bar" role="progressbar" 
+                                     style="width: {{ ($currentCapacity / $item->capacity) * 100 }}%"
+                                     aria-valuenow="{{ $currentCapacity }}" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="{{ $item->capacity }}">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @if($item->time_estimation)
-                        <div class="col-12 col-md-4">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-clock me-2 text-warning"></i>
-                                <div>
-                                    <small class="text-muted d-block">Estimasi Waktu</small>
-                                    <strong>{{ $item->time_estimation }} menit</strong>
-                                </div>
+                </div>
+            </div>
+            @if($item->time_estimation)
+                <div class="col-12 col-md-4">
+                    <div class="info-item h-100">
+                        <div class="d-flex align-items-center">
+                            <div class="me-3">
+                                <i class="fas fa-clock text-warning" style="font-size: 1.5rem;"></i>
+                            </div>
+                            <div>
+                                <small class="text-muted d-block mb-1">Estimasi Waktu</small>
+                                <strong class="fs-5">{{ $item->time_estimation }} menit</strong>
                             </div>
                         </div>
-                    @endif
-                    <div class="col-12 col-md-4">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-user-tie me-2 text-success"></i>
-                            <div>
-                                <small class="text-muted d-block">Dikelola oleh</small>
-                                <strong>{{ $this->getStaffInfo() }}</strong>
-                            </div>
+                    </div>
+                </div>
+            @endif
+            <div class="col-12 col-md-4">
+                <div class="info-item h-100">
+                    <div class="d-flex align-items-center">
+                        <div class="me-3">
+                            <i class="fas fa-user-tie text-success" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <small class="text-muted d-block mb-1">Dikelola oleh</small>
+                            <strong class="fs-5">{{ $this->getStaffInfo() }}</strong>
                         </div>
                     </div>
                 </div>
@@ -241,16 +152,26 @@
         </div>
 
         <!-- Deskripsi -->
-        <div class="mb-4">
-            
-            <h5 class="mb-3"><strong>Deskripsi</strong></h5>
-            <p>{{ $item->description }}</p>
+        <div class="mb-5">
+            <h3 class="section-header">Deskripsi</h3>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <p class="mb-0 text-justify" style="line-height: 1.7; font-size: 1.1rem;">{{ $item->description }}</p>
+                </div>
+            </div>
         </div>
 
         <!-- Lokasi -->
-        <div class="mb-4">
-            <h5 class="mb-3"><strong>Lokasi</strong></h5>
-            <p>{{ $item->location }}</p>
+        <div class="mb-5">
+            <h3 class="section-header">Lokasi</h3>
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-map-marker-alt text-danger me-3" style="font-size: 1.5rem;"></i>
+                        <p class="mb-0" style="font-size: 1.1rem; font-weight: 500;">{{ $item->location }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

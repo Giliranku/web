@@ -22,9 +22,9 @@ class AddAttraction extends Component
         'description' => 'required|string',
         'staff_id' => 'nullable|exists:staff,id',
         'cover' => 'required|image|max:2048',
-        'img1' => 'nullable|image|max:2048',
-        'img2' => 'nullable|image|max:2048',
-        'img3' => 'nullable|image|max:2048',
+        'img1' => 'required|image|max:2048',
+        'img2' => 'required|image|max:2048',
+        'img3' => 'required|image|max:2048',
     ];
 
     protected $messages = [
@@ -40,11 +40,22 @@ class AddAttraction extends Component
         'cover.required' => 'Cover image wajib diunggah.',
         'cover.image' => 'Cover harus berupa gambar.',
         'cover.max' => 'Ukuran cover maksimal 2MB.',
+        'img1.required' => 'Gambar 1 wajib diunggah.',
         'img1.image' => 'Gambar 1 harus berupa gambar.',
+        'img1.max' => 'Ukuran gambar 1 maksimal 2MB.',
+        'img2.required' => 'Gambar 2 wajib diunggah.',
         'img2.image' => 'Gambar 2 harus berupa gambar.',
+        'img2.max' => 'Ukuran gambar 2 maksimal 2MB.',
+        'img3.required' => 'Gambar 3 wajib diunggah.',
         'img3.image' => 'Gambar 3 harus berupa gambar.',
+        'img3.max' => 'Ukuran gambar 3 maksimal 2MB.',
         'staff_id.exists' => 'Staff yang dipilih tidak valid.',
     ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
 
     public function save()
     {
@@ -58,21 +69,15 @@ class AddAttraction extends Component
             'description' => $this->description,
             'staff_id' => $this->staff_id ?: null, // Convert empty string to null
             'cover' => $this->cover->store('attractions', 'public'),
+            'img1' => $this->img1->store('attractions', 'public'),
+            'img2' => $this->img2->store('attractions', 'public'),
+            'img3' => $this->img3->store('attractions', 'public'),
         ];
-
-        if ($this->img1) {
-            $data['img1'] = $this->img1->store('attractions', 'public');
-        }
-        if ($this->img2) {
-            $data['img2'] = $this->img2->store('attractions', 'public');
-        }
-        if ($this->img3) {
-            $data['img3'] = $this->img3->store('attractions', 'public');
-        }
 
         Attraction::create($data);
 
-        return redirect()->route('admin.attractions.index')->with('success', 'Wahana berhasil ditambahkan.');
+        session()->flash('success', 'Wahana berhasil ditambahkan.');
+        return redirect()->route('admin.attractions.index');
     }
 
     public function render()

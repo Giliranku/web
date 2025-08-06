@@ -159,18 +159,56 @@ class QueueFloatingWidget extends Component
 
     public function cancelQueue($queueId, $type)
     {
-        if ($type === 'attraction') {
-            $queue = UserAttraction::find($queueId);
-        } else {
-            $queue = UserRestaurant::find($queueId);
+        if (!Auth::check()) {
+            return;
         }
 
-        if ($queue && $queue->user_id === Auth::id()) {
-            $queue->update(['status' => 'cancelled']);
-            $this->loadQueueData();
-            $this->dispatch('queueCancelled');
+        DB::beginTransaction();
+        
+        try {
+            if ($type === 'attraction') {
+                $queue = UserAttraction::find($queueId);
+                $modelClass = UserAttraction::class;
+                $locationField = 'attraction_id';
+                $locationId = $queue->attraction_id;
+            } else {
+                $queue = UserRestaurant::find($queueId);
+                $modelClass = UserRestaurant::class;
+                $locationField = 'restaurant_id';
+                $locationId = $queue->restaurant_id;
+            }
+
+            if (!$queue || $queue->user_id !== Auth::id()) {
+                DB::rollBack();
+                session()->flash('error', 'Antrian tidak ditemukan atau bukan milik Anda.');
+                return;
+            }
+
+            $cancelledPosition = $queue->queue_position;
             
-            session()->flash('message', 'Antrian berhasil dibatalkan.');
+            // Update status antrian menjadi cancelled
+            $queue->update(['status' => 'cancelled']);
+            
+            // Recalculate queue positions untuk user lain yang berada di belakang
+            $modelClass::where($locationField, $locationId)
+                ->where('queue_position', '>', $cancelledPosition)
+                ->whereIn('status', ['waiting', 'called'])
+                ->decrement('queue_position');
+            
+            DB::commit();
+            
+            // Refresh data antrian
+            $this->loadQueueData();
+            
+            // Dispatch events untuk update komponen lain
+            $this->dispatch('queueCancelled');
+            $this->dispatch('queueUpdated');
+            
+            session()->flash('success', 'Antrian berhasil dibatalkan.');
+            
+        } catch (\Exception $e) {
+            DB::rollBack();
+            session()->flash('error', 'Terjadi kesalahan saat membatalkan antrian.');
         }
     }
 

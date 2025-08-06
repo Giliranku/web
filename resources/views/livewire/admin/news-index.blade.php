@@ -278,9 +278,10 @@
             <div class="news-card card w-100 shadow p-4">
                 <div class="card-body d-flex align-items-start justify-content-between flex-sm-row flex-column">
                     <div class="d-flex align-items-start flex-sm-row flex-column text-center text-sm-start">
-                        <img src="{{ asset('storage/' . $news->news_cover) }}"
+                        <img src="{{ $news->getCoverUrl() }}"
                              alt="{{ $news->title }}"
-                             class="news-image">
+                             class="news-image"
+                             onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                         <div class="ms-sm-4 mt-sm-0 mt-3 flex-grow-1">
                             <h5 class="news-title">{{ $news->title }}</h5>
                             <p class="news-description">

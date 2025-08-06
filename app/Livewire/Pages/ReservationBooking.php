@@ -75,6 +75,8 @@ class ReservationBooking extends Component
     private function validateCanMakeReservation()
     {
         if (!Auth::check()) {
+            $this->can_queue = false;
+            $this->queue_restriction_message = 'Anda harus login terlebih dahulu untuk mengantri.';
             return;
         }
         
@@ -82,8 +84,9 @@ class ReservationBooking extends Component
         $totalTickets = collect($this->user_tickets)->sum('total_quantity');
         
         if ($totalTickets == 0) {
-            session()->flash('error', 'Anda belum memiliki tiket. Silakan beli tiket terlebih dahulu.');
-            return redirect('/tiket-ecommerce');
+            $this->can_queue = false;
+            $this->queue_restriction_message = 'Anda belum memiliki tiket. Silakan beli tiket terlebih dahulu untuk dapat mengantri.';
+            return;
         }
         
         // Count active queues (waiting or called status)
@@ -95,9 +98,14 @@ class ReservationBooking extends Component
             ->count();
             
         if ($activeQueues >= $totalTickets) {
-            session()->flash('error', 'Semua tiket Anda sedang digunakan untuk mengantri. Silakan tunggu hingga antrian selesai.');
-            return redirect('/');
+            $this->can_queue = false;
+            $this->queue_restriction_message = 'Semua tiket Anda sedang digunakan untuk mengantri. Silakan tunggu hingga antrian selesai atau batalkan antrian yang tidak diperlukan.';
+            return;
         }
+        
+        // If we reach here, user can potentially queue
+        $this->can_queue = true;
+        $this->queue_restriction_message = '';
     }
     
     public function loadUserTickets()
@@ -351,6 +359,58 @@ class ReservationBooking extends Component
         // Redirect to user profile with appropriate tab based on queue type
         $tab = $this->type === 'attraction' ? 'wahana' : 'restoran';
         return $this->redirect(route('userprofile', ['tab' => $tab]), navigate: true);
+    }
+    
+    public function getDetailedRestrictionInfo()
+    {
+        if (!Auth::check()) {
+            return [
+                'title' => 'Login Diperlukan',
+                'message' => 'Anda harus login terlebih dahulu untuk dapat mengantri.',
+                'suggestions' => [
+                    'Login ke akun Anda',
+                    'Atau daftar akun baru jika belum memiliki'
+                ]
+            ];
+        }
+        
+        $totalTickets = collect($this->user_tickets)->sum('total_quantity');
+        
+        if ($totalTickets == 0) {
+            return [
+                'title' => 'Tiket Diperlukan',
+                'message' => 'Anda belum memiliki tiket untuk mengantri.',
+                'suggestions' => [
+                    'Beli tiket di halaman Toko Tiket',
+                    'Tiket bersifat universal dan dapat digunakan untuk semua wahana/restoran'
+                ]
+            ];
+        }
+        
+        $activeQueues = UserAttraction::where('user_id', Auth::id())
+            ->whereIn('status', ['waiting', 'called'])
+            ->count() +
+            UserRestaurant::where('user_id', Auth::id())
+            ->whereIn('status', ['waiting', 'called'])
+            ->count();
+            
+        if ($activeQueues >= $totalTickets) {
+            return [
+                'title' => 'Kapasitas Antrian Penuh',
+                'message' => "Anda sudah menggunakan semua {$totalTickets} tiket untuk mengantri.",
+                'suggestions' => [
+                    'Tunggu hingga salah satu antrian selesai',
+                    'Batalkan antrian yang tidak diperlukan melalui widget antrian',
+                    'Beli tiket tambahan jika diperlukan'
+                ]
+            ];
+        }
+        
+        return [
+            'title' => 'Dapat Mengantri',
+            'message' => 'Anda dapat membuat antrian baru.',
+            'suggestions' => []
+        ];
     }
     
     public function render()

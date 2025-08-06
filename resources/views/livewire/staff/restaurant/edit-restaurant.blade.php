@@ -390,9 +390,6 @@ document.addEventListener('livewire:navigated', function() {
             <i class="bi bi-shop me-2"></i>Edit Restoran
         </h1>
         <p class="page-subtitle">Perbarui informasi restoran yang Anda kelola</p>
-        <a href="/staff/restaurant/dashboard" class="btn btn-secondary">
-            <i class="bi bi-arrow-left me-2"></i>Kembali
-        </a>
     </div>
 
     <!-- Success/Error Messages -->

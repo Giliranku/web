@@ -18,6 +18,21 @@
                 <a href="{{ route('admin.attractions.index') }}" class="btn-close"></a>
             </div>
 
+            <!-- Error Alert -->
+            @if ($errors->any())
+                <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>
+                    <div>
+                        <strong>Ada kesalahan pada form:</strong>
+                        <ul class="mb-0 mt-2">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+
             <!-- Form -->
             <form wire:submit="save" enctype="multipart/form-data">
                 <div class="row mb-4">
@@ -48,14 +63,14 @@
                         @enderror
 
                         <p class="text-muted small mt-2">
-                            Cover image wahana. Format PNG, JPG. Max size 2 MB.
+                            <span class="text-danger">*</span> Cover image wahana wajib diunggah. Format PNG, JPG. Max size 2 MB.
                         </p>
 
                         <!-- Additional Images -->
                         <div class="row mt-3">
                             <div class="col-4">
                                 <label for="img1">
-                                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden"
+                                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden @error('img1') border-danger @enderror"
                                         style="width: 100%; height: 80px; cursor: pointer; background-color: #f9f9f9;">
                                         @if ($img1)
                                             <img src="{{ $img1->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
@@ -65,10 +80,13 @@
                                     </div>
                                 </label>
                                 <input type="file" wire:model="img1" class="d-none" id="img1" accept="image/*">
+                                @error('img1')
+                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-4">
                                 <label for="img2">
-                                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden"
+                                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden @error('img2') border-danger @enderror"
                                         style="width: 100%; height: 80px; cursor: pointer; background-color: #f9f9f9;">
                                         @if ($img2)
                                             <img src="{{ $img2->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
@@ -78,10 +96,13 @@
                                     </div>
                                 </label>
                                 <input type="file" wire:model="img2" class="d-none" id="img2" accept="image/*">
+                                @error('img2')
+                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-4">
                                 <label for="img3">
-                                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden"
+                                    <div class="border rounded d-flex justify-content-center align-items-center overflow-hidden @error('img3') border-danger @enderror"
                                         style="width: 100%; height: 80px; cursor: pointer; background-color: #f9f9f9;">
                                         @if ($img3)
                                             <img src="{{ $img3->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: cover; width: 100%; height: 100%;">
@@ -91,15 +112,23 @@
                                     </div>
                                 </label>
                                 <input type="file" wire:model="img3" class="d-none" id="img3" accept="image/*">
+                                @error('img3')
+                                    <div class="text-danger small mt-1">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+                        
+                        <p class="text-muted small mt-2">
+                            <i class="fas fa-info-circle me-1"></i>
+                            <span class="text-danger">*</span> Semua gambar tambahan wajib diunggah. Format PNG, JPG. Max size 2 MB per gambar.
+                        </p>
                     </div>
 
                     <!-- Form fields -->
                     <div class="col-md-8">
                         <!-- Nama Wahana -->
                         <div class="mb-3">
-                            <label for="name" class="form-label fw-semibold">Nama Wahana</label>
+                            <label for="name" class="form-label fw-semibold">Nama Wahana <span class="text-danger">*</span></label>
                             <input wire:model="name" type="text" class="form-control" id="name" placeholder="Nama Wahana">
                             @error('name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
@@ -107,7 +136,7 @@
                         <!-- Lokasi -->
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <label for="location" class="form-label fw-semibold">Lokasi</label>
+                                <label for="location" class="form-label fw-semibold">Lokasi <span class="text-danger">*</span></label>
                                 <select wire:model="location" class="form-select" id="location">
                                     <option value="">Pilih Lokasi</option>
                                     <option value="Ancol">Ancol</option>
@@ -125,12 +154,12 @@
                         <!-- Kapasitas dan Estimasi Waktu -->
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="capacity" class="form-label fw-semibold">Kapasitas (orang)</label>
+                                <label for="capacity" class="form-label fw-semibold">Kapasitas (orang) <span class="text-danger">*</span></label>
                                 <input wire:model="capacity" type="number" class="form-control" id="capacity" placeholder="0" min="1">
                                 @error('capacity') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="time_estimation" class="form-label fw-semibold">Estimasi Waktu (menit)</label>
+                                <label for="time_estimation" class="form-label fw-semibold">Estimasi Waktu (menit) <span class="text-danger">*</span></label>
                                 <input wire:model="time_estimation" type="number" class="form-control" id="time_estimation" placeholder="0" min="1">
                                 @error('time_estimation') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
@@ -150,7 +179,7 @@
 
                         <!-- Deskripsi -->
                         <div class="mb-3">
-                            <label for="description" class="form-label fw-semibold">Deskripsi</label>
+                            <label for="description" class="form-label fw-semibold">Deskripsi <span class="text-danger">*</span></label>
                             <textarea wire:model="description" class="form-control" id="description" rows="4" placeholder="Deskripsi wahana..."></textarea>
                             @error('description') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>

@@ -46,6 +46,7 @@ class InvoiceSeeder extends Seeder
 
             $invoice = Invoice::create([
                 'user_id' => $user->id,
+                'invoice_number' => 'INV-' . date('Ymd') . '-' . str_pad($index + 1, 6, '0', STR_PAD_LEFT),
                 'total_price' => $total,
                 'payment_method' => collect(['Qris', 'Bank Transfer', 'Credit Card'])->random(),
                 'status' => collect(['paid', 'pending', 'paid', 'paid'])->random(), // Mostly paid

@@ -142,3 +142,5 @@ Listening to this event is useful for things like initializing third-party libra
 
 - Dark Mode Support
 [data-bs-theme="dark"] is used to apply dark mode styles in Bootstrap 5.3. Ensure all components and styles are compatible with dark mode by using CSS variables for colors. If the background color is set to white, the text color should be set to a dark color, and vice versa. Avoid hardcoded colors in CSS files or inline styles.
+
+- Its common to use inline CSS styles. For dark mode support you can use 

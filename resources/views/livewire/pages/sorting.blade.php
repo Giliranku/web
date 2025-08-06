@@ -1,6 +1,6 @@
 @push('styles')
 <style>
-/* ===== MINIMALIST SEARCH PAGE STYLES ===== */
+/* === MINIMALIST SEARCH PAGE STYLES ===== */
 
 /* === Color Palette === */
 :root {
@@ -14,8 +14,22 @@
    --gradient-primary: linear-gradient(135deg, #4ABDAC, #3a9d94);
    --gradient-secondary: linear-gradient(135deg, #FC4A1A, #e03d0f);
 }
+[data-bs-theme="dark"] .sort-dropdown-item {
+   color: var(--light) !important;
+}
 
-/* === Search Header === */
+[data-bs-theme="light"] .sort-dropdown-item {
+   color: var(--dark) !important;
+}
+
+[data-bs-theme="light"] .category-dropdown-item {
+   color: var(--dark);
+}
+[data-bs-theme="dark"] .category-dropdown-item {
+   color: var(--light);
+}
+
+/* === Search Hero Section === */
 .search-hero {
    background: var(--gradient-primary);
    padding: 3rem 0 2rem;
@@ -23,158 +37,309 @@
 }
 
 .search-title {
-   font-size: clamp(2rem, 4vw, 2.5rem);
-   font-weight: 300;
+   font-size: clamp(1.75rem, 4vw, 2.5rem);
+   font-weight: 600;
    margin-bottom: 0.5rem;
+   text-align: center;
 }
 
 .search-subtitle {
-   font-size: 1.1rem;
+   font-size: clamp(1rem, 2vw, 1.1rem);
    font-weight: 300;
    opacity: 0.9;
-   margin-bottom: 2rem;
+   margin-bottom: 2.5rem;
+   text-align: center;
 }
 
-/* === Search Bar Minimal === */
+/* === Search Bar with Integrated Controls === */
 .search-bar-minimal {
    background: white;
-   border-radius: 50px;
-   padding: 0.75rem 1.5rem;
+   border-radius: 16px;
+   padding: 0;
    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+   border: 1px solid #e0e0e0;
+   display: flex;
+   align-items: stretch;
+   margin-bottom: 2rem;
+   /* overflow: hidden; */
+   position: relative;
+   min-height: 56px;
+   max-width: 100%;
+   width: 100%;
+}
+
+/* Search Input */
+.search-input {
    border: none;
+   padding: 1rem 1.5rem;
+   font-size: 1rem;
+   flex: 1;
+   background: transparent;
+   outline: none;
+   color: var(--dark);
+   border-right: 1px solid #e0e0e0;
+   min-width: 0;
+}
+
+.search-input::placeholder {
+   color: #999;
+}
+
+/* Category Selector */
+.category-selector {
+   position: relative;
+   background: #f8f9fa;
+   border-right: 1px solid #e0e0e0;
+   min-width: 160px;
    display: flex;
    align-items: center;
-   gap: 1rem;
-   margin-bottom: 2rem;
+   flex-shrink: 0;
 }
 
-.search-bar-minimal input {
+.category-button {
+   background: none;
    border: none;
-   outline: none;
-   flex: 1;
-   font-size: 1rem;
-   background: transparent;
+   padding: 0 1rem;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   font-size: 0.85rem;
+   color: #666;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   white-space: nowrap;
+   justify-content: space-between;
 }
 
-.search-bar-minimal input::placeholder {
-   color: var(--gray-medium);
+.category-button:hover {
+   background: #e9ecef;
+   color: var(--primary);
 }
 
-.search-bar-minimal .search-icon {
-   color: var(--gray-medium);
-   font-size: 1.2rem;
+.category-button .bi-chevron-down,
+.sort-button .bi-chevron-down {
+   transition: transform 0.3s ease;
 }
 
-/* === Filter Section === */
+.category-button .bi-chevron-down.rotate-180,
+.sort-button .bi-chevron-down.rotate-180 {
+   transform: rotate(180deg);
+}
+
+/* Sort Selector */
+.sort-selector {
+   position: relative;
+   background: #f8f9fa;
+   border-right: 1px solid #e0e0e0;
+   min-width: 140px;
+   display: flex;
+   align-items: center;
+   flex-shrink: 0;
+}
+
+.sort-button {
+   background: none;
+   border: none;
+   padding: 0 1rem;
+   height: 100%;
+   width: 100%;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   font-size: 0.85rem;
+   color: #666;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   white-space: nowrap;
+   justify-content: space-between;
+}
+
+.sort-button:hover {
+   background: #e9ecef;
+   color: var(--primary);
+}
+
+/* Search Button */
+.search-button {
+   border-radius: 15px;
+   background: var(--primary);
+   color: white;
+   border: none;
+   padding: 0 1.5rem;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   min-width: 80px;
+   flex-shrink: 0;
+   font-size: 1.1rem;
+}
+
+.search-button:hover {
+   background: #3a9b8a;
+}
+
+/* Dropdown Menus */
+.category-dropdown-menu,
+.sort-dropdown-menu {
+   position: absolute;
+   top: 100%;
+   background: white;
+   border: 1px solid #ddd;
+   border-radius: 8px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+   z-index: 1000;
+   margin-top: 4px;
+   overflow: hidden;
+}
+
+.sort-dropdown-menu {
+   left: auto;
+   right: 0;
+   min-width: 180px;
+}
+
+.category-dropdown-item,
+.sort-dropdown-item {
+   padding: 12px 16px;
+   cursor: pointer;
+   transition: background-color 0.2s ease;
+   font-size: 14px;
+   border-bottom: 1px solid #f5f5f5;
+   display: flex;
+   align-items: center;
+   gap: 8px;
+}
+
+.category-dropdown-item:last-child,
+.sort-dropdown-item:last-child {
+   border-bottom: none;
+}
+
+.category-dropdown-item:hover,
+.sort-dropdown-item:hover {
+   background: #f8f9fa;
+}
+
+.category-dropdown-item.active,
+.sort-dropdown-item.active {
+   background: var(--primary);
+   color: white;
+}
+
+.category-dropdown-item i {
+   width: 16px;
+   text-align: center;
+}
+
+/* Filter Section */
 .filter-section {
    background: white;
-   padding: 1.5rem 0;
+   padding: 1rem 0;
    border-bottom: 1px solid #eee;
 }
 
 .filter-container {
    display: flex;
-   gap: 1rem;
    align-items: center;
-   flex-wrap: wrap;
-}
-
-.filter-dropdown {
-   position: relative;
-   min-width: 200px;
-}
-
-.filter-button {
-   background: var(--gray-light);
-   border: 1px solid #e0e0e0;
-   border-radius: 12px;
-   padding: 0.75rem 1rem;
-   width: 100%;
-   text-align: left;
-   display: flex;
-   justify-content: between;
-   align-items: center;
-   font-size: 0.95rem;
-   color: var(--dark);
-   transition: all 0.3s ease;
-}
-
-.filter-button:hover {
-   border-color: var(--primary);
-   background: white;
-}
-
-.filter-button .dropdown-icon {
-   margin-left: auto;
-   transition: transform 0.3s ease;
-}
-
-.filter-button.active .dropdown-icon {
-   transform: rotate(180deg);
-}
-
-.filter-dropdown-menu {
-   position: absolute;
-   top: 100%;
-   left: 0;
-   right: 0;
-   background: white;
-   border: 1px solid #e0e0e0;
-   border-radius: 12px;
-   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-   z-index: 100;
-   margin-top: 0.5rem;
-   overflow: hidden;
-}
-
-.filter-dropdown-item {
-   padding: 0.75rem 1rem;
-   cursor: pointer;
-   transition: background-color 0.2s ease;
-   font-size: 0.95rem;
-}
-
-.filter-dropdown-item:hover {
-   background: var(--gray-light);
-}
-
-.filter-dropdown-item.active {
-   background: var(--primary);
-   color: white;
-}
-
-.search-button-minimal {
-   background: var(--primary);
-   color: white;
-   border: none;
-   border-radius: 12px;
-   padding: 0.75rem 2rem;
-   font-weight: 500;
-   transition: all 0.3s ease;
-   white-space: nowrap;
-}
-
-.search-button-minimal:hover {
-   background: #3a9d94;
-   transform: translateY(-2px);
-   box-shadow: 0 4px 15px rgba(74, 189, 172, 0.3);
-}
-
-/* === Results Section === */
-.results-section {
-   padding: 2rem 0;
-}
-
-.results-header {
-   display: flex;
-   justify-content: between;
-   align-items: center;
-   margin-bottom: 2rem;
+   justify-content: space-between;
+   padding: 0;
 }
 
 .results-count {
-   font-size: 0.95rem;
-   color: var(--gray-medium);
+   color: #6c757d;
+   font-size: 0.9rem;
+   font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+   .search-bar-minimal {
+      flex-wrap: wrap;
+      min-height: auto;
+   }
+   
+   .search-input {
+      flex-basis: 100%;
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+   }
+   
+   .category-selector,
+   .sort-selector {
+      flex: 1;
+      min-width: 120px;
+   }
+   
+   .search-button {
+      min-width: 100px;
+   }
+   
+   /* Better dropdown positioning for tablet */
+   .category-dropdown-menu,
+   .sort-dropdown-menu {
+      min-width: 180px;
+      max-width: 250px;
+   }
+}
+
+@media (max-width: 576px) {
+   .search-bar-minimal {
+      flex-direction: column;
+   }
+   
+   .search-input {
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+   }
+   
+   .category-selector,
+   .sort-selector,
+   .search-button {
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+      min-width: 100%;
+   }
+   
+   .search-button {
+      border-bottom: none;
+      padding: 1rem;
+   }
+   
+   .category-button,
+   .sort-button {
+      padding: 1rem;
+   }
+   
+   /* Mobile dropdown improvements */
+   .category-dropdown-menu,
+   .sort-dropdown-menu {
+      left: 0;
+      right: 0;
+      min-width: auto;
+      max-width: none;
+      position: absolute;
+   }
+   
+   .category-dropdown-item,
+   .sort-dropdown-item {
+      padding: 16px 20px;
+      font-size: 16px;
+   }
+}
+
+@media (max-width: 768px) {
+   .search-hero {
+      padding: 2rem 0 1.5rem;
+   }
+   
+   .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+   }
 }
 
 /* === Result Cards === */
@@ -291,43 +456,10 @@
    box-shadow: 0 4px 15px rgba(74, 189, 172, 0.3);
 }
 
-/* === Empty State === */
-.empty-state {
-   text-align: center;
-   padding: 4rem 2rem;
-   color: var(--gray-medium);
-}
 
-.empty-state i {
-   font-size: 4rem;
-   color: var(--gray-light);
-   margin-bottom: 1rem;
-}
-
-.empty-state h3 {
-   font-size: 1.5rem;
-   font-weight: 300;
-   margin-bottom: 1rem;
-   color: var(--dark);
-}
 
 /* === Responsive === */
 @media (max-width: 768px) {
-   .search-hero { padding: 2rem 0 1.5rem; }
-   
-   .filter-container {
-      flex-direction: column;
-      align-items: stretch;
-   }
-   
-   .filter-dropdown {
-      min-width: 100%;
-   }
-   
-   .search-button-minimal {
-      width: 100%;
-   }
-   
    .result-content {
       grid-template-columns: 1fr;
       gap: 1rem;
@@ -355,12 +487,6 @@
 }
 
 @media (max-width: 576px) {
-   .results-header {
-      flex-direction: column;
-      gap: 1rem;
-      align-items: stretch;
-   }
-   
    .result-meta {
       flex-direction: column;
       align-items: flex-start;
@@ -381,8 +507,8 @@
 /* Dark mode support */
 [data-bs-theme="dark"] .search-bar-minimal,
 [data-bs-theme="dark"] .result-card,
-[data-bs-theme="dark"] .filter-button,
-[data-bs-theme="dark"] .filter-dropdown-menu {
+[data-bs-theme="dark"] .category-dropdown-menu,
+[data-bs-theme="dark"] .sort-dropdown-menu {
    background: var(--bs-dark);
    border-color: var(--bs-border-color);
 }
@@ -403,13 +529,82 @@
                <h1 class="search-title">Temukan Destinasi Impian</h1>
                <p class="search-subtitle">Cari wahana dan restoran favorit Anda dengan mudah</p>
                
-               <div class="search-bar-minimal">
-                  <input type="text"
-                     placeholder="Cari wahana, restoran, atau aktivitas..."
-                     wire:model.defer="search"
-                     x-data
-                     x-on:keydown.enter="$wire.doSearch()"
-                  >
+               <div class="search-bar-minimal"
+                  x-data="{
+                     categoryOpen: false,
+                     sortOpen: false,
+                     selectedCategory: @entangle('category'),
+                     selectedSort: @entangle('sortBy'),
+                     
+                     getCategoryLabel() {
+                        switch(this.selectedCategory) {
+                           case 'Attraction': return 'Wahana';
+                           case 'Restaurant': return 'Restoran';
+                           default: return 'Semua Kategori';
+                        }
+                     },
+                     getCategoryIcon() {
+                        switch(this.selectedCategory) {
+                           case 'Attraction': return 'bi-star-fill';
+                           case 'Restaurant': return 'bi-cup-hot-fill';
+                           default: return 'bi-list-ul';
+                        }
+                     }
+                  }"
+                  @click.outside="categoryOpen = false; sortOpen = false">
+
+                  {{-- 1. Search Input --}}
+                  <input type="text" 
+                         class="search-input" 
+                         placeholder="Cari restoran atau wahana..."
+                         wire:model.live.debounce.300ms="searchQuery">
+
+                  {{-- 2. Category Dropdown --}}
+                  <div class="category-selector">
+                     <button type="button" 
+                             class="category-button" 
+                             @click="categoryOpen = !categoryOpen; sortOpen = false">
+                        <i class="bi" :class="getCategoryIcon()"></i>
+                        <span x-text="getCategoryLabel()"></span>
+                        <i class="bi bi-chevron-down" :class="{ 'rotate-180': categoryOpen }"></i>
+                     </button>
+                     <div class="category-dropdown-menu" x-show="categoryOpen" x-transition>
+                        <div class="category-dropdown-item" @click="$wire.set('category', 'Semua'); categoryOpen = false">
+                           <i class="bi bi-list-ul"></i>
+                           <span>Semua Kategori</span>
+                        </div>
+                        <div class="category-dropdown-item" @click="$wire.set('category', 'Attraction'); categoryOpen = false">
+                           <i class="bi bi-star-fill"></i>
+                           <span>Wahana</span>
+                        </div>
+                        <div class="category-dropdown-item" @click="$wire.set('category', 'Restaurant'); categoryOpen = false">
+                           <i class="bi bi-cup-hot-fill"></i>
+                           <span>Restoran</span>
+                        </div>
+                     </div>
+                  </div>
+
+                  {{-- 3. Sort Dropdown --}}
+                  <div class="sort-selector">
+                     <button type="button" 
+                             class="sort-button" 
+                             @click="sortOpen = !sortOpen; categoryOpen = false">
+                        <span x-text="selectedSort"></span>
+                        <i class="bi bi-chevron-down" :class="{ 'rotate-180': sortOpen }"></i>
+                     </button>
+                     <div class="sort-dropdown-menu" x-show="sortOpen" x-transition>
+                        <div class="sort-dropdown-item" @click="$wire.set('sortBy', 'Terpopuler'); sortOpen = false">Terpopuler</div>
+                        <div class="sort-dropdown-item" @click="$wire.set('sortBy', 'Nama A-Z'); sortOpen = false">Nama A-Z</div>
+                        <div class="sort-dropdown-item" @click="$wire.set('sortBy', 'Nama Z-A'); sortOpen = false">Nama Z-A</div>
+                        <div class="sort-dropdown-item" @click="$wire.set('sortBy', 'Kapasitas Terbesar'); sortOpen = false">Kapasitas Terbesar</div>
+                        <div class="sort-dropdown-item" @click="$wire.set('sortBy', 'Kapasitas Terkecil'); sortOpen = false">Kapasitas Terkecil</div>
+                     </div>
+                  </div>
+
+                  {{-- 4. Search Button --}}
+                  <button class="search-button" wire:click="doSearch">
+                     <i class="bi bi-search"></i>
+                  </button>
                </div>
             </div>
          </div>
@@ -420,79 +615,7 @@
    <section class="filter-section">
       <div class="container">
          <div class="filter-container">
-            {{-- Sort Dropdown --}}
-            <div class="filter-dropdown"
-               x-data="{
-                  open: false,
-                  selected: @entangle('sortBy'),
-                  select(option) {
-                     this.selected = option;
-                     this.open = false;
-                     $wire.sortBy = option;
-                  },
-                  options: [
-                     'Kapasitas Terbesar',
-                     'Kapasitas Terkecil',
-                  ]
-               }"
-               @click.outside="open = false">
-               
-               <button class="filter-button" :class="{ 'active': open }" @click="open = !open">
-                  <span>Urutkan: </span>
-                  <strong x-text="selected"></strong>
-                  <i class="bi bi-chevron-down dropdown-icon"></i>
-               </button>
-               
-               <div class="filter-dropdown-menu" x-show="open" x-transition>
-                  <template x-for="option in options" :key="option">
-                     <div class="filter-dropdown-item" 
-                          :class="{ 'active': option === selected }"
-                          @click="select(option)" 
-                          x-text="option">
-                     </div>
-                  </template>
-               </div>
-            </div>
-
-            {{-- Category Dropdown --}}
-            <div class="filter-dropdown"
-               x-data="{
-                  open: false,
-                  selected: @entangle('category'),
-                  select(option) {
-                     this.selected = option;
-                     this.open = false;
-                     $wire.category = option;
-                  },
-                  options: [
-                     'Semua',
-                     'Restoran', 
-                     'Attraction'
-                  ]
-               }"
-               @click.outside="open = false">
-               
-               <button class="filter-button" :class="{ 'active': open }" @click="open = !open">
-                  <span>Kategori: </span>
-                  <strong x-text="selected"></strong>
-                  <i class="bi bi-chevron-down dropdown-icon"></i>
-               </button>
-               
-               <div class="filter-dropdown-menu" x-show="open" x-transition>
-                  <template x-for="option in options" :key="option">
-                     <div class="filter-dropdown-item" 
-                          :class="{ 'active': option === selected }"
-                          @click="select(option)" 
-                          x-text="option">
-                     </div>
-                  </template>
-               </div>
-            </div>
-
-            {{-- Search Button --}}
-            <button class="search-button-minimal" wire:click="doSearch">
-               <i class="bi bi-search me-2"></i>Cari
-            </button>
+            {{-- Spacer atau bisa ditambah filter tambahan di sini --}}
          </div>
       </div>
    </section>
@@ -503,8 +626,8 @@
          <div class="results-header">
             <div class="results-count">
                Menampilkan {{ $items->count() }} hasil
-               @if($search)
-                  untuk "<strong>{{ $search }}</strong>"
+               @if($searchQuery)
+                  untuk "<strong>{{ $searchQuery }}</strong>"
                @endif
             </div>
          </div>
@@ -516,8 +639,8 @@
                   <img src="{{ $this->getImageUrl($item->cover) }}" alt="{{ $item->name }}" class="result-image">
                   
                   <div class="result-info">
-                     <div class="result-type {{ strtolower($item->type) === 'restoran' ? 'restaurant' : 'attraction' }}">
-                        {{ $item->type === 'Restoran' ? 'Restoran' : 'Wahana' }}
+                     <div class="result-type {{ $item->type === 'Restaurant' ? 'restaurant' : 'attraction' }}">
+                        {{ $item->type === 'Restaurant' ? 'Restoran' : 'Wahana' }}
                      </div>
                      
                      <h3 class="result-title">{{ $item->name }}</h3>
@@ -535,7 +658,7 @@
                            </div>
                         @endif
                         
-                        @if($item->type === 'Restoran' && isset($item->price))
+                        @if($item->type === 'Restaurant' && isset($item->price))
                            <div class="meta-item">
                               <i class="bi bi-tag"></i>
                               <span>Harga: <span class="meta-value">Rp{{ number_format($item->price) }}</span></span>
@@ -545,12 +668,12 @@
                   </div>
                   
                   <div class="result-action">
-                     @if($item->type === 'Restoran')
-                        <a href="/restaurant/{{ $item->id }}" class="result-button">
+                     @if($item->type === 'Restaurant')
+                        <a href="/restaurant/{{ $item->id }}" class="result-button" wire:navigate>
                            Lihat Detail
                         </a>
                      @elseif ($item->type === 'Attraction')
-                        <a href="/attraction/{{ $item->id }}" class="result-button">
+                        <a href="/attraction/{{ $item->id }}" class="result-button" wire:navigate>
                            Lihat Detail
                         </a>
                      @endif
@@ -558,9 +681,9 @@
                </div>
             </div>
          @empty
-            <div class="empty-state">
-               <i class="bi bi-search"></i>
-               <h3>Tidak ada hasil ditemukan</h3>
+            <div style="text-align: center; padding: 4rem 2rem; color: #6c757d;">
+               <i class="bi bi-search" style="font-size: 4rem; color: #f8f9fa; margin-bottom: 1rem; display: block;"></i>
+               <h3 style="font-size: 1.5rem; font-weight: 300; margin-bottom: 1rem; color: #2c3e50;">Tidak ada hasil ditemukan</h3>
                <p>Coba ubah kata kunci pencarian atau filter yang digunakan.</p>
             </div>
          @endforelse

@@ -28,7 +28,7 @@
                                 @if ($new_logo)
                                     <img src="{{ $new_logo->temporaryUrl() }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
                                 @else
-                                    <img src="{{ asset('storage/' . $ticket->logo) }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;">
+                                    <img src="{{ $ticket->getLogoUrl() }}" alt="Preview" class="img-fluid" style="object-fit: contain; width: 100%; height: 100%;" onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                                 @endif
 
                                 @if (!($new_logo || $ticket->logo))

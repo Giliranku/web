@@ -1140,43 +1140,414 @@ button[style*="background: none"] {
 
 /* Mobile Styles */
 @media (max-width: 991.98px) {
+    /* Main Mobile Container */
     .navbar-collapse {
-        /* background: rgba(255, 255, 255, 0.95) !important; */
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border-radius: 16px !important;
+        border-radius: 20px !important;
         margin-top: 1rem !important;
-        padding: 1.5rem !important;
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+        padding: 0 !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.1),
+            0 1px 0 rgba(255, 255, 255, 0.1) inset !important;
         position: relative !important;
-    }
-    
-    .profile-menu {
-        position: static !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
-        box-shadow: none !important;
-        border: 1px solid rgba(0, 0, 0, 0.1) !important;
-        margin-top: 1rem !important;
-        background: white !important;
-        max-width: 100% !important;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.95);
     }
 
-    .profile-menu.show {
-        opacity: 1 !important;
-        visibility: visible !important;
-        transform: none !important;
+    /* Custom Hamburger */
+    .navbar-toggler {
+        border: none;
+        padding: 0.5rem;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    .hamburger-line {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: #64748b;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-toggler:hover .hamburger-line {
+        background: #334155;
+    }
+
+    /* Mobile Welcome Section */
+    .mobile-welcome-section {
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mobile-welcome-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="0.5" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="0.5" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.05"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+        opacity: 0.3;
+    }
+
+    .mobile-user-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .user-avatar-section {
+        position: relative;
+    }
+
+    .user-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        object-fit: cover;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-avatar-placeholder {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .user-status-indicator {
+        position: absolute;
+        bottom: -2px;
+        right: -2px;
+        width: 14px;
+        height: 14px;
+        background: #10b981;
+        border: 2px solid white;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-info-section {
+        flex: 1;
+        color: white;
+    }
+
+    .user-name {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        line-height: 1.2;
+    }
+
+    .user-email {
+        margin: 0.25rem 0 0.5rem 0;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.2;
+    }
+
+    .user-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    /* Guest Card */
+    .mobile-guest-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .guest-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .guest-info {
+        flex: 1;
+        color: white;
+    }
+
+    .guest-title {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: white;
+        line-height: 1.2;
+    }
+
+    .guest-subtitle {
+        margin: 0.25rem 0 0 0;
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.2;
+    }
+
+    /* Navigation Links */
+    .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin: 0 !important;
+        padding: 1rem 1.5rem !important;
+        color: #374151;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+    }
+
+    .nav-link:hover {
+        background: #f8fafc;
+        color: #667eea;
+        transform: translateX(8px);
+    }
+
+    .nav-link.active {
+        background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        color: #667eea;
+        border-left: 4px solid #667eea;
+        font-weight: 600;
+    }
+
+    .nav-link.active::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .nav-link i {
+        font-size: 18px;
+        width: 20px;
+        text-align: center;
+        color: #6b7280;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover i,
+    .nav-link.active i {
+        color: #667eea;
+        transform: scale(1.1);
+    }
+
+    .nav-link span {
+        font-weight: 500;
+    }
+
+    /* Mobile Quick Actions */
+    .mobile-quick-actions {
+        padding: 1.5rem;
+        background: #f9fafb;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .quick-action-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+    }
+
+    .quick-action-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 0.5rem;
+        text-decoration: none;
+        color: #374151;
+        background: white;
+        border-radius: 16px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .quick-action-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .quick-action-item:hover::before {
+        opacity: 1;
+    }
+
+    .quick-action-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border-color: #667eea;
+        color: #667eea;
+    }
+
+    .action-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    .action-icon.cart {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+    }
+
+    .action-icon.profile {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+    }
+
+    .action-icon.history {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        color: white;
+    }
+
+    .action-icon.logout {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+
+    .action-badge {
+        position: absolute;
+        top: -6px;
+        right: -6px;
+        background: #ef4444;
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.2rem 0.35rem;
+        border-radius: 8px;
+        min-width: 1rem;
+        text-align: center;
+        font-weight: 700;
+        border: 2px solid white;
+    }
+
+    .action-label {
+        font-size: 0.8rem;
+        font-weight: 500;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .logout-action {
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Guest Actions */
+    .guest-action-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .guest-action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+        border-radius: 14px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: none;
+        cursor: pointer;
+    }
+
+    .guest-action-btn.primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .guest-action-btn.primary:hover {
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    .guest-action-btn.secondary {
+        background: white;
+        color: #667eea;
+        border: 2px solid #667eea;
+    }
+
+    .guest-action-btn.secondary:hover {
+        background: #667eea;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+    }
+    /* Hide desktop elements on mobile */
+    .profile-menu {
+        display: none !important;
     }
 
     .navbar-divider {
         display: none !important;
-    }
-
-    .nav-link {
-        margin: 0.25rem 0 !important;
-        padding: 1rem 1.25rem !important;
     }
 
     .profile-dropdown {
@@ -1186,53 +1557,28 @@ button[style*="background: none"] {
     .d-flex.align-items-center.gap-3 {
         flex-direction: column !important;
         align-items: stretch !important;
-        gap: 1rem !important;
+        gap: 0 !important;
     }
 
-    .cart-icon {
-        align-self: center !important;
+    /* Responsive tweaks for very small screens */
+    @media (max-width: 375px) {
+        .quick-action-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .mobile-welcome-section {
+            padding: 1rem;
+        }
+
+        .mobile-quick-actions {
+            padding: 1rem;
+        }
+
+        .navbar-collapse {
+            margin-top: 0.5rem !important;
+        }
     }
-}
-
-/* Navbar Toggler Animation */
-.navbar-toggler {
-    border: none;
-    padding: 0.5rem;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.navbar-toggler:focus {
-    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-}
-
-.navbar-toggler-icon {
-    background-image: none;
-    width: 24px;
-    height: 2px;
-    background: #475569;
-    border-radius: 2px;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-.navbar-toggler-icon::before,
-.navbar-toggler-icon::after {
-    content: '';
-    position: absolute;
-    width: 24px;
-    height: 2px;
-    background: #475569;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-}
-
-.navbar-toggler-icon::before {
-    top: -8px;
-}
-
-.navbar-toggler-icon::after {
-    top: 8px;
 }
 
 /* ===== QUEUE FLOATING WIDGET STYLES ===== */

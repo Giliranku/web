@@ -28,8 +28,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana1.png',
                 'img2' => 'wahana/wahana-1.png',
                 'img3' => 'dufan.jpeg',
-                'players_per_round' => 12, // Bumper car style - 12 pemain per ronde
-                'estimated_time_per_round' => 8, // 8 menit per ronde
+                'players_per_round' => 12,
+                'estimated_time_per_round' => 8,
             ],
             [
                 'name' => 'SpinReverse',
@@ -41,8 +41,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana2.png',
                 'img2' => 'wahana/wahana-2.png',
                 'img3' => 'kora-kora.jpg',
-                'players_per_round' => 20, // Roller coaster style - 20 pemain per ronde
-                'estimated_time_per_round' => 10, // 10 menit per ronde
+                'players_per_round' => 20,
+                'estimated_time_per_round' => 10,
             ],
             [
                 'name' => 'Mercus Tower',
@@ -54,8 +54,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'wahana3.png',
                 'img2' => 'wahana/wahana-3.png',
                 'img3' => 'ferrisWheel.png',
-                'players_per_round' => 30, // Ferris wheel style - 30 pemain per ronde
-                'estimated_time_per_round' => 15, // 15 menit per ronde
+                'players_per_round' => 30,
+                'estimated_time_per_round' => 15,
             ],
             [
                 'name' => 'Atlantis Water Adventure',
@@ -67,8 +67,8 @@ class AttractionSeeder extends Seeder
                 'img1' => 'seaworld.jpeg',
                 'img2' => 'aw.png',
                 'img3' => 'ice-age.jpg',
-                'players_per_round' => 25, // Water adventure - 25 pemain per ronde
-                'estimated_time_per_round' => 20, // 20 menit per ronde
+                'players_per_round' => 25,
+                'estimated_time_per_round' => 20,
             ],
             [
                 'name' => 'Arung Jeram',
@@ -80,8 +80,73 @@ class AttractionSeeder extends Seeder
                 'img1' => 'kegiatanseru1.jpg',
                 'img2' => 'kegiatanseru2.jpg',
                 'img3' => 'kegiatanseru3.jpg',
-                'players_per_round' => 6, // Default - 6 pemain per ronde
-                'estimated_time_per_round' => 15, // 15 menit per ronde
+                'players_per_round' => 6,
+                'estimated_time_per_round' => 15,
+            ],
+            [
+                'name' => 'Sky Warrior',
+                'location' => 'Taman Bermain Ancol',
+                'capacity' => 24,
+                'time_estimation' => 15,
+                'description' => 'Simulasi terbang dengan teknologi VR dan motion sensor 360 derajat.',
+                'cover' => 'ferrisWheel.png',
+                'img1' => 'wahana1.png',
+                'img2' => 'wahana/wahana-1.png',
+                'img3' => 'attractions.png',
+                'players_per_round' => 8,
+                'estimated_time_per_round' => 15,
+            ],
+            [
+                'name' => 'Thunder Storm',
+                'location' => 'Taman Bermain Ancol',
+                'capacity' => 32,
+                'time_estimation' => 10,
+                'description' => 'Roller coaster berkecepatan tinggi dengan loop dan spiral mendebarkan.',
+                'cover' => 'kora-kora.jpg',
+                'img1' => 'wahana2.png',
+                'img2' => 'wahana/wahana-2.png',
+                'img3' => 'halilintar.jpg',
+                'players_per_round' => 16,
+                'estimated_time_per_round' => 8,
+            ],
+            [
+                'name' => 'Magic Carpet',
+                'location' => 'Taman Bermain Ancol',
+                'capacity' => 60,
+                'time_estimation' => 12,
+                'description' => 'Wahana keluarga yang mengayun lembut dengan pemandangan taman.',
+                'cover' => 'ice-age.jpg',
+                'img1' => 'wahana3.png',
+                'img2' => 'wahana/wahana-3.png',
+                'img3' => 'dufan.jpeg',
+                'players_per_round' => 20,
+                'estimated_time_per_round' => 10,
+            ],
+            [
+                'name' => 'Bumper Car Arena',
+                'location' => 'Taman Bermain Ancol',
+                'capacity' => 40,
+                'time_estimation' => 8,
+                'description' => 'Arena bumper car modern dengan mobil elektrik dan arena yang luas.',
+                'cover' => 'aw.png',
+                'img1' => 'seaworld.jpeg',
+                'img2' => 'wahana1.png',
+                'img3' => 'atlantis.jpeg',
+                'players_per_round' => 20,
+                'estimated_time_per_round' => 6,
+            ],
+            [
+                'name' => 'Haunted Mansion',
+                'location' => 'Taman Bermain Ancol',
+                'capacity' => 15,
+                'time_estimation' => 20,
+                'description' => 'Rumah hantu dengan efek special dan aktor profesional yang menakutkan.',
+                'cover' => 'ontang-anting.jpg',
+                'img1' => 'wahana2.png',
+                'img2' => 'bianglala.jpg',
+                'img3' => 'ferrisWheel.png',
+                'players_per_round' => 8,
+                'estimated_time_per_round' => 18,
             ],
         ];
         

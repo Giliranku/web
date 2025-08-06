@@ -1,5 +1,23 @@
 @push('styles')
 <style>
+    /* 5-column layout for statistics */
+    .col-xl-2-4 {
+        flex: 0 0 auto;
+        width: 20%;
+    }
+    
+    @media (max-width: 1199.98px) {
+        .col-xl-2-4 {
+            width: 50%;
+        }
+    }
+    
+    @media (max-width: 767.98px) {
+        .col-xl-2-4 {
+            width: 100%;
+        }
+    }
+
     .queue-item {
         transition: all 0.3s ease;
         border-left: 4px solid transparent;
@@ -84,6 +102,51 @@
         color: #dc3545;
         margin-bottom: 1rem;
     }
+
+    /* Fast Pass Priority Styles */
+    .priority-badge {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.375rem;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+    }
+    
+    .priority-badge.fast-pass {
+        background: linear-gradient(135deg, #fc4a1a, #f7b733);
+        color: white;
+        border: 1px solid #fc4a1a;
+        box-shadow: 0 2px 4px rgba(252, 74, 26, 0.2);
+    }
+    
+    .priority-badge.regular {
+        background-color: #6c757d;
+        color: white;
+        border: 1px solid #6c757d;
+    }
+
+    .queue-item.fast-pass {
+        border-left-color: #fc4a1a !important;
+        background: linear-gradient(90deg, rgba(252, 74, 26, 0.05), rgba(247, 183, 51, 0.05)) !important;
+        position: relative;
+    }
+
+    .queue-item.fast-pass::before {
+        content: "⚡";
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 1.2rem;
+        color: #fc4a1a;
+        animation: pulse-fast-pass 2s infinite;
+    }
+
+    @keyframes pulse-fast-pass {
+        0% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.1); opacity: 0.8; }
+        100% { transform: scale(1); opacity: 1; }
+    }
 </style>
 @endpush
 
@@ -99,6 +162,12 @@
                     <p class="text-muted mb-0">
                         Kelola antrian {{ $type === 'attraction' ? 'wahana' : 'restoran' }} untuk tanggal yang dipilih
                     </p>
+                    <div class="mt-2">
+                        <small class="text-info">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Urutan Prioritas: Fast Pass Called → Fast Pass Waiting → Regular → Served → Cancelled
+                        </small>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center gap-3">
                     <input 
@@ -114,7 +183,7 @@
                             @if(collect($queues)->where('status', 'waiting')->isEmpty()) disabled @endif
                         >
                             <i class="fas fa-bell me-2"></i>
-                            Panggil 1 Grup Permainan ({{ $location->players_per_round ?? 1 }} orang)
+                            Panggil 1 Grup ({{ $location->players_per_round ?? 1 }} orang)
                         </button>
                         <button 
                             wire:click="markServedBatch"
@@ -132,18 +201,18 @@
 
     <!-- Statistics -->
     <div class="row g-4 mb-4">
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-xl-2-4">
             <div class="card stats-card bg-primary bg-opacity-10 h-100">
                 <div class="card-body text-center">
                     <div class="mb-2">
                         <i class="fas fa-users" style="font-size: 2rem; color: var(--bs-primary);"></i>
                     </div>
                     <div class="small fw-medium text-muted">Total Antrian</div>
-                    <div class="h2 fw-bold ">{{ count($queues) }}</div>
+                    <div class="h2 fw-bold">{{ count($queues) }}</div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-xl-2-4">
             <div class="card stats-card bg-warning bg-opacity-10 h-100">
                 <div class="card-body text-center">
                     <div class="mb-2">
@@ -154,7 +223,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-xl-2-4">
             <div class="card stats-card bg-info bg-opacity-10 h-100">
                 <div class="card-body text-center">
                     <div class="mb-2">
@@ -165,7 +234,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-6 col-xl-2-4">
             <div class="card stats-card bg-success bg-opacity-10 h-100">
                 <div class="card-body text-center">
                     <div class="mb-2">
@@ -173,6 +242,17 @@
                     </div>
                     <div class="small fw-medium text-muted">Selesai</div>
                     <div class="h2 fw-bold text-success">{{ collect($queues)->where('status', 'served')->count() }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-xl-2-4">
+            <div class="card stats-card" style="background: linear-gradient(135deg, rgba(252, 74, 26, 0.1), rgba(247, 183, 51, 0.1));">
+                <div class="card-body text-center">
+                    <div class="mb-2">
+                        <i class="fas fa-bolt" style="font-size: 2rem; color: #fc4a1a;"></i>
+                    </div>
+                    <div class="small fw-medium text-muted">Fast Pass</div>
+                    <div class="h2 fw-bold" style="color: #fc4a1a;">{{ collect($queues)->where('priority_level', 1)->count() }}</div>
                 </div>
             </div>
         </div>
@@ -198,7 +278,7 @@
                     @foreach($queues as $queue)
                         <div 
                             data-queue-id="{{ $queue['id'] }}"
-                            class="queue-item {{ $queue['status'] }} card border-0 shadow-sm"
+                            class="queue-item {{ $queue['status'] }} {{ ($queue['priority_level'] ?? 2) == 1 ? 'fast-pass' : '' }} card border-0 shadow-sm"
                         >
                             <div class="card-body">
                                 <div class="d-flex align-items-center">
@@ -209,8 +289,20 @@
                                     
                                     <!-- Queue Info -->
                                     <div class="flex-grow-1">
-                                        <div class="fw-bold  h5 mb-1">
-                                            {{ $queue['user']['name'] ?? 'Unknown User' }}
+                                        <div class="d-flex align-items-center gap-2 mb-1">
+                                            <div class="fw-bold h5 mb-0">
+                                                {{ $queue['user']['name'] ?? 'Unknown User' }}
+                                            </div>
+                                            <!-- Priority Badge -->
+                                            @if(($queue['priority_level'] ?? 2) == 1)
+                                                <span class="priority-badge fast-pass">
+                                                    <i class="fas fa-bolt me-1"></i>Fast Pass
+                                                </span>
+                                            @else
+                                                <span class="priority-badge regular">
+                                                    Regular
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="small text-muted d-flex flex-wrap align-items-center gap-3">
                                             <span>
@@ -225,6 +317,12 @@
                                                 <i class="fas fa-calendar me-1"></i>
                                                 {{ \Carbon\Carbon::parse($queue['reservation_date'])->format('d M Y') }}
                                             </span>
+                                            @if(($queue['priority_level'] ?? 2) == 1)
+                                                <span class="text-warning">
+                                                    <i class="fas fa-star me-1"></i>
+                                                    Prioritas Tinggi
+                                                </span>
+                                            @endif
                                         </div>
                                         <div class="mt-2">
                                             <span class="badge 

@@ -155,8 +155,9 @@
                                     </div>
                                 @else
                                     <div class="image-preview w-100 h-100">
-                                        <img src="{{ asset('storage/' . $oldCover) }}" alt="Current Image" 
-                                             class="img-fluid w-100 h-100" style="object-fit: cover;">
+                                        <img src="{{ $newsData->getCoverUrl() }}" alt="Current Image" 
+                                             class="img-fluid w-100 h-100" style="object-fit: cover;"
+                                             onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                                     </div>
                                 @endif
                             </div>
@@ -190,6 +191,18 @@
                             <label for="keywords" class="form-label">Kata Kunci</label>
                             <input type="text" class="form-control" id="keywords" wire:model.defer="keywords" 
                                    placeholder="Pisahkan dengan koma...">
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="category" class="form-label">Kategori Berita</label>
+                            <select wire:model.defer="category" class="form-control" id="category">
+                                <option value="">Pilih Kategori</option>
+                                <option value="info">Info Giliranku</option>
+                                <option value="promo">Promo Spesial</option>
+                                <option value="kegiatan">Kegiatan Seru</option>
+                                <option value="wahana">Info Wahana</option>
+                            </select>
+                            @error('category') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="mb-4">

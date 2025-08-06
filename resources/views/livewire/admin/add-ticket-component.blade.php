@@ -90,6 +90,56 @@
                             </div>
                         </div>
 
+                        <!-- Fast Pass Settings -->
+                        <div class="mb-3 mt-3">
+                            <div class="card border-0" style="background: linear-gradient(135deg, rgba(252, 74, 26, 0.1), rgba(247, 183, 51, 0.1));">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="fas fa-bolt text-warning me-2"></i>
+                                        <h6 class="mb-0 fw-bold">Pengaturan Fast Pass</h6>
+                                    </div>
+                                    
+                                    <!-- Ticket Type -->
+                                    <div class="mb-3">
+                                        <label for="ticket_type" class="form-label fw-semibold">Jenis Tiket</label>
+                                        <select wire:model.live="ticket_type" id="ticket_type" class="form-select">
+                                            <option value="regular">Regular</option>
+                                            <option value="fast_pass">Fast Pass</option>
+                                        </select>
+                                        @error('ticket_type') <span class="text-danger">{{ $message }}</span> @enderror
+                                    </div>
+
+                                    <!-- Fast Pass Price Multiplier (only show for fast_pass) -->
+                                    @if($ticket_type === 'fast_pass')
+                                        <div class="mb-3">
+                                            <label for="fast_pass_price_multiplier" class="form-label fw-semibold">
+                                                Pengali Harga Fast Pass
+                                                <small class="text-muted">(mis: 1.5 untuk 50% lebih mahal)</small>
+                                            </label>
+                                            <div class="position-relative">
+                                                <input type="number" step="0.1" min="1" wire:model="fast_pass_price_multiplier" 
+                                                       class="form-control pe-5" id="fast_pass_price_multiplier" 
+                                                       placeholder="Contoh: 1.5">
+                                                <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0 bg-transparent edit-icon" data-target="fast_pass_price_multiplier">
+                                                    <i class="fas fa-edit text-muted"></i>
+                                                </button>
+                                            </div>
+                                            @error('fast_pass_price_multiplier') <span class="text-danger">{{ $message }}</span> @enderror
+                                            
+                                            @if($fast_pass_price_multiplier && $price)
+                                                <div class="alert alert-info mt-2 py-2">
+                                                    <small>
+                                                        <i class="fas fa-info-circle me-1"></i>
+                                                        Harga Fast Pass: Rp {{ number_format($price * $fast_pass_price_multiplier, 0, ',', '.') }}
+                                                    </small>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Location -->
                         <div class="mb-3 mt-3">
                             <label for="lokasi" class="form-label fw-semibold">Lokasi</label>

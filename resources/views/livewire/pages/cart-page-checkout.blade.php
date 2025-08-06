@@ -42,12 +42,23 @@
                                 <i class="fas fa-user text-primary"></i>
                                 Informasi Kontak
                             </h5>
+                            @auth
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Data diambil dari profil Anda, dapat diubah jika diperlukan
+                            </small>
+                            @endauth
                         </div>
                         <div class="form-section-body">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="namaLengkap" class="form-label">
                                         <i class="fas fa-id-card me-1"></i>Nama Lengkap
+                                        @auth
+                                        <span class="badge bg-info-subtle text-info ms-2 small">
+                                            <i class="fas fa-user-check me-1"></i>Dari Profil
+                                        </span>
+                                        @endauth
                                     </label>
                                     <input type="text" wire:model="namaLengkap" class="form-control" id="namaLengkap" 
                                            placeholder="Masukkan nama lengkap Anda">
@@ -60,6 +71,11 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">
                                         <i class="fas fa-envelope me-1"></i>Email
+                                        @auth
+                                        <span class="badge bg-info-subtle text-info ms-2 small">
+                                            <i class="fas fa-user-check me-1"></i>Dari Profil
+                                        </span>
+                                        @endauth
                                     </label>
                                     <input type="email" wire:model="email" class="form-control" id="email" 
                                            placeholder="contoh@email.com">
@@ -74,6 +90,11 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="noTelp" class="form-label">
                                         <i class="fas fa-phone me-1"></i>Nomor Telepon
+                                        @auth
+                                        <span class="badge bg-info-subtle text-info ms-2 small">
+                                            <i class="fas fa-user-check me-1"></i>Dari Profil
+                                        </span>
+                                        @endauth
                                     </label>
                                     <input type="tel" wire:model="noTelp" class="form-control" id="noTelp" 
                                            placeholder="08xxxxxxxxxx">
@@ -83,6 +104,14 @@
                                         </div>
                                     @enderror
                                 </div>
+                                @auth
+                                <div class="col-md-6 mb-3 d-flex align-items-end">
+                                    <div class="alert alert-info alert-modern w-100 mb-0">
+                                        <i class="fas fa-lightbulb me-2"></i>
+                                        <small><strong>Tips:</strong> Pastikan data kontak akurat untuk konfirmasi tiket</small>
+                                    </div>
+                                </div>
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -222,9 +251,20 @@
                                 <div class="mb-3">
                                     <label for="ovoPhone" class="form-label">
                                         <i class="fas fa-phone me-1"></i>Nomor Telepon OVO
+                                        @auth
+                                        <span class="badge bg-primary-subtle text-primary ms-2 small">
+                                            <i class="fas fa-sync me-1"></i>Auto-filled
+                                        </span>
+                                        @endauth
                                     </label>
                                     <input type="tel" wire:model="ovoPhone" class="form-control" id="ovoPhone" 
                                            placeholder="08xxxxxxxxxx">
+                                    @auth
+                                    <small class="text-muted mt-1 d-block">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Nomor diambil dari profil Anda, ubah jika nomor OVO berbeda
+                                    </small>
+                                    @endauth
                                     @error('ovoPhone')
                                         <div class="text-danger small mt-1">
                                             <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}

@@ -48,6 +48,18 @@ use App\Livewire\Admin\ManageTicket;
 use App\Livewire\Admin\ManageTicketAdd;
 use App\Livewire\Admin\ManageTicketEdit;
 use App\Livewire\Admin\ManageTicketComponent;
+
+// Debug route for News images
+Route::get('/debug-news', function() {
+    $news = \App\Models\News::first();
+    return [
+        'news_cover' => $news->news_cover,
+        'image_url' => $news->image_url,
+        'file_exists' => file_exists(public_path('img/' . $news->news_cover)),
+        'public_path' => public_path('img/' . $news->news_cover),
+        'asset_url' => asset('img/' . $news->news_cover)
+    ];
+});
 use App\Livewire\Admin\AddTicketComponent;
 use App\Livewire\Admin\EditTicketComponent;
 use App\Livewire\Admin\NewsIndex;
@@ -56,6 +68,8 @@ use App\Livewire\Admin\LoginPage as AdminLoginPage;
 use App\Livewire\Admin\Dashboard as AdminDashboard;
 use App\Livewire\Admin\ManageUsers;
 use App\Livewire\Admin\EditUser;
+use App\Livewire\Admin\ManageSupport;
+use App\Livewire\Admin\ManagePayments;
 
 // Staff Components
 use App\Livewire\Pages\StaffProfilePage;
@@ -64,6 +78,7 @@ use App\Livewire\Staff\Restaurant\Dashboard as RestaurantDashboard;
 use App\Livewire\Staff\Attraction\Dashboard as AttractionDashboard;
 use App\Livewire\Staff\QueueManager;
 use App\Livewire\Staff\StaffProfile;
+use App\Livewire\Staff\SupportTickets;
 
 // Profile Components
 use App\Livewire\Admin\AdminProfile;
@@ -123,6 +138,34 @@ Route::middleware(['auth'])->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| REDIRECT ROUTES
+|--------------------------------------------------------------------------
+| Convenient redirect routes for admin and staff
+*/
+
+// Admin redirect route - redirect to login or dashboard based on auth status
+Route::get('/admin', function () {
+    if (session('staff_id') && session('staff_role') === 'admin') {
+        return redirect()->route('admin.dashboard');
+    }
+    return redirect()->route('admin.login');
+})->name('admin.redirect');
+
+// Staff redirect route - redirect to login or appropriate dashboard based on auth status
+Route::get('/staff', function () {
+    if (session('staff_id') && in_array(session('staff_role'), ['staff_restaurant', 'staff_attraction'])) {
+        // Redirect to appropriate dashboard based on staff role
+        if (session('staff_role') === 'staff_restaurant') {
+            return redirect()->route('staff.restaurant.dashboard');
+        } elseif (session('staff_role') === 'staff_attraction') {
+            return redirect()->route('staff.attraction.dashboard');
+        }
+    }
+    return redirect()->route('admin.login')->with('info', 'Silakan login sebagai staff terlebih dahulu.');
+})->name('staff.redirect');
+
+/*
+|--------------------------------------------------------------------------
 | ADMIN ROUTES
 |--------------------------------------------------------------------------
 | Routes for super admin
@@ -170,6 +213,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/manage-restaurants/add', AddRestaurant::class)->name('restaurants.create');
         Route::get('/manage-restaurants/edit/{restaurant}', EditRestaurant::class)->name('restaurants.edit');
         
+        // Support Management
+        Route::get('/manage-support', ManageSupport::class)->name('support.index');
+        
+        // Payment Management
+        Route::get('/manage-payments', ManagePayments::class)->name('payments.index');
+        
         // Legacy Attraction Management (keep for backward compatibility)
         Route::get('/attraction-list', AttracionListManage::class)->name('attractions.manage');
         Route::get('/attraction-list/add', AttracionListManageAdd::class)->name('attractions.create.legacy');
@@ -191,6 +240,9 @@ Route::prefix('staff')->name('staff.')->middleware(['staff'])->group(function ()
     
     // Staff Profile (for both restaurant and attraction staff)
     Route::get('/profile', StaffProfile::class)->name('profile');
+    
+    // Support System (for all staff)
+    Route::get('/support', SupportTickets::class)->name('support');
     
     // Restaurant Staff Routes
     Route::prefix('restaurant')->name('restaurant.')->group(function () {

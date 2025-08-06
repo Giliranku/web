@@ -56,7 +56,6 @@
     }
     
     .news-image {
-        height: 220px;
         object-fit: cover;
         width: 100%;
     }
@@ -95,6 +94,20 @@
         font-size: 0.875rem;
         margin-bottom: 1rem;
     }
+
+    .category-badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        border-radius: 0.375rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .category-info { background-color: var(--bs-primary); color: white; }
+    .category-promo { background-color: var(--bs-danger); color: white; }
+    .category-kegiatan { background-color: var(--bs-warning); color: var(--bs-dark); }
+    .category-wahana { background-color: var(--bs-success); color: white; }
 
     /* Styling untuk gambar didalam artikel */
     .article-content img {
@@ -199,7 +212,10 @@
 @endpush
 <div class="p-5 mb-5">
     <div>
-        <h1 class="card-title mt-4 text-center">{{ $news->title }}</h1>
+        <span class="category-badge category-{{ $news->category }}">
+            {{ $news->category_label }}
+        </span>
+        <h1 class="card-title mt-2 text-center">{{ $news->title }}</h1>
         <p class="card-text opacity-50 mt-3 text-center">
             {{ $news->staff->name ?? 'Unknown' }} -
             {{ $news->created_at->format('d/m/Y, H:i') }} WIB
@@ -207,8 +223,8 @@
     </div>
 
     <div class="d-flex align-items-center justify-content-center mt-4 mb-4">
-        <img src="{{ asset('storage/' . $news->news_cover) }}" 
-            class="main-cover"
+                <img src="{{ $news->getCoverUrl() }}" 
+            class="news-image rounded-3"
             alt="{{ $news->title }}">
     </div>
 
@@ -231,12 +247,15 @@
                 <div class="row g-4 justify-content-center">
                     @foreach($otherNews as $item)
                     <div class="col-lg-4 col-md-6 d-flex justify-content-center">
-                        <a href="/news-detail/{{ $item->id }}" class="news-card">
-                            <img src="{{ asset('storage/' . $item->news_cover) }}" 
+                        <a href="/news-detail/{{ $item->id }}" class="news-card" wire:navigate>
+                            <img src="{{ $item->getCoverUrl() }}" 
                                 class="news-image"
                                 alt="{{ $item->title }}">
                             <div class="news-content">
                                 <div>
+                                    <span class="category-badge category-{{ $item->category }}">
+                                        {{ $item->category_label }}
+                                    </span>
                                     <h5 class="news-title">{{ $item->title }}</h5>
                                     <p class="news-description">{{ $item->description }}</p>
                                     <p class="news-keywords">Keywords: {{ $item->keywords }}</p>

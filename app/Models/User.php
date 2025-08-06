@@ -79,6 +79,26 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the user's avatar URL with fallback to default avatar
+     */
+    public function getAvatarUrlAttribute()
+    {
+        if ($this->avatar) {
+            // Check if file exists in storage
+            if (file_exists(storage_path('app/public/' . $this->avatar))) {
+                return asset('storage/' . $this->avatar);
+            }
+            // Check if file exists in public folder
+            if (file_exists(public_path('img/' . $this->avatar))) {
+                return asset('img/' . $this->avatar);
+            }
+        }
+        
+        // Return default avatar
+        return asset('img/default-avatar.png');
+    }
+
+    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>

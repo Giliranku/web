@@ -18,12 +18,15 @@ class ManageNewsEdit extends Component
     public $keywords;
     public $description;
     public $content;
+    public $category;
     public $news_cover;
     public $oldCover;
+    public $newsData; // Tambah property untuk menyimpan data news
 
     public function mount($news)
     {
         $data = News::findOrFail($news);
+        $this->newsData = $data; // Simpan data news untuk template
 
         $this->newsId = $data->id;
         $this->title = $data->title;
@@ -31,6 +34,7 @@ class ManageNewsEdit extends Component
         $this->keywords = $data->keywords;
         $this->description = $data->description;
         $this->content = $data->content;
+        $this->category = $data->category;
         $this->oldCover = $data->news_cover;
     }
 
@@ -42,6 +46,7 @@ class ManageNewsEdit extends Component
             'keywords' => 'nullable|string',
             'description' => 'nullable|string',
             'content' => 'nullable|string',
+            'category' => 'required|in:info,promo,kegiatan,wahana',
             'news_cover' => 'nullable|image|max:2048',
         ]);
 
@@ -57,6 +62,7 @@ class ManageNewsEdit extends Component
         $news->keywords = $this->keywords;
         $news->description = $this->description;
         $news->content = $this->content;
+        $news->category = $this->category;
         $news->save();
 
         session()->flash('success', 'Berita berhasil diperbarui.');

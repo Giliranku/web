@@ -1,18 +1,18 @@
 <div 
     x-data
     :style="$store.sidebar.collapsed ? 'width: 80px; height: 100vh;' : 'width: 250px; height: 100vh;'"
-    class="bg-body text-body border-end border-opacity-25 position-fixed top-0 start-0 d-flex flex-column shadow"
+    class="bg-body text-body border-end position-fixed top-0 start-0 d-flex flex-column shadow"
     style="transition: width 0.3s; z-index: 1030;"
 >
     <div class="d-flex justify-content-end p-2">
-        <button class="btn btn-sm text-body-secondary" @click="$store.sidebar.collapsed = !$store.sidebar.collapsed" aria-label="Toggle sidebar">
+        <button class="btn btn-sm" @click="$store.sidebar.collapsed = !$store.sidebar.collapsed">
             <i class="bi" :class="$store.sidebar.collapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
         </button>
     </div>
 
     <!-- Logo dan Judul -->
     <div 
-        class="border-bottom border-opacity-25 flex-shrink-0 d-flex align-items-center position-relative"
+        class="border-bottom flex-shrink-0 d-flex align-items-center position-relative"
         :class="$store.sidebar.collapsed ? 'justify-content-center py-3 flex-column' : 'p-3 ms-3'"
         style="transition: all 0.3s; min-height: 60px;">
         <img 
@@ -31,7 +31,7 @@
             x-transition:leave="transition-opacity duration-300"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="sidebar-title text-body-emphasis fw-bold"
+            class="sidebar-title"
             style="
                 position: absolute;
                 left: 60px;
@@ -45,33 +45,33 @@
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
         <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
             <li class="nav-item">
-                <a href="/staff/restaurant/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.restaurant.dashboard') ? 'active' : 'text-body-secondary' }}" aria-label="Dasbor">
+                <a href="/staff/restaurant/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('staff/restaurant/dashboard') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Dasbor</span>
                 </a>
             </li>
             @if($restaurant)
                 <li class="nav-item">
-                    <a href="/staff/restaurant/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.restaurant.edit') ? 'active' : 'text-body-secondary' }}" aria-label="Edit Restoran">
+                    <a href="/staff/restaurant/edit" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('staff/restaurant/edit*') ? 'active' : 'text-body-secondary' }}">
                         <i class="bi bi-pencil-square"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/staff/restaurant/queue/{{ $restaurant->id }}" wire:navigate class="nav-link d-flex align-items-center {{ request()->routeIs('staff.restaurant.queue') ? 'active' : 'text-body-secondary' }}" aria-label="Kelola Antrian">
+                    <a href="/staff/restaurant/queue/{{ $restaurant->id }}" wire:navigate class="nav-link d-flex align-items-center {{ str_contains(request()->path(), 'staff/restaurant/queue') ? 'active' : 'text-body-secondary' }}">
                         <i class="bi bi-people"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                     </a>
                 </li>
             @else
                 <li class="nav-item">
-                    <span class="nav-link d-flex align-items-center text-muted" aria-label="Edit Restoran">
+                    <span class="nav-link d-flex align-items-center text-muted">
                         <i class="bi bi-pencil-square"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Edit Restoran</span>
                     </span>
                 </li>
                 <li class="nav-item">
-                    <span class="nav-link d-flex align-items-center text-muted" aria-label="Kelola Antrian">
+                    <span class="nav-link d-flex align-items-center text-muted">
                         <i class="bi bi-people"></i>
                         <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Kelola Antrian</span>
                     </span>
@@ -82,14 +82,15 @@
 
     <!-- Fixed bottom area -->
     <div 
-        class="border-top border-opacity-25 p-2 d-flex flex-column gap-2 flex-shrink-0"
+        class="border-top p-2 d-flex flex-column gap-2 flex-shrink-0"
         :class="$store.sidebar.collapsed ? 'align-items-center' : ''"
         class="sidebar-bg-fix">
-        <button 
-            class="btn btn-outline-secondary d-flex align-items-center w-100"
+        <a 
+            href="/staff/support" 
+            wire:navigate
+            class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
-            aria-label="Bantuan"
         >
             <i class="bi bi-question-circle" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 
@@ -99,14 +100,13 @@
                     ? 'max-width:0; opacity:0; margin-left:0;' 
                     : 'max-width:130px; opacity:1; margin-left:0;'"
             >Bantuan</span>
-        </button>
+        </a>
         <a 
             href="/staff/profile" 
             wire:navigate
-            class="btn btn-outline-secondary d-flex align-items-center w-100"
+            class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
-            aria-label="Profile"
         >
             <i class="bi bi-person-circle" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 
@@ -118,11 +118,10 @@
             >Profile</span>
         </a>
         <button 
-            class="btn btn-outline-danger d-flex align-items-center w-100"
+            class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
             onclick="if(confirm('Apakah Anda yakin ingin keluar?')) { document.getElementById('logout-form').submit(); }"
-            aria-label="Keluar"
         >
             <i class="bi bi-box-arrow-right" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>
             <span 
@@ -139,3 +138,51 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+document.addEventListener('livewire:navigated', () => {
+    // Update active states after Livewire navigation
+    updateRestaurantSidebarActiveStates();
+});
+
+function updateRestaurantSidebarActiveStates() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        let isActive = false;
+        
+        // Check for exact match first
+        if (href === currentPath) {
+            isActive = true;
+        }
+        // Check for queue paths with parameters
+        else if (currentPath.includes('/staff/restaurant/queue/') && href && href.includes('/staff/restaurant/queue/')) {
+            isActive = true;
+        }
+        // Check for edit paths
+        else if (currentPath.includes('/staff/restaurant/edit') && href && href.includes('/staff/restaurant/edit')) {
+            isActive = true;
+        }
+        // Check for dashboard
+        else if (currentPath === '/staff/restaurant/dashboard' && href && href.includes('/staff/restaurant/dashboard')) {
+            isActive = true;
+        }
+        
+        // Update classes
+        if (isActive) {
+            link.classList.remove('text-body-secondary');
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+            link.classList.add('text-body-secondary');
+        }
+    });
+}
+
+// Run on initial load
+document.addEventListener('DOMContentLoaded', updateRestaurantSidebarActiveStates);
+</script>
+@endpush>

@@ -110,4 +110,50 @@ class Attraction extends Model
         
         return $position;
     }
+
+    /**
+     * Get the correct image URL, handling both seeder images and admin uploads
+     */
+    public function getImageUrl($imageName)
+    {
+        if (!$imageName) {
+            return asset('img/default-placeholder.svg');
+        }
+
+        // Check if it's a storage path (admin uploads)
+        $storagePath = public_path('storage/' . $imageName);
+        if (file_exists($storagePath)) {
+            return asset('storage/' . $imageName);
+        }
+
+        // Check if it's in the img directory (seeder images)
+        $imgPath = public_path('img/' . $imageName);
+        if (file_exists($imgPath)) {
+            return asset('img/' . $imageName);
+        }
+
+        // Fallback to default if image not found
+        return asset('img/default-placeholder.svg');
+    }
+
+    // Helper methods untuk mendapatkan URL gambar
+    public function getCoverUrlAttribute()
+    {
+        return $this->getImageUrl($this->cover);
+    }
+
+    public function getImg1UrlAttribute()
+    {
+        return $this->getImageUrl($this->img1);
+    }
+
+    public function getImg2UrlAttribute()
+    {
+        return $this->getImageUrl($this->img2);
+    }
+
+    public function getImg3UrlAttribute()
+    {
+        return $this->getImageUrl($this->img3);
+    }
 }

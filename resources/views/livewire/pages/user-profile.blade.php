@@ -130,46 +130,231 @@
         /* Mobile Responsive */
         @media (max-width: 767.98px) {
             .profile-container {
-                padding: 1rem;
+                padding: 0.5rem;
             }
 
-            .user-profile-avatar {
+            .mobile-header {
+                background: linear-gradient(135deg, var(--warning-color) 0%, #f0c674 100%);
+                min-height: 200px;
+                border-radius: 0 0 25px 25px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .mobile-bg-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(249, 215, 120, 0.9) 0%, rgba(240, 198, 116, 0.9) 100%);
+                z-index: 1;
+            }
+
+            .mobile-profile-content {
+                position: relative;
+                z-index: 2;
+                padding: 1.5rem;
+                color: white;
+            }
+
+            .mobile-avatar {
                 width: 80px;
                 height: 80px;
+                border: 3px solid white;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
             }
 
-            .profile-header {
-                text-align: center;
+            .mobile-edit-btn {
+                width: 35px;
+                height: 35px;
+                background: white;
+                border: 2px solid var(--warning-color);
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                position: absolute;
+                bottom: -5px;
+                right: -5px;
             }
 
-            .profile-sidebar {
+            .mobile-user-info h4 {
+                font-size: 1.25rem;
+                font-weight: 700;
+                text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            }
+
+            .mobile-user-info p {
+                font-size: 0.9rem;
+                opacity: 0.9;
+            }
+
+            .mobile-nav-tabs {
+                background: white;
+                border-radius: 15px;
+                margin: -20px 1rem 1.5rem 1rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                overflow: hidden;
+                position: relative;
+                z-index: 3;
+            }
+
+            .mobile-nav-tab {
+                padding: 1rem;
+                border: none;
+                background: white;
+                color: var(--bs-dark);
+                font-weight: 600;
+                transition: all 0.3s ease;
+                border-bottom: 1px solid var(--bs-border-color);
+            }
+
+            .mobile-nav-tab:last-child {
+                border-bottom: none;
+            }
+
+            .mobile-nav-tab.active {
+                background: var(--warning-color);
+                color: var(--bs-dark);
+            }
+
+            .mobile-content {
+                padding: 0 1rem 2rem 1rem;
+            }
+
+            .mobile-field {
+                background: white;
+                border-radius: 12px;
                 padding: 1rem;
                 margin-bottom: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+                border: 1px solid var(--bs-border-color);
             }
 
-            .sidebar-nav .nav-link {
+            .mobile-field-label {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: var(--bs-secondary);
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            .mobile-field-value {
+                font-size: 1rem;
+                color: var(--bs-dark);
+                margin-bottom: 0;
+            }
+
+            .mobile-field-input {
+                border: 2px solid var(--bs-border-color);
+                border-radius: 8px;
+                padding: 0.75rem;
+                font-size: 1rem;
+                width: 100%;
+                background: var(--bs-body-bg);
+                color: var(--bs-body-color);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-field-input:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.2rem var(--bs-primary-bg-subtle);
+                outline: none;
+            }
+
+            .mobile-edit-btn-field {
+                background: none;
+                border: none;
+                color: var(--primary-color);
+                font-size: 1.1rem;
+                padding: 0.5rem;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-edit-btn-field:hover {
+                background: var(--bs-primary-bg-subtle);
+                transform: scale(1.1);
+            }
+
+            .mobile-queue-card {
+                background: white;
+                border-radius: 12px;
                 padding: 1rem;
+                margin-bottom: 1rem;
+                box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+                border: 1px solid var(--bs-border-color);
+                transition: all 0.3s ease;
+            }
+
+            .mobile-queue-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            }
+
+            .mobile-queue-header {
+                display: flex;
+                align-items-start;
+                margin-bottom: 0.75rem;
+            }
+
+            .mobile-queue-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 0.75rem;
+                flex-shrink: 0;
+            }
+
+            .mobile-queue-title {
+                font-size: 1rem;
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+                color: var(--bs-dark);
+            }
+
+            .mobile-queue-location {
+                font-size: 0.85rem;
+                color: var(--bs-secondary);
                 margin-bottom: 0.5rem;
             }
 
-            .profile-main {
-                padding: 1rem;
-            }
-
-            .content-card .card-body {
-                padding: 1.5rem !important;
-            }
-
-            .queue-info-mobile {
-                text-align: center;
-                margin-top: 1rem;
-            }
-
-            .queue-badges {
+            .mobile-queue-datetime {
                 display: flex;
-                flex-direction: column;
                 gap: 0.5rem;
+                margin-bottom: 0.75rem;
+                flex-wrap: wrap;
+            }
+
+            .mobile-queue-badge {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.5rem;
+                border-radius: 6px;
+                font-weight: 500;
+            }
+
+            .mobile-queue-footer {
+                display: flex;
+                justify-content: space-between;
                 align-items: center;
+                padding-top: 0.75rem;
+                border-top: 1px solid var(--bs-border-color);
+            }
+
+            .mobile-empty-state {
+                text-align: center;
+                padding: 2rem 1rem;
+                background: white;
+                border-radius: 12px;
+                margin: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            }
+
+            .mobile-empty-icon {
+                font-size: 3rem;
+                color: var(--bs-secondary);
+                margin-bottom: 1rem;
             }
         }
 
@@ -657,330 +842,322 @@
         </div>
     </div>
 
-    {{-- Mobile --}}
-    <div class="d-block d-md-none position-relative" style="overflow-x: hidden">
-
-        <div class="position-absolute top-5 end-0 mt-2 me-4 " style="z-index: 10;">
-            <button class="d-flex btn justify-content-center align-items-center bg-white" type="button"
-                style="height: 10vw; width: 10vw; border-radius:100%; box-shadow:0 0 10px #bbb; border: 2px solid #f9d778;"
-                onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
-
-                <i class="bi bi-pencil text-dark" style="font-size:5vw;"></i>
-            </button>
-        </div>
-
-        <div class="justify-content-center d-flex position-absolute"
-            style="min-height: 30vh;max-height:75vh; z-index: -1;">
-            <div>
-                <img src="{{ asset('img/bgmelar.png') }}" alt="bg image" style="height:100%;width: 100%">
-            </div>
-        </div>
-
-        <div class="justify-content-center d-flex flex-column position-relative">
-            <!-- SIDEBAR KIRI -->
-
-
-            <div class="d-flex flex-row justify-content-center" style="">
-                <div class="d-flex flex-column align-items-center w-50">
-                    <!-- Foto Profile -->
-                    <div class="d-flex position-relative mb-3 flex-row" style="margin-top: 1vw; margin-left: 2vw;">
+    {{-- Mobile Layout --}}
+    <div class="d-block d-md-none">
+        <!-- Mobile Header with Profile -->
+        <div class="mobile-header">
+            <div class="mobile-bg-overlay"></div>
+            <div class="mobile-profile-content">
+                <div class="d-flex align-items-center">
+                    <!-- Avatar -->
+                    <div class="position-relative me-3">
                         @if($avatar)
                             @if(str_contains($avatar, 'http'))
-                                <img src="{{ $avatar }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
+                                <img src="{{ $avatar }}" class="mobile-avatar rounded-circle object-fit-cover">
                             @else
-                                <img src="{{ asset('storage/' . $avatar) }}" class="rounded-circle border border-2 w-100" style="object-fit:cover;">
+                                <img src="{{ asset('storage/' . $avatar) }}" class="mobile-avatar rounded-circle object-fit-cover">
                             @endif
                         @else
-                            <div class="rounded-circle d-flex align-items-center justify-content-center w-100 border border-2" style="aspect-ratio: 1/1;">
-                                <i class="bi bi-person-fill text-muted" style="font-size: 10vw;"></i>
+                            <div class="mobile-avatar rounded-circle d-flex align-items-center justify-content-center bg-white">
+                                <i class="bi bi-person-fill text-muted" style="font-size: 2rem;"></i>
                             </div>
                         @endif
                         
-                        <!-- Loading spinner for avatar upload (mobile) -->
+                        <!-- Edit Button -->
+                        <button class="mobile-edit-btn btn rounded-circle d-flex align-items-center justify-content-center"
+                            onclick="document.getElementById('avatarInputMobile').click()" aria-label="Edit Foto">
+                            <i class="bi bi-pencil text-warning" style="font-size: 0.9rem;"></i>
+                        </button>
+                        
+                        <!-- Loading spinner -->
                         @if($uploading)
-                            <div class="position-absolute d-flex align-items-center justify-content-center" 
-                                 style="top: 0; left: 0; right: 0; bottom: 0; background: rgba(255,255,255,0.8); border-radius: 50%;">
-                                <span class="spinner-border text-primary" role="status"></span>
+                            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center rounded-circle" 
+                                 style="background: rgba(255,255,255,0.9);">
+                                <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
                             </div>
                         @endif
                     </div>
-
-                    <!-- SIDEBAR Profil Aktivitas -->
-                    <div class="w-100 d-flex flex-column align-items-center">
-                        <div class="accordion w-100" id="profileAccordionMobile">
-                            <div class="accordion-item border-0">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button border border-dark rounded"
-                                        style="background: var(--bs-warning); color: var(--bs-dark);" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#flush-activity-mobile" aria-expanded="true">
-                                        Aktivitas Anda
-                                    </button>
-                                </h2>
-                                <div id="flush-activity-mobile" class="accordion-collapse collapse show">
-                                    <div class="accordion-body p-0 ">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item rounded-bottom-3 shadow {{ $activeTab === 'profile' ? 'bg-warning' : '' }}"
-                                                style="background: {{ $activeTab === 'profile' ? '#f9d778' : '#ffe8ad' }};">
-                                                <button wire:click="setActiveTab('profile')" 
-                                                    class="btn text-decoration-none w-100 d-flex justify-content-between align-items-center"
-                                                    style="background: none; border: none; padding: 0;">
-                                                    Profile
-                                                    <i class="bi bi-chevron-right"></i>
-                                                </button>
-                                            </li>
-                                            <li class="list-group-item {{ $activeTab === 'wahana' ? 'bg-warning' : '' }}" 
-                                                style="background: {{ $activeTab === 'wahana' ? '#f9d778' : '#ffe8ad' }};">
-                                                <button wire:click="setActiveTab('wahana')" 
-                                                    class="btn text-decoration-none w-100 d-flex justify-content-between align-items-center"
-                                                    style="background: none; border: none; padding: 0;">
-                                                    Wahana
-                                                    <i class="bi bi-chevron-right"></i>
-                                                </button>
-                                            </li>
-                                            <li class="list-group-item" 
-                                                style="background: {{ $activeTab === 'restoran' ? '#f9d778' : '#ffe8ad' }};">
-                                                <button wire:click="setActiveTab('restoran')" 
-                                                    class="btn text-decoration-none w-100 d-flex justify-content-between align-items-center"
-                                                    style="background: none; border: none; padding: 0;">
-                                                    Restoran
-                                                    <i class="bi bi-chevron-right"></i>
-                                                </button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    
+                    <!-- User Info -->
+                    <div class="mobile-user-info flex-grow-1">
+                        <h4 class="mb-1">{{ $name ?? 'User Name' }}</h4>
+                        <p class="mb-0">{{ $email ?? 'user@email.com' }}</p>
                     </div>
                 </div>
             </div>
-
-            <!-- BAGIAN PROFILE EDIT MOBILE -->
-            <div class="d-flex ms-5 flex-column w-100 mt-3 ">
-                @if($activeTab === 'profile')
-                    <!-- Field NAMA -->
-                    <div x-data="{ edit: false }" x-init="$watch('edit', value => {
-                            if(value) $nextTick(() => $refs.input.focus())
-                        })"
-                        class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
-                        style="min-height: 4.5rem;">
-                        <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
-                            <span class="ms-2 fs-6 fw-bold">Nama</span>
-                            <!-- Display -->
-                            <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
-                                class="ms-2 fs-6 field-display transition-all"
-                                style="border-radius:2vw;  top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                x-text="$wire.name"></span>
-                            <!-- Input -->
-                            <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
-                                class="fs-6 ms-3 field-input transition-all"
-                                style="border-radius:10px; padding:6px 20px; color: var(--bs-body-color);  min-width:220px; top:2rem; left:0; background: var(--bs-body-bg); transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                wire:model.defer="name" @keydown.enter="$wire.updateProfile(); edit = false"
-                                @blur="$wire.updateProfile(); edit = false" x-ref="input">
-                        </div>
-                        <!-- Tombol kanan -->
-                        <div class="justify-content-center edit-field-btn"
-                            style="width:5vw; margin-right:25vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                            <button class="btn" type="button" @click="edit = !edit" style="background:none;">
-                                <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                    :style="edit ? 'font-size:5vw; transition:all 0.2s;' : 'font-size:5vw; transition:all 0.2s;'"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <hr class="w-75">
-
-                    <!-- Field EMAIL -->
-                    <div x-data="{ edit: false }" x-init="$watch('edit', value => {
-                            if(value) $nextTick(() => $refs.input.focus())
-                        })"
-                        class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
-                        style="min-height: 4.5rem;">
-                        <div class="d-flex justify-content-start flex-column field-form-group" style="width:50%;">
-                            <span class="ms-2 fs-6 fw-bold">Email</span>
-                            <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;word-break:break-all;'"
-                                class="ms-2 fs-6 field-display transition-all"
-                                style="border-radius:2vw;  top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                x-text="$wire.email"></span>
-                            <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
-                                class="fs-6 ms-3 field-input transition-all"
-                                style="border-radius:10px; padding:6px 20px; color:#444; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                wire:model.defer="email" @keydown.enter="$wire.updateProfile(); edit = false"
-                                @blur="$wire.updateProfile(); edit = false" x-ref="input">
-                        </div>
-                        <div class="justify-content-center edit-field-btn"
-                            style="width:5vw; margin-right:25vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                            <button class="btn" type="button" @click="edit = !edit" style="background:none;">
-                                <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                    :style="edit ? 'font-size:5vw; transition:all 0.2s;' : 'font-size:5vw; transition:all 0.2s;'"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <hr class="w-75">
-
-                    <!-- Field TELEPON -->
-                    <div x-data="{ edit: false }" x-init="$watch('edit', value => {
-                            if(value) $nextTick(() => $refs.input.focus())
-                        })"
-                        class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
-                        style="min-height: 4.5rem;">
-                        <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
-                            <span class="ms-2 fs-6 fw-bold">Nomor Telepon</span>
-                            <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
-                                class="ms-2 fs-6 field-display transition-all"
-                                style="border-radius:2vw; top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                x-text="$wire.number"></span>
-                            <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
-                                class="fs-6 ms-3 field-input transition-all"
-                                style="border-radius:10px; padding:6px 20px; color:#444; min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                wire:model.defer="number" @keydown.enter="$wire.updateProfile(); edit = false"
-                                @blur="$wire.updateProfile(); edit = false" x-ref="input">
-                        </div>
-                        <div class="justify-content-center edit-field-btn"
-                            style="width:5vw; margin-right:25vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                            <button class="btn" type="button" @click="edit = !edit" style="background:none;">
-                                <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                    :style="edit ? 'font-size:5vw; transition:all 0.2s;' : 'font-size:5vw; transition:all 0.2s;'"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <hr class="w-75">
-
-                    <!-- Field LOKASI -->
-                    <div x-data="{ edit: false }" x-init="$watch('edit', value => {
-                            if(value) $nextTick(() => $refs.input.focus())
-                        })"
-                        class="ps-3 my-2 d-flex justify-content-between flex-row w-100 align-items-center position-relative"
-                        style="min-height: 4.5rem;">
-                        <div class="d-flex justify-content-start flex-column field-form-group" style="width:70%">
-                            <span class="ms-2 fs-6 fw-bold">Lokasi</span>
-                            <span :style="edit ? 'opacity:0; pointer-events:none; z-index:0; position:absolute;' :
-                                    'opacity:1; pointer-events:auto; z-index:2; position:relative;'"
-                                class="ms-2 fs-6 field-display transition-all"
-                                style="border-radius:2vw;  top:2.2rem; left:0; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                x-text="$wire.location"></span>
-                            <input :style="edit ? 'opacity:1; pointer-events:auto; z-index:3; position:relative;' :
-                                    'opacity:0; pointer-events:none; z-index:0; position:absolute;'"
-                                class="fs-6 ms-3 field-input transition-all"
-                                style="border-radius:10px; padding:6px 20px; color:#444;  min-width:220px; top:2rem; left:0; background:#fff; transition:opacity 0.4s cubic-bezier(.45,0,.55,1);"
-                                wire:model.defer="location" @keydown.enter="$wire.updateProfile(); edit = false"
-                                @blur="$wire.updateProfile(); edit = false" x-ref="input">
-                        </div>
-                        <div class="justify-content-center edit-field-btn"
-                            style="width:5vw; margin-right:25vw; display:flex; align-items:center; justify-content:center; z-index:4;">
-                            <button class="btn" type="button" @click="edit = !edit" style="background:none;">
-                                <i class="bi" :class="edit ? 'bi-check-lg text-success' : 'bi-chevron-right'"
-                                    :style="edit ? ' font-size:5vw; transition:all 0.2s;' : ' font-size:5vw; transition:all 0.2s;'"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                @elseif($activeTab === 'wahana')
-                    <!-- Wahana Tab Mobile -->
-                    <div class="ps-3">
-                        <h4 class="mb-4">Antrian Wahana</h4>
-                        @if($userAttractions->count() > 0)
-                            @foreach($userAttractions as $userAttraction)
-                                <div class="card mb-3 border-0 shadow-sm">
-                                    <div class="card-body">
-                                        <h6 class="card-title mb-2">{{ $userAttraction->attraction->name }}</h6>
-                                        <p class="card-text text-muted mb-1" style="font-size: 0.8rem;">
-                                            <i class="bi bi-geo-alt-fill me-1"></i>{{ $userAttraction->attraction->location }}
-                                        </p>
-                                        <p class="card-text text-muted mb-2" style="font-size: 0.8rem;">
-                                            <i class="bi bi-calendar-fill me-1"></i>{{ $userAttraction->reservation_date->format('d M Y') }}
-                                            <i class="bi bi-clock-fill ms-2 me-1"></i>{{ $userAttraction->reservation_time ? $userAttraction->reservation_time->format('H:i') : '-' }}
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="badge bg-warning text-dark">
-                                                Posisi #{{ $userAttraction->queue_position }}
-                                            </span>
-                                            <span class="badge 
-                                                @if($userAttraction->status === 'waiting') bg-secondary
-                                                @elseif($userAttraction->status === 'called') bg-success
-                                                @elseif($userAttraction->status === 'served') bg-primary
-                                                @else bg-danger
-                                                @endif">
-                                                {{ ucfirst($userAttraction->status) }}
-                                            </span>
-                                        </div>
-                                        @if($userAttraction->status === 'waiting')
-                                            <small class="text-muted">
-                                                Est. {{ $userAttraction->attraction->getEstimatedWaitingTime($userAttraction->queue_position) }} menit
-                                            </small>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="text-center py-4">
-                                <i class="bi bi-exclamation-circle text-muted" style="font-size: 2rem;"></i>
-                                <h6 class="mt-2 text-muted">Tidak ada antrian wahana</h6>
-                                <p class="text-muted" style="font-size: 0.9rem;">Anda belum mengantri di wahana manapun hari ini.</p>
-                                <a href="{{ route('attractions') }}" class="btn btn-primary btn-sm">
-                                    <i class="bi bi-plus-circle me-1"></i>Cari Wahana
-                                </a>
-                            </div>
-                        @endif
-                    </div>
-
-                @elseif($activeTab === 'restoran')
-                    <!-- Restoran Tab Mobile -->
-                    <div class="ps-3">
-                        <h4 class="mb-4">Antrian Restoran</h4>
-                        @if($userRestaurants->count() > 0)
-                            @foreach($userRestaurants as $userRestaurant)
-                                <div class="card mb-3 border-0 shadow-sm">
-                                    <div class="card-body">
-                                        <h6 class="card-title mb-2">{{ $userRestaurant->restaurant->name }}</h6>
-                                        <p class="card-text text-muted mb-1" style="font-size: 0.8rem;">
-                                            <i class="bi bi-geo-alt-fill me-1"></i>{{ $userRestaurant->restaurant->location }}
-                                        </p>
-                                        <p class="card-text text-muted mb-2" style="font-size: 0.8rem;">
-                                            <i class="bi bi-calendar-fill me-1"></i>{{ $userRestaurant->reservation_date->format('d M Y') }}
-                                            <i class="bi bi-clock-fill ms-2 me-1"></i>{{ $userRestaurant->reservation_time ? $userRestaurant->reservation_time->format('H:i') : '-' }}
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="badge bg-warning text-dark">
-                                                Posisi #{{ $userRestaurant->queue_position }}
-                                            </span>
-                                            <span class="badge 
-                                                @if($userRestaurant->status === 'waiting') bg-secondary
-                                                @elseif($userRestaurant->status === 'called') bg-success
-                                                @elseif($userRestaurant->status === 'served') bg-primary
-                                                @else bg-danger
-                                                @endif">
-                                                {{ ucfirst($userRestaurant->status) }}
-                                            </span>
-                                        </div>
-                                        @if($userRestaurant->status === 'waiting')
-                                            <small class="text-muted">
-                                                Est. {{ $userRestaurant->restaurant->getEstimatedWaitingTime($userRestaurant->queue_position) }} menit
-                                            </small>
-                                        @endif
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <div class="text-center py-4">
-                                <i class="bi bi-exclamation-circle text-muted" style="font-size: 2rem;"></i>
-                                <h6 class="mt-2 text-muted">Tidak ada antrian restoran</h6>
-                                <p class="text-muted" style="font-size: 0.9rem;">Anda belum mengantri di restoran manapun hari ini.</p>
-                                <a href="{{ route('queues.index') }}" class="btn btn-primary btn-sm">
-                                    <i class="bi bi-plus-circle me-1"></i>Cari Restoran
-                                </a>
-                            </div>
-                        @endif
-                    </div>
-                @endif
-            </div>
+        </div>
+        <!-- Navigation Tabs -->
+        <div class="mobile-nav-tabs">
+            <button wire:click="setActiveTab('profile')" 
+                class="mobile-nav-tab w-100 d-flex justify-content-between align-items-center {{ $activeTab === 'profile' ? 'active' : '' }}">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-person-circle me-2"></i>
+                    <span>Profile</span>
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </button>
+            
+            <button wire:click="setActiveTab('wahana')" 
+                class="mobile-nav-tab w-100 d-flex justify-content-between align-items-center {{ $activeTab === 'wahana' ? 'active' : '' }}">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-controller me-2"></i>
+                    <span>Wahana</span>
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </button>
+            
+            <button wire:click="setActiveTab('restoran')" 
+                class="mobile-nav-tab w-100 d-flex justify-content-between align-items-center {{ $activeTab === 'restoran' ? 'active' : '' }}">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-cup-hot me-2"></i>
+                    <span>Restoran</span>
+                </div>
+                <i class="bi bi-chevron-right"></i>
+            </button>
         </div>
 
+        <!-- Content Area -->
+        <div class="mobile-content">
+            @if($activeTab === 'profile')
+                <!-- Profile Fields -->
+                <div x-data="{ edit: false }" class="mobile-field">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <label class="mobile-field-label">
+                                <i class="bi bi-person me-1"></i> Nama
+                            </label>
+                            <div x-show="!edit">
+                                <p class="mobile-field-value">{{ $name ?? 'Belum diisi' }}</p>
+                            </div>
+                            <div x-show="edit" style="display: none;">
+                                <input type="text" wire:model.defer="name" 
+                                    class="mobile-field-input"
+                                    placeholder="Masukkan nama"
+                                    @keydown.enter="$wire.updateProfile(); edit = false"
+                                    @blur="$wire.updateProfile(); edit = false"
+                                    x-ref="nameInput">
+                            </div>
+                        </div>
+                        <button class="mobile-edit-btn-field" @click="edit = !edit; if(edit) $nextTick(() => $refs.nameInput.focus())">
+                            <i class="bi" :class="edit ? 'bi-check-lg' : 'bi-pencil'"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-data="{ edit: false }" class="mobile-field">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <label class="mobile-field-label">
+                                <i class="bi bi-envelope me-1"></i> Email
+                            </label>
+                            <div x-show="!edit">
+                                <p class="mobile-field-value" style="word-break: break-all;">{{ $email ?? 'Belum diisi' }}</p>
+                            </div>
+                            <div x-show="edit" style="display: none;">
+                                <input type="email" wire:model.defer="email" 
+                                    class="mobile-field-input"
+                                    placeholder="Masukkan email"
+                                    @keydown.enter="$wire.updateProfile(); edit = false"
+                                    @blur="$wire.updateProfile(); edit = false"
+                                    x-ref="emailInput">
+                            </div>
+                        </div>
+                        <button class="mobile-edit-btn-field" @click="edit = !edit; if(edit) $nextTick(() => $refs.emailInput.focus())">
+                            <i class="bi" :class="edit ? 'bi-check-lg' : 'bi-pencil'"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-data="{ edit: false }" class="mobile-field">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <label class="mobile-field-label">
+                                <i class="bi bi-telephone me-1"></i> Nomor Telepon
+                            </label>
+                            <div x-show="!edit">
+                                <p class="mobile-field-value">{{ $number ?? 'Belum diisi' }}</p>
+                            </div>
+                            <div x-show="edit" style="display: none;">
+                                <input type="tel" wire:model.defer="number" 
+                                    class="mobile-field-input"
+                                    placeholder="Masukkan nomor telepon"
+                                    @keydown.enter="$wire.updateProfile(); edit = false"
+                                    @blur="$wire.updateProfile(); edit = false"
+                                    x-ref="phoneInput">
+                            </div>
+                        </div>
+                        <button class="mobile-edit-btn-field" @click="edit = !edit; if(edit) $nextTick(() => $refs.phoneInput.focus())">
+                            <i class="bi" :class="edit ? 'bi-check-lg' : 'bi-pencil'"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div x-data="{ edit: false }" class="mobile-field">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <label class="mobile-field-label">
+                                <i class="bi bi-geo-alt me-1"></i> Lokasi
+                            </label>
+                            <div x-show="!edit">
+                                <p class="mobile-field-value">{{ $location ?? 'Belum diisi' }}</p>
+                            </div>
+                            <div x-show="edit" style="display: none;">
+                                <input type="text" wire:model.defer="location" 
+                                    class="mobile-field-input"
+                                    placeholder="Masukkan lokasi"
+                                    @keydown.enter="$wire.updateProfile(); edit = false"
+                                    @blur="$wire.updateProfile(); edit = false"
+                                    x-ref="locationInput">
+                            </div>
+                        </div>
+                        <button class="mobile-edit-btn-field" @click="edit = !edit; if(edit) $nextTick(() => $refs.locationInput.focus())">
+                            <i class="bi" :class="edit ? 'bi-check-lg' : 'bi-pencil'"></i>
+                        </button>
+                    </div>
+                </div>
+
+            @elseif($activeTab === 'wahana')
+                <!-- Wahana Tab Mobile -->
+                <div class="mb-3">
+                    <h5 class="fw-bold text-dark mb-3">
+                        <i class="bi bi-controller me-2"></i>
+                        Antrian Wahana Anda
+                    </h5>
+                </div>
+                
+                @if($userAttractions->count() > 0)
+                    @foreach($userAttractions as $userAttraction)
+                        <div class="mobile-queue-card">
+                            <div class="mobile-queue-header">
+                                <div class="mobile-queue-icon bg-primary bg-opacity-10">
+                                    <i class="bi bi-controller text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mobile-queue-title">{{ $userAttraction->attraction->name }}</h6>
+                                    <p class="mobile-queue-location">
+                                        <i class="bi bi-geo-alt-fill me-1"></i>
+                                        {{ $userAttraction->attraction->location }}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-queue-datetime">
+                                <span class="mobile-queue-badge bg-light text-dark">
+                                    <i class="bi bi-calendar-fill me-1"></i>
+                                    {{ $userAttraction->reservation_date->format('d M Y') }}
+                                </span>
+                                <span class="mobile-queue-badge bg-light text-dark">
+                                    <i class="bi bi-clock-fill me-1"></i>
+                                    {{ $userAttraction->reservation_time ? $userAttraction->reservation_time->format('H:i') : 'Flexible' }}
+                                </span>
+                            </div>
+                            
+                            <div class="mobile-queue-footer">
+                                <span class="badge bg-warning text-dark">
+                                    Posisi #{{ $userAttraction->queue_position }}
+                                </span>
+                                <span class="badge 
+                                    @if($userAttraction->status === 'waiting') bg-secondary
+                                    @elseif($userAttraction->status === 'called') bg-success
+                                    @elseif($userAttraction->status === 'served') bg-primary
+                                    @else bg-danger
+                                    @endif">
+                                    {{ ucfirst($userAttraction->status) }}
+                                </span>
+                            </div>
+                            
+                            @if($userAttraction->status === 'waiting')
+                                <small class="text-muted mt-2 d-block">
+                                    <i class="bi bi-clock me-1"></i>
+                                    Est. {{ $userAttraction->attraction->getEstimatedWaitingTime($userAttraction->queue_position) }} menit
+                                </small>
+                            @endif
+                        </div>
+                    @endforeach
+                @else
+                    <div class="mobile-empty-state">
+                        <i class="bi bi-exclamation-circle mobile-empty-icon"></i>
+                        <h6 class="fw-bold text-dark mb-2">Tidak ada antrian wahana</h6>
+                        <p class="text-muted mb-3">Anda belum mengantri di wahana manapun hari ini.</p>
+                        <a href="{{ route('attractions') }}" class="btn btn-primary btn-sm rounded-pill">
+                            <i class="bi bi-plus-circle me-1"></i>Cari Wahana
+                        </a>
+                    </div>
+                @endif
+
+            @elseif($activeTab === 'restoran')
+                <!-- Restoran Tab Mobile -->
+                <div class="mb-3">
+                    <h5 class="fw-bold text-dark mb-3">
+                        <i class="bi bi-cup-hot me-2"></i>
+                        Antrian Restoran Anda
+                    </h5>
+                </div>
+                
+                @if($userRestaurants->count() > 0)
+                    @foreach($userRestaurants as $userRestaurant)
+                        <div class="mobile-queue-card">
+                            <div class="mobile-queue-header">
+                                <div class="mobile-queue-icon bg-success bg-opacity-10">
+                                    <i class="bi bi-cup-hot text-success"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mobile-queue-title">{{ $userRestaurant->restaurant->name }}</h6>
+                                    <p class="mobile-queue-location">
+                                        <i class="bi bi-geo-alt-fill me-1"></i>
+                                        {{ $userRestaurant->restaurant->location }}
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div class="mobile-queue-datetime">
+                                <span class="mobile-queue-badge bg-light text-dark">
+                                    <i class="bi bi-calendar-fill me-1"></i>
+                                    {{ $userRestaurant->reservation_date->format('d M Y') }}
+                                </span>
+                                <span class="mobile-queue-badge bg-light text-dark">
+                                    <i class="bi bi-clock-fill me-1"></i>
+                                    {{ $userRestaurant->reservation_time ? $userRestaurant->reservation_time->format('H:i') : 'Flexible' }}
+                                </span>
+                            </div>
+                            
+                            <div class="mobile-queue-footer">
+                                <span class="badge bg-warning text-dark">
+                                    Posisi #{{ $userRestaurant->queue_position }}
+                                </span>
+                                <span class="badge 
+                                    @if($userRestaurant->status === 'waiting') bg-secondary
+                                    @elseif($userRestaurant->status === 'called') bg-success
+                                    @elseif($userRestaurant->status === 'served') bg-primary
+                                    @else bg-danger
+                                    @endif">
+                                    {{ ucfirst($userRestaurant->status) }}
+                                </span>
+                            </div>
+                            
+                            @if($userRestaurant->status === 'waiting')
+                                <small class="text-muted mt-2 d-block">
+                                    <i class="bi bi-clock me-1"></i>
+                                    Est. {{ $userRestaurant->restaurant->getEstimatedWaitingTime($userRestaurant->queue_position) }} menit
+                                </small>
+                            @endif
+                        </div>
+                    @endforeach
+                @else
+                    <div class="mobile-empty-state">
+                        <i class="bi bi-exclamation-circle mobile-empty-icon"></i>
+                        <h6 class="fw-bold text-dark mb-2">Tidak ada antrian restoran</h6>
+                        <p class="text-muted mb-3">Anda belum mengantri di restoran manapun hari ini.</p>
+                        <a href="{{ route('queues.index') }}" class="btn btn-primary btn-sm rounded-pill">
+                            <i class="bi bi-plus-circle me-1"></i>Cari Restoran
+                        </a>
+                    </div>
+                @endif
+                @endif
+        </div>
+
+        <!-- Hidden file input for mobile -->
+        <input type="file" id="avatarInputMobile" wire:model="newAvatar" accept="image/*" style="display: none;">
     </div>
 
 </div>

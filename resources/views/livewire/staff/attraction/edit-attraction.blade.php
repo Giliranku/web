@@ -325,7 +325,7 @@
         border-radius: var(--radius);
         padding: 2rem;
         margin-bottom: 2rem;
-        text-align: center;
+        /* text-align: center; */
     }
     
     .page-title {
@@ -504,9 +504,6 @@ document.addEventListener('livewire:navigated', function() {
                 <i class="bi bi-stars me-2"></i>Edit Wahana
             </h1>
             <p class="page-subtitle">Perbarui informasi wahana yang Anda kelola</p>
-            <a href="/staff/attraction/dashboard" class="btn btn-secondary">
-                <i class="bi bi-arrow-left me-2"></i>Kembali
-            </a>
         </div>
 
         <!-- Success/Error Messages -->

@@ -169,8 +169,68 @@
         @endif
 
         @if(!$can_queue)
-            <div class="alert alert-warning" role="alert">
-                <i class="fas fa-exclamation-triangle me-2"></i>{{ $queue_restriction_message }}
+            <div class="card shadow-sm border-0 mb-4 border-warning">
+                <div class="card-header bg-warning bg-opacity-10 border-warning">
+                    <h6 class="mb-0 fw-semibold text-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Tidak Dapat Mengantri
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning mb-3" role="alert">
+                        <div class="d-flex align-items-start">
+                            <i class="fas fa-info-circle me-3 mt-1 text-warning"></i>
+                            <div>
+                                <div class="fw-semibold mb-1">Alasan:</div>
+                                <p class="mb-0">{{ $queue_restriction_message }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    @if(!empty($user_current_queues))
+                        <div class="mt-3">
+                            <h6 class="fw-semibold mb-2 text-primary">
+                                <i class="fas fa-list me-2"></i>Antrian Aktif Anda:
+                            </h6>
+                            <div class="row g-2">
+                                @foreach($user_current_queues as $queue)
+                                    <div class="col-md-6">
+                                        <div class="card border-primary border-opacity-25 h-100">
+                                            <div class="card-body p-3">
+                                                <div class="d-flex justify-content-between align-items-start mb-2">
+                                                    <h6 class="mb-1 fw-semibold">{{ $queue['location_name'] }}</h6>
+                                                    <span class="badge bg-primary">Posisi {{ $queue['queue_position'] }}</span>
+                                                </div>
+                                                <div class="small text-muted mb-1">
+                                                    <i class="fas fa-clock me-1"></i>
+                                                    Estimasi: ~{{ $queue['estimated_wait_time'] }} menit
+                                                </div>
+                                                <div class="small text-muted">
+                                                    <i class="fas fa-users me-1"></i>
+                                                    {{ $queue['rounds_to_wait'] }} grup permainan menunggu
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+                    
+                    <div class="mt-3 p-3 bg-light rounded">
+                        <h6 class="fw-semibold mb-2 text-info">
+                            <i class="fas fa-lightbulb me-2"></i>Saran:
+                        </h6>
+                        <ul class="mb-0 small">
+                            @if(empty($user_tickets))
+                                <li>Beli tiket terlebih dahulu di halaman <a href="{{ route('tiket-ecommerce') }}" wire:navigate class="text-decoration-none">Toko Tiket</a></li>
+                            @elseif(!empty($user_current_queues))
+                                <li>Tunggu hingga salah satu antrian selesai, atau</li>
+                                <li>Batalkan antrian yang tidak diperlukan melalui widget antrian (pojok kanan bawah), atau</li>
+                                <li>Beli tiket tambahan jika diperlukan</li>
+                            @endif
+                        </ul>
+                    </div>
+                </div>
             </div>
         @endif
     @endauth
@@ -317,21 +377,25 @@
     </div>
     <!-- Submit Button -->
     @auth
-        @if(!empty($user_tickets))
+        @if(!empty($user_tickets) || !$can_queue)
             <div class="card shadow-sm border-0">
                 <div class="card-body">
                     <button 
                         wire:click="makeReservation"
                         wire:loading.attr="disabled"
-                        class="btn btn-success btn-lg w-100 py-3 fw-bold {{ !$selected_ticket_id || $queue_quantity < 1 || !$can_queue ? 'disabled' : '' }}"
-                        @if(!$selected_ticket_id || $queue_quantity < 1 || !$can_queue) disabled @endif
+                        class="btn btn-lg w-100 py-3 fw-bold {{ $can_queue && $selected_ticket_id && $queue_quantity >= 1 ? 'btn-success' : 'btn-secondary disabled' }}"
+                        @if(!$can_queue || !$selected_ticket_id || $queue_quantity < 1) disabled @endif
                     >
                         <span wire:loading.remove>
-                            <i class="fas fa-plus-circle me-2"></i>
+                            <i class="fas {{ $can_queue ? 'fa-plus-circle' : 'fa-ban' }} me-2"></i>
                             @if($can_queue)
-                                Buat {{ $queue_quantity ?? 1 }} Antrian Sekarang
+                                @if($selected_ticket_id && $queue_quantity >= 1)
+                                    Buat {{ $queue_quantity ?? 1 }} Antrian Sekarang
+                                @else
+                                    Pilih Tiket dan Jumlah Antrian
+                                @endif
                             @else
-                                Tidak Dapat Mengantri
+                                Tidak Dapat Mengantri Saat Ini
                             @endif
                         </span>
                         <span wire:loading>
@@ -340,7 +404,14 @@
                         </span>
                     </button>
                     
-                    @if($selected_ticket_id && $queue_quantity >= 1)
+                    @if(!$can_queue)
+                        <div class="mt-3 text-center">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Silakan selesaikan antrian yang sedang berlangsung atau beli tiket tambahan.
+                            </small>
+                        </div>
+                    @elseif($selected_ticket_id && $queue_quantity >= 1)
                         <div class="mt-4 p-4 bg-body-secondary rounded-3">
                             <div class="text-center">
                                 <div class="fw-bold mb-2 text-primary h5">

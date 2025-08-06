@@ -9,10 +9,11 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Staff;
 use App\Models\UserAttraction;
 use App\Models\UserRestaurant;
+use App\Traits\StaffLayoutTrait;
 
 class StaffProfile extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, StaffLayoutTrait;
 
     public $name;
     public $email;
@@ -170,11 +171,7 @@ class StaffProfile extends Component
     
     public function render()
     {
-        $layoutComponent = $this->type === 'attraction' 
-            ? 'components.layouts.dashboard-attraction' 
-            : 'components.layouts.dashboard-restaurant';
-            
         return view('livewire.staff.staff-profile')
-            ->layout($layoutComponent);
+            ->layout($this->getStaffLayout());
     }
 }

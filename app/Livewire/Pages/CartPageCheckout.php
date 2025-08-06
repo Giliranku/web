@@ -86,7 +86,15 @@ class CartPageCheckout extends Component
     public function mount()
     {
         // Initial calculation on page load
-        $this->refreshCart(); 
+        $this->refreshCart();
+        
+        // Auto-fill form with user data if logged in
+        if (Auth::check()) {
+            $user = Auth::user();
+            $this->namaLengkap = $user->name ?? '';
+            $this->email = $user->email ?? '';
+            $this->noTelp = $user->number ?? '';
+        }
     }
 
     public function updatedMetode($value)
@@ -97,6 +105,11 @@ class CartPageCheckout extends Component
         }
         if ($value !== 'ovo') {
             $this->reset(['ovoPhone']);
+        } else {
+            // Auto-fill OVO phone with user's phone number if available
+            if (Auth::check() && empty($this->ovoPhone)) {
+                $this->ovoPhone = Auth::user()->number ?? '';
+            }
         }
     }
 
@@ -146,6 +159,13 @@ class CartPageCheckout extends Component
 
         try {
             DB::beginTransaction();
+            
+            \Log::info('Starting payment process', [
+                'user_id' => Auth::id(),
+                'total_amount' => $this->totalAmount,
+                'metode' => $this->metode,
+                'cart_items_count' => count($this->cartItems)
+            ]);
 
             // Determine payment status based on method
             $paymentStatus = 'paid';
@@ -156,6 +176,13 @@ class CartPageCheckout extends Component
                 $successMessage = 'Pembayaran Virtual Account BCA berhasil diproses secara instan!';
             }
 
+            \Log::info('Creating invoice with data', [
+                'user_id' => Auth::id(),
+                'total_price' => $this->totalAmount,
+                'payment_method' => $this->metode,
+                'status' => $paymentStatus,
+            ]);
+
             // Create invoice record
             $invoice = Invoice::create([
                 'user_id' => Auth::id(),
@@ -164,8 +191,19 @@ class CartPageCheckout extends Component
                 'status' => $paymentStatus,
             ]);
 
+            \Log::info('Invoice created successfully', [
+                'invoice_id' => $invoice->id,
+                'invoice_number' => $invoice->invoice_number
+            ]);
+
             // Attach tickets to invoice with quantities
             foreach ($this->cartItems as $cartItem) {
+                \Log::info('Attaching ticket to invoice', [
+                    'invoice_id' => $invoice->id,
+                    'ticket_id' => $cartItem['product']->id,
+                    'quantity' => $cartItem['quantity']
+                ]);
+                
                 $invoice->tickets()->attach($cartItem['product']->id, [
                     'quantity' => $cartItem['quantity'],
                     'used_quantity' => 0
@@ -173,6 +211,7 @@ class CartPageCheckout extends Component
             }
 
             DB::commit();
+            // \Log::info('Payment transaction committed successfully');
 
             // Clear cart after successful payment
             session()->forget('cart');
@@ -197,8 +236,9 @@ class CartPageCheckout extends Component
 
         } catch (\Exception $e) {
             DB::rollBack();
-            session()->flash('error', 'Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi.');
+            session()->flash('error', 'Terjadi kesalahan saat memproses pembayaran. Silakan coba lagi. Error: ' . $e->getMessage());
             \Log::error('Payment processing error: ' . $e->getMessage());
+            \Log::error('Payment processing stack trace: ' . $e->getTraceAsString());
         }
     }
 

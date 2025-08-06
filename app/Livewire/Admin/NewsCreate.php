@@ -13,13 +13,14 @@ class NewsCreate extends Component
 {
     use WithFileUploads;
 
-    public $title, $description, $keywords, $news_cover, $content, $author_name;
+    public $title, $description, $keywords, $news_cover, $content, $author_name, $category;
 
     protected $messages = [
         'title.required' => 'Judul wajib diisi.',
         'title.unique' => 'Judul sudah digunakan.',
         'author_name.required' => 'Nama penulis wajib diisi.',
         'description.required' => 'Deskripsi wajib diisi.',
+        'category.required' => 'Kategori wajib dipilih.',
         'news_cover.required' => 'Gambar depan wajib diunggah.',
         'news_cover.image' => 'File harus berupa gambar.',
         'news_cover.max' => 'Ukuran gambar maksimal 2MB.',
@@ -33,6 +34,7 @@ class NewsCreate extends Component
             'author_name' => 'required|string',
             'description' => 'required',
             'keywords' => 'nullable|string',
+            'category' => 'required|in:info,promo,kegiatan,wahana',
             'news_cover' => 'required|image|max:2048',
             'content' => [
                 'required',
@@ -51,6 +53,7 @@ class NewsCreate extends Component
             'author_name' => $this->author_name,
             'description' => $this->description,
             'keywords' => $this->keywords,
+            'category' => $this->category,
             'news_cover' => $coverPath,
             'content' => $this->content,
             'staff_id' => Auth::id() ?? 1,

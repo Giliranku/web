@@ -15,9 +15,13 @@ export default defineConfig({
                 'resources/css/register-page.css',
                 'resources/css/invoice-page.css',
                 'resources/css/user-profile-page.css',
+                'resources/css/staff-profile-page.css',
+                'resources/css/trix-custom.css',
                 'resources/css/yoga.css',
                 'resources/css/tiket-ecommerce.css',
-                'resources/css/product-card.css'
+                'resources/css/product-card.css',
+                'resources/css/cart-modern.css',
+                'resources/css/wahana-detail.css',
 
                 // 'public/js/userprofile.js'
             ],

@@ -28,49 +28,56 @@
     <div class="flex-grow-1 d-flex flex-column" style="min-height:0;">
         <ul class="nav flex-column p-2 flex-grow-1 overflow-x-hidden" style="min-height:0;">
             <li class="nav-item">
-                <a href="/admin/dashboard" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/dashboard" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/dashboard') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-house"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak
                         class="menu-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/manage-users" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/manage-users" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-users') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-people-fill"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak
                         class="menu-text">Pengunjung</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/manage-ticket" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/manage-ticket" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-ticket*') ? 'active' : 'text-body-secondary' }}">
                     <i class="fas fa-ticket-alt"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Tiket</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/manage-attractions" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/manage-attractions" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-attractions*') ? 'active' : 'text-body-secondary' }}">
                     <i class="fas fa-star"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Wahana</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/manage-restaurants" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/manage-restaurants" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-restaurants*') ? 'active' : 'text-body-secondary' }}">
                     <i class="fas fa-utensils"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak
                         class="menu-text">Restoran</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/manage-staff" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/manage-staff" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-staff*') ? 'active' : 'text-body-secondary' }}">
                     <i class="fas fa-users"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak class="menu-text">Staff</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="/admin/manage-news" wire:navigate class="nav-link d-flex align-items-center">
+                <a href="/admin/manage-news" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-news*') ? 'active' : 'text-body-secondary' }}">
                     <i class="bi bi-newspaper"></i>
                     <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak
                         class="menu-text">Berita</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin/manage-payments" wire:navigate class="nav-link d-flex align-items-center {{ request()->is('admin/manage-payments*') ? 'active' : 'text-body-secondary' }}">
+                    <i class="bi bi-credit-card"></i>
+                    <span x-show="!$store.sidebar.collapsed" x-transition.opacity x-cloak
+                        class="menu-text">Pembayaran</span>
                 </a>
             </li>
         </ul>
@@ -81,7 +88,9 @@
         class="border-top p-2 d-flex flex-column gap-2 flex-shrink-0"
         :class="$store.sidebar.collapsed ? 'align-items-center' : ''"
         class="sidebar-bg-fix">
-        <button 
+        <a 
+            href="/admin/manage-support" 
+            wire:navigate
             class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''"
             style="transition: all 0.3s;"
@@ -90,8 +99,8 @@
             <span x-cloak style="display:inline-block; overflow:hidden; transition: max-width 0.3s, opacity 0.2s;"
                 :style="$store.sidebar.collapsed 
                     ? 'max-width:0; opacity:0; margin-left:0;' 
-                    : 'max-width:130px; opacity:1; margin-left:0;'">Bantuan</span>
-        </button>
+                    : 'max-width:130px; opacity:1; margin-left:0;'">Kelola Bantuan</span>
+        </a>
         <a href="/admin/profile" wire:navigate class="btn d-flex align-items-center w-100"
             :class="$store.sidebar.collapsed ? 'justify-content-center px-0' : ''" style="transition: all 0.3s;">
             <i class="bi bi-person-circle" :class="$store.sidebar.collapsed ? '' : 'me-2'"></i>

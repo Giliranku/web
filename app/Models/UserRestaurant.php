@@ -24,12 +24,15 @@ class UserRestaurant extends Pivot
         'reservation_date',
         'reservation_time',
         'status',
+        'is_fast_pass',
+        'priority_level',
         'created_at'
     ];
     
     protected $casts = [
         'reservation_date' => 'date',
         'reservation_time' => 'datetime:H:i',
+        'is_fast_pass' => 'boolean',
     ];
 
     public function user(): BelongsTo
@@ -63,5 +66,42 @@ class UserRestaurant extends Pivot
     public function scopeOrderByQueue($query)
     {
         return $query->orderBy('queue_position');
+    }
+
+    // Scope untuk mengurutkan berdasarkan prioritas khusus
+    public function scopeOrderByPriority($query)
+    {
+        return $query->orderByRaw("
+            CASE 
+                WHEN priority_level = 1 AND status = 'called' THEN 1
+                WHEN priority_level = 1 AND status = 'waiting' THEN 2
+                WHEN priority_level = 2 AND status = 'waiting' THEN 3
+                WHEN priority_level = 2 AND status = 'called' THEN 3
+                WHEN priority_level = 1 AND status = 'served' THEN 4
+                WHEN priority_level = 2 AND status = 'served' THEN 5
+                WHEN status = 'cancelled' THEN 6
+                ELSE 7
+            END
+        ")->orderBy('created_at');
+    }
+
+    // Scope untuk fast pass queue
+    public function scopeFastPass($query)
+    {
+        return $query->where('is_fast_pass', true);
+    }
+
+    // Scope untuk regular queue
+    public function scopeRegular($query)
+    {
+        return $query->where('is_fast_pass', false);
+    }
+
+    /**
+     * Get the formatted priority level for display
+     */
+    public function getFormattedPriorityAttribute()
+    {
+        return $this->is_fast_pass ? 'Fast Pass' : 'Regular';
     }
 }

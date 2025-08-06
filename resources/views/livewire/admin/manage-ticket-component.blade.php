@@ -84,7 +84,7 @@
                 <div class="card w-100 shadow p-sm-3 p-1 bg-body-tertiary rounded">
                     <div class="card-body d-flex align-items-center justify-content-between flex-sm-row flex-column">
                         <div class="d-flex align-items-center flex-sm-row flex-column">
-                            <img src="{{ asset('storage/' . $ticket->logo) }}" class="card-img-top rounded" style="width: 100px;" alt="{{ $ticket->name }}">
+                            <img src="{{ $ticket->getLogoUrl() }}" class="card-img-top rounded" style="width: 100px;" alt="{{ $ticket->name }}" onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                             <div class="ms-4">
                                 <h5 class="card-title mt-3">{{ $ticket->name }}</h5>
 

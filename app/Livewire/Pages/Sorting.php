@@ -9,16 +9,35 @@ use Illuminate\Support\Collection;
 
 class Sorting extends Component
 {
-    public $sortBy = 'Kapasitas Terbesar';
+    public $sortBy = 'Terpopuler';
     public $category = 'Semua'; // Default: tampilkan semua
     public $search = '';
+    public $searchQuery = ''; // Property untuk search input
 
-    protected $updatesQueryString = ['sortBy', 'category', 'search'];
+    protected $queryString = [
+        'sortBy' => ['except' => 'Terpopuler'],
+        'category' => ['except' => 'Semua'],
+        'searchQuery' => ['except' => '', 'as' => 'search'],
+    ];
+
+    public function mount()
+    {
+        // Mounting logic can be simplified as query string is handled automatically
+    }
+
+    // This is now redundant because of wire:model.live
+    // public function updatedSearchQuery()
+    // {
+    //     $this->search = $this->searchQuery;
+    // }
 
     // Tombol cari memanggil ini saja, biar Livewire update properti search
     public function doSearch()
     {
-        // Tidak perlu isi apa-apa, Livewire akan merender ulang otomatis
+        // This method is now only for the explicit search button click.
+        // The live search is handled by wire:model.live on the input.
+        // We can force a re-render if needed, but it's usually automatic.
+        $this->render();
     }
 
     public function render()
@@ -27,17 +46,14 @@ class Sorting extends Component
         $attractions = collect();
 
         // Query berdasarkan kategori
-        if ($this->category === 'Restoran') {
-            $restaurants = $this->getRestaurants();
-            $items = $restaurants;
+        if ($this->category === 'Restaurant') {
+            $items = $this->getRestaurants();
         } elseif ($this->category === 'Attraction') {
-            $attractions = $this->getAttractions();
-            $items = $attractions;
+            $items = $this->getAttractions();
         } else {
             $restaurants = $this->getRestaurants();
             $attractions = $this->getAttractions();
             $items = $restaurants->merge($attractions);
-            // Sorting manual jika "Semua"
             $items = $this->sortCombined($items, $this->sortBy);
         }
 
@@ -49,15 +65,21 @@ class Sorting extends Component
     private function getRestaurants()
     {
         $query = Restaurant::query();
-        if ($this->search) {
-            $query->where('name', 'like', '%'.$this->search.'%');
+        if ($this->searchQuery) {
+            $query->where('name', 'like', '%'.$this->searchQuery.'%');
         }
         switch ($this->sortBy) {
+            case 'Nama A-Z': $query->orderBy('name', 'asc'); break;
+            case 'Nama Z-A': $query->orderBy('name', 'desc'); break;
             case 'Kapasitas Terbesar': $query->orderBy('capacity', 'desc'); break;
             case 'Kapasitas Terkecil': $query->orderBy('capacity', 'asc'); break;
+            case 'Terpopuler': 
+            default: 
+                $query->orderBy('capacity', 'desc'); 
+                break;
         }
         return $query->get()->map(function($item) {
-            $item->type = 'Restoran';
+            $item->type = 'Restaurant';
             return $item;
         });
     }
@@ -65,12 +87,18 @@ class Sorting extends Component
     private function getAttractions()
     {
         $query = Attraction::query();
-        if ($this->search) {
-            $query->where('name', 'like', '%'.$this->search.'%');
+        if ($this->searchQuery) {
+            $query->where('name', 'like', '%'.$this->searchQuery.'%');
         }
         switch ($this->sortBy) {
+            case 'Nama A-Z': $query->orderBy('name', 'asc'); break;
+            case 'Nama Z-A': $query->orderBy('name', 'desc'); break;
             case 'Kapasitas Terbesar': $query->orderBy('capacity', 'desc'); break;
             case 'Kapasitas Terkecil': $query->orderBy('capacity', 'asc'); break;
+            case 'Terpopuler': 
+            default: 
+                $query->orderBy('capacity', 'desc'); 
+                break;
         }
         return $query->get()->map(function($item) {
             $item->type = 'Attraction';
@@ -82,12 +110,17 @@ class Sorting extends Component
     private function sortCombined(Collection $items, $sortBy)
     {
         switch ($sortBy) {
+            case 'Nama A-Z':
+                return $items->sortBy('name')->values();
+            case 'Nama Z-A':
+                return $items->sortByDesc('name')->values();
             case 'Kapasitas Terbesar':
                 return $items->sortByDesc('capacity')->values();
             case 'Kapasitas Terkecil':
                 return $items->sortBy('capacity')->values();
+            case 'Terpopuler':
             default:
-                return $items;
+                return $items->sortByDesc('capacity')->values();
         }
     }
 

@@ -1,5 +1,40 @@
 @push('styles')
 <style>
+/* === Color Palette === */
+:root {
+   --primary: #4ABDAC;
+   --secondary: #FC4A1A; 
+   --warning: #F7B733;
+   --light: #FFFFFF;
+   --dark: #2c3e50;
+   --gray-light: #f8f9fa;
+   --gray-medium: #6c757d;
+   --gradient-primary: linear-gradient(135deg, #4ABDAC, #3a9d94);
+   --gradient-secondary: linear-gradient(135deg, #FC4A1A, #e03d0f);
+}
+
+/* === Page Hero Section === */
+.page-hero {
+   background: var(--gradient-primary);
+   padding: 3rem 0 2rem;
+   color: white;
+}
+
+.page-title {
+   font-size: clamp(1.75rem, 4vw, 2.5rem);
+   font-weight: 600;
+   margin-bottom: 0.5rem;
+   text-align: center;
+}
+
+.page-subtitle {
+   font-size: clamp(1rem, 2vw, 1.1rem);
+   font-weight: 300;
+   opacity: 0.9;
+   margin-bottom: 2.5rem;
+   text-align: center;
+}
+
 /* ===== MINIMALIST ABOUT US STYLES ===== */
 
 /* === Base Reset === */
@@ -13,34 +48,11 @@
     to { opacity: 1; }
 }
 
-/* === Hero Section - Minimalist === */
-.hero-section {
-    /* background: #ffffff; */
-    padding: 6rem 0 4rem;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.hero-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    font-weight: 300;
-    /* color: #2c3e50; */
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-}
-
-.hero-subtitle {
-    font-size: 1.25rem;
-    /* color: #6c757d; */
-    font-weight: 300;
-    line-height: 1.6;
-    max-width: 600px;
-    margin: 0 auto 2rem;
-}
-
 /* === Simple Buttons === */
 .btn-minimal {
     padding: 12px 32px;
     border: 2px solid #4ABDAC;
+    border-radius: 12px;
     background: transparent;
     color: #4ABDAC;
     font-weight: 500;
@@ -52,17 +64,22 @@
 .btn-minimal:hover {
     background: #4ABDAC;
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(74, 189, 172, 0.3);
 }
 
 .btn-minimal-primary {
     background: #4ABDAC;
     color: white !important;
+    border-radius: 12px;
 }
 
 .btn-minimal-primary:hover {
     background: #3a9d94;
     border-color: #3a9d94;
     color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(74, 189, 172, 0.4);
 }
 
 /* === Stats Section - Clean === */
@@ -74,6 +91,13 @@
 .stat-item {
     text-align: center;
     padding: 2rem 1rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
 .stat-number {
@@ -120,15 +144,30 @@
 /* === Service Cards - Minimal === */
 .service-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     margin-top: 3rem;
+}
+
+@media (max-width: 992px) {
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .service-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }
 
 .service-item {
     padding: 2rem;
     /* background: white; */
     border: 1px solid #e9ecef;
+    border-radius: 16px;
     text-align: center;
     transition: all 0.3s ease;
 }
@@ -137,6 +176,7 @@
     border-color: #4ABDAC;
     transform: translateY(-5px);
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 20px;
 }
 
 .service-icon {
@@ -174,13 +214,20 @@
 .value-item {
     text-align: center;
     padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.value-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
 .value-icon {
     width: 50px;
     height: 50px;
     background: #4ABDAC;
-    border-radius: 8px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -261,26 +308,13 @@
 @endpush
 
 <div class="about-us-page">
-    {{-- ===== HERO SECTION ===== --}}
-    <section class="hero-section">
+    {{-- ===== PAGE HERO SECTION ===== --}}
+    <section class="page-hero">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8 text-center">
-                    <h1 class="hero-title fade-in">
-                        Tentang Giliranku
-                    </h1>
-                    <p class="hero-subtitle fade-in">
-                        Destinasi hiburan modern yang menghadirkan pengalaman tak terlupakan dengan teknologi inovatif dan pelayanan terbaik untuk seluruh keluarga.
-                    </p>
-                    
-                    <div class="d-flex justify-content-center gap-3 flex-wrap fade-in">
-                        <a href="{{ route('tickets') }}" class="btn-minimal btn-minimal-primary" wire:navigate>
-                            Beli Tiket
-                        </a>
-                        <a href="{{ route('attractions') }}" class="btn-minimal" wire:navigate>
-                            Lihat Wahana
-                        </a>
-                    </div>
+                    <h1 class="page-title">🎡 Tentang Giliranku</h1>
+                    <p class="page-subtitle">Destinasi hiburan modern yang menghadirkan pengalaman tak terlupakan dengan teknologi inovatif dan pelayanan terbaik untuk seluruh keluarga</p>
                 </div>
             </div>
         </div>

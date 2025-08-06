@@ -12,7 +12,7 @@ class AddTicketComponent extends Component
     use WithFileUploads;
 
     public $name, $price, $price_before, $terms_and_conditions, $usage;
-    public $location, $logo;
+    public $location, $logo, $ticket_type = 'regular', $fast_pass_price_multiplier = 1.00;
 
     protected $messages = [
         'name.required' => 'Nama tiket wajib diisi.',
@@ -26,6 +26,13 @@ class AddTicketComponent extends Component
 
         'location.required' => 'Lokasi wajib dipilih.',
         'location.in' => 'Lokasi yang dipilih tidak valid.',
+
+        'ticket_type.required' => 'Jenis tiket wajib dipilih.',
+        'ticket_type.in' => 'Jenis tiket yang dipilih tidak valid.',
+
+        'fast_pass_price_multiplier.required' => 'Pengali harga fast pass wajib diisi.',
+        'fast_pass_price_multiplier.numeric' => 'Pengali harga fast pass harus berupa angka.',
+        'fast_pass_price_multiplier.min' => 'Pengali harga fast pass minimal 1.00.',
 
         'terms_and_conditions.required' => 'Syarat dan ketentuan wajib diisi.',
         'terms_and_conditions.string' => 'Syarat dan ketentuan harus berupa teks.',
@@ -56,6 +63,8 @@ class AddTicketComponent extends Component
                     'Jakarta Bird Land Ancol',
                 ]),
             ],
+            'ticket_type' => 'required|in:regular,fast_pass',
+            'fast_pass_price_multiplier' => 'required|numeric|min:1.00',
             'terms_and_conditions' => 'required|string',
             'usage' => 'required|string',
             'logo' => 'required|image|max:1024'
@@ -69,6 +78,8 @@ class AddTicketComponent extends Component
             'price' => $this->price,
             'price_before' => $this->price_before,
             'location' => $this->location,
+            'ticket_type' => $this->ticket_type,
+            'fast_pass_price_multiplier' => $this->fast_pass_price_multiplier,
             'terms_and_conditions' => $this->terms_and_conditions . "\n" . $this->usage,
             'usage' => $this->usage,
         ]);

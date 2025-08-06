@@ -226,6 +226,24 @@
                             </div>
                             @error('keywords') <div class="text-danger mt-1">{{ $message }}</div> @enderror
                         </div>
+
+                        {{-- Category --}}
+                        <div class="mb-4">
+                            <label for="category" class="form-label">Kategori Berita</label>
+                            <div class="position-relative">
+                                <select wire:model.lazy="category" class="form-control" id="category">
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="info">Info Giliranku</option>
+                                    <option value="promo">Promo Spesial</option>
+                                    <option value="kegiatan">Kegiatan Seru</option>
+                                    <option value="wahana">Info Wahana</option>
+                                </select>
+                                <button type="button" class="btn position-absolute top-50 end-0 translate-middle-y me-3 p-0 border-0 bg-transparent edit-icon" data-target="category">
+                                    <i class="bi bi-pencil-square text-muted"></i>
+                                </button>
+                            </div>
+                            @error('category') <div class="text-danger mt-1">{{ $message }}</div> @enderror
+                        </div>
         
                         {{-- Description --}}
                         <div class="mb-4">

@@ -31,7 +31,7 @@
         <!-- Header -->
         <div class="d-flex justify-content-between align-items-center p-4 border-bottom border-opacity-25 bg-body-secondary rounded-top-4">
             <div class="d-flex align-items-center">
-                <i class="bi bi-universal-access me-3 text-primary" style="font-size: 1.5rem;"></i>
+                <i class="bi bi-universal-access me-3 text-primary" style="font-size: 1.8rem;"></i>
                 <h5 class="mb-0 fw-bold text-body-emphasis accessibility-widget-text">Aksesibilitas</h5>
             </div>
             <button class="btn-close" @click="open = false" aria-label="Tutup menu"></button>
@@ -42,23 +42,27 @@
             <!-- Font Size Controls -->
             <div class="mb-4">
                 <h6 class="fw-semibold text-body-emphasis mb-3 accessibility-widget-text">
-                    <i class="bi bi-type me-2 text-primary"></i>Ukuran Teks
+                    <i class="bi bi-type me-2 text-primary" style="font-size: 1.3rem;"></i>Ukuran Teks
                 </h6>
                 <div class="d-flex align-items-center gap-3">
                     <button 
-                        class="btn btn-outline-secondary btn-sm accessibility-widget-text"
+                        class="btn btn-outline-primary d-flex align-items-center justify-content-center accessibility-widget-text"
                         @click="decreaseFontSize()"
                         aria-label="Perkecil teks"
+                        style="width: 50px; height: 50px; border-radius: 12px;"
                     >
-                        <i class="bi bi-dash-lg"></i>
+                        <i class="bi bi-dash-lg" style="font-size: 1.5rem;"></i>
                     </button>
-                    <span class="flex-grow-1 text-center fw-medium text-body-emphasis accessibility-widget-text" x-text="$store.accessibility.fontSize + '%'"></span>
+                    <div class="flex-grow-1 text-center">
+                        <span class="fw-bold text-body-emphasis accessibility-widget-text fs-4" x-text="$store.accessibility.fontSize + '%'"></span>
+                    </div>
                     <button 
-                        class="btn btn-outline-secondary btn-sm accessibility-widget-text"
+                        class="btn btn-outline-primary d-flex align-items-center justify-content-center accessibility-widget-text"
                         @click="increaseFontSize()"
                         aria-label="Perbesar teks"
+                        style="width: 50px; height: 50px; border-radius: 12px;"
                     >
-                        <i class="bi bi-plus-lg"></i>
+                        <i class="bi bi-plus-lg" style="font-size: 1.5rem;"></i>
                     </button>
                 </div>
             </div>
@@ -67,57 +71,57 @@
             <div class="row g-3">
                 <div class="col-6">
                     <button 
-                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text"
+                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text d-flex flex-column align-items-center justify-content-center"
                         :class="$store.accessibility.highContrast ? 'btn-dark text-white' : 'btn-outline-dark'"
                         @click="toggleHighContrast()"
-                        style="min-height: 100px; transition: all 0.3s ease;"
+                        style="min-height: 120px; transition: all 0.3s ease;"
                         aria-pressed="false"
                         :aria-pressed="$store.accessibility.highContrast.toString()"
                     >
-                        <i class="bi bi-eye-fill d-block mb-2" style="font-size: 1.5rem;"></i>
-                        <small class="fw-medium">Kontras Tinggi</small>
+                        <i class="bi bi-eye-fill d-block mb-2" style="font-size: 3.5rem;"></i>
+                        <small class="fw-medium text-center" style="font-size: 0.85rem;">Kontras Tinggi</small>
                     </button>
                 </div>
                 
                 <div class="col-6">
                     <button 
-                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text"
-                        :class="$store.accessibility.dyslexicFont ? 'btn-success text-white' : 'btn-outline-success'"
+                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text d-flex flex-column align-items-center justify-content-center"
+                        :class="$store.accessibility.dyslexicFont ? 'btn-primary text-white' : 'btn-outline-primary'"
                         @click="toggleDyslexicFont()"
-                        style="min-height: 100px; transition: all 0.3s ease;"
+                        style="min-height: 120px; transition: all 0.3s ease;"
                         aria-pressed="false"
                         :aria-pressed="$store.accessibility.dyslexicFont.toString()"
                     >
-                        <i class="bi bi-fonts d-block mb-2" style="font-size: 1.5rem;"></i>
-                        <small class="fw-medium">Font Disleksia</small>
+                        <i class="bi bi-fonts d-block mb-2" style="font-size: 3.5rem;"></i>
+                        <small class="fw-medium text-center" style="font-size: 0.85rem;">Font Disleksia</small>
                     </button>
                 </div>
                 
                 <div class="col-6">
                     <button 
-                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text"
-                        :class="speechActive ? 'btn-warning text-white' : 'btn-outline-warning'"
+                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text d-flex flex-column align-items-center justify-content-center"
+                        :class="speechActive ? 'btn-info text-white' : 'btn-outline-info'"
                         @click="toggleSpeech()"
-                        style="min-height: 100px; transition: all 0.3s ease;"
+                        style="min-height: 120px; transition: all 0.3s ease;"
                         aria-pressed="false"
                         :aria-pressed="speechActive.toString()"
                     >
-                        <i class="d-block mb-2" style="font-size: 1.5rem;" :class="speechActive ? 'bi bi-pause-fill' : 'bi bi-volume-up-fill'"></i>
-                        <small class="fw-medium" x-text="speechActive ? 'Hentikan Suara' : 'Bantuan Suara'"></small>
+                        <i class="d-block mb-2" style="font-size: 3.5rem;" :class="speechActive ? 'bi bi-pause-fill' : 'bi bi-volume-up-fill'"></i>
+                        <small class="fw-medium text-center" style="font-size: 0.85rem;" x-text="speechActive ? 'Hentikan Suara' : 'Bantuan Suara'"></small>
                     </button>
                 </div>
                 
                 <div class="col-6">
                     <button 
-                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text"
+                        class="btn w-100 h-100 p-3 border-2 rounded-3 accessibility-btn accessibility-widget-text d-flex flex-column align-items-center justify-content-center"
                         :class="$store.themeSwitcher.theme === 'dark' ? 'btn-secondary text-white' : 'btn-outline-secondary'"
                         @click="toggleDarkMode()"
-                        style="min-height: 100px; transition: all 0.3s ease;"
+                        style="min-height: 120px; transition: all 0.3s ease;"
                         aria-pressed="false"
                         :aria-pressed="($store.themeSwitcher.theme === 'dark').toString()"
                     >
-                        <i class="d-block mb-2" style="font-size: 1.5rem;" :class="$store.themeSwitcher.theme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill'"></i>
-                        <small class="fw-medium" x-text="$store.themeSwitcher.theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'"></small>
+                        <i class="d-block mb-2" style="font-size: 3.5rem;" :class="$store.themeSwitcher.theme === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill'"></i>
+                        <small class="fw-medium text-center" style="font-size: 0.85rem;" x-text="$store.themeSwitcher.theme === 'dark' ? 'Mode Terang' : 'Mode Gelap'"></small>
                     </button>
                 </div>
             </div>
@@ -125,7 +129,7 @@
             <!-- Reset Button -->
             <div class="mt-4 pt-3 border-top border-opacity-25">
                 <button 
-                    class="btn btn-outline-danger btn-sm w-100 accessibility-widget-text"
+                    class="btn btn-outline-danger w-100 accessibility-widget-text d-flex align-items-center justify-content-center"
                     @click="
                         $store.accessibility.setFontSize(100);
                         $store.accessibility.dyslexicFont && $store.accessibility.toggleDyslexicFont();
@@ -134,8 +138,10 @@
                         speechActive && toggleSpeech();
                     "
                     aria-label="Reset semua pengaturan aksesibilitas"
+                    style="padding: 0.75rem 1rem;"
                 >
-                    <i class="bi bi-arrow-clockwise me-2"></i>Reset Semua
+                    <i class="bi bi-arrow-clockwise me-2" style="font-size: 1.2rem;"></i>
+                    <span style="font-size: 0.95rem;">Reset Semua</span>
                 </button>
             </div>
         </div>

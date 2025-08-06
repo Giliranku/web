@@ -5,6 +5,48 @@
     'resources/css/main.css',
     'resources/css/tiket-ecommerce.css'
 ])
+
+<style>
+/* === Color Palette === */
+:root {
+   --primary: #4ABDAC;
+   --secondary: #FC4A1A; 
+   --warning: #F7B733;
+   --light: #FFFFFF;
+   --dark: #2c3e50;
+   --gray-light: #f8f9fa;
+   --gray-medium: #6c757d;
+   --gradient-primary: linear-gradient(135deg, #4ABDAC, #3a9d94);
+   --gradient-secondary: linear-gradient(135deg, #FC4A1A, #e03d0f);
+}
+
+/* === Page Hero Section === */
+.page-hero {
+   background: var(--gradient-primary);
+   padding: 3rem 0 2rem;
+   color: white;
+}
+
+.page-title {
+   font-size: clamp(1.75rem, 4vw, 2.5rem);
+   font-weight: 600;
+   margin-bottom: 0.5rem;
+   text-align: center;
+}
+
+.page-subtitle {
+   font-size: clamp(1rem, 2vw, 1.1rem);
+   font-weight: 300;
+   opacity: 0.9;
+   margin-bottom: 2.5rem;
+   text-align: center;
+}
+
+/* Dark mode support */
+[data-bs-theme="dark"] .page-hero {
+   background: var(--gradient-primary);
+}
+</style>
 @endpush
 
 @push('scripts')
@@ -50,44 +92,46 @@ document.addEventListener('livewire:initialized', function() {
 @endpush
 
 <div class="overflow-x-hidden">
-    <!-- Hero Section -->
-    <div class="hero-ecommerce">
+    {{-- ===== PAGE HERO SECTION ===== --}}
+    <section class="page-hero">
         <div class="container">
-            <div class="text-center">
-                <h1 class="display-5 fw-bold mb-3">🎢 Beli Tiket Giliranku</h1>
-                <p class="lead mb-4">Satu tiket untuk semua keseruan! Akses unlimited ke wahana dan restoran favorit</p>
-                <hr class="section-divider bg-light mx-auto">
-                <div class="row g-3 justify-content-center mt-4">
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <i class="bi bi-ticket-perforated" style="font-size: 2rem;"></i>
-                            <p class="mb-0 mt-2">Universal Access</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <i class="bi bi-clock" style="font-size: 2rem;"></i>
-                            <p class="mb-0 mt-2">Skip The Line</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <i class="bi bi-shield-check" style="font-size: 2rem;"></i>
-                            <p class="mb-0 mt-2">Secure Payment</p>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-6">
-                        <div class="text-center">
-                            <i class="bi bi-phone" style="font-size: 2rem;"></i>
-                            <p class="mb-0 mt-2">Digital Queue</p>
-                        </div>
-                    </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h1 class="page-title">🎢 Beli Tiket Giliranku</h1>
+                    <p class="page-subtitle">Satu tiket untuk semua keseruan! Akses unlimited ke wahana dan restoran favorit</p>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <div class="container">
+        <!-- Feature Icons Section -->
+        <div class="row g-3 justify-content-center mt-4 mb-5">
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <i class="bi bi-ticket-perforated" style="font-size: 2rem; color: var(--primary);"></i>
+                    <p class="mb-0 mt-2">Universal Access</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <i class="bi bi-clock" style="font-size: 2rem; color: var(--primary);"></i>
+                    <p class="mb-0 mt-2">Skip The Line</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <i class="bi bi-shield-check" style="font-size: 2rem; color: var(--primary);"></i>
+                    <p class="mb-0 mt-2">Secure Payment</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="text-center">
+                    <i class="bi bi-phone" style="font-size: 2rem; color: var(--primary);"></i>
+                    <p class="mb-0 mt-2">Digital Queue</p>
+                </div>
+            </div>
+        </div>
         <!-- Search & Filter Section -->
         <div class="row justify-content-center mb-5">
             <div class="col-lg-8">
@@ -139,10 +183,11 @@ document.addEventListener('livewire:initialized', function() {
                             <!-- Ticket Image -->
                             <div class="col-md-5">
                                 <div class="ticket-image-container h-100">
-                                    <img src="{{ asset($product->logo) }}" 
+                                    <img src="{{ $product->getLogoUrl() }}" 
                                          class="img-fluid" 
                                          style="max-width: 140px; max-height: 100px; object-fit: contain;" 
-                                         alt="{{ $product->name }}">
+                                         alt="{{ $product->name }}"
+                                         onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                                 </div>
                             </div>
                             
@@ -231,10 +276,11 @@ document.addEventListener('livewire:initialized', function() {
                             <div class="d-flex align-items-center w-100">
                                 <div class="me-4">
                                     <div class="bg-white bg-opacity-20 rounded-3 p-3 d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
-                                        <img src="{{ asset($product->logo) }}" 
+                                        <img src="{{ $product->getLogoUrl() }}" 
                                              class="img-fluid" 
                                              style="max-width: 50px; max-height: 50px; object-fit: contain;" 
-                                             alt="{{ $product->name }}">
+                                             alt="{{ $product->name }}"
+                                             onerror="this.src='{{ asset('img/default-placeholder.svg') }}'">
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

@@ -14,7 +14,7 @@ class EditTicketComponent extends Component
 
     public Ticket $ticket;
     public $name, $price, $price_before, $terms_and_conditions, $usage, $location;
-    public $new_logo;
+    public $new_logo, $ticket_type, $fast_pass_price_multiplier;
 
     protected $messages = [
         'name.required' => 'Nama tiket wajib diisi.',
@@ -27,6 +27,13 @@ class EditTicketComponent extends Component
 
         'location.required' => 'Lokasi wajib dipilih.',
         'location.in' => 'Lokasi yang dipilih tidak valid.',
+
+        'ticket_type.required' => 'Jenis tiket wajib dipilih.',
+        'ticket_type.in' => 'Jenis tiket yang dipilih tidak valid.',
+
+        'fast_pass_price_multiplier.required' => 'Pengali harga fast pass wajib diisi.',
+        'fast_pass_price_multiplier.numeric' => 'Pengali harga fast pass harus berupa angka.',
+        'fast_pass_price_multiplier.min' => 'Pengali harga fast pass minimal 1.00.',
 
         'terms_and_conditions.required' => 'Syarat dan ketentuan wajib diisi.',
         'terms_and_conditions.string' => 'Syarat dan ketentuan harus berupa teks.',
@@ -46,6 +53,8 @@ class EditTicketComponent extends Component
         $this->price = $ticket->price;
         $this->price_before = $ticket->price_before;
         $this->location = $ticket->location;
+        $this->ticket_type = $ticket->ticket_type;
+        $this->fast_pass_price_multiplier = $ticket->fast_pass_price_multiplier;
         $this->terms_and_conditions = $ticket->terms_and_conditions;
         $this->usage = $ticket->usage;
     }
@@ -75,6 +84,8 @@ class EditTicketComponent extends Component
                     'Jakarta Bird Land Ancol',
                 ]),
             ],
+            'ticket_type' => 'required|in:regular,fast_pass',
+            'fast_pass_price_multiplier' => 'required|numeric|min:1.00',
             'terms_and_conditions' => 'required|string',
             'usage' => 'required|string',
             'new_logo' => 'nullable|image|max:1024',
@@ -94,6 +105,8 @@ class EditTicketComponent extends Component
             'price' => $this->price,
             'price_before' => $this->price_before,
             'location' => $this->location,
+            'ticket_type' => $this->ticket_type,
+            'fast_pass_price_multiplier' => $this->fast_pass_price_multiplier,
             'terms_and_conditions' => $this->terms_and_conditions,
             'usage' => $this->usage,
             'logo' => $logoPath,
