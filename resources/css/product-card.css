@@ -11,10 +11,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 
 .quantity-control-modern {
     position: relative;
+    z-index: 2;
 }
 
 .btn-add-modern {

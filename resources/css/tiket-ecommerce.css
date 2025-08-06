@@ -18,6 +18,8 @@
     border: 2px solid var(--bs-primary);
     border-radius: 20px;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 1000;
 }
 
 .search-card:hover {
@@ -32,11 +34,14 @@
     overflow: hidden;
     background: var(--bs-body-bg);
     box-shadow: var(--bs-box-shadow);
+    position: relative;
+    z-index: 1;
 }
 
 .ticket-card:hover {
     transform: translateY(-8px);
     box-shadow: var(--bs-box-shadow-lg);
+    z-index: 2;
 }
 
 .promo-badge {

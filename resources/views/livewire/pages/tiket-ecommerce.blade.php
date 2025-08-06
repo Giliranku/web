@@ -34,6 +34,10 @@
    text-align: center;
 }
 
+[data-bs-theme="dark"] .termsandcons {
+   color: var(--light);
+}
+
 .page-subtitle {
    font-size: clamp(1rem, 2vw, 1.1rem);
    font-weight: 300;
@@ -307,7 +311,7 @@ document.addEventListener('livewire:initialized', function() {
                         <!-- Modal Body -->
                         <div class="modal-body p-4">
                             <!-- Pricing Section -->
-                            <div class="mb-4 p-3 rounded-3" style="background: linear-gradient(135deg, #f8f9fa, var(--light)); border: 1px solid #e9ecef;">
+                            <div class="mb-4 p-3 rounded-3" style="border: 1px solid #e9ecef;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <div class="d-flex align-items-center gap-3 mb-2">
@@ -371,9 +375,9 @@ document.addEventListener('livewire:initialized', function() {
                                 <h6 class="fw-bold mb-3" style="color: var(--primary);">
                                     <i class="bi bi-file-text me-2"></i>Syarat & Ketentuan
                                 </h6>
-                                <div class="p-3 rounded-3" style="background: linear-gradient(135deg, #f8f9fa, #ffffff); border-left: 4px solid var(--primary);">
+                                <div class="p-3 rounded-3" style="border-left: 4px solid var(--primary);">
                                     @if($product->terms_and_conditions)
-                                        <p class="mb-0 text-dark small" style="line-height: 1.6;">
+                                        <p class="mb-0 small termsandcons" style="line-height: 1.6;">
                                             {{ $product->terms_and_conditions }}
                                         </p>
                                     @else

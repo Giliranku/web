@@ -107,7 +107,7 @@
 <style>
 .modern-date-selector {
     position: relative;
-    z-index: 1050;
+    z-index: 1055;
 }
 
 .date-selector-button {
@@ -122,6 +122,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    z-index: 1056;
 }
 
 .date-selector-button::before {
@@ -208,7 +209,7 @@
     margin-top: 0px !important;
     overflow: hidden;
     animation: dropdownSlide 0.2s ease-out;
-    z-index: 1060 !important;
+    z-index: 9999 !important;
     position: absolute !important;
     top: 100% !important;
     left: 0 !important;
@@ -227,6 +228,7 @@
     right: 0 !important;
     transform: none !important;
     margin-top: 2px !important;
+    z-index: 9999 !important;
 }
 
 @keyframes dropdownSlide {

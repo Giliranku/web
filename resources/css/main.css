@@ -1153,7 +1153,7 @@ button[style*="background: none"] {
             0 1px 0 rgba(255, 255, 255, 0.1) inset !important;
         position: relative !important;
         overflow: hidden;
-        background: rgba(255, 255, 255, 0.95);
+        /* background: rgb  a(255, 255, 255, 0.95); */
     }
 
     /* Custom Hamburger */
@@ -1387,7 +1387,7 @@ button[style*="background: none"] {
     /* Mobile Quick Actions */
     .mobile-quick-actions {
         padding: 1.5rem;
-        background: #f9fafb;
+        /* background: #f9fafb; */
         border-top: 1px solid rgba(0, 0, 0, 0.05);
     }
 
@@ -1404,8 +1404,8 @@ button[style*="background: none"] {
         gap: 0.5rem;
         padding: 1rem 0.5rem;
         text-decoration: none;
-        color: #374151;
-        background: white;
+        /* color: #374151; */
+        /* background: white; */
         border-radius: 16px;
         border: 1px solid rgba(0, 0, 0, 0.05);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

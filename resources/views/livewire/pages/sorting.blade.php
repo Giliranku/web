@@ -29,6 +29,28 @@
    color: var(--light);
 }
 
+[data-bs-theme="dark"] .category-button {
+   background: var(--dark);
+   color: var(--light);
+}
+
+[data-bs-theme="light"] .category-button {
+   background: var(--light);
+   color: var(--dark);
+}
+
+[data-bs-theme="dark"] .sort-button {
+   background: var(--dark);
+   color: var(--light);
+   border: none !important;
+}  
+
+[data-bs-theme="light"] .sort-button {
+   background: var(--light);
+   color: var(--dark);
+   border: none !important;
+}
+
 /* === Search Hero Section === */
 .search-hero {
    background: var(--gradient-primary);
