@@ -41,6 +41,11 @@ class NewsUser extends Component
         $this->resetPage();
     }
 
+    public function gotoPage($page)
+    {
+        $this->setPage($page);
+    }
+
     public function sortBy($field)
     {
         if ($this->sortBy === $field) {

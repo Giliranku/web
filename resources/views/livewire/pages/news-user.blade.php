@@ -401,53 +401,52 @@
         transform: translateX(3px);
     }
 
-    /* Pagination Styling */
-    .pagination-wrapper {
+    /* Custom Pagination Styling */
+    .custom-pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        margin: 3rem 0 2rem;
+    }
+
+    .custom-pagination {
         background: var(--bs-body-bg);
-        padding: 1.5rem 2rem;
+        padding: 1rem 1.5rem;
         border-radius: 20px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         border: 1px solid var(--bs-border-color);
-        display: inline-block;
-        margin: 0 auto;
-    }
-
-    .pagination-wrapper .pagination {
-        margin-bottom: 0;
-        justify-content: center;
+        display: flex;
         align-items: center;
-        gap: 0.25rem;
+        gap: 0.5rem;
     }
 
-    .pagination-wrapper .page-item {
-        margin: 0;
-    }
-
-    .pagination-wrapper .page-link {
+    .custom-pagination .page-btn {
+        background: transparent;
         border: 1px solid transparent;
         color: var(--bs-secondary-color);
         font-weight: 500;
-        padding: 0.65rem 1rem;
+        padding: 0.6rem 1rem;
         border-radius: 12px;
         transition: all 0.3s ease;
-        background: transparent;
+        text-decoration: none;
         font-size: 0.9rem;
-        min-width: 42px;
-        text-align: center;
+        min-width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
     }
 
-    .pagination-wrapper .page-link:hover {
+    .custom-pagination .page-btn:hover {
         background: var(--primary);
         color: white;
         border-color: var(--primary);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(74, 189, 172, 0.25);
+        text-decoration: none;
     }
 
-    .pagination-wrapper .page-item.active .page-link {
+    .custom-pagination .page-btn.active {
         background: var(--primary);
         border-color: var(--primary);
         color: white;
@@ -455,55 +454,58 @@
         font-weight: 600;
     }
 
-    .pagination-wrapper .page-item.disabled .page-link {
+    .custom-pagination .page-btn.disabled {
         color: var(--bs-tertiary-color);
         background: var(--bs-secondary-bg);
         border-color: var(--bs-border-color);
         cursor: not-allowed;
+        opacity: 0.5;
     }
 
-    .pagination-wrapper .page-item.disabled .page-link:hover {
+    .custom-pagination .page-btn.disabled:hover {
         transform: none;
         box-shadow: none;
         background: var(--bs-secondary-bg);
         color: var(--bs-tertiary-color);
     }
 
-    /* Dark mode pagination */
-    [data-bs-theme="dark"] .pagination-wrapper {
+    .custom-pagination .page-info {
+        color: var(--bs-secondary-color);
+        font-size: 0.85rem;
+        margin: 0 1rem;
+        font-weight: 500;
+    }
+
+    /* Dark mode support */
+    [data-bs-theme="dark"] .custom-pagination {
         background: var(--bs-dark);
         border-color: var(--bs-border-color);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
 
-    [data-bs-theme="dark"] .pagination-wrapper .page-link {
-        color: var(--bs-body-color);
-    }
-
-    [data-bs-theme="dark"] .pagination-wrapper .page-item.disabled .page-link {
+    [data-bs-theme="dark"] .custom-pagination .page-btn.disabled {
         background: var(--bs-tertiary-bg);
         color: var(--bs-tertiary-color);
     }
 
-    /* Override default Bootstrap pagination styling */
-    .pagination-wrapper .pagination .page-item:not(:first-child) .page-link {
-        margin-left: 0;
-    }
+    /* Mobile pagination adjustments */
+    @media (max-width: 576px) {
+        .custom-pagination {
+            padding: 0.8rem 1rem;
+            gap: 0.25rem;
+        }
 
-    .pagination-wrapper .pagination .page-item:first-child .page-link,
-    .pagination-wrapper .pagination .page-item:last-child .page-link {
-        border-radius: 12px;
-    }
+        .custom-pagination .page-btn {
+            padding: 0.5rem 0.7rem;
+            font-size: 0.8rem;
+            min-width: 36px;
+            height: 36px;
+        }
 
-    .pagination-wrapper .pagination .page-link:focus {
-        box-shadow: 0 0 0 0.2rem rgba(74, 189, 172, 0.25);
-        border-color: var(--primary);
-    }
-
-    /* Ensure consistent spacing */
-    .pagination-wrapper nav[aria-label="pagination"] {
-        display: flex;
-        justify-content: center;
-        width: 100%;
+        .custom-pagination .page-info {
+            font-size: 0.75rem;
+            margin: 0 0.5rem;
+        }
     }
     
     .newsletter-section {
@@ -636,11 +638,58 @@
                 @endforeach
             </div>
 
-            <!-- Pagination -->
-            <div class="d-flex justify-content-center mt-5">
-                <div class="pagination-wrapper">
-                    <div class="d-flex justify-content-center">
-                        {{ $news->links() }}
+            <!-- Custom Pagination -->
+            <div class="custom-pagination-wrapper">
+                <div class="custom-pagination">
+                    @if($news->onFirstPage())
+                        <span class="page-btn disabled">
+                            <i class="bi bi-chevron-left"></i>
+                        </span>
+                    @else
+                        <button wire:click="previousPage" class="page-btn">
+                            <i class="bi bi-chevron-left"></i>
+                        </button>
+                    @endif
+
+                    @php
+                        $start = max(1, $news->currentPage() - 2);
+                        $end = min($news->lastPage(), $news->currentPage() + 2);
+                    @endphp
+
+                    @if($start > 1)
+                        <button wire:click="gotoPage(1)" class="page-btn">1</button>
+                        @if($start > 2)
+                            <span class="page-btn disabled">...</span>
+                        @endif
+                    @endif
+
+                    @for($i = $start; $i <= $end; $i++)
+                        @if($i == $news->currentPage())
+                            <span class="page-btn active">{{ $i }}</span>
+                        @else
+                            <button wire:click="gotoPage({{ $i }})" class="page-btn">{{ $i }}</button>
+                        @endif
+                    @endfor
+
+                    @if($end < $news->lastPage())
+                        @if($end < $news->lastPage() - 1)
+                            <span class="page-btn disabled">...</span>
+                        @endif
+                        <button wire:click="gotoPage({{ $news->lastPage() }})" class="page-btn">{{ $news->lastPage() }}</button>
+                    @endif
+
+                    @if($news->hasMorePages())
+                        <button wire:click="nextPage" class="page-btn">
+                            <i class="bi bi-chevron-right"></i>
+                        </button>
+                    @else
+                        <span class="page-btn disabled">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+                    @endif
+
+                    <div class="page-info">
+                        {{ $news->firstItem() ?? 0 }}-{{ $news->lastItem() ?? 0 }} dari {{ $news->total() }}
                     </div>
                 </div>
             </div>
